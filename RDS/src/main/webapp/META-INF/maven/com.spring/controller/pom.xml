@@ -15,7 +15,10 @@
 	</properties>
 	<dependencies>
 	
+<<<<<<< HEAD
 	
+=======
+>>>>>>> branch 'master' of https://github.com/Frost3906/R_Dshopping.git
 	<!-- https://mvnrepository.com/artifact/com.oracle.database.jdbc/ojdbc8 -->
 			<dependency>
    				<groupId>com.oracle.database.jdbc</groupId>

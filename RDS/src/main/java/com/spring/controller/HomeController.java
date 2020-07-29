@@ -17,4 +17,9 @@ public class HomeController {
 		return "shop/home";
 	}
 	
+	@RequestMapping("/cart")
+	public String cart() {
+		return "/shop/cart";
+	}
+	
 }
