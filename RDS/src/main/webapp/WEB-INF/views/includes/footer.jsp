@@ -7,9 +7,11 @@
   </footer>
   
   <!-- Bootstrap core JavaScript -->
-  <script src="vendor/jquery/jquery.min.js"></script>
-  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="/resources/vendor/jquery/jquery.min.js"></script>
+  <script src="/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
+  <!-- jQuery --> 
+  <script src="/resources/vendor/bootstrap/js/bootstrap.min.js"></script>
 </body>
 
 </html>
