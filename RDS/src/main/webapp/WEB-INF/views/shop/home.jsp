@@ -1,5 +1,5 @@
-
-<%@include file="../includes/header.jsp" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ include file="../includes/header.jsp" %>
   <!-- Page Content -->
   <div class="container">
 
@@ -155,6 +155,6 @@
 
   </div>
   <!-- /.container -->
-<%@include file="../includes/footer.jsp" %> 
+<%@ include file="../includes/footer.jsp" %> 
 
 
