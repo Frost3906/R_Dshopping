@@ -30,7 +30,7 @@
 							<th>수정일</th>
 						</tr>
 					</thead>
-					<today>
+					<tbody>
 						<!-- 게시판 리스트 반복문 -->
 						<c:forEach var="vo" items="${list}">
 							<tr>
@@ -41,14 +41,14 @@
 								<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${vo.updatedate}"/></td>
 							</tr>
 						</c:forEach>
-					</today>
+					</tbody>
 				</table>
 				<div class="row">	<!-- start search -->
 					<div class="col-md-12">
 						<div class="col-md-8">	<!-- search Form -->
 							<form action="" id="searchForm">
-								<input type="hidden" name="pageNum" value="${cri.pageNum"} />
-								<input type="hidden" name="amount" value="${cri.amount"} />
+								<input type="hidden" name="pageNum" value="${cri.pageNum}" />
+								<input type="hidden" name="amount" value="${cri.amount}" />
 								<select name="type" id="">
 									<option value="" <c:out value="${empty cri.type?'selected':''}" />>------</option>
 									<option value="T" <c:out value="${cri.type=='T'?'selected':''}" />>제목</option>
@@ -65,10 +65,10 @@
 						<div class="col-md-2 col-md-offset-2">
 							<!-- 페이지 목록 갯수 지정하는 폼 -->
 							<select class="form-control" name="amount">
-								<option value="10" <c:out value="${criteria.amount == 10?'selected':''}"/</c:out>>10</option>
-								<option value="20" <c:out value="${criteria.amount == 20?'selected':''}"/</c:out>>20</option>
-								<option value="30" <c:out value="${criteria.amount == 30?'selected':''}"/</c:out>>30</option>
-								<option value="40" <c:out value="${criteria.amount == 40?'selected':''}"/</c:out>>40</option>
+								<option value="10" <c:out value="${criteria.amount == 10?'selected':''}"/>>10</option>
+								<option value="20" <c:out value="${criteria.amount == 20?'selected':''}"/>>20</option>
+								<option value="30" <c:out value="${criteria.amount == 30?'selected':''}"/>>30</option>
+								<option value="40" <c:out value="${criteria.amount == 40?'selected':''}"/>>40</option>
 							</select>
 						</div>
 					</div>
