@@ -3,10 +3,12 @@ package com.spring.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.spring.domain.ProductVO;
@@ -38,6 +40,12 @@ public class ShopController {
 	@GetMapping("/cart")
 	public void cart() {
 		log.info("장바구니 호출");
+	}
+	
+	@PostMapping("/search")
+	public void search(String search) {
+		log.info("검색 테스트" + search);
+		
 	}
 	
 }
