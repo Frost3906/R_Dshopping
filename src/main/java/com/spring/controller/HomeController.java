@@ -12,9 +12,30 @@ public class HomeController {
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home() {
-		log.info("홈 페이지 호출");
+		log.info("홈페이지 호출");
 		
 		return "shop/home";
+	}
+	
+	@RequestMapping("/board/list")
+	public String board() {
+		log.info("게시판 호출");
+		return "/board/list";
+	}
+	@RequestMapping("/board/modify")
+	public String modify() {
+		log.info("게시판 호출");
+		return "/board/modify";
+	}
+	@RequestMapping("/board/read")
+	public String read() {
+		log.info("게시판 호출");
+		return "/board/read";
+	}
+	@RequestMapping("/board/register")
+	public String register() {
+		log.info("게시판 호출");
+		return "/board/register";
 	}
 	
 	
