@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ include file="../includes/header.jsp" %>
@@ -23,15 +23,15 @@
 				<table class="table table-striped table-boardered table-hover">
 					<thead>
 						<tr>
-							<th>¹ø  È£</th>
-							<th>Á¦  ¸ñ</th>
-							<th>ÀÛ¼ºÀÚ</th>
-							<th>ÀÛ¼ºÀÏ</th>
-							<th>¼öÁ¤ÀÏ</th>
+							<th>ë²ˆ  í˜¸</th>
+							<th>ì œ  ëª©</th>
+							<th>ìž‘ì„±ìž</th>
+							<th>ìž‘ì„±ì¼</th>
+							<th>ìˆ˜ì •ì¼</th>
 						</tr>
 					</thead>
 					<tbody>
-						<!-- °Ô½ÃÆÇ ¸®½ºÆ® ¹Ýº¹¹® -->
+						<!-- ê²Œì‹œíŒ ë¦¬ìŠ¤íŠ¸ ë°˜ë³µë¬¸ -->
 						<c:forEach var="vo" items="${list}">
 							<tr>
 								<td>${bo.bno})</td>
@@ -51,19 +51,19 @@
 								<input type="hidden" name="amount" value="${cri.amount}" />
 								<select name="type" id="">
 									<option value="" <c:out value="${empty cri.type?'selected':''}" />>------</option>
-									<option value="T" <c:out value="${cri.type=='T'?'selected':''}" />>Á¦¸ñ</option>
-									<option value="C" <c:out value="${cri.type=='T'?'selected':''}" />>³»¿ë</option>
-									<option value="W" <c:out value="${cri.type=='T'?'selected':''}" />>ÀÛ¼ºÀÚ</option>
-									<option value="TC" <c:out value="${cri.type=='T'?'selected':''}" />>Á¦¸ñ or ³»¿ë</option>
-									<option value="TW" <c:out value="${cri.type=='T'?'selected':''}" />>Á¦¸ñ or ÀÛ¼ºÀÚ</option>
-									<option value="TCW" <c:out value="${cri.type=='T'?'selected':''}" />>Á¦¸ñ or ³»¿ë or ÀÛ¼ºÀÚ</option>
+									<option value="T" <c:out value="${cri.type=='T'?'selected':''}" />>ì œëª©</option>
+									<option value="C" <c:out value="${cri.type=='T'?'selected':''}" />>ë‚´ìš©</option>
+									<option value="W" <c:out value="${cri.type=='T'?'selected':''}" />>ìž‘ì„±ìž</option>
+									<option value="TC" <c:out value="${cri.type=='T'?'selected':''}" />>ì œëª© or ë‚´ìš©</option>
+									<option value="TW" <c:out value="${cri.type=='T'?'selected':''}" />>ì œëª© or ìž‘ì„±ìž</option>
+									<option value="TCW" <c:out value="${cri.type=='T'?'selected':''}" />>ì œëª© or ë‚´ìš© or ìž‘ì„±ìž</option>
 								</select>
 								<input type="text" name="keyword" value="${cri.keyword}" />
-								<button class="btn btn-default" type="button">°Ë»ö</button>
+								<button class="btn btn-default" type="button">ê²€ìƒ‰</button>
 							</form>
 						</div>
 						<div class="col-md-2 col-md-offset-2">
-							<!-- ÆäÀÌÁö ¸ñ·Ï °¹¼ö ÁöÁ¤ÇÏ´Â Æû -->
+							<!-- íŽ˜ì´ì§€ ëª©ë¡ ê°¯ìˆ˜ ì§€ì •í•˜ëŠ” í¼ -->
 							<select class="form-control" name="amount">
 								<option value="10" <c:out value="${criteria.amount == 10?'selected':''}"/>>10</option>
 								<option value="20" <c:out value="${criteria.amount == 20?'selected':''}"/>>20</option>
@@ -84,7 +84,7 @@
 			</div>
 		</div>
 	</div>
-	<!-- test¤±¤± -->
+	<!-- testã…ã… -->
 </div>
 
 <%@ include file="../includes/footer.jsp" %>
