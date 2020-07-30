@@ -38,14 +38,14 @@
 			</table>
 			<div>
 				<div>상품이 없습니다.</div>
+				<div class="float-right">
+					<button class="btn btn-primary pull-right">Check</button>
+				</div>
 			</div>
 		</div>
 
     </div>
     <!-- /.row -->
-	<div>
-		<button class="btn btn-primary pull-right">Check</button>
-	</div>
 	</form>
   </div>
   <!-- /.container -->
