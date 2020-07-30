@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ include file="../includes/header.jsp" %>
   <!-- Page Content -->
@@ -10,9 +12,9 @@
         <h1 class="my-4">TEST GIT</h1>
         <h1 class="my-4">TEST GIT2</h1>
         <div class="list-group">
-          <a href="#" class="list-group-item">Category 1</a>
-          <a href="#" class="list-group-item">Category 2</a>
-          <a href="#" class="list-group-item">Category 3</a>
+          <a href="shop/searchList" class="list-group-item">상품 검색 페이지 테스트</a>
+          <a href="shop/categoryList" class="list-group-item">카테고리 리스트 페이지 테스트</a>
+          <a href="shop/cart" class="list-group-item">장바구니 테스트</a>
         </div>
 
       </div>
