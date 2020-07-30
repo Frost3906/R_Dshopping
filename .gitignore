@@ -27,6 +27,7 @@ hs_err_pid*
 # Edit at https://www.toptal.com/developers/gitignore?templates=eclipse
 
 ### Eclipse ###
+*.MF
 .metadata
 bin/
 tmp/
@@ -74,7 +75,7 @@ local.properties
 .springBeans
 
 # pom.properties
-/target/
+*/target/*
 *.properties
 
 # Code Recommenders
