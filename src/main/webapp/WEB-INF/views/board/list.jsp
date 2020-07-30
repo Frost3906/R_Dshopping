@@ -79,12 +79,104 @@
 						<c:if test="${pageVO.prev}">
 							<li class="paginate_button previous"><a href="${pageVO.startPage-1}">Previous</a></li>
 						</c:if>
+						<c:forEach var="idx" begin="${pageVO.startPage}" end="${pageVO.endPage}">
+							<li class="paginate_button ${pageVO.cri.pageNum==idx?'active':''}"><a href="${idx}">${idx}</a></li>
+						</c:forEach>
+						<c:if test="${pageVO.next}">
+							<li class="paginate_button next"><a href="${pageVO.endPage+1}">Next</a></li>
+						</c:if>
 					</ul>
 				</div>
+				<!-- end Pagination -->
+			</div>
+			<!-- end panel-heading  -->
+		</div>
+	</div>
+</div>
+<!-- end row -->
+
+<!-- 페이지 번호를 누르면 동작하는 폼 -->
+<form action="list" id="pageNum">
+	<input type="hidden" name="pageNum" value="${pageVO.cri.pageNum}" />
+	<input type="hidden" name="amount" value="${pageVO.cri.amount}" />
+	<input type="hidden" name="type" value="${cri.type}" />
+	<input type="hidden" name="keyword" value="${cri.keyword}" />
+</form>
+<!-- 모달 추가 -->
+<div class="modal" tabindex="-1" role="dialog" id="myModal">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">게시글 등록</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">$times;</span>
+				</button>
+			</div>
+			<div>
+				<p>처리가 완료되었습니다.</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 			</div>
 		</div>
 	</div>
-	<!-- testㅁㅁ -->
 </div>
 
+<!-- 스크립트 -->
+<script>
+	$(function() {
+		let result = '${result}';
+		checkModal(result);
+		history.replaceState({}, null, null);
+		
+		function checkmodal(result) {
+			if (result === '' || history.state) {
+				return;
+			}
+			if (parseInt(result) > 0) {
+				$(".modal-body").html("게시글 " + parseInt(result) + " 번이 등록되었습니다.");
+			}
+			$("#myModal").modal("show");
+		}
+		
+		// 사용자가 페이지 번호를 누르면 동작하는 스크립트
+		let actionForm = $("#actionForm");
+		$(".paginate_button a").click(function(e) {
+			e.preventDefault();
+			actionForm.find("input[name='pageNum']").val($(this).attr("href"));
+			actionForm.submit();
+		})
+		
+		$(".form-control").change(function() {
+			actionForm.find("input[name='amount']").val($(this).val());
+			actionForm.submit();
+		})
+		
+		// 타이틀 클릭 시 페이지 나누기 정보가 있는 폼 보내기
+		$(".move").click(function(e){
+			e.preventDefault();
+			actionForm.append("<input type='hidden' name='bno' value='" + $(this).attr("href") + "' />");
+			actionForm.attr('action', 'read');
+			actionForm.submit();
+		})
+		
+		// 검색 버튼 클릭시 동작하는 스크리브
+		$(".btn-default").click(function() {
+			let searchForm = $("#searchForm");
+			
+			let type = $("select[name='type']").val();
+			let keyword = $("input[name='keyword']").val();
+			
+			if (type == '') {
+				alert('검색 기준을 입력해 주세요');
+				return false;
+			} else if(keyword === '') {
+				alert('검색어를 입력해 주세요');
+				return false;
+			}
+			searchForm.find("intput[name='pageNum']").val("1");
+			searchForm.submit();
+		})
+	})
+</script>
 <%@ include file="../includes/footer.jsp" %>
