@@ -38,8 +38,8 @@
 			</table>
 			<div>
 				<div>상품이 없습니다.</div>
-				<div class="float-right">
-					<button class="btn btn-primary pull-right">Check</button>
+				<div class="float-right mb-3">
+					<button class="btn btn-primary btn-lg">Check</button>
 				</div>
 			</div>
 		</div>
