@@ -1,8 +1,16 @@
 package com.spring.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.spring.domain.ProductVO;
+import com.spring.service.ProductService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -10,10 +18,21 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 @RequestMapping("/shop/*")
 public class ShopController {
+	
+	@Autowired
+	private ProductService service;
 
 	@GetMapping("/searchList")
-	public void getSearchList() {
+	public void getSearchList(Model model) {
 		log.info("검색 리스트 호출");
+		List<ProductVO> list = service.selectProduct();
+		log.info("리스트 요청"+list);
+		model.addAttribute("product", list);
+	}
+
+	@GetMapping("/categoryList")
+	public void getCategoryList() {
+		log.info("카테고리 리스트 호출");
 	}
 	
 	@GetMapping("/cart")
