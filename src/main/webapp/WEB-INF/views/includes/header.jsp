@@ -43,6 +43,12 @@
             <a class="nav-link" href="#">Services</a>
           </li>
           <li class="nav-item">
+            <a class="nav-link" href="/member/signIn">Sign in</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/member/signUp">Sign up</a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" href="#">Contact</a>
           </li>
         </ul>
