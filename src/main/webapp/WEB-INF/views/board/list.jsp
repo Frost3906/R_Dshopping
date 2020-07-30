@@ -84,7 +84,7 @@
 			</div>
 		</div>
 	</div>
-	<!-- test -->
+	<!-- test¤±¤± -->
 </div>
 
 <%@ include file="../includes/footer.jsp" %>

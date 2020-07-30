@@ -2,6 +2,11 @@
 <faceted-project>
   <fixed facet="jst.web"/>
   <fixed facet="jst.java"/>
+<<<<<<< HEAD
   <installed facet="jst.web" version="2.5"/>
   <installed facet="jst.java" version="1.8"/>
+=======
+  <installed facet="jst.java" version="1.8"/>
+  <installed facet="jst.web" version="3.1"/>
+>>>>>>> branch 'master' of https://github.com/Frost3906/R_Dshopping.git
 </faceted-project>
