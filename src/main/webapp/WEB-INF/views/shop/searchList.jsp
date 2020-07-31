@@ -9,7 +9,7 @@
   		<h1>Search List</h1>
   	</div>
   	<div>
-  		<h5>result for "검색어"</h5>
+  		<h5>result for "${keyword}"</h5>
   	</div>
     <div class="row">
       <div class="col-lg-12">
@@ -24,7 +24,7 @@
 		                  <a href="#">${vo.p_code}.${vo.p_name}</a>
 		                </h4>
 		                <h5>${vo.p_price}</h5>
-		                <p class="card-text">${vo.p_context}</p>
+		                <p class="card-text">${vo.p_content}</p>
 		              </div>
 		              <div class="card-footer">
 		                <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>

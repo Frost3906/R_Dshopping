@@ -8,5 +8,5 @@ public class ProductVO {
 	private String p_name;
 	private int p_price;
 	private int p_stock;
-	private String p_context;
+	private String p_content;
 }

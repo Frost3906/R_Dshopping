@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page session="false" %>
 <!DOCTYPE html>
@@ -22,43 +24,56 @@
 </head>
 
 <body>
-  <!-- Navigation -->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-    <div class="container">
-      <a class="navbar-brand" href="/">Shop</a>
-     <form class="form-inline my-2 my-lg-0" method="post" action="shop/search">
-      <input class="form-control mr-sm-2" name="search" type="search" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-    </form>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-      
-
-      <div class="collapse navbar-collapse" id="navbarResponsive">
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="/">Home
-              <span class="sr-only">(current)</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">About</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Services</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/member/signIn">Sign in</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/member/signUp">Sign up</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Contact</a>
-          </li>
-        </ul>
-      </div>
-      
-    </div>
-  </nav>
+	<!-- Navigation -->
+	<div class="fixed-top bg-dark">
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+		
+			<div class="container">
+			
+				<div>
+					<!-- 홈 로고 -->
+				    <button class="navbar-toggler mr-3" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+				        <span class="navbar-toggler-icon"></span>
+				    </button>			
+	      			<a class="navbar-brand" href="/">Shop</a>
+				</div>
+				
+				<div>
+				    <!-- 검색 및 검색 버튼 -->
+				    <form class="form-inline my-2 my-lg-0" method="post" action="/shop/search">
+				      <input class="form-control mr-sm-2" name="keyword" type="search" placeholder="Search" aria-label="Search">
+				      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+				    </form>
+				</div>
+				
+				<div>
+			      <div class="collapse navbar-collapse" id="navbarResponsive">
+			        <ul class="navbar-nav ml-auto">
+			          <li class="nav-item active">
+			            <a class="nav-link" href="/">Home
+			              <span class="sr-only">(current)</span>
+			            </a>
+			          </li>
+			          <li class="nav-item">
+			            <a class="nav-link" href="#">About</a>
+			          </li>
+			          <li class="nav-item">
+			            <a class="nav-link" href="#">Services</a>
+			          </li>
+			          <li class="nav-item">
+			            <a class="nav-link" href="/member/signIn">Sign in</a>
+			          </li>
+			          <li class="nav-item">
+			            <a class="nav-link" href="/member/signUp">Sign up</a>
+			          </li>
+			          <li class="nav-item">
+			            <a class="nav-link" href="#">Contact</a>
+			          </li>
+			        </ul>
+			      </div>
+				</div>
+				
+	    	</div>
+	    
+		</nav>
+	</div>
