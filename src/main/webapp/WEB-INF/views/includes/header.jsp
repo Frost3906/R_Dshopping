@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page session="false" %>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
 
@@ -20,6 +20,12 @@
   <!-- Custom styles for this template -->
   <link href="/resources/css/shop-homepage.css" rel="stylesheet">
   <script src="https://code.jquery.com/jquery-3.5.1.slim.js" integrity="sha256-DrT5NfxfbHvMHux31Lkhxg42LY6of8TaYyK50jnxRnM=" crossorigin="anonymous"></script>
+  
+  <!-- Sign-In&Out CSS -->
+  <!-- <link rel="shortcut icon" href="/resources/signIn/images/fav.jpg">
+  <link rel="stylesheet" href="/resources/signIn/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/resources/signIn/css/fontawsom-all.min.css">
+  <link rel="stylesheet" type="text/css" href="/resources/signIn/css/style.css" /> -->
 
 </head>
 

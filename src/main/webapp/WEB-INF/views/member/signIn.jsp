@@ -1,11 +1,10 @@
-<!doctype html>
+<!-- <!doctype html>
 <html lang="en">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title> Free Stylish Login Page Website Template | Smarteyeapps.com</title>
-
+    
     <link rel="shortcut icon" href="/resources/signIn/images/fav.jpg">
     <link rel="stylesheet" href="/resources/signIn/css/bootstrap.min.css">
     <link rel="stylesheet" href="/resources/signIn/css/fontawsom-all.min.css">
@@ -22,10 +21,13 @@
 		return false;	
 	}
 	</script>
-</head>
-
-<body>
+</head> -->
 <%@include file="../includes/header.jsp" %>
+	<link rel="shortcut icon" href="/resources/signIn/images/fav.jpg">
+    <link rel="stylesheet" href="/resources/signIn/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/resources/signIn/css/fontawsom-all.min.css">
+    <link rel="stylesheet" type="text/css" href="/resources/signIn/css/style.css" />
+<title>RDS SignUp</title>
     <div class="container-fluid h-100">
        
             <div class="row no-margin h-100">
@@ -97,9 +99,6 @@
 
 
                         </div>
-                        <div class="foter-credit">
-                  <a href="https://smarteyeapps.com/">Designed by : Smarteyeapps.com</a>  
-               </div>
                        
                     </div>
                 </div>
@@ -109,8 +108,8 @@
    
 </body>
 
-<script src="/resources/signIn/js/jquery-3.2.1.min.js"></script>
+<!-- <script src="/resources/signIn/js/jquery-3.2.1.min.js"></script>
 <script src="/resources/signIn/js/popper.min.js"></script>
 <script src="/resources/signIn/js/bootstrap.min.js"></script>
-<script src="/resources/signIn/js/script.js"></script>
+<script src="/resources/signIn/js/script.js"></script> -->
 </html>

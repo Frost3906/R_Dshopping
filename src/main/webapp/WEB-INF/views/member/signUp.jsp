@@ -1,18 +1,23 @@
-<!doctype html>
+<!-- <!doctype html>
 <html lang="en">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title> Free Login Page Website Template | Smarteyeapps.com</title>
 
     <link rel="shortcut icon" href="/resources/signUp/images/fav.jpg">
     <link rel="stylesheet" href="/resources/signUp/css/bootstrap.min.css">
     <link rel="stylesheet" href="/resources/signUp/css/fontawsom-all.min.css">
     <link rel="stylesheet" type="text/css" href="/resources/signUp/css/style.css" />
 </head>
-<body>          
+
+<body> -->          
 	<%@include file="../includes/header.jsp" %>
+	<link rel="shortcut icon" href="/resources/signUp/images/fav.jpg">
+    <link rel="stylesheet" href="/resources/signUp/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/resources/signUp/css/fontawsom-all.min.css">
+    <link rel="stylesheet" type="text/css" href="/resources/signUp/css/style.css" />
+    <title>RDS SignUp</title>
            <div class="register">
                <div class="container">
                   <div class="row">
@@ -87,19 +92,13 @@
                        </div>
                   </div>
                </div>
-           </div>
-            <div class="foter-credit">
-                <a href="https://smarteyeapps.com/">Designed by : Smarteyeapps.com</a>  
-            </div>
-            
-    </div>
-   
+           </div>     
 </body>
 
-<script src="/resources/signUp/js/jquery-3.2.1.min.js"></script>
+<!-- <script src="/resources/signUp/js/jquery-3.2.1.min.js"></script>
 <script src="/resources/signUp/js/popper.min.js"></script>
 <script src="/resources/signUp/js/bootstrap.min.js"></script>
-<script src="/resources/signUp/js/script.js"></script>
+<script src="/resources/signUp/js/script.js"></script> -->
 
 
 </html>
