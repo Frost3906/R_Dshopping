@@ -23,8 +23,13 @@ public class ShopController {
 	private ProductService service;
 
 	@GetMapping("/categoryList")
-	public void getCategoryList() {
-		log.info("카테고리 리스트 호출");
+	public void getCategoryList(String category, Model model) {
+		log.info("카테고리 리스트 호출" + category);
+		model.addAttribute("category",category);
+		log.info("검색 리스트 호출");
+		log.info("리스트 요청");
+		List<ProductVO> list = service.searchList(category);
+		model.addAttribute("product", list);
 	}
 	
 	@GetMapping("/cart")
@@ -44,7 +49,7 @@ public class ShopController {
 		model.addAttribute("keyword",keyword);
 		log.info("검색 리스트 호출");
 		log.info("리스트 요청");
-		List<ProductVO> list = service.selectProduct(keyword);
+		List<ProductVO> list = service.searchList(keyword);
 		model.addAttribute("product", list);
 		return "/shop/searchList";
 	}

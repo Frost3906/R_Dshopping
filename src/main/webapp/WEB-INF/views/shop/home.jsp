@@ -12,8 +12,8 @@
         <h1 class="my-4">TEST GIT</h1>
         <h1 class="my-4">TEST GIT2</h1>
         <div class="list-group">
-          <a href="shop/searchList" class="list-group-item">상품 검색 페이지 테스트</a>
-          <a href="shop/categoryList" class="list-group-item">카테고리 리스트 페이지 테스트</a>
+          <a href="shop/categoryList?category=서적" class="list-group-item">서적 카테고리 리스트 페이지 테스트</a>
+          <a href="shop/categoryList?category=전자제품" class="list-group-item">전자제품 카테고리 리스트 페이지 테스트</a>
           <a href="shop/cart" class="list-group-item">장바구니 테스트</a>
         </div>
 

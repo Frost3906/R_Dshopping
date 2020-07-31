@@ -43,46 +43,4 @@
 
   </div>
   <!-- /.container -->
-  <!-- 
-<script>
-	$(function(){
-
-		let listSpace = $(".list");
-		showList(12);
-		
-		function showList(num){
-			let str = "";
-			for(var i = 0 ; i < num ; i++){
-				str += '<div class="col-lg-4 col-md-6 mb-4">';
-				str += '<div class="card h-100">';
-				/* 이미지 클릭시 경로 */
-				str += '<a href="#">';
-				/* 상품 이미지 */
-				str += '<img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>';
-				str += '<div class="card-body">';
-				str += '<h4 class="card-title">';
-				/* 상품 이름 클릭시 경로 */
-				str += '<a href="#">';
-				/* 상품 이름 */
-				str += 'Item '+i+'</a>';
-				str += '</h4>';
-				/* 상품 가격 */
-				str += '<h5>$24.99</h5>';
-				str += '<p class="card-text">';
-				/* 상품 설명 */
-				str += '상품 설명';
-				str += '</p>';
-				str += '</div>';
-				str += '<div class="card-footer">';
-				/* 상품 평점 */
-				str += '<small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>';
-				str += '</div>';
-				str += '</div>';
-				str += '</div>';
-			}
-			listSpace.html(str);
-		}
-	})
-	
-</script> -->
 <%@include file="../includes/footer.jsp" %> 
