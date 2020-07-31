@@ -50,13 +50,15 @@
       		</div>
       	</div>
       	<div>
+      		<a name="goods-description"></a>
+      		<br>
+      		<div>
       		<ul class="list-group list-group-horizontal mt-5">
 				<li class="list-group-item col-sm text-center"><a href="#goods-description" class="goods-view-infomation-tab-anchor __active">상품설명</a></li>
       			<li class="list-group-item col-sm text-center"><a href="#goods-infomation" class="goods-view-infomation-tab-anchor">상세정보</a></li>
       			<li class="list-group-item col-sm text-center"><a href="#goods-review" class="goods-view-infomation-tab-anchor">구매후기</a></li>
       			<li class="list-group-item col-sm text-center"><a href="#goods-qna" class="goods-view-infomation-tab-anchor">상품문의</a></li>
       		</ul>
-      		<div id="goods-description">
       			상품에 대한 설명
       			<pre>
       			1
@@ -88,13 +90,15 @@
       			</pre>
       			
       		</div>
+      		<a name="goods-infomation"></a>
+      		<br>
+      		<div>
       		<ul class="list-group list-group-horizontal mt-5">
 				<li class="list-group-item col-sm text-center"><a href="#goods-description" class="goods-view-infomation-tab-anchor">상품설명</a></li>
       			<li class="list-group-item col-sm text-center"><a href="#goods-infomation" class="goods-view-infomation-tab-anchor  __active">상세정보</a></li>
       			<li class="list-group-item col-sm text-center"><a href="#goods-review" class="goods-view-infomation-tab-anchor">구매후기</a></li>
       			<li class="list-group-item col-sm text-center"><a href="#goods-qna" class="goods-view-infomation-tab-anchor">상품문의</a></li>
       		</ul>
-      		<div id="goods-infomation">
       			상품에 대한 상세정보
       				<pre>
       			1
@@ -126,13 +130,15 @@
       			</pre>
       			
       		</div>
+      		<a name="goods-review"></a>
+      		<br>
+      		<div>
       		<ul class="list-group list-group-horizontal mt-5">
 				<li class="list-group-item col-sm text-center"><a href="#goods-description" class="goods-view-infomation-tab-anchor">상품설명</a></li>
       			<li class="list-group-item col-sm text-center"><a href="#goods-infomation" class="goods-view-infomation-tab-anchor">상세정보</a></li>
       			<li class="list-group-item col-sm text-center"><a href="#goods-review" class="goods-view-infomation-tab-anchor  __active">구매후기</a></li>
       			<li class="list-group-item col-sm text-center"><a href="#goods-qna" class="goods-view-infomation-tab-anchor">상품문의</a></li>
       		</ul>
-      		<div id="goods-review">
       			상품 구매 후기
       				<pre>
       			1
@@ -164,13 +170,15 @@
       			</pre>
       			
       		</div>
+      		<a name="goods-qna"></a>
+      		<br>
+      		<div>
       		<ul class="list-group list-group-horizontal mt-5">
       			<li class="list-group-item col-sm text-center"><a href="#goods-description" class="goods-view-infomation-tab-anchor">상품설명</a></li>
       			<li class="list-group-item col-sm text-center"><a href="#goods-infomation" class="goods-view-infomation-tab-anchor">상세정보</a></li>
       			<li class="list-group-item col-sm text-center"><a href="#goods-review" class="goods-view-infomation-tab-anchor">구매후기</a></li>
       			<li class="list-group-item col-sm text-center"><a href="#goods-qna" class="goods-view-infomation-tab-anchor __active">상품문의</a></li>
       		</ul>
-      		<div id="goods-qna">
       			상품 문의
       				<pre>
       			1
