@@ -42,6 +42,12 @@ public class ShopController {
 		log.info("장바구니 호출");
 	}
 	
+	@GetMapping("/product")
+	public void product() {
+		log.info("제품 상세페이지 호출");
+		
+	}
+	
 	@PostMapping("/search")
 	public void search(String search) {
 		log.info("검색 테스트" + search);

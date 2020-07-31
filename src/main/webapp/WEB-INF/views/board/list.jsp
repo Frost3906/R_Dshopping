@@ -4,18 +4,12 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ include file="../includes/header.jsp" %>
 
-<div class="">
-	<div class="">
-		<h1 class="page-header">Board List</h1>
-	</div>
-	<!-- /.col-lg-12 -->
-</div>
-<!-- /.row -->
-<div>
+<div class="container">
+		<h1 class="page-header ml-2">Board List</h1>
+	<div>
 	<div>
 		<div>
-			<div>
-				Board List Page
+			<div class="float-right mb-3">
 				<button id='regBtn' type='button' class='btn btn-xs pull-right btn-success' onclick="location.href='register'">Register New Board</button>
 			</div>
 			<!-- /.panel-heading -->
@@ -34,7 +28,7 @@
 						<!-- 게시판 리스트 반복문 -->
 						<c:forEach var="vo" items="${list}">
 							<tr>
-								<td>${bo.bno})</td>
+								<td>${bo.bno}</td>
 								<td><a href='<c:out value="${vo.gno}"/>' class="move">${vo.title}</a><strong>[${vo.replycnt}]</strong></td>
 								<td>${vo.writer}</td>
 								<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${vo.regdate}"/></td>
@@ -59,7 +53,7 @@
 									<option value="TCW" <c:out value="${cri.type=='T'?'selected':''}" />>제목 or 내용 or 작성자</option>
 								</select>
 								<input type="text" name="keyword" value="${cri.keyword}" />
-								<button class="btn btn-default" type="button">검색</button>
+								<button class="btn btn-success" type="button">검색</button>
 							</form>
 						</div>
 						<div class="col-md-2 col-md-offset-2">
@@ -91,8 +85,14 @@
 			</div>
 			<!-- end panel-heading  -->
 		</div>
-	</div>
+		</div>
 </div>
+
+
+	<!-- /.col-lg-12 -->
+</div>
+<!-- /.row -->
+
 <!-- end row -->
 
 <!-- 페이지 번호를 누르면 동작하는 폼 -->
