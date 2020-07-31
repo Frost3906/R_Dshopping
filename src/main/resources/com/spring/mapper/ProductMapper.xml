@@ -3,7 +3,7 @@
 <mapper namespace="com.spring.mapper.ProductMapper">
 
 	<select id="selectProduct" resultType="com.spring.domain.ProductVO">
-		select * from product <!-- where p_name like '%${keyword}%' -->
+		select * from product where p_name like '%${keyword}%' or p_code like '%${keyword}%' or p_content like '%${keyword}%'
 	</select>
 
 </mapper>
