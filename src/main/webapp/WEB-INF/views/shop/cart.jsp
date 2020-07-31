@@ -9,6 +9,7 @@
     	<div class="row">
 
 			<div class="cart_goods">
+			<span class="border-bottom">
 				<table class="table table-striped table-bordered table-hover">
 					<colgroup>
 						<col style="width: 375px;"/>
@@ -27,23 +28,29 @@
 				</tr>			
 				</thead>
 				<tbody>
-				<tr>
-					<td>...</td>
-					<td>...</td>
-					<td>...</td>
-					<td>...</td>
-					<td>...</td>
-				</tr>
+					<c:forEach var="vo" items="${list}">
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+					</c:forEach>
 			</tbody>
+			
 			</table>
+			</span>
+			<c:if test="${empty list}">
+				<div class="text-center">상품이 없습니다.</div>
+			</c:if>
 			<div>
-				<div>상품이 없습니다.</div>
+			
 				<div class="float-right mb-3">
 					<button class="btn btn-primary btn-lg">Check</button>
 				</div>
 			</div>
 		</div>
-
     </div>
     <!-- /.row -->
 	</form>
