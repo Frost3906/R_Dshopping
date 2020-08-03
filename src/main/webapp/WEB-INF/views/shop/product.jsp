@@ -11,25 +11,25 @@
         	<!-- 상품 카드 위치 -->
         	<img src="http://placehold.it/400x400" alt=""/>
         	<div class="product-details ml-5 col-lg">
-	        	<h1>상품 이름</h1>
+	        	<h1>${vo.p_name}</h1>
 	        	<br>
-	        	<p>상품설명</p>
+	        	<p>${vo.p_content}</p>
 	 			<br>
 	 			
 	 			<ul class="list-group list-group-flush">
 	 				<li class="list-group-item">가격   	${vo.p_price}</li>
-	 				<li class="list-group-item">판매단위	${vo.price}</li>
-	 				<li class="list-group-item">중량/용량	${vo.price}</li>
-	 				<li class="list-group-item">배송구분	${vo.price}</li>
-	 				<li class="list-group-item">포장타입	${vo.price}</li>
-	 				
+
+	 				<li class="list-group-item">판매단위	</li>
+	 				<li class="list-group-item">중량/용량	</li>
+	 				<li class="list-group-item">배송구분	</li>
+	 				<li class="list-group-item">포장타입	</li>
 	 			</ul>       	
         	</div>
         		
         	
         </div>
         	<div class="check float-right mb-3">
-        		<p>총 상품 금액 : ${vo.price}원</p>
+        		<p>총 상품 금액 : ${vo.p_price}원</p>
         		<button class="btn btn-success btn-lg mt-3">장바구니 담기</button>
         	</div>
         	

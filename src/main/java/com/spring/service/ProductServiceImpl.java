@@ -19,4 +19,9 @@ public class ProductServiceImpl implements ProductService {
 		return product.searchList(keyword);
 	}
 
+	@Override
+	public ProductVO getProduct(String code) {
+		return product.getProduct(code);
+	}
+
 }
