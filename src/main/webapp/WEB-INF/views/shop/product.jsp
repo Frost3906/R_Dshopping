@@ -51,7 +51,12 @@
         	
         </div>
         	<div class="check float-right mb-3">
-        		<p>총 상품 금액 : </p>
+        		<p>
+        			총 상품 금액 :
+        			<div id="price">
+        				
+        			</div> 
+        		</p>
         		<button class="btn btn-success btn-lg mt-3">장바구니 담기</button>
         	</div>
         	
@@ -109,7 +114,7 @@ $('#productTab a').click(function (e) {
 function quantity(){
 	let amount = $("#quantity").val();
 	let total_price = amount * ${vo.p_price};
-	$("#totalPrice").val = total_price;
+	$('#price').html(total_price);
 }
 </script>
 
