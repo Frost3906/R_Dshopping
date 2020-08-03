@@ -38,9 +38,11 @@ public class ShopController {
 	}
 	
 	@GetMapping("/product")
-	public void product() {
-		log.info("제품 상세페이지 호출");
-		
+	public void product(String p_code, Model model) {
+		log.info("제품 상세페이지 호출" + p_code);
+		List<ProductVO> list = service.searchList(p_code);
+		model.addAttribute("product", list);
+		log.info("list = " + list);
 	}
 	
 	@PostMapping("/search")

@@ -21,7 +21,7 @@
 		              <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
 		              <div class="card-body">
 		                <h4 class="card-title">
-		                  <a href="#">${vo.p_code}.${vo.p_name}</a>
+		                  <a href="product?p_code=${vo.p_code}">${vo.p_code}.${vo.p_name}</a>
 		                </h4>
 		                <h5>${vo.p_price}</h5>
 		                <p class="card-text">${vo.p_content}</p>
