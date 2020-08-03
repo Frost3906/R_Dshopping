@@ -17,7 +17,7 @@
 	 			<br>
 	 			
 	 			<ul class="list-group list-group-flush">
-	 				<li class="list-group-item">가격   	${vo.price}</li>
+	 				<li class="list-group-item">가격   	${product.price}</li>
 	 				<li class="list-group-item">판매단위	${vo.price}</li>
 	 				<li class="list-group-item">중량/용량	${vo.price}</li>
 	 				<li class="list-group-item">배송구분	${vo.price}</li>
@@ -29,7 +29,7 @@
         	
         </div>
         	<div class="check float-right mb-3">
-        		<p>총 상품 금액 : ${vo.price}원</p>
+        		<p>총 상품 금액 : ${product.price}원</p>
         		<button class="btn btn-success btn-lg mt-3">장바구니 담기</button>
         	</div>
         	
@@ -53,7 +53,7 @@
       		<a name="goods-description"></a>
       		<br>
       		<div>
-      		<ul class="list-group list-group-horizontal mt-5">
+      		<ul class="nav nav-tabs mt-5" role="tablist">
 				<li class="list-group-item col-sm text-center"><a href="#goods-description" class="goods-view-infomation-tab-anchor __active">상품설명</a></li>
       			<li class="list-group-item col-sm text-center"><a href="#goods-infomation" class="goods-view-infomation-tab-anchor">상세정보</a></li>
       			<li class="list-group-item col-sm text-center"><a href="#goods-review" class="goods-view-infomation-tab-anchor">구매후기</a></li>
@@ -70,7 +70,7 @@
       			7
       			8
       			9
-      			
+<!--       			
       			
       			
       			
@@ -192,7 +192,7 @@
       			9
       			
       			
-      			
+      			 -->
       			
       			
       			
