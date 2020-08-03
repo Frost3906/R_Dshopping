@@ -24,4 +24,19 @@ public class ProductServiceImpl implements ProductService {
 		return product.getProduct(code);
 	}
 
+	@Override
+	public List<String> searchCategory2(String p_category1) {
+		return product.searchCategory2(p_category1);
+	}
+
+	@Override
+	public List<String> searchCategory3(String p_category2, String p_category1) {
+		return product.searchCategory3(p_category2, p_category1);
+	}
+
+	@Override
+	public List<ProductVO> searchCategoryList(String p_category1, String p_category2, String p_category3) {
+		return product.searchCategoryList(p_category1, p_category2, p_category3);
+	}
+
 }
