@@ -17,7 +17,7 @@
 	 			<br>
 	 			
 	 			<ul class="list-group list-group-flush">
-	 				<li class="list-group-item">가격   	${product.price}</li>
+	 				<li class="list-group-item">가격   	${vo.p_price}</li>
 	 				<li class="list-group-item">판매단위	${vo.price}</li>
 	 				<li class="list-group-item">중량/용량	${vo.price}</li>
 	 				<li class="list-group-item">배송구분	${vo.price}</li>
@@ -29,7 +29,7 @@
         	
         </div>
         	<div class="check float-right mb-3">
-        		<p>총 상품 금액 : ${product.price}원</p>
+        		<p>총 상품 금액 : ${vo.price}원</p>
         		<button class="btn btn-success btn-lg mt-3">장바구니 담기</button>
         	</div>
         	
@@ -54,12 +54,25 @@
       		<br>
       		<div>
       		<ul class="nav nav-tabs mt-5" role="tablist">
-				<li class="list-group-item col-sm text-center"><a href="#goods-description" class="goods-view-infomation-tab-anchor __active">상품설명</a></li>
-      			<li class="list-group-item col-sm text-center"><a href="#goods-infomation" class="goods-view-infomation-tab-anchor">상세정보</a></li>
-      			<li class="list-group-item col-sm text-center"><a href="#goods-review" class="goods-view-infomation-tab-anchor">구매후기</a></li>
-      			<li class="list-group-item col-sm text-center"><a href="#goods-qna" class="goods-view-infomation-tab-anchor">상품문의</a></li>
+				<li class="nav-item col-sm text-center"><a class="nav-link active" href="#goods-description" data-toggle="tab">상품설명</a></li>
+      			<li class="nav-item col-sm text-center"><a class="nav-link" href="#goods-infomation" data-toggle="tab" >상세정보</a></li>
+      			<li class="nav-item col-sm text-center"><a class="nav-link" href="#goods-review" data-toggle="tab" >구매후기</a></li>
+      			<li class="nav-item col-sm text-center"><a class="nav-link" href="#goods-qna" data-toggle="tab" >상품문의</a></li>
       		</ul>
-      			상품에 대한 설명
+      		<div class="tab-content">
+      			<div id="goods-description" class="container tab-pane active">
+      				상품에 대한 설명
+      			</div>
+      			<div id="goods-infomation" class="container tab-pane">
+      				제품 상세
+      			</div>
+       			<div id="goods-review" class="container tab-pane">
+      				상품 리뷰
+      			</div>     			
+       			<div id="goods-qna" class="container tab-pane">
+      				Q & A
+      			</div>     			      			
+       			
       			<pre>
       			1
       			2
