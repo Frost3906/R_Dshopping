@@ -15,5 +15,9 @@
 			  p_category2 like upper('%'||#{keyword}||'%') or
 			  p_category3 like upper('%'||#{keyword}||'%'))
 	</select>
+	
+	<select id="getProduct" resultType="com.spring.domain.ProductVO">
+		select * from product where p_code = #{code}
+	</select>
 
 </mapper>
