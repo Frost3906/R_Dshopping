@@ -25,27 +25,22 @@ public class ShopController {
 	@GetMapping("/categoryList")
 	public void getCategoryList(String category1, String category2, String category3, Model model) {
 		log.info("카테고리 리스트 호출" + category1 + category2 + category3);
-		List<ProductVO> list = null;
+		List<ProductVO> list = service.searchCategoryList(category1, category2, category3);
 		List<String> categoryList = null;
 		if(category3!=null) {
-			list = service.searchList(category3);
-			categoryList = service.searchCategory3(category3);
+			categoryList = service.searchCategory3(category3, category2);
 			model.addAttribute("category3List", categoryList);
-			model.addAttribute("category1",category1);
 			model.addAttribute("category2",category2);
 			model.addAttribute("category3",category3);
 		} else if(category2!=null) {
-			list = service.searchList(category2);
-			categoryList = service.searchCategory3(category2);
+			categoryList = service.searchCategory3(category2, category1);
 			model.addAttribute("category3List", categoryList);
-			model.addAttribute("category1",category1);
 			model.addAttribute("category2",category2);
 		} else {
-			list = service.searchList(category1);
-			model.addAttribute("category1",category1);
 			categoryList = service.searchCategory2(category1);
 			model.addAttribute("category2List", categoryList);
 		}
+		model.addAttribute("category1",category1);
 		log.info("카테고리 리스트 = " + categoryList);
 		log.info("카테고리1 = " + category1);
 		log.info("카테고리2 = " + category2);

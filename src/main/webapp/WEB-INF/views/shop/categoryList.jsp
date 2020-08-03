@@ -12,19 +12,19 @@
   		<h5>
   			result for "
   			<c:if test="${not empty category1}">
-  				<a href="?category1=${category1}">
+  				<a href="?category1=${category1}" style="color:black;">
 	  				<c:out value="${category1}"/>
   				</a>
   			</c:if>
   			<c:if test="${not empty category2}">
   				<c:out value=" > "></c:out>
-  				<a href="?category1=${category1}&category2=${category2}">
+  				<a href="?category1=${category1}&category2=${category2}" style="color:black;">
 	  				<c:out value="${category2}"/>
   				</a>
   			</c:if>
   			<c:if test="${not empty category3}">
   				<c:out value=" > "></c:out>
-  				<a href="?category1=${category1}&category2=${category2}&category3=${category3}">
+  				<a href="?category1=${category1}&category2=${category2}&category3=${category3}" style="color:black;">
   					<c:out value="${category3}"/>
   				</a>
   			</c:if>
@@ -36,7 +36,7 @@
   			<c:if test="${category3==null && category2!=null}">
   				소분류 : 
 	  			<c:forEach var="list" items="${category3List}">
-  					<a href="?category1=${category1}&category2=${category2}&category3=${list}">
+  					<a href="?category1=${category1}&category2=${category2}&category3=${list}" style="color:black;">
 	  					<c:out value="${list}"/>  					
   					</a>
 	  			</c:forEach>
@@ -44,7 +44,7 @@
  			<c:if test="${category2==null}">
 				중분류 : 
 	  			<c:forEach var="list" items="${category2List}">
-  					<a href="?category1=${category1}&category2=${list}">
+  					<a href="?category1=${category1}&category2=${list}" style="color:black;">
 	  					<c:out value="${list}"/>  					
   					</a>
 	  			</c:forEach>

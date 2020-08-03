@@ -20,12 +20,33 @@
 		select * from product where p_code = #{code}
 	</select>
 	
+	<select id="searchCategoryList" resultType="com.spring.domain.ProductVO">
+		select * 
+		from product 
+		where
+			<if test="category2==null">
+				p_category1 = #{category1}
+			</if> 
+			<if test="category2!=null and category3==null">
+				p_category1 = #{category1} and p_category2 = #{category2}
+			</if>
+			<if test="category3!=null">
+				p_category1 = #{category1} and p_category2 = #{category2} and p_category3 = #{category3}
+			</if>
+	</select>
+	
 	<select id="searchCategory2" resultType="string">
-		select distinct p_category2 from product where p_category1 = #{category1} order by p_category2 ASC
+		select distinct p_category2 
+		from product 
+		where p_category1 = #{category1} 
+		order by p_category2 ASC
 	</select>
 	
 	<select id="searchCategory3" resultType="string">
-		select distinct p_category3 from product where p_category2 = #{category2} order by p_category3 ASC
+		select distinct p_category3 
+		from product 
+		where p_category2 = #{category2} and p_category1 = #{category1} 
+		order by p_category3 ASC
 	</select>
 
 </mapper>
