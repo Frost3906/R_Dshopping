@@ -15,8 +15,8 @@ public class ProductServiceImpl implements ProductService {
 	private ProductMapper product;
 
 	@Override
-	public List<ProductVO> selectProduct(String keyword) {
-		return product.selectProduct(keyword);
+	public List<ProductVO> searchList(String keyword) {
+		return product.searchList(keyword);
 	}
 
 }

@@ -23,8 +23,13 @@ public class ShopController {
 	private ProductService service;
 
 	@GetMapping("/categoryList")
-	public void getCategoryList() {
-		log.info("카테고리 리스트 호출");
+	public void getCategoryList(String category, Model model) {
+		log.info("카테고리 리스트 호출" + category);
+		model.addAttribute("category",category);
+		log.info("검색 리스트 호출");
+		log.info("리스트 요청");
+		List<ProductVO> list = service.searchList(category);
+		model.addAttribute("product", list);
 	}
 	
 	@GetMapping("/cart")
@@ -33,9 +38,11 @@ public class ShopController {
 	}
 	
 	@GetMapping("/product")
-	public void product() {
-		log.info("제품 상세페이지 호출");
-		
+	public void product(String p_code, Model model) {
+		log.info("제품 상세페이지 호출" + p_code);
+		List<ProductVO> list = service.searchList(p_code);
+		model.addAttribute("product", list);
+		log.info("list = " + list);
 	}
 	
 	@PostMapping("/search")
@@ -44,7 +51,7 @@ public class ShopController {
 		model.addAttribute("keyword",keyword);
 		log.info("검색 리스트 호출");
 		log.info("리스트 요청");
-		List<ProductVO> list = service.selectProduct(keyword);
+		List<ProductVO> list = service.searchList(keyword);
 		model.addAttribute("product", list);
 		return "/shop/searchList";
 	}
