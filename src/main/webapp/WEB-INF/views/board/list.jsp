@@ -28,7 +28,7 @@
 						<!-- 게시판 리스트 반복문 -->
 						<c:forEach var="vo" items="${list}">
 							<tr>
-								<td>${bo.bno}</td>
+								<td>${vo.bno}</td>
 								<td><a href='<c:out value="${vo.gno}"/>' class="move">${vo.title}</a><strong>[${vo.replycnt}]</strong></td>
 								<td>${vo.writer}</td>
 								<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${vo.regdate}"/></td>

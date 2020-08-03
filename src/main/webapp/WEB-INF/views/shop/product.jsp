@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ include file="../includes/header.jsp" %>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.js" integrity="sha256-DrT5NfxfbHvMHux31Lkhxg42LY6of8TaYyK50jnxRnM=" crossorigin="anonymous"></script>
-
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <div class="container">
 	<div class="row">
       <div class="col-lg-12">
@@ -17,10 +17,32 @@
 	 			<br>
 	 			
 	 			<ul class="list-group list-group-flush">
-	 				<li class="list-group-item">가격   	${vo.p_price}</li>
-
-	 				<li class="list-group-item">판매단위	</li>
-	 				<li class="list-group-item">중량/용량	</li>
+	 				<li class="list-group-item">
+		 					<div class="float-left">가격</div>
+		 					<div class="float-right">${vo.p_price}</div>
+	 			  	</li>
+	 				<li class="list-group-item">
+	 						<div class="float-left">재고(${vo.p_stock}):</div>
+	 						<div class="float-right">
+							<c:if test="${vo.p_stock!=0}">
+	 							<select name="quantity" id="quantity" onchange="quantity();">
+	 								<option value="1">1</option>
+	 								<option value="2">2</option>
+	 								<option value="3">3</option>
+	 								<option value="4">4</option>
+	 								<option value="5">5</option>
+	 								<option value="6">6</option>
+	 								<option value="7">7</option>
+	 								<option value="8">8</option>
+	 								<option value="9">9</option>
+	 								<option value="10">10</option>
+	 							</select>
+							</c:if>
+							<c:if test="${vo.p_stock==0}">
+								품절
+							</c:if>
+	 						</div>
+	 				</li>
 	 				<li class="list-group-item">배송구분	</li>
 	 				<li class="list-group-item">포장타입	</li>
 	 			</ul>       	
@@ -29,7 +51,7 @@
         	
         </div>
         	<div class="check float-right mb-3">
-        		<p>총 상품 금액 : ${vo.p_price}원</p>
+        		<p>총 상품 금액 : </p>
         		<button class="btn btn-success btn-lg mt-3">장바구니 담기</button>
         	</div>
         	
@@ -50,178 +72,44 @@
       		</div>
       	</div>
       	<div>
-      		<a name="goods-description"></a>
       		<br>
       		<div>
-      		<ul class="nav nav-tabs mt-5" role="tablist">
-				<li class="nav-item col-sm text-center"><a class="nav-link active" href="#goods-description" data-toggle="tab">상품설명</a></li>
-      			<li class="nav-item col-sm text-center"><a class="nav-link" href="#goods-infomation" data-toggle="tab" >상세정보</a></li>
-      			<li class="nav-item col-sm text-center"><a class="nav-link" href="#goods-review" data-toggle="tab" >구매후기</a></li>
-      			<li class="nav-item col-sm text-center"><a class="nav-link" href="#goods-qna" data-toggle="tab" >상품문의</a></li>
+      		<ul class="nav nav-tabs mt-5" id="productTab" role="tablist">
+				<li class="nav-item col-sm text-center"><a class="nav-link active" href="#goods-description" data-toggle="tab" aria-controls="goods-description" aria-selected="true">상품설명</a></li>
+      			<li class="nav-item col-sm text-center"><a class="nav-link" href="#goods-infomation" data-toggle="tab" aria-controls="goods-infomation" aria-selected="true">상세정보</a></li>
+      			<li class="nav-item col-sm text-center"><a class="nav-link" href="#goods-review" data-toggle="tab" aria-controls="goods-review" aria-selected="false">구매후기</a></li>
+      			<li class="nav-item col-sm text-center"><a class="nav-link" href="#goods-qna" data-toggle="tab" aria-controls="goods-qna" aria-selected="false">상품문의</a></li>
       		</ul>
-      		<div class="tab-content">
-      			<div id="goods-description" class="container tab-pane active">
+      		<div class="tab-content" id="productTabContent">
+      			<div id="goods-description" class="tab-pane show active" aria-labelledby="goods-description-tab">
       				상품에 대한 설명
       			</div>
-      			<div id="goods-infomation" class="container tab-pane">
+      			<div id="goods-infomation" class="tab-pane" aria-labelledby="goods-infomation-tab">
       				제품 상세
       			</div>
-       			<div id="goods-review" class="container tab-pane">
+       			<div id="goods-review" class="tab-pane" aria-labelledby="goods-review-tab">
       				상품 리뷰
       			</div>     			
-       			<div id="goods-qna" class="container tab-pane">
+       			<div id="goods-qna" class="tab-pane" aria-labelledby="goods-qna-tab">
       				Q & A
       			</div>     			      			
-       			
-      			<pre>
-      			1
-      			2
-      			3
-      			4
-      			5
-      			6
-      			7
-      			8
-      			9
-<!--       			
-      			
-      			
-      			
-      			
-      			
-      			
-      			
-      			
-      			
-      			
-      			
-      			
-      			
-      			
-      			
-      			
-      			</pre>
-      			
       		</div>
-      		<a name="goods-infomation"></a>
-      		<br>
-      		<div>
-      		<ul class="list-group list-group-horizontal mt-5">
-				<li class="list-group-item col-sm text-center"><a href="#goods-description" class="goods-view-infomation-tab-anchor">상품설명</a></li>
-      			<li class="list-group-item col-sm text-center"><a href="#goods-infomation" class="goods-view-infomation-tab-anchor  __active">상세정보</a></li>
-      			<li class="list-group-item col-sm text-center"><a href="#goods-review" class="goods-view-infomation-tab-anchor">구매후기</a></li>
-      			<li class="list-group-item col-sm text-center"><a href="#goods-qna" class="goods-view-infomation-tab-anchor">상품문의</a></li>
-      		</ul>
-      			상품에 대한 상세정보
-      				<pre>
-      			1
-      			2
-      			3
-      			4
-      			5
-      			6
-      			7
-      			8
-      			9
-      			
-      			
-      			
-      			
-      			
-      			
-      			
-      			
-      			
-      			
-      			
-      			
-      			
-      			
-      			
-      			
-      			
-      			</pre>
-      			
       		</div>
-      		<a name="goods-review"></a>
-      		<br>
-      		<div>
-      		<ul class="list-group list-group-horizontal mt-5">
-				<li class="list-group-item col-sm text-center"><a href="#goods-description" class="goods-view-infomation-tab-anchor">상품설명</a></li>
-      			<li class="list-group-item col-sm text-center"><a href="#goods-infomation" class="goods-view-infomation-tab-anchor">상세정보</a></li>
-      			<li class="list-group-item col-sm text-center"><a href="#goods-review" class="goods-view-infomation-tab-anchor  __active">구매후기</a></li>
-      			<li class="list-group-item col-sm text-center"><a href="#goods-qna" class="goods-view-infomation-tab-anchor">상품문의</a></li>
-      		</ul>
-      			상품 구매 후기
-      				<pre>
-      			1
-      			2
-      			3
-      			4
-      			5
-      			6
-      			7
-      			8
-      			9
-      			
-      			
-      			
-      			
-      			
-      			
-      			
-      			
-      			
-      			
-      			
-      			
-      			
-      			
-      			
-      			
-      			
-      			</pre>
-      			
-      		</div>
-      		<a name="goods-qna"></a>
-      		<br>
-      		<div>
-      		<ul class="list-group list-group-horizontal mt-5">
-      			<li class="list-group-item col-sm text-center"><a href="#goods-description" class="goods-view-infomation-tab-anchor">상품설명</a></li>
-      			<li class="list-group-item col-sm text-center"><a href="#goods-infomation" class="goods-view-infomation-tab-anchor">상세정보</a></li>
-      			<li class="list-group-item col-sm text-center"><a href="#goods-review" class="goods-view-infomation-tab-anchor">구매후기</a></li>
-      			<li class="list-group-item col-sm text-center"><a href="#goods-qna" class="goods-view-infomation-tab-anchor __active">상품문의</a></li>
-      		</ul>
-      			상품 문의
-      				<pre>
-      			1
-      			2
-      			3
-      			4
-      			5
-      			6
-      			7
-      			8
-      			9
-      			
-      			
-      			 -->
-      			
-      			
-      			
-      			
-      			
-      			
-      			
-      			
-      			
-      			
-      			
-      			
-      			
-      			
-      			</pre>
-      			
-      		</div>
-      	</div>
+		</div>
 </div>
+
+<script>
+$('#productTab a').click(function (e) {
+	  e.preventDefault();
+	  $(this).tab('show');
+	  $('#productTab a').removeClass('active');
+	  $(this).addClass('active');
+})
+
+function quantity(){
+	let amount = $("#quantity").val();
+	let total_price = amount * ${vo.p_price};
+	$("#totalPrice").val = total_price;
+}
+</script>
+
