@@ -19,5 +19,13 @@
 	<select id="getProduct" resultType="com.spring.domain.ProductVO">
 		select * from product where p_code = #{code}
 	</select>
+	
+	<select id="searchCategory2" resultType="string">
+		select distinct p_category2 from product where p_category1 = #{category1} order by p_category2 ASC
+	</select>
+	
+	<select id="searchCategory3" resultType="string">
+		select distinct p_category3 from product where p_category2 = #{category2} order by p_category3 ASC
+	</select>
 
 </mapper>

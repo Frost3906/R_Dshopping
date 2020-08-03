@@ -9,7 +9,47 @@
   		<h1>Category List</h1>
   	</div>
   	<div>
-  		<h5>result for "${category} > 중분류 > 소분류 "</h5>
+  		<h5>
+  			result for "
+  			<c:if test="${not empty category1}">
+  				<a href="?category1=${category1}">
+	  				<c:out value="${category1}"/>
+  				</a>
+  			</c:if>
+  			<c:if test="${not empty category2}">
+  				<c:out value=" > "></c:out>
+  				<a href="?category1=${category1}&category2=${category2}">
+	  				<c:out value="${category2}"/>
+  				</a>
+  			</c:if>
+  			<c:if test="${not empty category3}">
+  				<c:out value=" > "></c:out>
+  				<a href="?category1=${category1}&category2=${category2}&category3=${category3}">
+  					<c:out value="${category3}"/>
+  				</a>
+  			</c:if>
+  			 "
+  		</h5>
+  	</div>
+  	<div>
+  		<h6>
+  			<c:if test="${category3==null && category2!=null}">
+  				소분류 : 
+	  			<c:forEach var="list" items="${category3List}">
+  					<a href="?category1=${category1}&category2=${category2}&category3=${list}">
+	  					<c:out value="${list}"/>  					
+  					</a>
+	  			</c:forEach>
+  			</c:if>
+ 			<c:if test="${category2==null}">
+				중분류 : 
+	  			<c:forEach var="list" items="${category2List}">
+  					<a href="?category1=${category1}&category2=${list}">
+	  					<c:out value="${list}"/>  					
+  					</a>
+	  			</c:forEach>
+  			</c:if>
+  		</h6>
   	</div>
     <div class="row">
       <div class="col-lg-12">
