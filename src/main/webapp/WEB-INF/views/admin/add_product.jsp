@@ -11,7 +11,7 @@
         	<!-- 상품 카드 위치 -->
         	<img src="http://placehold.it/400x400" alt=""/>
         	<div class="product-details ml-5 col-lg">
-        		<form action="/admin/add">
+        		<form action="" method="post">
 	        	<h1>상품 등록</h1>
 	        	<br>
 	 			
