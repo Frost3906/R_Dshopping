@@ -1,5 +1,7 @@
 package com.spring.controller;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,8 +71,16 @@ public class ShopController {
 		model.addAttribute("keyword",keyword);
 		log.info("검색 리스트 호출");
 		log.info("리스트 요청");
-		List<ProductVO> list = service.searchList(keyword);
-		model.addAttribute("product", list);
+//		List<ProductVO> list = service.searchList(keyword);
+//		model.addAttribute("product", list);
+		
+		String[] keyArray = keyword.split(" ");
+		List<String> keyList = Arrays.asList(keyArray);
+		log.info("키워드 리스트 출력 : " + keyList);
+		List<ProductVO> searchList = service.searchKeyword(keyList);
+		log.info("키워드 리스트 검색 상품 출력 : " + searchList);
+		model.addAttribute("product", searchList);
+		
 		return "/shop/searchList";
 	}
 	

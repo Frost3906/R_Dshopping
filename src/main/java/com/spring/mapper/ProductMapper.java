@@ -15,4 +15,5 @@ public interface ProductMapper {
 	public List<ProductVO> searchCategoryList(@Param("category1") String category1,
 											  @Param("category2") String category2,
 											  @Param("category3") String category3);
+	public List<ProductVO> searchKeyword(@Param("keywordList") List<String> keywordList);
 }

@@ -39,4 +39,9 @@ public class ProductServiceImpl implements ProductService {
 		return product.searchCategoryList(p_category1, p_category2, p_category3);
 	}
 
+	@Override
+	public List<ProductVO> searchKeyword(List<String> keywordList) {
+		return product.searchKeyword(keywordList);
+	}
+
 }

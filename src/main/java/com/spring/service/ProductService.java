@@ -10,4 +10,5 @@ public interface ProductService {
 	public List<String> searchCategory2(String p_category1);
 	public List<String> searchCategory3(String p_category2, String p_category1);
 	public List<ProductVO> searchCategoryList(String p_category1, String p_category2, String p_category3);
+	public List<ProductVO> searchKeyword(List<String> keywordList);
 }
