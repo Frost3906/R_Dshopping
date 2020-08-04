@@ -50,17 +50,17 @@
 	</select>
 	
 	<select id="searchKeyword" resultType="com.spring.domain.ProductVO" parameterType="java.util.List">
-		select * from product where p_code in
+		select * from product where p_code in 
 		(select p_code 
 		from searchList 
-		where
+		where 
 		<foreach collection="keywordList" item="keyList" separator=" or ">
-			p_name like upper('%'||#{keyList}||'%') or
-			  p_code like '%'||#{keyList}||'%' or 
-			  p_content like upper('%'||#{keyList}||'%') or
-			  p_category1 like upper('%'||#{keyList}||'%') or
-			  p_category2 like upper('%'||#{keyList}||'%') or
-			  p_category3 like upper('%'||#{keyList}||'%')
+			p_name like upper('%'||#{keyList}||'%') or 
+			p_code like '%'||#{keyList}||'%' or 
+			p_content like upper('%'||#{keyList}||'%') or 
+			p_category1 like upper('%'||#{keyList}||'%') or 
+			p_category2 like upper('%'||#{keyList}||'%') or 
+			p_category3 like upper('%'||#{keyList}||'%') 
 		</foreach>
 		)
 	</select>
