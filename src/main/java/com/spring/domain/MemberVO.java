@@ -8,5 +8,6 @@ public class MemberVO {
 	private String password;
 	private String firstName;
 	private String lastName;
+	private String role;
 	private String mobile;
 }
