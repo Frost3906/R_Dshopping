@@ -21,8 +21,8 @@ public class ProductServiceImpl implements ProductService {
 		product.addProduct(vo);
 	}
 	@Override
-	public List<ProductVO> searchList(String keyword) {
-		return product.searchList(keyword);
+	public List<ProductVO> getList() {
+		return product.getList();
 	}
 
 	@Override
