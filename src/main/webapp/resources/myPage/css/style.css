@@ -1,0 +1,36 @@
+body {
+       font-family:'맑은 고딕', verdana;
+       padding-top:56px;
+       margin:0;
+      }
+       
+ul {
+    padding:0;
+    margin:0;
+    list-style:none; }
+    
+#mp_menu {
+    padding:20px 0;
+    border-top:2px solid #eee;
+    border-bottom:2px solid #eee;}
+    
+#mp_menu::after {
+    content:"";
+    display:block;
+    clear:both;}
+    
+aside {
+    float:left;
+    width:200px;}
+    
+#mp_main {
+    float:right;
+    width:calc(100% - 200px - 20px);
+    border-left: 2px;}
+    
+aside ul li {
+    text-align:center;
+    margin-bottom:10px;}
+    
+a {
+    text-decoration: none;}

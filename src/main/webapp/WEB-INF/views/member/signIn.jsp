@@ -65,7 +65,7 @@
                                 <p class="small-info">or use your email account</p>
                             </div>
 
-
+							<form id="signIn" action="" method="post">
                             <div class="text-box-cont">
                                
                                  <div class="input-group mb-3">
@@ -74,13 +74,13 @@
                                             <i class="far fa-envelope"></i>
                                         </span>
                                     </div>
-                                    <input type="text" class="form-control" placeholder="Email Address" aria-label="Username" aria-describedby="basic-addon1">
+                                    <input type="text" name="email" class="form-control" placeholder="Email Address" aria-label="Username" aria-describedby="basic-addon1">
                                 </div>
                                  <div class="input-group mb-3">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text" id="basic-addon1"><i class="fas fa-lock"></i></span>
                                     </div>
-                                    <input type="text" class="form-control" placeholder="Password" aria-label="Username" aria-describedby="basic-addon1">
+                                    <input type="password" class="form-control" placeholder="Password" aria-label="Username" aria-describedby="basic-addon1">
                                 </div>
                                    <p>
                             <label class="container">
@@ -88,10 +88,10 @@
                               <span class="checkmark"></span>Remember me
                             </label>
                             <a href="">forget password ?</a></p>
-                               
+                               </form>
                                 <div class="input-group center  mb-3">
                                            
-                                    <button class="btn btn-success ">Sign In</button>
+                                    <button type="submit" class="btn btn-success ">Sign In</button>
                                     <button type="button" class="btn btn-primary " onclick="location.href='signUp'">Sign up</button>
                                 </div>    
                             </div>
