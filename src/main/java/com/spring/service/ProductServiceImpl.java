@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.spring.domain.CartVO;
 import com.spring.domain.ProductVO;
 import com.spring.mapper.ProductMapper;
 
@@ -42,6 +43,11 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public List<ProductVO> searchKeyword(List<String> keywordList) {
 		return product.searchKeyword(keywordList);
+	}
+	
+	@Override
+	public void addcart(CartVO vo) {
+		product.addcart(vo);
 	}
 
 }

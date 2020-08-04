@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page session="false" %>
+
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
 
@@ -21,6 +21,8 @@
   <link href="/resources/css/shop-homepage.css" rel="stylesheet">
   <script src="https://code.jquery.com/jquery-3.5.1.slim.js" integrity="sha256-DrT5NfxfbHvMHux31Lkhxg42LY6of8TaYyK50jnxRnM=" crossorigin="anonymous"></script>
   
+  <!-- myPage CSS -->
+  <link rel="stylesheet" href="../resources/myPage/css/style.css" />
   <!-- Sign-In&Out CSS -->
   <!-- <link rel="shortcut icon" href="/resources/signIn/images/fav.jpg">
   <link rel="stylesheet" href="/resources/signIn/css/bootstrap.min.css">
@@ -55,7 +57,35 @@
 				<div>
 			      <div class="collapse navbar-collapse" id="navbarResponsive">
 			        <ul class="navbar-nav ml-auto">
-			          <li class="nav-item active">
+			          <c:if test="${!empty auth}">
+			          	<li class="nav-item active">			          
+			            <a class="nav-link" href="/">Home
+			              <span class="sr-only">(current)</span>
+			            </a>
+			          </li>
+			          <li class="nav-item">
+			            <a class="nav-link" href="#">About</a>
+			          </li>
+			          <li class="nav-item">
+			            <a class="nav-link" href="#">Services</a>
+			          </li>
+			          <li class="nav-item">
+			            HI!!<a class="nav-link" href="/member/myPage">${auth.firstName}</a>
+			          </li>
+			          <li class="nav-item">
+			            <a class="nav-link" href="logout">LogOut</a>
+			          </li>
+			          <li class="nav-item">
+			            <a class="nav-link" href="#">Contact</a>
+			          </li>
+   			     
+   			          <c:if test="${auth.role=='admin'}">
+			          	<li><a class="nav-link" href="/member/admin">Manage</a></li>
+			          </c:if>
+			     
+			          </c:if>
+			          <c:if test="${empty auth}">			          
+			          <li class="nav-item active">			          
 			            <a class="nav-link" href="/">Home
 			              <span class="sr-only">(current)</span>
 			            </a>
@@ -75,7 +105,11 @@
 			          <li class="nav-item">
 			            <a class="nav-link" href="#">Contact</a>
 			          </li>
-			        </ul>
+			          <!-- 권한에 따라 관리자 페이지 표시여부 -->
+			          
+			          <!--  empty -->
+			          </c:if>
+					</ul>
 			      </div>
 				</div>
 				
