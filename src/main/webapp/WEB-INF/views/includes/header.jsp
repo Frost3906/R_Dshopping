@@ -80,7 +80,7 @@
 			          </li>
    			     
    			          <c:if test="${auth.role=='admin'}">
-			          	<li><a class="nav-link" href="/member/admin">Manage</a></li>
+			          	<li><a class="nav-link" href="/admin/admin">Manage</a></li>
 			          </c:if>
 			     
 			          </c:if>

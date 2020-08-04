@@ -4,7 +4,7 @@
 <%@ include file="../includes/header.jsp" %>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.js" integrity="sha256-DrT5NfxfbHvMHux31Lkhxg42LY6of8TaYyK50jnxRnM=" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-<div class="container mt-5">
+<div class="container mt-5 mb-5">
 	<div class="row">
       <div class="col-lg-12">
         <div class="row mt-5">
@@ -77,4 +77,6 @@
 <script>
 
 </script>
+
+<%@ include file="../includes/footer.jsp" %> 
 

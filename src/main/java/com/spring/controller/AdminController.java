@@ -21,12 +21,20 @@ public class AdminController {
 	
 	@Autowired
 	private ProductService service;
+	
+	
+	@GetMapping("/admin")
+	public String admin() {
+		log.info("관리자 페이지 호출");
+		return "/admin/admin";
+	}
 
 	@GetMapping("/add")
 	public String addProductForm() {
 		log.info("상품 등록 form 호출");
 		return "/admin/add_product";
 	}
+	
 	
 	@PostMapping("/add")
 	public String addProduct(ProductVO vo) {
