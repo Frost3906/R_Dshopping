@@ -9,4 +9,5 @@ public class MemberVO {
 	private String firstName;
 	private String lastName;
 	private String mobile;
+	private String role;
 }
