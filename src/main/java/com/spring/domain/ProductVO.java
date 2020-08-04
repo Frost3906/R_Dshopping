@@ -8,6 +8,7 @@ public class ProductVO {
 	private String p_name;
 	private int p_price;
 	private int p_stock;
+	private int p_rating;
 	private String p_content;
 	private String p_category1;
 	private String p_category2;
