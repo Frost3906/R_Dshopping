@@ -16,4 +16,9 @@ public class MemberServiceImpl implements MemberService {
 	public int signUp(MemberVO member) {
 		return mapper.signUp(member);
 	}
+
+	@Override
+	public MemberVO getMember(String email) {
+		return mapper.getMember(email);
+	}
 }

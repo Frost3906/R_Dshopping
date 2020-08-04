@@ -4,4 +4,7 @@
 	<insert id="signUp">
 		insert into test_mem values(#{email}, #{password}, #{firstName}, #{lastName}, #{mobile})
 	</insert>
+	<select id="getMember" resultType="com.spring.domain.MemberVO">
+		select * from test_mem where email=#{email}
+	</select>
 </mapper>
