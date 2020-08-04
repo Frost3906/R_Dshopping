@@ -19,6 +19,11 @@ public interface ProductMapper {
 	public List<ProductVO> searchCategoryList(@Param("category1") String category1,
 											  @Param("category2") String category2,
 											  @Param("category3") String category3);
+	public List<ProductVO> searchKeyword(@Param("keywordList") List<String> keywordList);
 	
+<<<<<<< HEAD
 	public void addCart(CartVO vo);
+=======
+	public void addcart(CartVO vo);
+>>>>>>> branch 'master' of https://github.com/Frost3906/R_Dshopping.git
 }
