@@ -45,22 +45,16 @@ public class ProductServiceImpl implements ProductService {
 		return product.searchCategoryList(p_category1, p_category2, p_category3);
 	}
 
-<<<<<<< HEAD
 	@Override
 	public void addCart(CartVO vo) {
 		product.addCart(vo);
-=======
+	}
 	@Override
 	public List<ProductVO> searchKeyword(List<String> keywordList) {
 		return product.searchKeyword(keywordList);
 	}
-	
-	@Override
-	public void addcart(CartVO vo) {
-		product.addcart(vo);
->>>>>>> branch 'master' of https://github.com/Frost3906/R_Dshopping.git
-	}
 
+	
 
 
 }
