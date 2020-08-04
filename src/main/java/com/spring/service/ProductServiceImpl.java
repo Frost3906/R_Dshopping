@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.spring.domain.CartVO;
 import com.spring.domain.ProductVO;
 import com.spring.mapper.ProductMapper;
 
@@ -13,10 +14,15 @@ public class ProductServiceImpl implements ProductService {
 	
 	@Autowired
 	private ProductMapper product;
-
+	
+	
 	@Override
-	public List<ProductVO> searchList(String keyword) {
-		return product.searchList(keyword);
+	public void addProduct(ProductVO vo) {
+		product.addProduct(vo);
+	}
+	@Override
+	public List<ProductVO> getList() {
+		return product.getList();
 	}
 
 	@Override
@@ -38,5 +44,17 @@ public class ProductServiceImpl implements ProductService {
 	public List<ProductVO> searchCategoryList(String p_category1, String p_category2, String p_category3) {
 		return product.searchCategoryList(p_category1, p_category2, p_category3);
 	}
+
+	@Override
+	public void addCart(CartVO vo) {
+		product.addCart(vo);
+	}
+	@Override
+	public List<ProductVO> searchKeyword(List<String> keywordList) {
+		return product.searchKeyword(keywordList);
+	}
+
+	
+
 
 }

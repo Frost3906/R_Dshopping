@@ -4,7 +4,7 @@
 <%@ include file="../includes/header.jsp" %>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.js" integrity="sha256-DrT5NfxfbHvMHux31Lkhxg42LY6of8TaYyK50jnxRnM=" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-<div class="container">
+<div class="container mt-5 mb-5">
 	<div class="row">
       <div class="col-lg-12">
         <div class="row mt-5">
@@ -26,6 +26,7 @@
 	 						<div class="float-right">
 							<c:if test="${vo.p_stock!=0}">
 	 							<select name="quantity" id="quantity" onchange="quantity();">
+	 								<option value="0">0</option>
 	 								<option value="1">1</option>
 	 								<option value="2">2</option>
 	 								<option value="3">3</option>
@@ -47,25 +48,19 @@
 	 				<li class="list-group-item">포장타입	</li>
 	 			</ul>       	
         	</div>
-        		
-        	
         </div>
+        	<form action="/shop/cart">
         	<div class="check float-right mb-3">
-        		<p>
-        			총 상품 금액 :
-        			<div id="price">
-        				
-        			</div> 
-        		</p>
+        		<div>
+        			총 상품 금액
+        			<div id="price">0</div> 
+        		</div>
         		<button class="btn btn-success btn-lg mt-3">장바구니 담기</button>
         	</div>
-        	
-        	
-        	
+        	</form>
         <!-- /.row -->
       </div>
       <!-- /.col-lg-9 -->
-    </div>
       	<div>
       		<h3>연관 상품</h3>
       		<div>
@@ -76,9 +71,9 @@
       			</ul>
       		</div>
       	</div>
-      	<div>
-      		<br>
-      		<div>
+      				
+	</div>
+	<div>
       		<ul class="nav nav-tabs mt-5" id="productTab" role="tablist">
 				<li class="nav-item col-sm text-center"><a class="nav-link active" href="#goods-description" data-toggle="tab" aria-controls="goods-description" aria-selected="true">상품설명</a></li>
       			<li class="nav-item col-sm text-center"><a class="nav-link" href="#goods-infomation" data-toggle="tab" aria-controls="goods-infomation" aria-selected="true">상세정보</a></li>
@@ -100,7 +95,6 @@
       			</div>     			      			
       		</div>
       		</div>
-		</div>
 </div>
 
 <script>
@@ -118,3 +112,5 @@ function quantity(){
 }
 </script>
 
+
+<%@ include file="../includes/footer.jsp" %> 

@@ -1,8 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<<<<<<< HEAD
+=======
+
+>>>>>>> branch 'master' of https://github.com/Frost3906/R_Dshopping.git
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
 
@@ -80,6 +84,11 @@
 			          <li class="nav-item">
 			            <a class="nav-link" href="#">Contact</a>
 			          </li>
+   			     
+   			          <c:if test="${auth.role=='admin'}">
+			          	<li><a class="nav-link" href="/admin/admin">Manage</a></li>
+			          </c:if>
+			     
 			          </c:if>
 			          <!-- 로그인 상황에 따른 navbar 변경(비로그인 시) -->
 			          <c:if test="${empty auth}">			          
@@ -103,8 +112,11 @@
 			          <li class="nav-item">
 			            <a class="nav-link" href="#">Contact</a>
 			          </li>
+			          <!-- 권한에 따라 관리자 페이지 표시여부 -->
+			          
+			          <!--  empty -->
 			          </c:if>
-			        </ul>
+					</ul>
 			      </div>
 				</div>				
 	    	</div>	    

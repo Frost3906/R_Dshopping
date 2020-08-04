@@ -1,5 +1,7 @@
 package com.spring.controller;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.spring.domain.ProductVO;
 import com.spring.service.ProductService;
@@ -54,6 +57,12 @@ public class ShopController {
 	public void cart() {
 		log.info("장바구니 호출");
 	}
+	@PostMapping("/cart")
+	public void postCart() {
+		log.info("카트 담기 테스트");
+		
+		
+	}
 	
 	@GetMapping("/product")
 	public void product(String p_code, Model model) {
@@ -65,13 +74,24 @@ public class ShopController {
 	
 	@PostMapping("/search")
 	public String search(String keyword, Model model) {
-		log.info("검색 테스트 키워드 : " + keyword);
-		model.addAttribute("keyword",keyword);
-		log.info("검색 리스트 호출");
-		log.info("리스트 요청");
-		List<ProductVO> list = service.searchList(keyword);
-		model.addAttribute("product", list);
-		return "/shop/searchList";
+		String[] keyArray = keyword.split(" ");
+		List<String> keyList = Arrays.asList(keyArray);
+		log.info("키워드 리스트 출력 : " + keyList);
+		if(keyList.isEmpty()) {
+			return "/error/searchError";
+		} else {
+			log.info("검색 테스트 키워드 : " + keyword);
+			model.addAttribute("keyword",keyword);
+			log.info("검색 리스트 호출");
+			log.info("리스트 요청");
+//		List<ProductVO> list = service.searchList(keyword);
+//		model.addAttribute("product", list);
+			List<ProductVO> searchList = service.searchKeyword(keyList);
+			log.info("키워드 리스트 검색 상품 출력 : " + searchList);
+			model.addAttribute("product", searchList);
+			
+			return "/shop/searchList";			
+		}
 	}
 	
 }
