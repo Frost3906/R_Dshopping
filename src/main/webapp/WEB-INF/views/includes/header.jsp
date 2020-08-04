@@ -78,6 +78,11 @@
 			          <li class="nav-item">
 			            <a class="nav-link" href="#">Contact</a>
 			          </li>
+   			     
+   			          <c:if test="${auth.role=='admin'}">
+			          	<li><a class="nav-link" href="/member/admin">Manage</a></li>
+			          </c:if>
+			     
 			          </c:if>
 			          <c:if test="${empty auth}">			          
 			          <li class="nav-item active">			          
@@ -101,8 +106,8 @@
 			            <a class="nav-link" href="#">Contact</a>
 			          </li>
 			          <!-- 권한에 따라 관리자 페이지 표시여부 -->
-			          <c:if test="${auth.role=='admin'}">
-			          	<li><a class="nav-link" href="/member/admin">Manage</a></li>
+			          
+			          <!--  empty -->
 			          </c:if>
 					</ul>
 			      </div>
