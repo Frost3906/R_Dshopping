@@ -32,7 +32,7 @@ public class AdminController {
 	public String addProduct(ProductVO vo) {
 		log.info("상품 등록 요청");
 		service.addProduct(vo);
-		return "/";
+		return "/shop/home";
 	}
 
 
