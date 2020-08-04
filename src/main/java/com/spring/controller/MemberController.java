@@ -1,5 +1,7 @@
 package com.spring.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,12 +25,33 @@ public class MemberController {
 	
 	@GetMapping("/signIn")
 	public void signinForm() {
-		log.info("로그인 폼 화면 표시");		
+		log.info("로그인 화면 표시");		
+	}
+	
+	@PostMapping("/signIn")
+	public String signinPost(MemberVO vo, HttpSession session) {
+		log.info("로그인 절차 진행");
+		log.info(""+vo.getEmail());		
+		
+		MemberVO member=service.getMember(vo.getEmail());
+		if(member != null) {
+			session.setAttribute("auth", member);
+			return "redirect:/";
+		}
+		return "/member/signIn";
+		
+	}
+	
+	@GetMapping("/logout")
+	public String logout(HttpSession session) {
+		log.info("로그아웃");
+		session.removeAttribute("auth");
+		return "redirect:/";
 	}
 	
 	@GetMapping("/signUp")
 	public void signupForm() {
-		log.info("회원가입 폼 화면 표시");
+		log.info("회원가입 화면 표시");
 	}	
 	
 	@PostMapping("/signUp")
@@ -43,5 +66,10 @@ public class MemberController {
 			rttr.addFlashAttribute("error","회원가입이 실패했습니다.");			
 			return "/member/signUp";
 		}
+	}
+	
+	@GetMapping("/myPage")
+	public void myPageForm() {
+		log.info("마이페이지 화면 표시");
 	}
 }
