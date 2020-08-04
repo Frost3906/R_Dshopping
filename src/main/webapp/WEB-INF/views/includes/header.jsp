@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page session="false" %>
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
 
@@ -75,6 +75,11 @@
 			          <li class="nav-item">
 			            <a class="nav-link" href="#">Contact</a>
 			          </li>
+			          <!-- 권한에 따라 관리자 페이지 표시여부 -->
+			          <c:if test="${auth.role=='admin'}">
+			          	<li><a class="nav-link" href="/member/admin">Manage</a></li>
+			          </c:if>
+			          
 			        </ul>
 			      </div>
 				</div>

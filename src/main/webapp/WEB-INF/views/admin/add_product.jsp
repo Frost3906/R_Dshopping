@@ -11,7 +11,8 @@
         	<!-- 상품 카드 위치 -->
         	<img src="http://placehold.it/400x400" alt=""/>
         	<div class="product-details ml-5 col-lg">
-	        	<h1>${vo.p_name}</h1>
+        		<form action="">
+	        	<h1>상품 이름</h1>
 	        	<br>
 	        	<p>${vo.p_content}</p>
 	 			<br>
@@ -19,48 +20,42 @@
 	 			<ul class="list-group list-group-flush">
 	 				<li class="list-group-item">
 		 					<div class="float-left">가격</div>
-		 					<div class="float-right">${vo.p_price}</div>
+		 					<div class="float-right">
+								<input type="text" />
+							</div>
 	 			  	</li>
 	 				<li class="list-group-item">
-	 						<div class="float-left">재고(${vo.p_stock}):</div>
+	 						<div class="float-left">재고</div>
 	 						<div class="float-right">
-							<c:if test="${vo.p_stock!=0}">
-	 							<select name="quantity" id="quantity" onchange="quantity();">
-	 								<option value="0">0</option>
-	 								<option value="1">1</option>
-	 								<option value="2">2</option>
-	 								<option value="3">3</option>
-	 								<option value="4">4</option>
-	 								<option value="5">5</option>
-	 								<option value="6">6</option>
-	 								<option value="7">7</option>
-	 								<option value="8">8</option>
-	 								<option value="9">9</option>
-	 								<option value="10">10</option>
-	 							</select>
-							</c:if>
-							<c:if test="${vo.p_stock==0}">
-								품절
-							</c:if>
+								<input type="text" />
 	 						</div>
 	 				</li>
-	 				<li class="list-group-item">배송구분	</li>
-	 				<li class="list-group-item">포장타입	</li>
+	 				<li class="list-group-item">배송구분	
+	 					<input type="text" />
+	 				</li>
+	 				<li class="list-group-item">포장타입	
+	 					<input type="text" />
+	 				</li>
 	 			</ul>       	
+        	</form>
         	</div>
-        </div>
-        	<form action="/shop/cart">
         	<div class="check float-right mb-3">
-        		<div>
+        		<p>
         			총 상품 금액
-        			<div id="price">0</div> 
-        		</div>
+        			<div id="price"></div> 
+        		</p>
         		<button class="btn btn-success btn-lg mt-3">장바구니 담기</button>
         	</div>
-        	</form>
+        		
+        	
+        </div>
+        	
+        	
+        	
         <!-- /.row -->
       </div>
       <!-- /.col-lg-9 -->
+    </div>
       	<div>
       		<h3>연관 상품</h3>
       		<div>
@@ -96,7 +91,6 @@
       		</div>
       		</div>
 		</div>
-	</div>
 </div>
 
 <script>

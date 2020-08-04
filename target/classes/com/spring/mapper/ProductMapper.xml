@@ -49,4 +49,9 @@
 		order by p_category3 ASC
 	</select>
 
+	<!-- 장바구니 담는 sql -->
+	<insert id="addCart">
+		insert into cartTBL(cartNum,email,p_code,cartStock) values(cart_seq.nextval,#{email},#{p_code},#{cartStock})
+	</insert>
+
 </mapper>
