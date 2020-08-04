@@ -25,7 +25,14 @@ public class AdminController {
 	@GetMapping("/add")
 	public String addProductForm() {
 		log.info("상품 등록 form 호출");
-		return "add_product";
+		return "/admin/add_product";
+	}
+	
+	@PostMapping("/add")
+	public String addProduct(ProductVO vo) {
+		log.info("상품 등록 요청");
+		service.addProduct(vo);
+		return "/";
 	}
 
 

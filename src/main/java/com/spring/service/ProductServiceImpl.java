@@ -14,7 +14,12 @@ public class ProductServiceImpl implements ProductService {
 	
 	@Autowired
 	private ProductMapper product;
-
+	
+	
+	@Override
+	public void addProduct(ProductVO vo) {
+		product.addProduct(vo);
+	}
 	@Override
 	public List<ProductVO> searchList(String keyword) {
 		return product.searchList(keyword);
@@ -41,8 +46,10 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public void addcart(CartVO vo) {
-		product.addcart(vo);
+	public void addCart(CartVO vo) {
+		product.addCart(vo);
 	}
+
+
 
 }

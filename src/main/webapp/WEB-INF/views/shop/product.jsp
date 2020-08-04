@@ -4,7 +4,7 @@
 <%@ include file="../includes/header.jsp" %>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.js" integrity="sha256-DrT5NfxfbHvMHux31Lkhxg42LY6of8TaYyK50jnxRnM=" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-<div class="container">
+<div class="container mt-5">
 	<div class="row">
       <div class="col-lg-12">
         <div class="row mt-5">
@@ -71,9 +71,9 @@
       			</ul>
       		</div>
       	</div>
-      	<div>
-      		<br>
-      		<div>
+      				
+	</div>
+	<div>
       		<ul class="nav nav-tabs mt-5" id="productTab" role="tablist">
 				<li class="nav-item col-sm text-center"><a class="nav-link active" href="#goods-description" data-toggle="tab" aria-controls="goods-description" aria-selected="true">상품설명</a></li>
       			<li class="nav-item col-sm text-center"><a class="nav-link" href="#goods-infomation" data-toggle="tab" aria-controls="goods-infomation" aria-selected="true">상세정보</a></li>
@@ -95,8 +95,6 @@
       			</div>     			      			
       		</div>
       		</div>
-		</div>
-	</div>
 </div>
 
 <script>
