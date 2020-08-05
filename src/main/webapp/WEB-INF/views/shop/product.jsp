@@ -2,10 +2,12 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ include file="../includes/header.jsp" %>
-<script src="https://code.jquery.com/jquery-3.5.1.slim.js" integrity="sha256-DrT5NfxfbHvMHux31Lkhxg42LY6of8TaYyK50jnxRnM=" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.1/js/bootstrap.min.js" integrity="sha384-XEerZL0cuoUbHE4nZReLT7nx9gQrQreJekYhJD9WNWhH8nEW+0c5qq7aIo2Wl30J" crossorigin="anonymous"></script>
 <div class="container mt-5 mb-5">
 	<div class="row">
+	<form action="" method="post" id="purchase" name="purchase">
       <div class="col-lg-12">
         <div class="row mt-5">
         	<!-- 상품 카드 위치 -->
@@ -25,20 +27,8 @@
 	 						<div class="float-left">재고(${vo.p_stock}):</div>
 	 						<div class="float-right">
 							<c:if test="${vo.p_stock!=0}">
-	 							<select name="quantity" id="quantity" onchange="quantity();">
-	 								<option value="0">0</option>
-	 								<option value="1">1</option>
-	 								<option value="2">2</option>
-	 								<option value="3">3</option>
-	 								<option value="4">4</option>
-	 								<option value="5">5</option>
-	 								<option value="6">6</option>
-	 								<option value="7">7</option>
-	 								<option value="8">8</option>
-	 								<option value="9">9</option>
-	 								<option value="10">10</option>
-	 							</select>
-							</c:if>
+	 							<input  type="number" name="cartStock" id="cartStock" min="1" max="${vo.p_stock}" value="0">
+	 						</c:if>
 							<c:if test="${vo.p_stock==0}">
 								품절
 							</c:if>
@@ -49,19 +39,21 @@
 	 			</ul>       	
         	</div>
         </div>
-        	<form action="/shop/cart">
+        	
         	<div class="check float-right mb-3">
         		<div>
         			총 상품 금액
-        			<div id="price">0</div> 
+        			<div id="price"></div> 
         		</div>
-        		<button class="btn btn-success btn-lg mt-3">장바구니 담기</button>
+        		<button type="button" class="btn btn-success btn-lg mt-3 addCart" data-toggle="modal" data-target="#shoppingorcheck">장바구니 담기</button>
         	</div>
-        	</form>
+        	
         <!-- /.row -->
       </div>
-      <!-- /.col-lg-9 -->
-      	<div>
+      </form>
+      <!-- /.col-lg-9 -->   				
+	</div>
+    <div>
       		<h3>연관 상품</h3>
       		<div>
       			<ul class="list-group list-group-horizontal mb-5">
@@ -70,9 +62,7 @@
       				<li class="list-group-item">3</li>
       			</ul>
       		</div>
-      	</div>
-      				
-	</div>
+    </div>	
 	<div>
       		<ul class="nav nav-tabs mt-5" id="productTab" role="tablist">
 				<li class="nav-item col-sm text-center"><a class="nav-link active" href="#goods-description" data-toggle="tab" aria-controls="goods-description" aria-selected="true">상품설명</a></li>
@@ -96,20 +86,70 @@
       		</div>
       		</div>
 </div>
+<!-- Modal -->
+<div class="modal fade" id="shoppingorcheck" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel"></h4>
+      </div>
+      <div class="modal-body">
+        	장바구니에 물건을 담았습니다.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" >쇼핑 계속하기</button>
+        <button type="button" class="btn btn-primary" >장바구니 가기</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <script>
-$('#productTab a').click(function (e) {
-	  e.preventDefault();
-	  $(this).tab('show');
-	  $('#productTab a').removeClass('active');
-	  $(this).addClass('active');
+$(function(){
+	
+	$('#productTab a').click(function (e) {
+		  e.preventDefault();
+		  $(this).tab('show');
+		  $('#productTab a').removeClass('active');
+		  $(this).addClass('active');
+	})
+
+	$("#cartStock").on("propertychange change keyup paste input", function(){
+		let amount = $("#cartStock").val();
+		let total_price = amount * ${vo.p_price};
+		$('#price').html(total_price);
+	})
+
+
+
+	$(".addCart").click(function(){
+		let p_code = ${vo.p_code};
+		let cartStock = $("#cartStock").val();
+		
+		let data = {
+				p_code : p_code,
+				cartStock : cartStock
+		};
+		
+		$.ajax({
+			url : "/shop/addCart",
+			type : "post",
+			data : data,
+			success : function(){
+				
+			},
+			error : function(){
+				
+			}
+		})
+	 	
+
+		
+	})
+	
 })
 
-function quantity(){
-	let amount = $("#quantity").val();
-	let total_price = amount * ${vo.p_price};
-	$('#price').html(total_price);
-}
 </script>
 
 
