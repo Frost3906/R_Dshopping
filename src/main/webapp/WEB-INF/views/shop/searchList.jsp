@@ -89,12 +89,12 @@
 	
   </div>
   <!-- /.container -->
-<%-- <form action="searchList" id="actionForm" method="post">
+<form action="search" id="actionForm" method="post">
 	<input type="hidden" name="pageNum" value="6" />
 	<input type="hidden" name="amount" value="10" />
 	<input type="hidden" name="type" value="3" />
 	<input type="hidden" name="keyword" value="${keyword}" />
-</form> --%>
+</form>
 <script>    
 $(function(){
     var pageBtn = $("ul > li");    //  ul > li 이를 pageBtn 으로 칭한다. (클릭이벤트는 li에 적용 된다.)
@@ -102,12 +102,12 @@ $(function(){
 	    pageBtn .removeClass("active");     // pageBtn 속에 (active) 클래스를 삭제.
 	    $(this).parent().addClass("active"); // 클릭한 a에 (active)클래스를 넣는다.
 	})
-/* 	$(".page-item").click(function(e){
+ 	$(".page-item").click(function(e){
 		e.preventDefault();
 		// 폼 전송하기
 		actionForm.submit();
 		
-	}) */
+	})
 });
 </script>
 <%@include file="../includes/footer.jsp" %> 

@@ -77,7 +77,7 @@ public class ShopController {
 		String[] keyArray = keyword.split(" ");
 		List<String> keyList = Arrays.asList(keyArray);
 		model.addAttribute("keyword",keyword);
-		log.info("키워드 리스트 출력 : " + keyList);
+		log.info("키워드 출력 : " + keyword);
 		if(keyList.isEmpty()) {
 			return "/error/searchError";
 		} else {
