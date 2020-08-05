@@ -1,13 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<<<<<<< HEAD
+=======
 
+>>>>>>> branch 'master' of https://github.com/Frost3906/R_Dshopping.git
 <!DOCTYPE html>
 <html>
 
 <head>
 
-  <meta charset="utf-8">
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
@@ -20,9 +23,11 @@
   <!-- Custom styles for this template -->
   <link href="/resources/css/shop-homepage.css" rel="stylesheet">
   <script src="https://code.jquery.com/jquery-3.5.1.slim.js" integrity="sha256-DrT5NfxfbHvMHux31Lkhxg42LY6of8TaYyK50jnxRnM=" crossorigin="anonymous"></script>
-  
+  <!-- <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script> -->
+ 
   <!-- myPage CSS -->
   <link rel="stylesheet" href="../resources/myPage/css/style.css" />
+  
   <!-- Sign-In&Out CSS -->
   <!-- <link rel="shortcut icon" href="/resources/signIn/images/fav.jpg">
   <link rel="stylesheet" href="/resources/signIn/css/bootstrap.min.css">
@@ -57,6 +62,7 @@
 				<div>
 			      <div class="collapse navbar-collapse" id="navbarResponsive">
 			        <ul class="navbar-nav ml-auto">
+			        <!-- 로그인 상황에 따른 navbar 변경(로그인 시) -->
 			          <c:if test="${!empty auth}">
 			          	<li class="nav-item active">			          
 			            <a class="nav-link" href="/">Home
@@ -70,10 +76,10 @@
 			            <a class="nav-link" href="#">Services</a>
 			          </li>
 			          <li class="nav-item">
-			            HI!!<a class="nav-link" href="/member/myPage">${auth.firstName}</a>
+			            <a class="nav-link" href="/member/myPage" style="text-decoration: underline;">HI!! ${auth.firstName}</a>
 			          </li>
 			          <li class="nav-item">
-			            <a class="nav-link" href="logout">LogOut</a>
+			            <a class="nav-link" href="/member/logout">LogOut</a>
 			          </li>
 			          <li class="nav-item">
 			            <a class="nav-link" href="#">Contact</a>
@@ -84,6 +90,7 @@
 			          </c:if>
 			     
 			          </c:if>
+			          <!-- 로그인 상황에 따른 navbar 변경(비로그인 시) -->
 			          <c:if test="${empty auth}">			          
 			          <li class="nav-item active">			          
 			            <a class="nav-link" href="/">Home
@@ -111,9 +118,7 @@
 			          </c:if>
 					</ul>
 			      </div>
-				</div>
-				
-	    	</div>
-	    
+				</div>				
+	    	</div>	    
 		</nav>
 	</div>

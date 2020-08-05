@@ -2,6 +2,28 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.spring.mapper.BoardMapper">
 
-	<!--  -->
+	<!-- insert -->
+	<insert id="insert">
+		insert into board(bno)
+		values(#{bno})
+	</insert>
+	
+	<!-- select -->
+	<select id="select">
+		select * from board where bno=#{bno}
+	</select>
+	
+	<!-- update -->
+	<update id="update">
+		update board
+		set title=#{title}, content=#{content}
+		where bno=#{bno}
+	</update>
+	
+	<!-- delete -->
+	<delete id="delete">
+		delete from board
+		where bno=#{bno}
+	</delete>
 
 </mapper>
