@@ -57,7 +57,7 @@ public class ShopController {
 	public void cart() {
 		log.info("장바구니 호출");
 	}
-	@PostMapping("/cart")
+	@PostMapping("/addCart")
 	public void postCart() {
 		log.info("카트 담기 테스트");
 		
@@ -76,18 +76,13 @@ public class ShopController {
 	public String search(String keyword, Model model) {
 		String[] keyArray = keyword.split(" ");
 		List<String> keyList = Arrays.asList(keyArray);
-		log.info("키워드 리스트 출력 : " + keyList);
+		model.addAttribute("keyword",keyword);
+		log.info("키워드 출력 : " + keyword);
 		if(keyList.isEmpty()) {
 			return "/error/searchError";
 		} else {
-			log.info("검색 테스트 키워드 : " + keyword);
 			model.addAttribute("keyword",keyword);
-			log.info("검색 리스트 호출");
-			log.info("리스트 요청");
-//		List<ProductVO> list = service.searchList(keyword);
-//		model.addAttribute("product", list);
 			List<ProductVO> searchList = service.searchKeyword(keyList);
-			log.info("키워드 리스트 검색 상품 출력 : " + searchList);
 			model.addAttribute("product", searchList);
 			
 			return "/shop/searchList";			
