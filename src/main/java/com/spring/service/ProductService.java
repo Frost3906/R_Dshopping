@@ -7,7 +7,7 @@ import com.spring.domain.ProductVO;
 
 public interface ProductService {
 	public void addProduct(ProductVO vo);
-	public List<ProductVO> searchList(String keyword);
+	public List<ProductVO> getList();
 	public ProductVO getProduct(String code);
 	public List<String> searchCategory2(String p_category1);
 	public List<String> searchCategory3(String p_category2, String p_category1);

@@ -11,7 +11,7 @@ public interface ProductMapper {
 	
 	public void addProduct(ProductVO vo);
 	
-	public List<ProductVO> searchList(String keyword);
+	public List<ProductVO> getList();
 	public ProductVO getProduct(String code);
 	public List<String> searchCategory2(String category1);
 	public List<String> searchCategory3(@Param ("category2") String category2, 
