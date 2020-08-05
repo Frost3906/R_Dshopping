@@ -57,7 +57,7 @@ public class ShopController {
 	public void cart() {
 		log.info("장바구니 호출");
 	}
-	@PostMapping("/cart")
+	@PostMapping("/addCart")
 	public void postCart() {
 		log.info("카트 담기 테스트");
 		
