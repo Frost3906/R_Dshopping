@@ -62,19 +62,12 @@
 		      <a class="page-link" href="#" tabindex="-1" aria-disabled="true">First</a>
 		    </li>
 		    <li class="page-item"><a class="page-link" href="#">...</a></li>
-		    <li class="page-item disabled">
-		      <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+		    <li class="page-item <c:if test='${pageNum>11}'>disabled</c:if>">
+		      <a class="page-link" href="<c:out value='${idx}'/>" tabindex="-1" aria-disabled="true">Previous</a>
 		    </li>
-		    <li class="page-item ${pageNum==1?'active':''}"><a class="page-link" href="1">1</a></li>
-		    <li class="page-item ${pageNum==2?'active':''}"><a class="page-link" href="2">2</a></li>
-		    <li class="page-item ${pageNum==3?'active':''}"><a class="page-link" href="3">3</a></li>
-		    <li class="page-item ${pageNum==4?'active':''}"><a class="page-link" href="4">4</a></li>
-		    <li class="page-item ${pageNum==5?'active':''}"><a class="page-link" href="5">5</a></li>
-		    <li class="page-item ${pageNum==6?'active':''}"><a class="page-link" href="6">6</a></li>
-		    <li class="page-item ${pageNum==7?'active':''}"><a class="page-link" href="7">7</a></li>
-		    <li class="page-item ${pageNum==8?'active':''}"><a class="page-link" href="8">8</a></li>
-		    <li class="page-item ${pageNum==9?'active':''}"><a class="page-link" href="9">9</a></li>
-		    <li class="page-item ${pageNum==10?'active':''}"><a class="page-link" href="10">10</a></li>
+		    <c:forEach var="idx" begin="1" end="${idx}">
+		    	<li class="page-item ${pageNum==idx?'active':''}"><a class="page-link" href="${idx}">${idx}</a></li>
+		    </c:forEach>
 		    <li class="page-item">
 		      <a class="page-link" href="#">Next</a>
 		    </li>

@@ -107,6 +107,7 @@ public class ShopController {
 		model.addAttribute("pageNum", pageNum);
 		log.info("amount : " + amount);
 		model.addAttribute("amount", amount);
+		int idx = 0;
 		// 검색 리스트 처리
 		if(keyList.isEmpty()) {
 			return "/error/searchError"; // 검색어 미 입력시 에러 페이지 호출
@@ -114,7 +115,11 @@ public class ShopController {
 			List<ProductVO> searchList = service.searchKeyword(keyList,Integer.parseInt(pageNum),Integer.parseInt(amount));
 			model.addAttribute("product", searchList);
 			log.info("검색 갯수 : " + service.searchCount(keyList));
-			int idx = (service.searchCount(keyList)/Integer.parseInt(amount))+1;
+			if(service.searchCount(keyList)%Integer.parseInt(amount)==0) {
+				idx = (service.searchCount(keyList)/Integer.parseInt(amount));
+			} else {
+				idx = (service.searchCount(keyList)/Integer.parseInt(amount)+1);
+			}
 			model.addAttribute("idx", idx);
 			log.info("idx : " + idx);
 			return "/shop/searchList";			
