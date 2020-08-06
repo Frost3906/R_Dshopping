@@ -15,10 +15,10 @@
   		</div>
   		<div class="col-auto">
 	   	   	<select class="form-control" name="amount">
-	   	   		<option value="10" <c:out value="${cri.amount==10?'selected':''}"/>>10</option>
-	   	   		<option value="20" <c:out value="${cri.amount==20?'selected':''}"/>>20</option>
-	   	   		<option value="30" <c:out value="${cri.amount==30?'selected':''}"/>>30</option>
-	   	   		<option value="40" <c:out value="${cri.amount==40?'selected':''}"/>>40</option>
+	   	   		<option value="3" <c:out value="${amount==3?'selected':''}"/>>3</option>
+	   	   		<option value="6" <c:out value="${amount==6?'selected':''}"/>>6</option>
+	   	   		<option value="9" <c:out value="${amount==9?'selected':''}"/>>9</option>
+	   	   		<option value="12" <c:out value="${amount==12?'selected':''}"/>>12</option>
 	   	   	</select>
   		</div>
   	</div>
@@ -62,19 +62,12 @@
 		      <a class="page-link" href="#" tabindex="-1" aria-disabled="true">First</a>
 		    </li>
 		    <li class="page-item"><a class="page-link" href="#">...</a></li>
-		    <li class="page-item disabled">
-		      <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+		    <li class="page-item <c:if test='${pageNum>11}'>disabled</c:if>">
+		      <a class="page-link" href="<c:out value='${idx}'/>" tabindex="-1" aria-disabled="true">Previous</a>
 		    </li>
-		    <li class="page-item active"><a class="page-link" href="#">1</a></li>
-		    <li class="page-item"><a class="page-link" href="#">2</a></li>
-		    <li class="page-item"><a class="page-link" href="#">3</a></li>
-		    <li class="page-item"><a class="page-link" href="#">4</a></li>
-		    <li class="page-item"><a class="page-link" href="?pageNum=5">5</a></li>
-		    <li class="page-item"><a class="page-link" href="#">6</a></li>
-		    <li class="page-item"><a class="page-link" href="#">7</a></li>
-		    <li class="page-item"><a class="page-link" href="#">8</a></li>
-		    <li class="page-item"><a class="page-link" href="#">9</a></li>
-		    <li class="page-item"><a class="page-link" href="#">10</a></li>
+		    <c:forEach var="idx" begin="1" end="${idx}">
+		    	<li class="page-item ${pageNum==idx?'active':''}"><a class="page-link" href="${idx}">${idx}</a></li>
+		    </c:forEach>
 		    <li class="page-item">
 		      <a class="page-link" href="#">Next</a>
 		    </li>
@@ -89,24 +82,28 @@
 	
   </div>
   <!-- /.container -->
-<form action="search" id="actionForm" method="post">
-	<input type="hidden" name="pageNum" value="6" />
-	<input type="hidden" name="amount" value="10" />
-	<input type="hidden" name="type" value="3" />
+<form action="search" id="actionForm">
 	<input type="hidden" name="keyword" value="${keyword}" />
+	<input type="hidden" name="pageNum" value="${pageNum}" />
+	<input type="hidden" name="amount" value="${amount}" />
 </form>
 <script>    
 $(function(){
-    var pageBtn = $("ul > li");    //  ul > li 이를 pageBtn 으로 칭한다. (클릭이벤트는 li에 적용 된다.)
-    pageBtn .find("a").click(function(){   // pageBtn 에 속해 있는  a 찾아 클릭.
-	    pageBtn .removeClass("active");     // pageBtn 속에 (active) 클래스를 삭제.
-	    $(this).parent().addClass("active"); // 클릭한 a에 (active)클래스를 넣는다.
-	})
- 	$(".page-item").click(function(e){
+	let actionForm = $("#actionForm");
+ 	$(".page-item a").click(function(e){
 		e.preventDefault();
+		// 전송해야 할 폼 가져온 후 pageNum 의 값과 amount 값을 변경한 후
+		actionForm.find("input[name='pageNum']").val($(this).attr("href"));
+		// 폼 전송하기
+		actionForm.submit();		
+	})
+	
+	$(".form-control").change(function(e){
+		e.preventDefault();
+		// 전송해야 할 폼 가져온 후 amount 값을 변경한 후
+		actionForm.find("input[name='amount']").val($(this).val());
 		// 폼 전송하기
 		actionForm.submit();
-		
 	})
 });
 </script>
