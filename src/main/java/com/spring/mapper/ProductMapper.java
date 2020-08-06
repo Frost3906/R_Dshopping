@@ -21,6 +21,7 @@ public interface ProductMapper {
 											  @Param("category3") String category3);
 	public List<ProductVO> searchKeyword(@Param("keywordList") List<String> keywordList);
 	
-	public void addCart(CartVO vo);
+	public int addCart(CartVO vo);
+	public List<CartVO> cartList(String email);
 
 }

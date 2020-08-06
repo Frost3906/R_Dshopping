@@ -63,6 +63,12 @@
 
 	<!-- 장바구니 담는 sql -->
 	<insert id="addCart">
-		insert into cartTBL(cartNum,email,p_code,cartStock) values(cart_seq.nextval,#{email},#{p_code},#{cartStock})
+		insert into cart(cartNum,email,p_code,cart_Stock) values(cart_seq.nextval,#{email},#{p_code},#{cart_Stock})
 	</insert>
+	
+	<select id="cartList" resultType="com.spring.domain.CartVO">
+		select * from cart where email = #{email}
+	</select>
+	
+	
 </mapper>

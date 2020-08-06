@@ -10,6 +10,6 @@ public class CartVO {
 	private int cartNum;
 	private String email;
 	private int p_code;
-	private int cartStock;
+	private int cart_Stock;
 	private Date addDate;
 }

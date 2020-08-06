@@ -6,8 +6,8 @@
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.1/js/bootstrap.min.js" integrity="sha384-XEerZL0cuoUbHE4nZReLT7nx9gQrQreJekYhJD9WNWhH8nEW+0c5qq7aIo2Wl30J" crossorigin="anonymous"></script>
 <div class="container mt-5 mb-5">
-	<div class="row">
 	<form action="" method="post" id="purchase" name="purchase">
+	<div class="row">
       <div class="col-lg-12">
         <div class="row mt-5">
         	<!-- 상품 카드 위치 -->
@@ -45,14 +45,14 @@
         			총 상품 금액
         			<div id="price"></div> 
         		</div>
-        		<button type="button" class="btn btn-success btn-lg mt-3 addCart" data-toggle="modal" data-target="#shoppingorcheck">장바구니 담기</button>
+        		<button type="button" class="btn btn-success btn-lg mt-3 addCart">장바구니 담기</button>
         	</div>
         	
         <!-- /.row -->
       </div>
-      </form>
       <!-- /.col-lg-9 -->   				
 	</div>
+    </form>
     <div>
       		<h3>연관 상품</h3>
       		<div>
@@ -98,8 +98,8 @@
         	장바구니에 물건을 담았습니다.
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-success" >쇼핑 계속하기</button>
-        <button type="button" class="btn btn-primary" >장바구니 가기</button>
+        <button type="button" class="btn btn-success" onclick="location.href='/'">쇼핑 계속하기</button>
+        <button type="button" class="btn btn-primary" onclick="location.href='/shop/cart'">장바구니 가기</button>
       </div>
     </div>
   </div>
@@ -108,6 +108,7 @@
 <script>
 $(function(){
 	
+	//탭 이동 활성화 스크립트
 	$('#productTab a').click(function (e) {
 		  e.preventDefault();
 		  $(this).tab('show');
@@ -115,6 +116,7 @@ $(function(){
 		  $(this).addClass('active');
 	})
 
+	//갯수에 맞춰 가격 출력하는 스크립트
 	$("#cartStock").on("propertychange change keyup paste input", function(){
 		let amount = $("#cartStock").val();
 		let total_price = amount * ${vo.p_price};
@@ -122,33 +124,45 @@ $(function(){
 	})
 
 
-
+	//카트에 담는 스크립트
 	$(".addCart").click(function(){
-		let p_code = ${vo.p_code};
-		let cartStock = $("#cartStock").val();
-		
-		let data = {
-				p_code : p_code,
-				cartStock : cartStock
-		};
-		
-		$.ajax({
-			url : "/shop/addCart",
-			type : "post",
-			data : data,
-			success : function(){
-				
-			},
-			error : function(){
-				
-			}
-		})
+		if($("#cartStock").val()!=0){
+			let email = "${auth.email}";
+			let p_code = ${vo.p_code};
+			let cart_Stock = $("#cartStock").val();
+			
+			let data = {
+					email : email,
+					p_code : p_code,
+					cart_Stock : cart_Stock
+			};
+			
+			$.ajax({
+				url : "/shop/addCart",
+				type : "post",
+				data : data,
+				success : function(result){
+					
+					$("#shoppingorcheck").modal('show');
+					
+				},
+				error : function(){
+					alert("로그인 후 다시 시도 해 주세요")
+				}
+
+			})
+		}
+		else{
+			alert("구매 수량을 확인 해 주세요");
+		}
+	})
+	
+	
 	 	
 
 		
-	})
-	
 })
+	
 
 </script>
 

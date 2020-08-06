@@ -46,12 +46,17 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public void addCart(CartVO vo) {
-		product.addCart(vo);
+	public int addCart(CartVO vo) {
+		return product.addCart(vo);
 	}
 	@Override
 	public List<ProductVO> searchKeyword(List<String> keywordList) {
 		return product.searchKeyword(keywordList);
+	}
+	
+	@Override
+	public List<CartVO> cartList(String email) {
+		return product.cartList(email);
 	}
 
 	
