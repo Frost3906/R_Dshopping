@@ -1,5 +1,6 @@
 <%@include file="../includes/header.jsp"  %>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<script src="/resources/myPage/js/modify.js"></script>
 
 <div class="row mp_main">
   <div class="col-3">
@@ -19,84 +20,86 @@
 	  	Shipping
 	  </div>
 	  <div class="tab-pane fade" id="v-pills-account" role="tabpanel" aria-labelledby="v-pills-account-tab">
-	  	<table>
-	  		<tbody>
-		  		<tr>
-		  			<th scope="row">
-		  				E-Mail  				
-		  			</th>
-		  			<td scope="col"> 
-		  				<input type="text" name="email" class="form-control form-control-sm" value="${auth.email}" readonly>
-		  			</td>
-		  		</tr>
-		  		<tr>
-		  			<th scope="row">
-		  				Current Password  				
-		  			</th>
-		  			<td scope="row">
-		  				<input type="password" name="Current_password" class="form-control form-control-sm">
-		  			</td>
-	  			</tr>
-	  			<tr>
-		  			<th scope="row">
-		  				New Password   				
-		  			</th>
-		  			<td scope="row">
-		  				<input type="password" name="New_password" class="form-control form-control-sm">
-		  			</td>
-		  		</tr>
-		  		<tr>
-		  			<th scope="row">
-		  				Confirm Password   				
-		  			</th>
-		  			<td scope="row">
-		  				<input type="password" name="Confirm_Password" class="form-control form-control-sm">
-		  			</td>				  	
-		  		</tr>	
-		  		<tr>
-		  			<th scope="row">
-		  				Mobile   				
-		  			</th>
-		  			<td scope="row">
-		  				<input type="text" name="mobile" class="form-control form-control-sm">
-		  			</td>				  	
-		  		</tr>	
-		  		<tr>
-		  			<th scope="row">
-		  				Street  				
-		  			</th>
-		  			<td scope="row">
-		  				<input type="text" name="street" class="form-control form-control-sm">
-		  			</td>				  	
-		  		</tr>	
-		  		<tr>
-		  			<th scope="row">
-		  				Address  				
-		  			</th>
-		  			<td scope="row">
-		  				<input type="text" name="address" class="form-control form-control-sm">
-		  			</td>				  	
-		  		</tr>	
-		  		<tr>
-		  			<th scope="row">
-		  				City  				
-		  			</th>
-		  			<td scope="row">
-		  				<input type="text" name="City" class="form-control form-control-sm">
-		  			</td>				  	
-		  		</tr>	
-		  		<tr>
-		  			<th scope="row">
-		  				Postcode  				
-		  			</th>
-		  			<td scope="row">
-		  				<input type="text" name="postcode" class="form-control form-control-sm">
-		  			</td>				  	
-		  		</tr>	
-	  		</tbody>
-	  	</table>
-		<button type="button" class="btn btn-secondary">Confirm</button>
-		<button type="reset" class="btn btn-secondary">Cancel</button>
+	  	<form id="modify" action="modify" method="post">
+		  	<table>
+		  		<tbody>
+			  		<tr>
+			  			<th scope="row">
+			  				E-Mail  				
+			  			</th>
+			  			<td scope="col"> 
+			  				<input type="text" name="email" class="form-control form-control-sm" value="${auth.email}" readonly>
+			  			</td>
+			  		</tr>
+			  		<tr>
+			  			<th scope="row">
+			  				Current Password  				
+			  			</th>
+			  			<td scope="row">
+			  				<input type="password" name="password" class="form-control form-control-sm">
+			  			</td>
+		  			</tr>
+		  			<tr>
+			  			<th scope="row">
+			  				New Password   				
+			  			</th>
+			  			<td scope="row">
+			  				<input type="password" name="new_password" class="form-control form-control-sm">
+			  			</td>
+			  		</tr>
+			  		<tr>
+			  			<th scope="row">
+			  				Confirm Password   				
+			  			</th>
+			  			<td scope="row">
+			  				<input type="password" name="confirm_password" class="form-control form-control-sm">
+			  			</td>				  	
+			  		</tr>	
+			  		<tr>
+			  			<th scope="row">
+			  				Mobile   				
+			  			</th>
+			  			<td scope="row">
+			  				<input type="text" name="mobile" class="form-control form-control-sm">
+			  			</td>				  	
+			  		</tr>	
+			  		<tr>
+			  			<th scope="row">
+			  				Street  				
+			  			</th>
+			  			<td scope="row">
+			  				<input type="text" name="street" class="form-control form-control-sm">
+			  			</td>				  	
+			  		</tr>	
+			  		<tr>
+			  			<th scope="row">
+			  				Address  				
+			  			</th>
+			  			<td scope="row">
+			  				<input type="text" name="address" class="form-control form-control-sm">
+			  			</td>				  	
+			  		</tr>	
+			  		<tr>
+			  			<th scope="row">
+			  				City  				
+			  			</th>
+			  			<td scope="row">
+			  				<input type="text" name="City" class="form-control form-control-sm">
+			  			</td>				  	
+			  		</tr>	
+			  		<tr>
+			  			<th scope="row">
+			  				Postcode  				
+			  			</th>
+			  			<td scope="row">
+			  				<input type="text" name="postcode" class="form-control form-control-sm">
+			  			</td>				  	
+			  		</tr>	
+		  		</tbody>
+		  	</table>
+			<button type="submit" class="btn btn-secondary">Confirm</button>
+			<button type="reset" class="btn btn-secondary">Cancel</button>
+		</form>
 	  </div>
 	  <div class="tab-pane fade" id="v-pills-question" role="tabpanel" aria-labelledby="v-pills-settings-tab">
 	  	Question

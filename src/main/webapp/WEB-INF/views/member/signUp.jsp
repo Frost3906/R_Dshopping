@@ -13,10 +13,15 @@
 
 <body> -->          
 	<%@include file="../includes/header.jsp" %>
+	
+	<!-- SignUp Page CSS -->
 	<link rel="shortcut icon" href="/resources/signUp/images/fav.jpg">
     <link rel="stylesheet" href="/resources/signUp/css/bootstrap.min.css">
     <link rel="stylesheet" href="/resources/signUp/css/fontawsom-all.min.css">
     <link rel="stylesheet" type="text/css" href="/resources/signUp/css/style.css" />
+        
+    <script src="/resources/signUp/js/signup.js"></script>
+    
     <title>RDS SignUp</title>
            <div class="register">
                <div class="container">
@@ -35,8 +40,8 @@
                        </div>
                        <div class="col-lg-5 col-md-6 ">
                            <div class="register-box">
-                               <h2>Sign Up</h2>
-                               <form action="" method="post">
+                               <h2>Sign Up</h2>                               
+                               <form id="signUp" action="" method="post">
                                <div class="row form-row">
                                    <div class="col-md-4">
                                        <label for="">First Name</label>
@@ -58,7 +63,7 @@
                                        <label for="">Email Address</label>
                                    </div>
                                    <div class="col-md-8">
-                                       <input type="text" name="email" placeholder="Enter Email Address" class="form-control form-control-sm">
+                                       <input type="text" name="email" placeholder="example@example.com" class="form-control form-control-sm">
                                    </div>
                                </div>
                                <div class="row form-row">
