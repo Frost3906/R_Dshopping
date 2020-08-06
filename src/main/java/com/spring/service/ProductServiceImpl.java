@@ -50,8 +50,12 @@ public class ProductServiceImpl implements ProductService {
 		product.addCart(vo);
 	}
 	@Override
-	public List<ProductVO> searchKeyword(List<String> keywordList) {
-		return product.searchKeyword(keywordList);
+	public List<ProductVO> searchKeyword(List<String> keywordList,int pageNum, int amount) {
+		return product.searchKeyword(keywordList,pageNum,amount);
+	}
+	@Override
+	public int searchCount(List<String> keywordList) {
+		return product.searchCount(keywordList);
 	}
 
 	

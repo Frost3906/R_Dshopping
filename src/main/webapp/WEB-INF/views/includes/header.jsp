@@ -49,8 +49,10 @@
 				
 				<div>
 				    <!-- 검색 및 검색 버튼 -->
-				    <form class="form-inline my-2 my-lg-0" method="post" action="/shop/search">
+				    <form class="form-inline my-2 my-lg-0" method="get" action="/shop/search">
 				      <input class="form-control mr-sm-2" name="keyword" type="search" placeholder="Search" aria-label="Search" <c:if test="${!empty keyword}">value="${keyword}"</c:if>>
+				      <input type="hidden" name="pageNum" value="1" />
+				      <input type="hidden" name="amount" value="6" />
 				      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
 				    </form>
 				</div>
