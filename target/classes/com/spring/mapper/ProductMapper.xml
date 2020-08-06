@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.sprinp.mapper.ProductMapper">
+<mapper namespace="com.spring.mapper.ProductMapper">
 
 	<select id="getList" resultType="com.spring.domain.ProductVO">
 		select * 
@@ -88,8 +88,8 @@
 		select
      		row_number() over(order by c.p_code desc) as num,
      		c.cartNum, c.email, c.p_code, c.cart_Stock, c.addDate,
-     		p.p_name, p.p_price, p.p_img
- 		from tbl_cart c
+     		p.p_name, p.p_price
+ 		from cart c
      		inner join product p
          	on c.p_code = p.p_code   
      	where c.email = #{email}

@@ -126,35 +126,40 @@ $(function(){
 
 	//카트에 담는 스크립트
 	$(".addCart").click(function(){
-		if($("#cartStock").val()!=0){
-			let email = "${auth.email}";
-			let p_code = ${vo.p_code};
-			let cart_Stock = $("#cartStock").val();
-			
-			let data = {
-					email : email,
-					p_code : p_code,
-					cart_Stock : cart_Stock
-			};
-			
-			$.ajax({
-				url : "/shop/addCart",
-				type : "post",
-				data : data,
-				success : function(result){
-					
-					$("#shoppingorcheck").modal('show');
-					
-				},
-				error : function(){
-					alert("로그인 후 다시 시도 해 주세요")
-				}
+		if("${auth.email}"!=""){
+			if($("#cartStock").val()!=0){
+				let email = "${auth.email}";
+				let p_code = ${vo.p_code};
+				let cart_Stock = $("#cartStock").val();
+				
+				let data = {
+						email : email,
+						p_code : p_code,
+						cart_Stock : cart_Stock
+				};
+				
+				$.ajax({
+					url : "/shop/addCart",
+					type : "post",
+					data : data,
+					success : function(result){
+						
+						$("#shoppingorcheck").modal('show');
+						
+					},
+					error : function(){
+						alert("잠시 후 다시 시도 해 주세요")
+					}
 
-			})
+				})
+			}
+			else{
+				alert("구매 수량을 확인 해 주세요");
+			}
+		}else{
+			alert("로그인 후 이용 해 주세요")
 		}
-		else{
-			alert("구매 수량을 확인 해 주세요");
-		}
+		
 	})
 	
 	

@@ -61,7 +61,6 @@ public class ShopController {
 	public void cart(Model model, HttpSession session) {
 		log.info("장바구니 호출");
 		MemberVO vo = (MemberVO) session.getAttribute("auth");
-
 		log.info("email : " + vo.getEmail());
 		List<CartVO> list = service.cartList(vo.getEmail());
 		model.addAttribute("mycart",list);
