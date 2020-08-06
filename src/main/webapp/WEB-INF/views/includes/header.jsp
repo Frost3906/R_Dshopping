@@ -1,10 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<<<<<<< HEAD
-=======
-
->>>>>>> branch 'master' of https://github.com/Frost3906/R_Dshopping.git
 <!DOCTYPE html>
 <html>
 
@@ -54,7 +50,7 @@
 				<div>
 				    <!-- 검색 및 검색 버튼 -->
 				    <form class="form-inline my-2 my-lg-0" method="post" action="/shop/search">
-				      <input class="form-control mr-sm-2" name="keyword" type="search" placeholder="Search" aria-label="Search">
+				      <input class="form-control mr-sm-2" name="keyword" type="search" placeholder="Search" aria-label="Search" <c:if test="${!empty keyword}">value="${keyword}"</c:if>>
 				      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
 				    </form>
 				</div>
