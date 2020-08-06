@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -57,8 +59,9 @@ public class ShopController {
 	}
 	
 	@GetMapping("/cart")
-	public void cart(MemberVO vo, Model model) {
-		log.info("장바구니 호출"+vo);
+	public void cart(Model model, HttpSession session) {
+		log.info("장바구니 호출");
+		MemberVO vo = (MemberVO) session.getAttribute("auth");
 		List<CartVO> list = service.cartList(vo.getEmail());
 		model.addAttribute("mycart",list);
 		
