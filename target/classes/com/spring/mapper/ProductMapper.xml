@@ -84,8 +84,15 @@
 		insert into cart(cartNum,email,p_code,cart_Stock) values(cart_seq.nextval,#{email},#{p_code},#{cart_Stock})
 	</insert>
 	
-	<select id="cartList" resultType="com.spring.domain.CartVO">
-		select * from cart where email = #{email}
+	<select id="cartList" resultType="com.spring.domain.CartListVO">
+		select
+     		row_number() over(order by c.p_code desc) as num,
+     		c.cartNum, c.email, c.p_code, c.cart_Stock, c.addDate,
+     		p.p_name, p.p_price
+ 		from cart c
+     		inner join product p
+         	on c.p_code = p.p_code   
+     	where c.email = #{email}
 	</select>
 	
 	

@@ -30,11 +30,11 @@
 				<tbody>
 					<c:forEach var="vo" items="${mycart}">
 							<tr>
-								<td>${vo.price}</td>
-								<td>${vo.price}</td>
-								<td>${vo.price}</td>
-								<td>${vo.price}</td>
-								<td>${vo.price}</td>
+								<td>섬네일이미지</td>
+								<td>${vo.p_name}</td>
+								<td>${vo.cart_Stock}</td>
+								<td>${vo.p_price}</td>
+								<td>${vo.p_price*vo.cart_Stock}</td>
 							</tr>
 					</c:forEach>
 				</tbody>
@@ -42,7 +42,7 @@
 			</table>
 			<span class="border-bottom">
 			</span>
-			<c:if test="${empty list}">
+			<c:if test="${empty mycart}">
 				<div class="text-center">상품이 없습니다.</div>
 			</c:if>
 			<div>
