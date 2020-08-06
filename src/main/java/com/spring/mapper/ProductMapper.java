@@ -22,6 +22,7 @@ public interface ProductMapper {
 	public List<ProductVO> searchKeyword(@Param("keywordList") List<String> keywordList, @Param("pageNum") int pageNum, @Param("amount") int amount);
 	public int searchCount(@Param("keywordList") List<String> keywordList);
 	
-	public void addCart(CartVO vo);
+	public int addCart(CartVO vo);
+	public List<CartVO> cartList(String email);
 
 }

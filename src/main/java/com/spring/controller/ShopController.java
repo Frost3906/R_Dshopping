@@ -11,7 +11,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.spring.domain.CartVO;
+import com.spring.domain.MemberVO;
 import com.spring.domain.ProductVO;
 import com.spring.service.ProductService;
 
@@ -54,13 +57,27 @@ public class ShopController {
 	}
 	
 	@GetMapping("/cart")
-	public void cart() {
-		log.info("장바구니 호출");
-	}
-	@PostMapping("/addCart")
-	public void postCart() {
-		log.info("카트 담기 테스트");
+	public void cart(MemberVO vo, Model model) {
+		log.info("장바구니 호출"+vo);
+		List<CartVO> list = service.cartList(vo.getEmail());
+		model.addAttribute("mycart",list);
 		
+		
+	}
+	
+	@ResponseBody
+	@PostMapping("/addCart")
+	public int postCart(CartVO vo) {
+		int result = 0;
+		log.info("카트 담기 테스트");
+		log.info(""+vo);
+		log.info(vo.getEmail());
+		if(vo.getEmail()!="") {
+			result = service.addCart(vo);
+			return result;
+		}else {
+			return result;
+		}
 		
 	}
 	
