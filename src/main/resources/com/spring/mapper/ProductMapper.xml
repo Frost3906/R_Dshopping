@@ -73,6 +73,21 @@
 		</foreach>
 		)
 	</select>
+	
+	<select id="categoryCount" resultType="int" parameterType="java.util.List">
+		select count(*) 
+		from product 
+		where
+			<if test="category2==null">
+				p_category1 = #{category1}
+			</if> 
+			<if test="category2!=null and category3==null">
+				p_category1 = #{category1} and p_category2 = #{category2}
+			</if>
+			<if test="category3!=null">
+				p_category1 = #{category1} and p_category2 = #{category2} and p_category3 = #{category3}
+			</if>
+	</select>
 
 	<!-- 상품 등록 sql -->
 	<insert id="addProduct">

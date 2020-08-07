@@ -62,8 +62,9 @@ public class ProductServiceImpl implements ProductService {
 	public List<CartVO> cartList(String email) {
 		return product.cartList(email);
 	}
-
 	
-
-
+	@Override
+	public int categoryCount(String p_category1, String p_category2, String p_category3) {
+		return product.categoryCount(p_category1, p_category2, p_category3);
+	}
 }
