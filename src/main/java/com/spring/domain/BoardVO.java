@@ -1,6 +1,7 @@
 package com.spring.domain;
 
 import java.sql.Date;
+import java.util.List;
 
 import lombok.Data;
 
@@ -15,5 +16,5 @@ public class BoardVO {
 	private int replycnt;
 	
 	// 게시글 등록시 첨부파일 목록
-//	private List<AttachFileVO> attachList;
+	private List<AttachFileVO> attachList;
 }
