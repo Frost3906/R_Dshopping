@@ -14,6 +14,9 @@ Description: This Template is created for web template
   font-family: 'mouse-500';
   src: url("../fonts/RobotoSlab-Bold.ttf") format("truetype"); }
 /* ===================================== Basic CSS ================================== */
+.error{
+	color:salmon;
+}
 * {
   margin: 0px;
   padding: 0px;

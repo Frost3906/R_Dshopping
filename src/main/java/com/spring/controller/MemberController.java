@@ -8,9 +8,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.domain.MemberVO;
+import com.spring.domain.ModifyMemberVO;
 import com.spring.service.MemberService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -31,15 +33,16 @@ public class MemberController {
 	@PostMapping("/signIn")
 	public String signinPost(MemberVO vo, HttpSession session) {
 		log.info("로그인 절차 진행");
-		log.info(""+vo.getEmail());		
+		log.info(""+vo);		
 		
 		MemberVO member=service.getMember(vo.getEmail());
 		if(member != null) {
-			session.setAttribute("auth", member);
-			return "redirect:/";
+			if(member.getPassword().equals(vo.getPassword())) {
+				session.setAttribute("auth", member);
+				return "redirect:/";				
+			}
 		}
-		return "/member/signIn";
-		
+		return "/member/signIn";		
 	}
 	
 	@GetMapping("/logout")
@@ -66,6 +69,30 @@ public class MemberController {
 			rttr.addFlashAttribute("error","회원가입이 실패했습니다.");			
 			return "/member/signUp";
 		}
+	}
+	
+	@PostMapping("/checkPwd")
+	@ResponseBody
+	public String checkPwd(MemberVO member) {
+		log.info("비밀번호 검사 절차 진행 ");
+		log.info(""+member);
+		MemberVO vo=service.checkPwd(member);
+		if(member.getPassword().equals(vo.getPassword())) {
+			return "true";
+		}else {
+			return "false";
+		}
+	}
+	
+	@PostMapping("/modify")
+	public String modifyPost(ModifyMemberVO modifyMember) {
+		log.info("회원정보 수정 절차 진행");
+		log.info(""+modifyMember);
+		
+		if(service.modify(modifyMember)>0) {
+			return "/member/myPage";
+		}
+		return "/member/myPage";
 	}
 	
 	@GetMapping("/myPage")
