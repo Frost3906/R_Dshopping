@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.spring.domain.CartVO;
 import com.spring.domain.MemberVO;
+import com.spring.domain.PageVO;
 import com.spring.domain.ProductVO;
 import com.spring.service.ProductService;
 
@@ -105,6 +106,8 @@ public class ShopController {
 		model.addAttribute("pageNum", pageNum);
 		log.info("amount : " + amount);
 		model.addAttribute("amount", amount);
+		PageVO pageVO = new PageVO(pageNum, amount,service.searchCount(keyList));
+		model.addAttribute("pageVO", pageVO);
 		int idx = 0;
 		// 검색 리스트 처리
 		if(keyList.isEmpty()) {
