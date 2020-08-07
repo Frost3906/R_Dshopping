@@ -10,7 +10,7 @@
 
 			<div class="cart_goods">
 
-				<table class="table table-striped table-bordered table-hover">
+				<table class="table table-striped table-bordered table-hover" id="cartTable">
 					<colgroup>
 						<col style="width: 375px;"/>
 						<col style="width: 432px;"/>
@@ -74,12 +74,20 @@ $(function(){
 
 	//갯수에 맞춰 가격 출력하는 스크립트
 	$(".amount").on("propertychange change keyup paste input", function(){
-		
+		let sum_price = 0;
 		let amount = $(this).val();
+		
+		// if amount 값이 0이 되면 카트에서 삭제여부 묻기
+		
 		let price = $(this).parent().parent().children().eq(3).text();
 		let total_price = amount * price;
 		$(this).parent().parent().children().eq(4).html(total_price);
-		
+
+		//.sum_price의 가격 변경
+		for (let i = 0; i < $("#cartTable > tbody > tr").length; i++) {
+			sum_price += Number($("#cartTable > tbody > tr").eq(i).children().eq(4).text());
+		}
+		$(".sum_price").html(sum_price);
 	})
 	
 })
