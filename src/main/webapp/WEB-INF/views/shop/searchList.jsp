@@ -59,21 +59,21 @@
 		<div style="display: table; margin-left: auto; margin-right: auto;">
 		  <ul class="pagination mb-3">
 		    <li class="page-item">
-		      <a class="page-link" href="#" tabindex="-1" aria-disabled="true">First</a>
+		      <a class="page-link" href="1" tabindex="-1" aria-disabled="true">First</a>
 		    </li>
 		    <li class="page-item"><a class="page-link" href="#">...</a></li>
-		    <li class="page-item <c:if test='${pageNum>11}'>disabled</c:if>">
-		      <a class="page-link" href="<c:out value='${idx}'/>" tabindex="-1" aria-disabled="true">Previous</a>
+		    <li class="page-item <c:if test='${pageVO.prev}'>disabled</c:if>">
+		      <a class="page-link" href="${pageVO.previousPage}" tabindex="-1" aria-disabled="true">Previous</a>
 		    </li>
-		    <c:forEach var="idx" begin="1" end="${idx}">
+		    <c:forEach var="idx" begin="${pageVO.startPage}" end="${pageVO.endPage}">
 		    	<li class="page-item ${pageNum==idx?'active':''}"><a class="page-link" href="${idx}">${idx}</a></li>
 		    </c:forEach>
-		    <li class="page-item">
-		      <a class="page-link" href="#">Next</a>
+		    <li class="page-item <c:if test='${pageVO.next}'>disabled</c:if>">
+		      <a class="page-link" href="${pageVO.nextPage}">Next</a>
 		    </li>
 		    <li class="page-item"><a class="page-link" href="#">...</a></li>
 		    <li class="page-item">
-		      <a class="page-link" href="#">Last</a>
+		      <a class="page-link" href="${pageVO.lastPage}">Last</a>
 		    </li>
 		  </ul>
 		</div>
@@ -102,6 +102,7 @@ $(function(){
 		e.preventDefault();
 		// 전송해야 할 폼 가져온 후 amount 값을 변경한 후
 		actionForm.find("input[name='amount']").val($(this).val());
+		actionForm.find("input[name='pageNum']").val("1");
 		// 폼 전송하기
 		actionForm.submit();
 	})
