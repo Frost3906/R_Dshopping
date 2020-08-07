@@ -14,7 +14,7 @@
 					<colgroup>
 						<col style="width: 375px;"/>
 						<col style="width: 432px;"/>
-						<col style="width: 115px;"/>
+						<col style="width: 10px;"/>
 						<col style="width: 110px;"/>
 						<col style="width: auto;"/>
 					</colgroup>
@@ -27,15 +27,21 @@
 					<th id="unSelect">..</th>
 				</tr>			
 				</thead>
-				<tbody>
+				<tbody id="t_body">
+					<c:set var="sum" value="0" />
 					<c:forEach var="vo" items="${mycart}">
 							<tr>
 								<td>섬네일이미지</td>
-								<td>${vo.p_name}</td>
-								<td>${vo.cart_Stock}</td>
-								<td>${vo.p_price}</td>
-								<td>${vo.p_price*vo.cart_Stock}</td>
+								<td><a href="/shop/product?p_code=${vo.p_code}">${vo.p_name}</a></td>
+								<td><input type="number" class="amount" min="0" value="${vo.cart_Stock}"/></td>
+								<td>
+									<div class="price">${vo.p_price}</div>
+								</td>
+								<td>
+									<div class="t_price">${vo.p_price*vo.cart_Stock}</div>
+								</td>
 							</tr>
+							<c:set var="sum" value="${sum + (vo.p_price * vo.cart_Stock)}"/>
 					</c:forEach>
 				</tbody>
 			
@@ -47,7 +53,11 @@
 			</c:if>
 			<div>
 				<div class="float-right mb-3">
-					<button class="btn btn-primary btn-lg">Check</button>
+					총 상품금액
+					<div class="total_price mb-3 sum_price">
+					  ${sum}
+					</div>
+					<button type="button" class="btn btn-primary btn-lg">Check</button>
 				</div>
 			</div>
 		</div>
@@ -57,5 +67,22 @@
   </div>
   <!-- /.container -->
 <%@include file="../includes/footer.jsp" %> 
+
+<script>
+
+$(function(){
+
+	//갯수에 맞춰 가격 출력하는 스크립트
+	$(".amount").on("propertychange change keyup paste input", function(){
+		
+		let amount = $(this).val();
+		let price = $(this).parent().parent().children().eq(3).text();
+		let total_price = amount * price;
+		$(this).parent().parent().children().eq(4).html(total_price);
+		
+	})
+	
+})
+</script>
 
 
