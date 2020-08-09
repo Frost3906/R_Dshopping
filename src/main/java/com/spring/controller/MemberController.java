@@ -3,16 +3,21 @@ package com.spring.controller;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.domain.MemberVO;
 import com.spring.domain.ModifyMemberVO;
+import com.spring.email.EmailSender;
+import com.spring.email.EmailVO;
 import com.spring.service.MemberService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -24,6 +29,10 @@ public class MemberController {
 
 	@Autowired
 	private MemberService service;
+	@Autowired
+	private EmailSender emailSender;
+	@Autowired
+	private EmailVO email;
 	
 	@GetMapping("/signIn")
 	public void signinForm() {
@@ -85,12 +94,13 @@ public class MemberController {
 	}
 	
 	@PostMapping("/modify")
-	public String modifyPost(ModifyMemberVO modifyMember) {
+	public String modifyPost(ModifyMemberVO modifyMember, HttpSession session) {
 		log.info("회원정보 수정 절차 진행");
 		log.info(""+modifyMember);
 		
 		if(service.modify(modifyMember)>0) {
-			return "/member/myPage";
+			session.removeAttribute("auth");
+			return "redirect:/member/signIn";
 		}
 		return "/member/myPage";
 	}
@@ -99,4 +109,23 @@ public class MemberController {
 	public void myPageForm() {
 		log.info("마이페이지 화면 표시");
 	}
+	
+	
+    @PostMapping("/forgetPwd")
+    public String sendEmailAction (MemberVO member, Model model) throws Exception {
+        log.info("E-mail 전송 서비스");
+        log.info(""+member);
+        MemberVO vo=service.checkPwd(member);
+        if(member.getMobile().equals(vo.getMobile())) {
+        	vo.setPassword(""+Math.random()*10);
+        	service.forgetPwd(vo);
+        	email.setContent("비밀번호는 "+vo.getPassword()+" 입니다.");
+        	email.setReciver(vo.getEmail());
+        	email.setSubject(vo.getFirstName()+"님 비밀번호 찾기 메일입니다.");
+        	emailSender.SendEmail(email);
+        	return "redirect:/member/signIn";        	
+        }else {
+        	return "redirect:/";
+        }
+    }
 }

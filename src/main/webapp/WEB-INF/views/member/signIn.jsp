@@ -1,15 +1,4 @@
-<!-- <!doctype html>
-<html lang="en">
-
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    
-    <link rel="shortcut icon" href="/resources/signIn/images/fav.jpg">
-    <link rel="stylesheet" href="/resources/signIn/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/resources/signIn/css/fontawsom-all.min.css">
-    <link rel="stylesheet" type="text/css" href="/resources/signIn/css/style.css" />
-    <script>
+	<!-- <script>
 	let info=${info};
 	let error=${error};
 	
@@ -20,8 +9,7 @@
 		alert(info);
 		return false;	
 	}
-	</script>
-</head> -->
+	</script> -->
 <%@include file="../includes/header.jsp" %>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.1/js/bootstrap.min.js" integrity="sha384-XEerZL0cuoUbHE4nZReLT7nx9gQrQreJekYhJD9WNWhH8nEW+0c5qq7aIo2Wl30J" crossorigin="anonymous"></script>
 	<link rel="shortcut icon" href="/resources/signIn/images/fav.jpg">
@@ -101,33 +89,41 @@
             </div>
          </div>
          
-<!-- 비밀번호 찾기 Modal 창  -->
+<%-- 비밀번호 찾기 Modal --%>
 <div class="modal fade" id="forgetPwdModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Forgot your password</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-         <input type="text" name="email" class="form-control" placeholder="Email Address" aria-label="Username" aria-describedby="basic-addon1">
-         <input type="password" name="password" class="form-control" placeholder="Password" aria-label="Username" aria-describedby="basic-addon1">
+	     <form action="forgetPwd" method="post" id="sendInfo">
+	         <input type="text" name="email" class="form-control" placeholder="Email Address" aria-label="Username" aria-describedby="basic-addon1">
+	         <input type="text" name="mobile" class="form-control" placeholder="ex)000-0000-0000" aria-label="Username" aria-describedby="basic-addon1">
+         </form>
       </div>
       <div class="modal-footer">
+        <button type="button" class="btn btn-success sendInfo" >Send E-mail</button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
       </div>
     </div>
   </div>
 </div>
 
 <script>
+let forgetPwdForm=$("#sendInfo");
 $(function(){
 	$("#forgetPwd").click(function(e){
 		e.preventDefault();
 		$("#forgetPwdModal").modal("show");
+	})
+	$(".sendInfo").click(function (){
+		console.log(forgetPwdForm);
+		forgetPwdForm.submit();
+		$("#forgetPwdModal").modal("hide");
 	})
 })
 </script>
