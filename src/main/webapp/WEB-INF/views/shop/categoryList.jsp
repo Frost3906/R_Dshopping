@@ -85,7 +85,11 @@
 	</c:if>
 	<input type="hidden" name="pageNum" value="${pageNum}" />
 	<input type="hidden" name="amount" value="${amount}" />
-</form>
+</form>            
+<input type="hidden" id="productAmt" name="productAmt" value="${productAmt}" />
+<!-- 모달 추가 -->
+<%@ include file="optionshop/paginationModal.jsp" %>
+<!-- 페이지 나누기 관련 js -->
 <script src="/resources/js/paging.js"></script>
 <script>
 $(function(){

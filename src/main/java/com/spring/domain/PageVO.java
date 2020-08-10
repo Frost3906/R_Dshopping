@@ -16,9 +16,9 @@ public class PageVO {
 	private int startPage;
 	private int endPage;
 	
-	public PageVO(String pageNum, String amount, int productAmt) {
-		this.nowPage = Integer.parseInt(pageNum);
-		this.amount = Integer.parseInt(amount);
+	public PageVO(int pageNum, int amount, int productAmt) {
+		this.nowPage = pageNum;
+		this.amount = amount;
 		previousPage = ((nowPage-1)/10)*10;
 		nextPage = ((nowPage-1)/10)*10+11;
 		lastPage = (int) Math.ceil(productAmt/(double)(this.amount));

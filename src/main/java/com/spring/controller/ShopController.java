@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,27 +32,28 @@ public class ShopController {
 	private ProductService service;
 
 	@GetMapping("/categoryList")
-	public void getCategoryList(String amount, String pageNum, String category1, String category2, String category3, Model model) {
+	public void getCategoryList(@Param("amount") int amount, 
+								@Param("amount") int pageNum, 
+								String category1, 
+								String category2, 
+								String category3, 
+								Model model) {
 		// 페이지 번호 처리
 		model.addAttribute("pageNum", pageNum); // 현재 페이지 번호
 		model.addAttribute("amount", amount); // 현재 페이지 당 리스트 개수
-		log.info("amount : " + amount);
-		log.info("pageNum : " + pageNum);
 		PageVO pageVO = new PageVO(pageNum, amount,service.categoryCount(category1, category2, category3));
-		log.info("조회 수 : " + service.categoryCount(category1, category2, category3));
 		model.addAttribute("pageVO", pageVO);
-		log.info("pageVO : " + pageVO);
+		int products = service.categoryCount(category1, category2, category3); // 조회된 상품 수
+		model.addAttribute("productAmt", (int)(Math.ceil(products/(double)(amount))));
 		int idx = 0;
-		int products = service.categoryCount(category1, category2, category3);
-		if(products%Integer.parseInt(amount)==0) {
-			idx = (products/Integer.parseInt(amount));
+		if(products%amount==0) {
+			idx = (products/amount);
 		} else {
-			idx = (products/Integer.parseInt(amount)+1);
+			idx = (products/amount+1);
 		}
 		model.addAttribute("idx", idx);
 		
-		log.info("카테고리 리스트 호출" + category1 + category2 + category3);
-		List<ProductVO> list = service.searchCategoryList(category1, category2, category3,Integer.parseInt(pageNum),Integer.parseInt(amount));
+		List<ProductVO> list = service.searchCategoryList(category1, category2, category3,pageNum,amount);
 		List<String> categoryList = null;
 		if(category3!=null) {
 			categoryList = service.searchCategory3(category3, category2);
@@ -67,12 +69,6 @@ public class ShopController {
 			model.addAttribute("category2List", categoryList);
 		}
 		model.addAttribute("category1",category1);
-		log.info("카테고리 리스트 = " + categoryList);
-		log.info("카테고리1 = " + category1);
-		log.info("카테고리2 = " + category2);
-		log.info("카테고리3 = " + category3);
-		log.info("검색 리스트 호출");
-		log.info("리스트 요청");
 		model.addAttribute("product", list);
 	}
 	
@@ -112,31 +108,37 @@ public class ShopController {
 	}
 	
 	@GetMapping("/search")
-	public String searchGet(String keyword, String pageNum, Model model, String amount) {
+	public String searchGet(String keyword, 
+							@Param("pageNum") int pageNum, 
+							@Param("amount") int amount,
+							Model model) {
 		// 검색 키워드 처리
 		model.addAttribute("keyword",keyword);
 		String[] keyArray = keyword.split(" "); // 검색어를 공백 기준으로 나누어서 배열 형태로 생성
 		List<String> keyList = Arrays.asList(keyArray); // 배열 형태의 검색어를 리스트로 변환
 		
-		// 페이지 번호 처리
-		model.addAttribute("pageNum", pageNum); // 현재 페이지 번호
-		model.addAttribute("amount", amount); // 현재 페이지 당 리스트 개수
-		PageVO pageVO = new PageVO(pageNum, amount,service.searchCount(keyList));
-		model.addAttribute("pageVO", pageVO);
-		int idx = 0;
-		
 		// 검색 리스트 처리
 		if(keyList.isEmpty()) {
 			return "/error/searchError"; // 검색어 미 입력시 에러 페이지 호출
 		} else {
-			List<ProductVO> searchList = service.searchKeyword(keyList,Integer.parseInt(pageNum),Integer.parseInt(amount));
+			// 페이지 번호 처리
+			model.addAttribute("pageNum", pageNum); // 현재 페이지 번호
+			model.addAttribute("amount", amount); // 현재 페이지 당 리스트 개수
+			PageVO pageVO = new PageVO(pageNum, amount,service.searchCount(keyList));
+			model.addAttribute("pageVO", pageVO);
+			model.addAttribute("productAmt", (int)(Math.ceil(service.searchCount(keyList)/(double)(amount))));
+					
+			List<ProductVO> searchList = service.searchKeyword(keyList,pageNum,amount);
 			model.addAttribute("product", searchList);
-			if(service.searchCount(keyList)%Integer.parseInt(amount)==0) {
-				idx = (service.searchCount(keyList)/Integer.parseInt(amount));
+			
+			int idx = 0;	
+			if(service.searchCount(keyList)%amount==0) {
+				idx = (service.searchCount(keyList)/amount);
 			} else {
-				idx = (service.searchCount(keyList)/Integer.parseInt(amount)+1);
+				idx = (service.searchCount(keyList)/amount+1);
 			}
 			model.addAttribute("idx", idx);
+			
 			return "/shop/searchList";			
 		}
 	}
