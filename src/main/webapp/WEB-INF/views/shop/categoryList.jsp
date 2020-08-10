@@ -12,19 +12,19 @@
   		<h5>
   			result for "
   			<c:if test="${not empty category1}">
-  				<a href="?category1=${category1}" style="color:black;">
+  				<a href="?category1=${category1}&pageNum=1&amount=6" style="color:black;">
 	  				<c:out value="${category1}"/>
   				</a>
   			</c:if>
   			<c:if test="${not empty category2}">
   				<c:out value=" > "></c:out>
-  				<a href="?category1=${category1}&category2=${category2}" style="color:black;">
+  				<a href="?category1=${category1}&category2=${category2}&pageNum=1&amount=6" style="color:black;">
 	  				<c:out value="${category2}"/>
   				</a>
   			</c:if>
   			<c:if test="${not empty category3}">
   				<c:out value=" > "></c:out>
-  				<a href="?category1=${category1}&category2=${category2}&category3=${category3}" style="color:black;">
+  				<a href="?category1=${category1}&category2=${category2}&category3=${category3}&pageNum=1&amount=6" style="color:black;">
   					<c:out value="${category3}"/>
   				</a>
   			</c:if>
@@ -37,7 +37,7 @@
 	  			<c:if test="${category3==null && category2!=null}">
 	  				소분류 : 
 		  			<c:forEach var="list" items="${category3List}">
-	  					<a id="downCategory3" href="${list}" style="color:black;">
+	  					<a class="downCategory3" href="${list}" style="color:black;">
 		  					<c:out value="${list}"/>  					
 	  					</a>
 		  			</c:forEach>
@@ -45,7 +45,7 @@
 	 			<c:if test="${category2==null}">
 					중분류 : 
 		  			<c:forEach var="list" items="${category2List}">
-	  					<a id="downCategory2" href="${list}" style="color:black;">
+	  					<a class="downCategory2" href="${list}" style="color:black;">
 		  					<c:out value="${list}"/>
 	  					</a>
 		  			</c:forEach>
@@ -85,7 +85,11 @@
 	</c:if>
 	<input type="hidden" name="pageNum" value="${pageNum}" />
 	<input type="hidden" name="amount" value="${amount}" />
-</form>
+</form>            
+<input type="hidden" id="productAmt" name="productAmt" value="${productAmt}" />
+<!-- 모달 추가 -->
+<%@ include file="optionshop/paginationModal.jsp" %>
+<!-- 페이지 나누기 관련 js -->
 <script src="/resources/js/paging.js"></script>
 <script>
 $(function(){
@@ -94,7 +98,7 @@ $(function(){
 	
 
 	// 중분류 카테고리 클릭시 폼 전송
-	$("#downCategory2").click(function(e){
+	$(".downCategory2").click(function(e){
 		e.preventDefault();
 		
 		// amount 변경시 1번 페이지로 이동
@@ -104,7 +108,7 @@ $(function(){
 		actionForm.submit();
 	})
 	// 소분류 카테고리 클릭시 폼 전송
-	$("#downCategory3").click(function(e){
+	$(".downCategory3").click(function(e){
 		e.preventDefault();
 		
 		// amount 변경시 1번 페이지로 이동

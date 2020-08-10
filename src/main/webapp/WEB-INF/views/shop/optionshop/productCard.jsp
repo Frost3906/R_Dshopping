@@ -14,7 +14,26 @@
 		                <p class="card-text">${vo.p_content}</p>
 		              </div>
 		              <div class="card-footer">
-		                <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+		                <small class="text-muted">
+		                	<c:if test="${vo.p_rating==0}">
+		                		&#9734; &#9734; &#9734; &#9734; &#9734;
+		                	</c:if>
+		                	<c:if test="${vo.p_rating==1}">
+		                		&#9733; &#9734; &#9734; &#9734; &#9734;
+		                	</c:if>
+		                	<c:if test="${vo.p_rating==2}">
+		                		&#9733; &#9733; &#9734; &#9734; &#9734;
+		                	</c:if>
+		                	<c:if test="${vo.p_rating==3}">
+		                		&#9733; &#9733; &#9733; &#9734; &#9734;
+		                	</c:if>
+		                	<c:if test="${vo.p_rating==4}">
+		                		&#9733; &#9733; &#9733; &#9733; &#9734;
+		                	</c:if>
+		                	<c:if test="${vo.p_rating==5}">
+		                		&#9733; &#9733; &#9733; &#9733; &#9733;
+		                	</c:if>
+		                </small>
 		              </div>
 		            </div>
 		          </div>

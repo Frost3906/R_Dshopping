@@ -12,18 +12,20 @@
 	</select>
 	
 	<select id="searchCategoryList" resultType="com.spring.domain.ProductVO">
-		select * 
-		from product 
-		where
-			<if test="category2==null">
-				p_category1 = #{category1}
-			</if> 
-			<if test="category2!=null and category3==null">
-				p_category1 = #{category1} and p_category2 = #{category2}
-			</if>
-			<if test="category3!=null">
-				p_category1 = #{category1} and p_category2 = #{category2} and p_category3 = #{category3}
-			</if>
+		select * from ( 
+			select <![CDATA[rownum rno,]]>product.* 
+			from product 
+			where 
+				<if test="category2==null">
+					p_category1 = #{category1}
+				</if> 
+				<if test="category2!=null and category3==null">
+					p_category1 = #{category1} and p_category2 = #{category2}
+				</if>
+				<if test="category3!=null">
+					p_category1 = #{category1} and p_category2 = #{category2} and p_category3 = #{category3}
+				</if>
+		) where <![CDATA[rno>(#{pageNum}-1)*#{amount} and rno<=#{pageNum}*#{amount}]]>
 	</select>
 	
 	<select id="searchCategory2" resultType="string">
