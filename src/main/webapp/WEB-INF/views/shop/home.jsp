@@ -10,7 +10,6 @@
       <div class="col-lg-3">
 
         <h1 class="my-4">TEST GIT</h1>
-        <h1 class="my-4">TEST GIT2</h1>
         <div class="list-group">
           <a href="shop/categoryList?category1=서적&pageNum=1&amount=6" class="list-group-item">서적 카테고리 리스트 페이지 테스트</a>
           <a href="shop/categoryList?category1=전자제품&pageNum=1&amount=6" class="list-group-item">전자제품 카테고리 리스트 페이지 테스트</a>

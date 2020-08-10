@@ -100,13 +100,6 @@ public class ShopController {
 	}
 	
 	
-		
-	 
-	 
-	 
-	
-	
-	
 	
 	@ResponseBody
 	@PostMapping("/removeFromCart")

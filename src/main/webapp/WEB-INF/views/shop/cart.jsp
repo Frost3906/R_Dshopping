@@ -172,7 +172,7 @@ $(function(){
 	
 	
 	//갯수에 맞춰 가격 출력하는 스크립트
-	$(".amount").on("propertychange paste input", function(){
+	$(".amount").on("change", function(){
 		let sum_price = 0;
 		let amount = $(this).val();
 		
@@ -210,6 +210,7 @@ $(function(){
 		$(this).parent().parent().children().eq(5).html(total_price);
 		$(".sum_price").html(total_price);
 
+		
 		//.sum_price의 가격 변경
 		for (let i = 0; i < $('#cartTable > tbody > tr').length; i++) {
 			sum_price += Number($('#cartTable > tbody > tr').eq(i).children().eq(5).text());
