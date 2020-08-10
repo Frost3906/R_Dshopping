@@ -51,7 +51,7 @@ public class ShopController {
 		model.addAttribute("idx", idx);
 		
 		log.info("카테고리 리스트 호출" + category1 + category2 + category3);
-		List<ProductVO> list = service.searchCategoryList(category1, category2, category3);
+		List<ProductVO> list = service.searchCategoryList(category1, category2, category3,Integer.parseInt(pageNum),Integer.parseInt(amount));
 		List<String> categoryList = null;
 		if(category3!=null) {
 			categoryList = service.searchCategory3(category3, category2);
