@@ -32,4 +32,9 @@ public class MemberServiceImpl implements MemberService {
 	public int modify(ModifyMemberVO modifyMember) {
 		return mapper.modify(modifyMember);
 	}
+
+	@Override
+	public int forgetPwd(MemberVO member) {
+		return mapper.forgetPwd(member);
+	}
 }

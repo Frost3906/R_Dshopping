@@ -31,50 +31,36 @@
   			 "
   		</h5>
   	</div>
-  	<div>
-  		<h6>
-  			<c:if test="${category3==null && category2!=null}">
-  				소분류 : 
-	  			<c:forEach var="list" items="${category3List}">
-  					<a href="?category1=${category1}&category2=${category2}&category3=${list}" style="color:black;">
-	  					<c:out value="${list}"/>  					
-  					</a>
-	  			</c:forEach>
-  			</c:if>
- 			<c:if test="${category2==null}">
-				중분류 : 
-	  			<c:forEach var="list" items="${category2List}">
-  					<a href="?category1=${category1}&category2=${list}" style="color:black;">
-	  					<c:out value="${list}"/>  					
-  					</a>
-	  			</c:forEach>
-  			</c:if>
-  		</h6>
+  	<div class="row mb-3">
+  		<div class="col-auto mr-auto">
+	  		<h5 class="mb-0 mt-3">
+	  			<c:if test="${category3==null && category2!=null}">
+	  				소분류 : 
+		  			<c:forEach var="list" items="${category3List}">
+	  					<a id="downCategory3" href="${list}" style="color:black;">
+		  					<c:out value="${list}"/>  					
+	  					</a>
+		  			</c:forEach>
+	  			</c:if>
+	 			<c:if test="${category2==null}">
+					중분류 : 
+		  			<c:forEach var="list" items="${category2List}">
+	  					<a id="downCategory2" href="${list}" style="color:black;">
+		  					<c:out value="${list}"/>
+	  					</a>
+		  			</c:forEach>
+	  			</c:if>
+	  		</h5>
+  		</div>
+  		<div class="col-auto">
+  			<%@ include file="optionshop/listAmount.jsp" %> 
+  		</div>
   	</div>
     <div class="row">
       <div class="col-lg-12">
         <div class="row list">
         	<!-- 상품 카드 위치 -->
-			<c:forEach var="vo" items="${product}">	
-		          <div class="col-lg-4 col-md-6 mb-4">
-		            <div class="card h-100">
-		              <a href="product?p_code=${vo.p_code}"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-		              <div class="card-body">
-		                <h4 class="card-title">
-		                  <a href="product?p_code=${vo.p_code}">${vo.p_code}.</a>
-		                </h4>
-		                <h4 class="card-title">
-		                  <a href="product?p_code=${vo.p_code}">${vo.p_name}</a>
-		                </h4>
-		                <h5>${vo.p_price}</h5>
-		                <p class="card-text">${vo.p_content}</p>
-		              </div>
-		              <div class="card-footer">
-		                <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-		              </div>
-		            </div>
-		          </div>
-	        </c:forEach>
+  			<%@ include file="optionshop/productCard.jsp" %> 
         </div>
         <!-- /.row .list -->
 
@@ -83,7 +69,50 @@
 
     </div>
     <!-- /.row -->
-
+	<div>
+		<!-- 페이지 나누기 부분 -->
+  		<%@ include file="optionshop/pagination.jsp" %> 
+	</div>
   </div>
   <!-- /.container -->
+<form action="categoryList" id="actionForm">
+	<input type="hidden" name="category1" value="${category1}" />
+	<c:if test="${not empty category2}">
+		<input type="hidden" name="category2" value="${category2}" />
+	</c:if>
+	<c:if test="${not empty category3}">
+	<input type="hidden" name="category3" value="${category3}" />
+	</c:if>
+	<input type="hidden" name="pageNum" value="${pageNum}" />
+	<input type="hidden" name="amount" value="${amount}" />
+</form>
+<script src="/resources/js/paging.js"></script>
+<script>
+$(function(){
+	// 정보를 보낼 hidden 폼인 actionForm 가져오기
+	let actionForm = $("#actionForm");
+	
+
+	// 중분류 카테고리 클릭시 폼 전송
+	$("#downCategory2").click(function(e){
+		e.preventDefault();
+		
+		// amount 변경시 1번 페이지로 이동
+		actionForm.find("input[name='pageNum']").val("1");
+		actionForm.append('<input type="hidden" name="category2" value="'+$(this).attr("href")+'" />')
+		// 폼 전송하기
+		actionForm.submit();
+	})
+	// 소분류 카테고리 클릭시 폼 전송
+	$("#downCategory3").click(function(e){
+		e.preventDefault();
+		
+		// amount 변경시 1번 페이지로 이동
+		actionForm.find("input[name='pageNum']").val("1");
+		actionForm.append('<input type="hidden" name="category3" value="'+$(this).attr("href")+'" />')
+		// 폼 전송하기
+		actionForm.submit();
+	})
+});
+</script>
 <%@include file="../includes/footer.jsp" %> 

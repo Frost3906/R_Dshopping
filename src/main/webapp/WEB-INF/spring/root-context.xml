@@ -40,4 +40,26 @@
 	 	
 	 </bean>
 	 <tx:annotation-driven/>
+	 
+	 <!-- 메일 전송을 위한 Bean 설정 -->
+     <bean id="mailSender" class ="org.springframework.mail.javamail.JavaMailSenderImpl" >
+		<property name="host" value="smtp.gmail.com" />
+		<property name="port" value="587" />
+		<property name="defaultEncoding" value="utf-8"/>
+		<property name="username" value="yoodh9044@gmail.com" />
+		<property name="password" value="lltpwwiueawntcek" />
+       
+		<property name="javaMailProperties">
+			<props>
+                <prop key="mail.transport.protocol">smtp</prop>
+                <prop key="mail.smtp.auth">true</prop>
+                <prop key="mail.smtp.starttls.enable">true</prop>
+                <prop key="mail.debug">true</prop>
+            </props>
+        </property>       
+     </bean>
+     <bean id="email" class="com.spring.email.EmailVO">
+     </bean>
+     <bean id="emailSender" class="com.spring.email.EmailSender">
+     </bean>
 </beans>

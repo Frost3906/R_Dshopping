@@ -36,7 +36,7 @@ $(function(){
 			},
 			password:{
 				required:"REQUIRED INPUT",
-				validPwd:"8 digits or more, including uppercase and lowercase and special characters"
+				validPwd:"8 digits or more, including uppercase and lowercase, special characters"
 			},
 			mobile:{
 				required:"REQUIRED INPUT"

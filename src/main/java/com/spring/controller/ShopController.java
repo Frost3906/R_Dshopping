@@ -31,7 +31,25 @@ public class ShopController {
 	private ProductService service;
 
 	@GetMapping("/categoryList")
-	public void getCategoryList(String category1, String category2, String category3, Model model) {
+	public void getCategoryList(String amount, String pageNum, String category1, String category2, String category3, Model model) {
+		// 페이지 번호 처리
+		model.addAttribute("pageNum", pageNum); // 현재 페이지 번호
+		model.addAttribute("amount", amount); // 현재 페이지 당 리스트 개수
+		log.info("amount : " + amount);
+		log.info("pageNum : " + pageNum);
+		PageVO pageVO = new PageVO(pageNum, amount,service.categoryCount(category1, category2, category3));
+		log.info("조회 수 : " + service.categoryCount(category1, category2, category3));
+		model.addAttribute("pageVO", pageVO);
+		log.info("pageVO : " + pageVO);
+		int idx = 0;
+		int products = service.categoryCount(category1, category2, category3);
+		if(products%Integer.parseInt(amount)==0) {
+			idx = (products/Integer.parseInt(amount));
+		} else {
+			idx = (products/Integer.parseInt(amount)+1);
+		}
+		model.addAttribute("idx", idx);
+		
 		log.info("카테고리 리스트 호출" + category1 + category2 + category3);
 		List<ProductVO> list = service.searchCategoryList(category1, category2, category3);
 		List<String> categoryList = null;
@@ -96,33 +114,29 @@ public class ShopController {
 	@GetMapping("/search")
 	public String searchGet(String keyword, String pageNum, Model model, String amount) {
 		// 검색 키워드 처리
-		log.info("GET 키워드 : " + keyword);
 		model.addAttribute("keyword",keyword);
 		String[] keyArray = keyword.split(" "); // 검색어를 공백 기준으로 나누어서 배열 형태로 생성
 		List<String> keyList = Arrays.asList(keyArray); // 배열 형태의 검색어를 리스트로 변환
 		
 		// 페이지 번호 처리
-		log.info("Get 페이지 넘버 : " + pageNum);
-		model.addAttribute("pageNum", pageNum);
-		log.info("amount : " + amount);
-		model.addAttribute("amount", amount);
+		model.addAttribute("pageNum", pageNum); // 현재 페이지 번호
+		model.addAttribute("amount", amount); // 현재 페이지 당 리스트 개수
 		PageVO pageVO = new PageVO(pageNum, amount,service.searchCount(keyList));
 		model.addAttribute("pageVO", pageVO);
 		int idx = 0;
+		
 		// 검색 리스트 처리
 		if(keyList.isEmpty()) {
 			return "/error/searchError"; // 검색어 미 입력시 에러 페이지 호출
 		} else {
 			List<ProductVO> searchList = service.searchKeyword(keyList,Integer.parseInt(pageNum),Integer.parseInt(amount));
 			model.addAttribute("product", searchList);
-			log.info("검색 갯수 : " + service.searchCount(keyList));
 			if(service.searchCount(keyList)%Integer.parseInt(amount)==0) {
 				idx = (service.searchCount(keyList)/Integer.parseInt(amount));
 			} else {
 				idx = (service.searchCount(keyList)/Integer.parseInt(amount)+1);
 			}
 			model.addAttribute("idx", idx);
-			log.info("idx : " + idx);
 			return "/shop/searchList";			
 		}
 	}
