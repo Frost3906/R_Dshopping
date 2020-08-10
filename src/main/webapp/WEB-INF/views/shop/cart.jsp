@@ -79,7 +79,7 @@ $(function(){
 		let price = $(this).parent().parent().children().eq(3).text();
 		let total_price = amount * price;
 		$(this).parent().parent().children().eq(4).html(total_price);
-		
+		$(".sum_price").html(total_price);
 	})
 	
 })
