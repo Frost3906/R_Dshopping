@@ -6,7 +6,7 @@
   <div class="container">
 
     <div class="row">
-
+<!-- 
       <div class="col-lg-3">
 
         <h1 class="my-4">TEST GIT</h1>
@@ -17,10 +17,10 @@
           <a href="shop/cart" class="list-group-item">장바구니 테스트</a>
         </div>
 
-      </div>
+      </div> -->
       <!-- /.col-lg-3 -->
 
-      <div class="col-lg-9">
+      <div class="col-lg-12">
 
         <div id="carouselExampleIndicators" class="carousel slide my-4" data-ride="carousel">
           <ol class="carousel-indicators">
@@ -30,13 +30,13 @@
           </ol>
           <div class="carousel-inner" role="listbox">
             <div class="carousel-item active">
-              <img class="d-block img-fluid" src="http://placehold.it/900x350" alt="First slide">
+              <img class="d-block img-fluid" src="http://placehold.it/1110x350" alt="First slide">
             </div>
             <div class="carousel-item">
-              <img class="d-block img-fluid" src="http://placehold.it/900x350" alt="Second slide">
+              <img class="d-block img-fluid" src="http://placehold.it/1110x350" alt="Second slide">
             </div>
             <div class="carousel-item">
-              <img class="d-block img-fluid" src="http://placehold.it/900x350" alt="Third slide">
+              <img class="d-block img-fluid" src="http://placehold.it/1110x350" alt="Third slide">
             </div>
           </div>
           <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
@@ -49,10 +49,20 @@
           </a>
         </div>
 
-        <div class="row">
+        <div class="row" style="justify-content: center; text-align: center;">
 
         	<!-- 상품 카드 위치 -->
-  			<%@ include file="optionshop/productCard.jsp" %> 
+			<c:forEach var="vo" items="${product}">	
+		          <div class="col-lg-3 col-md-6 mb-4">
+		            <div class="card h-100">
+	                	<h4>Category</h4>
+		              <a href="product?p_code=${vo.p_code}"><img class="card-img-top" src="http://placehold.it/700x800" alt=""></a>
+		              <div class="card-footer" style="padding: 0px">
+		              	<a href="#"> > see more</a>
+		              </div>
+		            </div>
+		          </div>
+	        </c:forEach>
           
         </div>
         <!-- /.row -->
