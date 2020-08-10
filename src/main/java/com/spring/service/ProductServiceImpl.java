@@ -67,4 +67,10 @@ public class ProductServiceImpl implements ProductService {
 	public int categoryCount(String p_category1, String p_category2, String p_category3) {
 		return product.categoryCount(p_category1, p_category2, p_category3);
 	}
+	@Override
+	public void removeFromCart(CartVO vo) {
+		product.removeFromCart(vo);
+	}
+	
+	
 }

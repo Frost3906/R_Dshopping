@@ -113,4 +113,11 @@
 	</select>
 	
 	
+	<!-- 카트 물품 삭제 -->
+	<delete id="removeFromCart">
+		delete from cart
+		where cartNum = #{cartNum} and email = #{email}
+	</delete>
+	
+	
 </mapper>

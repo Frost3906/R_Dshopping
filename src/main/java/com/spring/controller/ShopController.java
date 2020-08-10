@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.spring.domain.CartVO;
@@ -96,8 +97,41 @@ public class ShopController {
 		}else {
 			return result;
 		}
+	}
+	
+	
+		
+	 
+	 
+	 
+	
+	
+	
+	
+	@ResponseBody
+	@PostMapping("/removeFromCart")
+	public int removeFromCart(HttpSession session, @RequestParam(value="selectbox[]") List<String> chArr, CartVO vo) {
+		log.info("카트 물품 삭제 "+vo);
+		MemberVO auth = (MemberVO) session.getAttribute("auth");
+		String email = auth.getEmail();
+		int result = 0;
+		int cartNum = 0;
+		 
+		 
+		if(auth != null) {
+			vo.setEmail(email);
+		  
+			for(String i : chArr) {   
+				cartNum = Integer.parseInt(i);
+				vo.setCartNum(cartNum);
+				service.removeFromCart(vo);
+			}   
+			result = 1;
+		}  
+		return result;  
 		
 	}
+	
 	
 	@GetMapping("/product")
 	public void product(String p_code, Model model) {

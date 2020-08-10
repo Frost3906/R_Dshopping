@@ -17,4 +17,5 @@ public interface ProductService {
 	public int searchCount(List<String> keywordList);
 	public int categoryCount(String p_category1, String p_category2, String p_category3);
 	public List<CartVO> cartList(String email);
+	public void removeFromCart(CartVO vo);
 }
