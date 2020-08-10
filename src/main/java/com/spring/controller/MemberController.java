@@ -18,6 +18,7 @@ import com.spring.domain.MemberVO;
 import com.spring.domain.ModifyMemberVO;
 import com.spring.email.EmailSender;
 import com.spring.email.EmailVO;
+import com.spring.email.RandomString;
 import com.spring.service.MemberService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -111,13 +112,29 @@ public class MemberController {
 	}
 	
 	
-    @PostMapping("/forgetPwd")
+	@PostMapping("/forgetPwd")
     public String sendEmailAction (MemberVO member, Model model) throws Exception {
         log.info("E-mail 전송 서비스");
         log.info(""+member);
+        
+        //랜덤 문자열 reference
+        String ENGLISH_LOWER = "abcdefghijklmnopqrstuvwxyz";
+        String ENGLISH_UPPER = ENGLISH_LOWER.toUpperCase();
+        String NUMBER = "0123456789";
+        
+        //랜덤을 생성할 대상 문자열
+        String DATA_FOR_RANDOM_STRING = ENGLISH_LOWER + ENGLISH_UPPER + NUMBER;
+        
+        //랜덤 문자열 길이
+        int random_string_length=10;
+    	
+        RandomString randomStr = new RandomString();
+        String tempPwd=randomStr.generate(DATA_FOR_RANDOM_STRING, random_string_length);
+        
+        
         MemberVO vo=service.checkPwd(member);
         if(member.getMobile().equals(vo.getMobile())) {
-        	vo.setPassword(""+Math.random()*10);
+        	vo.setPassword(tempPwd);
         	service.forgetPwd(vo);
         	email.setContent("비밀번호는 "+vo.getPassword()+" 입니다.");
         	email.setReciver(vo.getEmail());

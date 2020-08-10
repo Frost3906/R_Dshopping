@@ -120,6 +120,7 @@ $(function(){
 		e.preventDefault();
 		$("#forgetPwdModal").modal("show");
 	})
+	
 	$(".sendInfo").click(function (){
 		console.log(forgetPwdForm);
 		forgetPwdForm.submit();
