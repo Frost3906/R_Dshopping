@@ -21,7 +21,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.spring.domain.AttachFileVO;
 import com.spring.domain.BoardVO;
 import com.spring.domain.Criteria;
-import com.spring.domain.PageVO;
+import com.spring.domain.BoardPageVO;
 import com.spring.service.BoardService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -65,7 +65,7 @@ public class BoardController {
 		// 현재 페이지에 보여줄 게시물
 		model.addAttribute("list", service.getList(cri));
 		// 하단의 페이지 나누기와 관련된 정보
-		model.addAttribute("pageVO", new PageVO(cri, service.totalRows(cri)));
+		model.addAttribute("pageVO", new BoardPageVO(cri, service.totalRows(cri)));
 	}
 	
 	// 내용보기
