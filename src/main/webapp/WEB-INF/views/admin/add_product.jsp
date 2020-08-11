@@ -43,7 +43,7 @@
 	 				<li class="list-group-item">
 	 						<div class="float-left">재고</div>
 	 						<div class="float-right">
-								<input type="text" id="p_stock" name="p_stock"/>
+								<input type="number" id="p_stock" name="p_stock"/>
 	 						</div>
 	 				</li>
 	 				<li class="list-group-item">	
@@ -53,7 +53,7 @@
 	 						</div>
 	 				</li>
 	 				<li class="list-group-item">
-	 						<div class="float-left">항목</div>
+	 						<div class="float-left">속성</div>
 	 						<div class="float-right">
 								<input type="text" />
 	 						</div>

@@ -15,12 +15,39 @@
 	</properties>
 	<dependencies>
 	
+	<!-- 소셜 로그인 라이브러리 -->
+	<!-- scribejava-apis -->
+	<dependency>
+	    <groupId>com.github.scribejava</groupId>
+	    <artifactId>scribejava-apis</artifactId>
+	    <version>7.0.0</version>
+	</dependency>
+	<!-- scribejava-core -->
+	<dependency>
+	    <groupId>com.github.scribejava</groupId>
+	    <artifactId>scribejava-core</artifactId>
+	    <version>7.0.0</version>
+	</dependency>
+	<!-- spring-social-google -->
+	<dependency>
+	    <groupId>org.springframework.social</groupId>
+	    <artifactId>spring-social-google</artifactId>
+	    <version>1.0.0.RELEASE</version>
+	</dependency>
+	
+		
 	<!-- 아이디 비밀번호 찾기 메일발송 관련 lib -->
-		<dependency>
-		    <groupId>javax.mail</groupId>
-		    <artifactId>mail</artifactId>
-		    <version>1.4.7</version>
-		</dependency>
+	<dependency>
+	    <groupId>javax.mail</groupId>
+	    <artifactId>mail</artifactId>
+	    <version>1.4.7</version>
+	</dependency>
+	
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-context-support</artifactId>
+		<version>${org.springframework-version}</version>
+	</dependency>
 	
 	
 	
