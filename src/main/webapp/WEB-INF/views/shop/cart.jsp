@@ -83,6 +83,7 @@ $(function(){
 		let total_price = amount * price;
 		$(this).parent().parent().children().eq(4).html(total_price);
 
+		
 		//.sum_price의 가격 변경
 		for (let i = 0; i < $("#cartTable > tbody > tr").length; i++) {
 			sum_price += Number($("#cartTable > tbody > tr").eq(i).children().eq(4).text());
