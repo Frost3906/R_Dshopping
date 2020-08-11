@@ -28,6 +28,8 @@ public interface ProductMapper {
 	public int categoryCount(@Param("category1") String category1,
 							 @Param("category2") String category2,
 							 @Param("category3") String category3);
+	public int homeCategoryCount();
+	public List<String> homeCategoryList();
 	
 	
 	public int addCart(CartVO vo);

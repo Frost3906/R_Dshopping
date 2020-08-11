@@ -90,6 +90,14 @@
 				p_category1 = #{category1} and p_category2 = #{category2} and p_category3 = #{category3}
 			</if>
 	</select>
+	
+	<select id="homeCategoryCount" resultType="int">
+		select count(distinct p_category1) from product
+	</select>
+	
+	<select id="homeCategoryList" resultType="string">
+		select distinct p_category1 from product
+	</select>
 
 	<!-- 상품 등록 sql -->
 	<insert id="addProduct">
