@@ -20,6 +20,7 @@ import com.spring.domain.CartVO;
 import com.spring.domain.MemberVO;
 import com.spring.domain.BoardPageVO;
 import com.spring.domain.ProductVO;
+import com.spring.domain.ShopPageVO;
 import com.spring.service.ProductService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -42,7 +43,7 @@ public class ShopController {
 		// 페이지 번호 처리
 		model.addAttribute("pageNum", pageNum); // 현재 페이지 번호
 		model.addAttribute("amount", amount); // 현재 페이지 당 리스트 개수
-		BoardPageVO pageVO = new BoardPageVO(pageNum, amount,service.categoryCount(category1, category2, category3));
+		ShopPageVO pageVO = new ShopPageVO(pageNum, amount,service.categoryCount(category1, category2, category3));
 		model.addAttribute("pageVO", pageVO);
 		int products = service.categoryCount(category1, category2, category3); // 조회된 상품 수
 		model.addAttribute("productAmt", (int)(Math.ceil(products/(double)(amount))));
@@ -151,7 +152,7 @@ public class ShopController {
 			// 페이지 번호 처리
 			model.addAttribute("pageNum", pageNum); // 현재 페이지 번호
 			model.addAttribute("amount", amount); // 현재 페이지 당 리스트 개수
-			BoardPageVO pageVO = new BoardPageVO(pageNum, amount,service.searchCount(keyList));
+			ShopPageVO pageVO = new ShopPageVO(pageNum, amount,service.searchCount(keyList));
 			model.addAttribute("pageVO", pageVO);
 			model.addAttribute("productAmt", (int)(Math.ceil(service.searchCount(keyList)/(double)(amount))));
 					
