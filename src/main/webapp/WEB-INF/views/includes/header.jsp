@@ -79,7 +79,7 @@
 			            <a class="nav-link" href="/member/logout">LogOut</a>
 			          </li>
 			          <li class="nav-item">
-			            <a class="nav-link" href="#">Contact</a>
+			            <a class="nav-link" href="/board/list">게시판</a>
 			          </li>
    			     
    			          <c:if test="${auth.role=='admin'}">
@@ -107,7 +107,7 @@
 			            <a class="nav-link" href="/member/signUp">Sign up</a>
 			          </li>
 			          <li class="nav-item">
-			            <a class="nav-link" href="#">Contact</a>
+			            <a class="nav-link" href="/board/list">게시판</a>
 			          </li>
 			          <!-- 권한에 따라 관리자 페이지 표시여부 -->
 			          
