@@ -121,6 +121,13 @@
 	</select>
 	
 	
+	<!-- 카트 정보 갱신 -->
+	<update id="updateCart">
+		update cart 
+		set cart_Stock = #{cart_Stock}
+		where cartNum = #{cartNum} 
+	</update>
+	
 	<!-- 카트 물품 삭제 -->
 	<delete id="removeFromCart">
 		delete from cart

@@ -79,6 +79,10 @@ public class ProductServiceImpl implements ProductService {
 	public List<String> homeCategoryList() {
 		return product.homeCategoryList();
 	}
+	@Override
+	public void updateCart(CartVO vo) {
+		product.updateCart(vo);
+	}
 	
 	
 }

@@ -105,10 +105,26 @@ $(function(){
 					location.href="/";
 				}
 			}else{
+				let JsonArray = new Array();
+				let Json = new Object();
+
+
+				$(".amount").each(function(){
+					console.log($(this).val());
+					console.log($(this).attr("data-cartNum"));
+					Json.amount = $(this).val();
+					Json.cartNum = $(this).attr("data-cartNum");
+					JsonArray.push(Json);
+					
+				});
+				console.log(Json);
+				console.log(JsonArray);
 				$.ajax({
 		   			url : "/shop/updateCart",
 		    		type : "post",
-		    		data : { selectbox : checkArr },
+		    		contentType: 'application/json',
+		    		dataType: 'json',
+		    		data : JSON.stringify(JsonArray),
 		    		success : function(result){
 		    			if(result==1){
 		    				location.href="/shop/check";

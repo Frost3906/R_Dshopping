@@ -20,4 +20,5 @@ public interface ProductService {
 	public void removeFromCart(CartVO vo);
 	public int homeCategoryCount();
 	public List<String> homeCategoryList();
+	public void updateCart(CartVO vo);
 }

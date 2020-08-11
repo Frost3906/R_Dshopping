@@ -36,5 +36,6 @@ public interface ProductMapper {
 	public List<CartVO> cartList(String email);
 	
 	public void removeFromCart(CartVO vo);
+	public void updateCart(CartVO vo);
 
 }

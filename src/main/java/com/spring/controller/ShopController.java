@@ -2,8 +2,9 @@ package com.spring.controller;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
-
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -136,21 +138,24 @@ public class ShopController {
 	
 	@ResponseBody
 	@PostMapping("/updateCart")
-	public int updateCart(HttpSession session, @RequestParam(value="selectbox[]") List<String> Arr, CartVO vo) {
-		log.info("카트 물품 변경 ");
+	public int updateCart(HttpSession session, @RequestBody List<Map<String, Object>> Arr, CartVO vo) {
+		log.info("카트 물품 변경 "+Arr);
 		MemberVO auth = (MemberVO) session.getAttribute("auth");
 		String email = auth.getEmail();
 		int result = 0;
+		
 		int cartNum = 0;
 		 
-		 
+		System.out.println(Arr);
+		
 		if(auth != null) {
 			vo.setEmail(email);
 		  
-			for(String i : Arr) {   
-				cartNum = Integer.parseInt(i);
+			for(Map<String, Object> i : Arr) {   
+				cartNum = Integer.parseInt((String) i.get("cartNum"));
 				vo.setCartNum(cartNum);
-				service.removeFromCart(vo);
+				vo.setCart_Stock(Integer.parseInt((String) i.get("amount")));
+				service.updateCart(vo);
 			}   
 			result = 1;
 		}  
