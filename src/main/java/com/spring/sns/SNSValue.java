@@ -1,5 +1,6 @@
 package com.spring.sns;
 
+
 import org.springframework.util.StringUtils;
 
 import com.github.scribejava.apis.GoogleApi20;
@@ -9,35 +10,41 @@ import lombok.Data;
 
 @Data
 public class SNSValue implements SNSUrls {
-	private String service;
+	private String snsName;
 	private String clientID;
 	private String clientSecret;
 	private String redirectURL;
 	private DefaultApi20 api20Instance;
 	private String profileURL;
 	
-	public SNSValue(String service, String clientID, String clientSecret, String redirectURL){
-		this.service=service;
+	private boolean isNaver;
+	private boolean isGoogle;
+	
+	
+	public SNSValue(String snsName, String clientID, String clientSecret, String redirectURL){
+		this.snsName=snsName;
 		this.clientID=clientID;
 		this.clientSecret=clientSecret;
 		this.redirectURL=redirectURL;
 		
+		this.isNaver=StringUtils.pathEquals("naver", this.snsName);
+		this.isGoogle=StringUtils.pathEquals("google", this.snsName);		
 		
-		if(StringUtils.pathEquals(service, "naver")) {
+		if(isNaver) {
 			this.api20Instance=NaverAPI20.instance();
 			this.profileURL=NAVER_PROFILE_URL;
 			
-		}else if(StringUtils.pathEquals(service, "google")) {
+		}else if(isGoogle) {
 			this.api20Instance=GoogleApi20.instance();
 			this.profileURL=GOOGLE_PROFILE_URL;
 			
-		}else if(StringUtils.pathEquals(service, "insta")) {
+		}else if(StringUtils.pathEquals(snsName, "insta")) {
 			
 			
-		}else if(StringUtils.pathEquals(service, "facebook")) {
+		}else if(StringUtils.pathEquals(snsName, "facebook")) {
 			
 			
-		}else if(StringUtils.pathEquals(service, "twitter")) {
+		}else if(StringUtils.pathEquals(snsName, "twitter")) {
 			
 			
 		}

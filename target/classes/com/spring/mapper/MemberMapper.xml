@@ -22,4 +22,12 @@
 		update test_mem set password=#{password} where email=#{email} 
 	</update>
 	
+	<select id="getBySnsNaver" resultType="com.spring.domain.MemberVO">
+        select * from test_mem where naverid = #{naverid}
+    </select>
+    
+    <select id="getBySnsGoogle" resultType="com.spring.domain.MemberVO">
+        select * from test_mem where googleid = #{googleid}
+    </select>
+	
 </mapper>

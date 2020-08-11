@@ -92,40 +92,42 @@ public class MemberController {
 		return "/member/signIn";		
 	}
 	
-//	@RequestMapping(value = "/auth/{snsService}/callback", 
-//			method = { RequestMethod.GET, RequestMethod.POST})
-//	public String snsLoginCallback(@PathVariable String snsService,
-//			Model model, @RequestParam String code, HttpSession session) throws Exception {
-//		
-//		SNSValue sns = null;
-//		if (StringUtils.pathEquals("naver", snsService)) {
-//			sns = naverSNS;			
-//		}else if(StringUtils.pathEquals("google", snsService)) {
-//			sns = googleSNS;			
-//		}
-//		
-//		// 1. code를 이용해서 access_token 받기
-//		// 2. access_token을 이용해서 사용자 profile 정보 가져오기
-//		SNSSignIn snsLogin = new SNSSignIn(sns);
-//		
-//		MemberVO snsMember = snsLogin.getUserProfile(code); // 1,2번 동시
-//		System.out.println("Profile>>" + snsLogin);
-//		
-//		// 3. DB 해당 유저가 존재하는 체크 (googleid, naverid 컬럼 추가)
-//		MemberVO member = service.getBySns(snsMember);
-//		if (member == null) {
-//			model.addAttribute("result", "존재하지 않는 사용자입니다. 가입해 주세요.");
-//			
-//			//미존재시 가입페이지로!!
-//			
-//		} else {
-//			model.addAttribute("result", member.getFirstName() + "님 반갑습니다.");
-//			
-//			// 4. 존재시 강제로그인
-//			session.setAttribute(SessionNames.LOGIN, member);
-//		}
-//		return "loginResult";
-//	}
+	@GetMapping("/loginResult")
+	public void loginResult() {
+		log.info("SNS로그인 Profile 확인 화면");	
+	}
+	
+	@RequestMapping(value = "/auth/{snsName}/callback", 
+			method = { RequestMethod.GET, RequestMethod.POST})
+	public String snsLogin(@PathVariable String snsName, Model model, @RequestParam String code, HttpSession session) throws Exception {
+		log.info("SNS로그인 절차 진행");
+		log.info("snsLogin : snsName => ", snsName);
+		SNSValue snsValue=null;
+		if(StringUtils.pathEquals("naver", snsName)) {
+			snsValue=naverSNS;
+		}else if(StringUtils.pathEquals("google", snsName)) {
+			snsValue=googleSNS;			
+		}
+		
+		// 1. code를 이용해서 access_token 받기
+		// 2. access_token을 이용해서 사용자 profile 정보 가져오기
+		SNSSignIn snsSignin = new SNSSignIn(googleSNS);
+		MemberVO snsMember=snsSignin.getUserProfile(code);
+		log.info("Profile : " + snsMember);
+		
+		// 3. DB 해당 유저가 존재하는 체크 (googleid, naverid 컬럼 추가)	
+		MemberVO member=service.getBySNS(snsMember);
+		
+		if(member == null) {
+			model.addAttribute("result", "존재하지 않는 사용자 입니다. 가입해 주세요.");
+			return "redirect:/member/signUp";
+		}else {
+			model.addAttribute("result", member.getFirstName()+"님 반갑습니다.");			
+			// 4. 존재시 강제로그인
+			session.setAttribute("auth", member);
+		}
+		return "redirect:/member/loginResult";
+	}
 	
 	@GetMapping("/logout")
 	public String logout(HttpSession session) {
