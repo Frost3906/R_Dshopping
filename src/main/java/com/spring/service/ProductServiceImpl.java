@@ -71,6 +71,14 @@ public class ProductServiceImpl implements ProductService {
 	public void removeFromCart(CartVO vo) {
 		product.removeFromCart(vo);
 	}
+	@Override
+	public int homeCategoryCount() {
+		return product.homeCategoryCount();
+	}
+	@Override
+	public List<String> homeCategoryList() {
+		return product.homeCategoryList();
+	}
 	
 	
 }

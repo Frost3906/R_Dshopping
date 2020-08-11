@@ -11,7 +11,9 @@
   	<div>
   		<h5>
   			result for "
+  				<a href="/" style="color:black;">Home</a>
   			<c:if test="${not empty category1}">
+  				<c:out value=" > "></c:out>
   				<a href="?category1=${category1}&pageNum=1&amount=6" style="color:black;">
 	  				<c:out value="${category1}"/>
   				</a>
