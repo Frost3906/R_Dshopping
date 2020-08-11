@@ -63,8 +63,8 @@
 					<div class="total_price mb-3 sum_price">
 					  ${sum}
 					</div>
-					<button type="button" class="btn btn-danger btn-lg selectDelete" data-cartNum="">Delete</button>
-					<button type="button" class="btn btn-primary btn-lg">Check</button>
+					<button type="button" class="btn btn-danger btn-lg" id="selectDelete" data-cartNum="">Delete</button>
+					<button type="button" class="btn btn-primary btn-lg" id="checkCart">Check</button>
 				</div>
 			</div>
 		</div>
@@ -90,38 +90,80 @@
 
 $(function(){
 	
-	//선택 삭제
-	$(".selectDelete").click(function(){
-		let confirm_val = confirm("정말 삭제하시겠습니까?");
-	  
-	  	if(confirm_val) {
-	  		var checkArr = new Array();
-
-	  		$("input[class='selectbox']:checked").each(function(){
-	  		checkArr.push($(this).attr("data-cartNum"));
 	
-			});
-	    
-			$.ajax({
-	   			url : "/shop/removeFromCart",
-	    		type : "post",
-	    		data : { selectbox : checkArr },
-	    		success : function(result){
-	    			if(result==1){
-			    		location.href = "/shop/cart";
-	    			}
-	    			else{
-	    				alert("잠시 후 다시 시도해 주십시오.");
-	    			}
-	    	
-	    		}	
-			});
-	  
-		} 
+	$("#checkCart").on("click",function(){
+		
+		if("${auth.email}"==""){
+			let login = confirm("Please Sign In");
+			if(login){
+				location.href="/member/signIn";
+			}
+		}else{
+			if("${mycart}"=="[]"){
+				let empty = confirm("Cart is Empty");
+				if(empty){
+					location.href="/";
+				}
+			}else{
+				$.ajax({
+		   			url : "/shop/updateCart",
+		    		type : "post",
+		    		data : { selectbox : checkArr },
+		    		success : function(result){
+		    			if(result==1){
+		    				location.href="/shop/check";
+		    			}
+		    			else{
+		    				alert("잠시 후 다시 시도해 주십시오.");
+		    			}
+		    	
+		    		}	
+				});
+				
+				
+			}
+		}
+		
+	})
+	
+	
+	
+	//선택 삭제
+	$("#selectDelete").on("click",function(){
+		
+		if($("input[class='selectbox']").is(":checked")){
+			let confirm_val = confirm("정말 삭제하시겠습니까?");
+			  
+		  	if(confirm_val) {
+		  		var checkArr = new Array();
+
+		  		$("input[class='selectbox']:checked").each(function(){
+		  		checkArr.push($(this).attr("data-cartNum"));
+		
+				});
+		    
+				$.ajax({
+		   			url : "/shop/removeFromCart",
+		    		type : "post",
+		    		data : { selectbox : checkArr },
+		    		success : function(result){
+		    			if(result==1){
+				    		location.href = "/shop/cart";
+		    			}
+		    			else{
+		    				alert("잠시 후 다시 시도해 주십시오.");
+		    			}
+		    	
+		    		}	
+				});
+		  
+			} 
+		}
+		
 	 });
 	
 	//개별 삭제
-	$(".delete_btn").click(function(){
+	$(".delete_btn").on("click",function(){
 		let confirm_val = confirm("정말 삭제하시겠습니까?");
 		
 		if(confirm_val){
@@ -154,7 +196,7 @@ $(function(){
 	
 	
 	//전체 선택 스크립트
-	$("#allselect").click(function(){
+	$("#allselect").on("click",function(){
 		
 		 let checked = $("#allselect").prop("checked");
 		 console.log(checked);
@@ -165,11 +207,11 @@ $(function(){
 		 }
 	});
 
-	$(".selectbox").click(function(){
+	$(".selectbox").on("click",function(){
 		  $("#allselect").prop("checked", false);
 	});
 	
-	
+	 
 	
 	//갯수에 맞춰 가격 출력하는 스크립트
 	$(".amount").on("change", function(){

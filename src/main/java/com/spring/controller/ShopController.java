@@ -1,5 +1,6 @@
 package com.spring.controller;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -74,15 +75,23 @@ public class ShopController {
 	}
 	
 	@GetMapping("/cart")
-	public void cart(Model model, HttpSession session) {
+	public String cart(Model model, HttpSession session) {
 		log.info("장바구니 호출");
-		MemberVO vo = (MemberVO) session.getAttribute("auth");
-		log.info("email : " + vo.getEmail());
-		List<CartVO> list = service.cartList(vo.getEmail());
-		model.addAttribute("mycart",list);
-		
-		
+		if(session.getAttribute("auth")!=null) {
+			MemberVO vo = (MemberVO) session.getAttribute("auth");
+			log.info("email : " + vo.getEmail());
+			List<CartVO> list = service.cartList(vo.getEmail());
+			model.addAttribute("mycart",list);
+		}else {
+			MemberVO vo = new MemberVO();
+			log.info("비회원 접근");
+			List<CartVO> list = new ArrayList<CartVO>();
+			model.addAttribute("mycart",list);
+		}
+		return "shop/cart";
 	}
+	
+
 	
 	@ResponseBody
 	@PostMapping("/addCart")
@@ -122,8 +131,33 @@ public class ShopController {
 			result = 1;
 		}  
 		return result;  
-		
 	}
+	
+	@ResponseBody
+	@PostMapping("/updateCart")
+	public int updateCart(HttpSession session, @RequestParam(value="selectbox[]") List<String> Arr, CartVO vo) {
+		log.info("카트 물품 변경 ");
+		MemberVO auth = (MemberVO) session.getAttribute("auth");
+		String email = auth.getEmail();
+		int result = 0;
+		int cartNum = 0;
+		 
+		 
+		if(auth != null) {
+			vo.setEmail(email);
+		  
+			for(String i : Arr) {   
+				cartNum = Integer.parseInt(i);
+				vo.setCartNum(cartNum);
+				service.removeFromCart(vo);
+			}   
+			result = 1;
+		}  
+		return result;  
+	}
+	
+	
+	
 	
 	
 	@GetMapping("/product")
@@ -133,6 +167,9 @@ public class ShopController {
 		model.addAttribute("vo", vo);
 		log.info("vo = " + vo);
 	}
+	
+	
+	
 	
 	@GetMapping("/search")
 	public String searchGet(String keyword, 
@@ -169,4 +206,12 @@ public class ShopController {
 			return "/shop/searchList";			
 		}
 	}
+	
+	
+	@GetMapping("/check")
+	public void check() {
+		
+		
+	}
+	
 }

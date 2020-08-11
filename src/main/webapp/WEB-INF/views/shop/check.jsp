@@ -5,6 +5,7 @@
 <script src="https://code.jquery.com/jquery-3.5.1.slim.js" integrity="sha256-DrT5NfxfbHvMHux31Lkhxg42LY6of8TaYyK50jnxRnM=" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <div class="container mt-5 mb-5">
+<h1>끝내주는 결제 페이지</h1>
 	<div class="row">
       <div class="col-lg-12">
         <div class="row mt-5">
@@ -47,27 +48,15 @@
 	 						</div>
 	 				</li>
 	 				<li class="list-group-item">	
-	 						<div class="float-left">대분류</div>
+	 						<div class="float-left">항목</div>
 	 						<div class="float-right">
-								<input type="text" id="p_category1" name="p_category1"/>
-	 						</div>
-	 				</li>
-	 				<li class="list-group-item">	
-	 						<div class="float-left">중분류</div>
-	 						<div class="float-right">
-								<input type="text" id="p_category2" name="p_category2"/>
-	 						</div>
-	 				</li>
-	 				<li class="list-group-item">	
-	 						<div class="float-left">소분류</div>
-	 						<div class="float-right">
-								<input type="text" id="p_category3" name="p_category3"/>
+								<input type="text" id="p_code" name="p_code"/>
 	 						</div>
 	 				</li>
 	 				<li class="list-group-item">
 	 						<div class="float-left">속성</div>
 	 						<div class="float-right">
-								<input type="text" id="property" name="property"/>
+								<input type="text" />
 	 						</div>
 	 				</li>
 	 			</ul>       	

@@ -70,7 +70,7 @@
 			            <a class="nav-link" href="#">About</a>
 			          </li>
 			          <li class="nav-item">
-			            <a class="nav-link" href="#">Services</a>
+			            <a class="nav-link" href="/shop/cart">Cart</a>
 			          </li>
 			          <li class="nav-item">
 			            <a class="nav-link" href="/member/myPage" style="text-decoration: underline;">HI!! ${auth.firstName}</a>
@@ -98,7 +98,7 @@
 			            <a class="nav-link" href="#">About</a>
 			          </li>
 			          <li class="nav-item">
-			            <a class="nav-link" href="#">Services</a>
+			            <a class="nav-link" href="/shop/cart">Cart</a>
 			          </li>
 			          <li class="nav-item">
 			            <a class="nav-link" href="/member/signIn">Sign in</a>
