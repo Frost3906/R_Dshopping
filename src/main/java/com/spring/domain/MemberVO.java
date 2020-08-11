@@ -10,4 +10,7 @@ public class MemberVO {
 	private String lastName;
 	private String role;
 	private String mobile;
+	private String naverid;
+	private String googleid;
+	
 }
