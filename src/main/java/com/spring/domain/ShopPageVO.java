@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class PageVO {
+public class ShopPageVO {
 	private int nowPage;
 	private int lastPage;
 	private int amount;
@@ -16,7 +16,7 @@ public class PageVO {
 	private int startPage;
 	private int endPage;
 	
-	public PageVO(int pageNum, int amount, int productAmt) {
+	public ShopPageVO(int pageNum, int amount, int productAmt) {
 		this.nowPage = pageNum;
 		this.amount = amount;
 		previousPage = ((nowPage-1)/10)*10;
