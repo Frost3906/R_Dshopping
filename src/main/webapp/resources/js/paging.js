@@ -7,13 +7,13 @@ $(function(){
 	let actionForm = $("#actionForm");
 	
 	// 페이지 나누기 버튼 동작 부분
- 	$(".page-item a").click(function(e){
+ 	$(".page-select").click(function(e){
 		e.preventDefault();
 		// 전송해야 할 폼 가져온 후 pageNum 의 값 변경
 		actionForm.find("input[name='pageNum']").val($(this).attr("href"));
 		// 폼 전송하기
 		actionForm.submit();		
-	})
+	});
 	
 	// 한페이지에 보여줄 리스트 수 조절 옵션 부분
 	$(".form-control").change(function(){
@@ -23,5 +23,21 @@ $(function(){
 		actionForm.find("input[name='pageNum']").val("1");
 		// 폼 전송하기
 		actionForm.submit();
-	})
+	});
+	
+	let productAmt = $("#productAmt")
+	
+	$(".page-move").click(function(e){
+		e.preventDefault();
+		$('#myModal').modal("show");
+		// 전송해야 할 폼 가져온 후 pageNum 의 값 변경
+		$(".page-sel-move").unbind("click").bind("click",function(){
+			if($("#pageNumSel").val()>productAmt.val() || $("#pageNumSel").val()<1){
+				alert("존재하지 않는 페이지 번호 입니다.");
+			} else {
+				actionForm.find("input[name='pageNum']").val($("#pageNumSel").val());
+				actionForm.submit();
+			}
+		})
+	});
 });

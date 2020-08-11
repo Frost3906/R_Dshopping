@@ -10,4 +10,5 @@ public interface MemberService {
 	public MemberVO getMember(String email);
 	public MemberVO checkPwd(MemberVO member);
 	public int modify(ModifyMemberVO modifyMember);
+	public int forgetPwd(MemberVO member);
 }

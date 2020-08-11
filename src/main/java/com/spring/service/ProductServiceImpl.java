@@ -41,8 +41,8 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public List<ProductVO> searchCategoryList(String p_category1, String p_category2, String p_category3) {
-		return product.searchCategoryList(p_category1, p_category2, p_category3);
+	public List<ProductVO> searchCategoryList(String p_category1, String p_category2, String p_category3,int pageNum, int amount) {
+		return product.searchCategoryList(p_category1, p_category2, p_category3, pageNum, amount);
 	}
 
 	@Override
@@ -67,4 +67,22 @@ public class ProductServiceImpl implements ProductService {
 	public int categoryCount(String p_category1, String p_category2, String p_category3) {
 		return product.categoryCount(p_category1, p_category2, p_category3);
 	}
+	@Override
+	public void removeFromCart(CartVO vo) {
+		product.removeFromCart(vo);
+	}
+	@Override
+	public int homeCategoryCount() {
+		return product.homeCategoryCount();
+	}
+	@Override
+	public List<String> homeCategoryList() {
+		return product.homeCategoryList();
+	}
+	@Override
+	public void updateCart(CartVO vo) {
+		product.updateCart(vo);
+	}
+	
+	
 }

@@ -3,9 +3,13 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:beans="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:google="http://www.springframework.org/schema/social/google"
+	xmlns:social="http://www.springframework.org/schema/social"
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/social/google http://www.springframework.org/schema/social/spring-social-google.xsd
+		http://www.springframework.org/schema/social http://www.springframework.org/schema/social/spring-social-1.1.xsd">
 
 	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
 	
@@ -19,10 +23,53 @@
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<beans:property name="prefix" value="/WEB-INF/views/" />
 		<beans:property name="suffix" value=".jsp" />
-	</beans:bean>
-	
+	</beans:bean>	
 	<context:component-scan base-package="com.spring.controller" />
 	
+	<!-- 소셜 로그인 설정 -->
+	<!-- 네이버 -->
+	<beans:bean id="naverClientID" class="java.lang.String">
+        <beans:constructor-arg value="f5Zgrrkv1jxt6ddhxTC5" />
+	</beans:bean>
+	<beans:bean id="naverClientSecret" class="java.lang.String">
+        <beans:constructor-arg value="FbGCzHHe8i" />
+	</beans:bean>
+	<beans:bean id="naverRedirectUrl" class="java.lang.String">     
+		<beans:constructor-arg value="http://localhost:8080/auth/naver/callback" />
+	</beans:bean>
+	    
+	<beans:bean id="naverSNS" class="com.spring.sns.SNSValue">
+        <beans:constructor-arg value="naver" />
+        <beans:constructor-arg ref="naverClientID" />
+        <beans:constructor-arg ref="naverClientSecret" />
+        <beans:constructor-arg ref="naverRedirectUrl" />
+	</beans:bean>
 	
+	<!-- 구글 -->
+	<beans:bean id="googleClientID" class="java.lang.String">
+        <beans:constructor-arg value="245346684776-185hq3i3j9iujvt4cl5e42pc4egbh0tg.apps.googleusercontent.com" />
+	</beans:bean>
+	<beans:bean id="googleClientSecret" class="java.lang.String">
+        <beans:constructor-arg value="Yg1HLy59nRMcGN4qcD8FscZw" />
+	</beans:bean>
+	<beans:bean id="googleRedirectUrl" class="java.lang.String">       
+	<beans:constructor-arg value="http://localhost:8080/auth/google/callback" />
+	</beans:bean>
+    
+	<beans:bean id="googleSNS" class="com.spring.sns.SNSValue">
+        <beans:constructor-arg value="google" />
+        <beans:constructor-arg ref="googleClientID" />
+        <beans:constructor-arg ref="googleClientSecret" />
+        <beans:constructor-arg ref="googleRedirectUrl" />
+	</beans:bean>
 	
+	<beans:bean id="googleConnectionFactory" class="org.springframework.social.google.connect.GoogleConnectionFactory">
+	<beans:constructor-arg ref="googleClientID" />
+	<beans:constructor-arg ref="googleClientSecret" />
+	</beans:bean>
+    
+	<beans:bean id="googleOAuth2Parameters" class="org.springframework.social.oauth2.OAuth2Parameters">
+        <beans:property name="scope" value="https://www.googleapis.com/auth/userinfo.email" />        
+        <beans:property name="redirectUri" ref="googleRedirectUrl" />
+	</beans:bean>
 </beans:beans>

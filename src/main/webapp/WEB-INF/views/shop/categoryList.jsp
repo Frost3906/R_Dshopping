@@ -11,20 +11,22 @@
   	<div>
   		<h5>
   			result for "
+  				<a href="/" style="color:black;">Home</a>
   			<c:if test="${not empty category1}">
-  				<a href="?category1=${category1}" style="color:black;">
+  				<c:out value=" > "></c:out>
+  				<a href="?category1=${category1}&pageNum=1&amount=6" style="color:black;">
 	  				<c:out value="${category1}"/>
   				</a>
   			</c:if>
   			<c:if test="${not empty category2}">
   				<c:out value=" > "></c:out>
-  				<a href="?category1=${category1}&category2=${category2}" style="color:black;">
+  				<a href="?category1=${category1}&category2=${category2}&pageNum=1&amount=6" style="color:black;">
 	  				<c:out value="${category2}"/>
   				</a>
   			</c:if>
   			<c:if test="${not empty category3}">
   				<c:out value=" > "></c:out>
-  				<a href="?category1=${category1}&category2=${category2}&category3=${category3}" style="color:black;">
+  				<a href="?category1=${category1}&category2=${category2}&category3=${category3}&pageNum=1&amount=6" style="color:black;">
   					<c:out value="${category3}"/>
   				</a>
   			</c:if>
@@ -37,7 +39,7 @@
 	  			<c:if test="${category3==null && category2!=null}">
 	  				소분류 : 
 		  			<c:forEach var="list" items="${category3List}">
-	  					<a id="downCategory3" href="${list}" style="color:black;">
+	  					<a class="downCategory3" href="${list}" style="color:black;">
 		  					<c:out value="${list}"/>  					
 	  					</a>
 		  			</c:forEach>
@@ -45,7 +47,7 @@
 	 			<c:if test="${category2==null}">
 					중분류 : 
 		  			<c:forEach var="list" items="${category2List}">
-	  					<a id="downCategory2" href="${list}" style="color:black;">
+	  					<a class="downCategory2" href="${list}" style="color:black;">
 		  					<c:out value="${list}"/>
 	  					</a>
 		  			</c:forEach>
@@ -75,6 +77,7 @@
 	</div>
   </div>
   <!-- /.container -->
+<!-- 정보를 전달하는 히든 폼 -->
 <form action="categoryList" id="actionForm">
 	<input type="hidden" name="category1" value="${category1}" />
 	<c:if test="${not empty category2}">
@@ -85,34 +88,12 @@
 	</c:if>
 	<input type="hidden" name="pageNum" value="${pageNum}" />
 	<input type="hidden" name="amount" value="${amount}" />
-</form>
+</form>            
+<input type="hidden" id="productAmt" name="productAmt" value="${productAmt}" />
+<!-- 모달 추가 -->
+<%@ include file="optionshop/paginationModal.jsp" %>
+<!-- 페이지 나누기 관련 js -->
 <script src="/resources/js/paging.js"></script>
-<script>
-$(function(){
-	// 정보를 보낼 hidden 폼인 actionForm 가져오기
-	let actionForm = $("#actionForm");
-	
-
-	// 중분류 카테고리 클릭시 폼 전송
-	$("#downCategory2").click(function(e){
-		e.preventDefault();
-		
-		// amount 변경시 1번 페이지로 이동
-		actionForm.find("input[name='pageNum']").val("1");
-		actionForm.append('<input type="hidden" name="category2" value="'+$(this).attr("href")+'" />')
-		// 폼 전송하기
-		actionForm.submit();
-	})
-	// 소분류 카테고리 클릭시 폼 전송
-	$("#downCategory3").click(function(e){
-		e.preventDefault();
-		
-		// amount 변경시 1번 페이지로 이동
-		actionForm.find("input[name='pageNum']").val("1");
-		actionForm.append('<input type="hidden" name="category3" value="'+$(this).attr("href")+'" />')
-		// 폼 전송하기
-		actionForm.submit();
-	})
-});
-</script>
+<!-- 카테고리 리스트 페이지 히든 폼 전송 js -->
+<script src="/resources/js/categoryListSubmit.js"></script>
 <%@include file="../includes/footer.jsp" %> 
