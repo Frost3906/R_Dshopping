@@ -26,7 +26,6 @@ public class HomeController {
 		log.info("홈페이지 호출");
 		List<String> list = service.homeCategoryList();
 		model.addAttribute("category", list);
-		log.info("홈 상품 리스트 : " + list);
 		return "shop/home";
 	}
 	

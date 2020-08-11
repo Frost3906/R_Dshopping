@@ -34,28 +34,12 @@
 <body>
 	<!-- Navigation -->
 	<div class="fixed-top bg-dark">
-		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="display: block;">
 		
 			<div class="container">
 			
 				<div>
-					<!-- 홈 로고 -->
-				    <button class="navbar-toggler mr-3" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-				        <span class="navbar-toggler-icon"></span>
-				    </button>			
-	      			<a class="navbar-brand" href="/">Shop</a>
 				</div>
-				
-				<div>
-				    <!-- 검색 및 검색 버튼 -->
-				    <form class="form-inline my-2 my-lg-0" method="get" action="/shop/search">
-				      <input class="form-control mr-sm-2" name="keyword" type="search" placeholder="Search" aria-label="Search" <c:if test="${!empty keyword}">value="${keyword}"</c:if>>
-				      <input type="hidden" name="pageNum" value="1" />
-				      <input type="hidden" name="amount" value="6" />
-				      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-				    </form>
-				</div>
-				
 				<div>
 			      <div class="collapse navbar-collapse" id="navbarResponsive">
 			        <ul class="navbar-nav ml-auto">
@@ -117,5 +101,23 @@
 			      </div>
 				</div>				
 	    	</div>	    
+	    	
+	    	
+			<div class="container" style="justify-content: center; padding: 15px;">
+				<div style="display: flex; align-items: center;">
+					<!-- 홈 로고 -->
+				    <button class="navbar-toggler mr-3" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+				        <span class="navbar-toggler-icon"></span>
+				    </button>			
+	      			<a class="navbar-brand" href="/">Shop</a>
+				    <!-- 검색 및 검색 버튼 -->
+				    <form class="form-inline my-2 my-lg-0" method="get" action="/shop/search" style="display: contents;" >
+				      <input class="form-control mr-sm-2" style="margin-right: 8px; width: 400px;" name="keyword" type="search" placeholder="Search" aria-label="Search" <c:if test="${!empty keyword}">value="${keyword}"</c:if>>
+				      <input type="hidden" name="pageNum" value="1" />
+				      <input type="hidden" name="amount" value="6" />
+				      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+				    </form>
+				</div>
+			</div>
 		</nav>
 	</div>
