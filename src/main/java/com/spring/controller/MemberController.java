@@ -133,14 +133,18 @@ public class MemberController {
         
         
         MemberVO vo=service.checkPwd(member);
-        if(member.getMobile().equals(vo.getMobile())) {
-        	vo.setPassword(tempPwd);
-        	service.forgetPwd(vo);
-        	email.setContent("비밀번호는 "+vo.getPassword()+" 입니다.");
-        	email.setReciver(vo.getEmail());
-        	email.setSubject(vo.getFirstName()+"님 비밀번호 찾기 메일입니다.");
-        	emailSender.SendEmail(email);
-        	return "redirect:/member/signIn";        	
+        if(vo != null) {
+        	if(member.getMobile().equals(vo.getMobile())) {
+        		vo.setPassword(tempPwd);
+        		service.forgetPwd(vo);
+        		email.setContent("비밀번호는 "+vo.getPassword()+" 입니다.");
+        		email.setReciver(vo.getEmail());
+        		email.setSubject(vo.getFirstName()+"님 비밀번호 찾기 메일입니다.");
+        		emailSender.SendEmail(email);
+        		return "redirect:/member/signIn";        	
+        	}else {
+        		return "redirect:/";
+        	}           	
         }else {
         	return "redirect:/";
         }
