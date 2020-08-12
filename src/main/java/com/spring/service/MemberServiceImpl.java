@@ -37,4 +37,15 @@ public class MemberServiceImpl implements MemberService {
 	public int forgetPwd(MemberVO member) {
 		return mapper.forgetPwd(member);
 	}
+
+	@Override
+	public MemberVO getBySNS(MemberVO snsMember) {
+		MemberVO member=null;
+		if(snsMember.getGoogleid() != null) {
+			member=mapper.getBySnsGoogle(snsMember);			
+		}else if(snsMember.getNaverid() != null) {
+			member=mapper.getBySnsNaver(snsMember);			
+		}
+		return member;
+	}
 }

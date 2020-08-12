@@ -1,7 +1,5 @@
 package com.spring.service;
 
-import org.springframework.stereotype.Service;
-
 import com.spring.domain.MemberVO;
 import com.spring.domain.ModifyMemberVO;
 
@@ -11,4 +9,5 @@ public interface MemberService {
 	public MemberVO checkPwd(MemberVO member);
 	public int modify(ModifyMemberVO modifyMember);
 	public int forgetPwd(MemberVO member);
+	public MemberVO getBySNS(MemberVO snsMember);
 }

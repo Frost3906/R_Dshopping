@@ -13,4 +13,6 @@ public interface MemberMapper {
 	public MemberVO checkPwd(MemberVO member);
 	public int modify(ModifyMemberVO modifyMember);
 	public int forgetPwd(MemberVO member);
+	public MemberVO getBySnsNaver(MemberVO snsMember);
+	public MemberVO getBySnsGoogle(MemberVO snsMember);
 }
