@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import com.spring.domain.CartVO;
+import com.spring.domain.CategoryKeySearchVO;
 import com.spring.domain.ProductVO;
 
 public interface ProductMapper {
@@ -21,6 +22,7 @@ public interface ProductMapper {
 											  @Param("category3") String category3, 
 											  @Param("pageNum") int pageNum, 
 											  @Param("amount") int amount);
+	public List<ProductVO> keySearchCategoryList(CategoryKeySearchVO vo);
 	public List<ProductVO> searchKeyword(@Param("keywordList") List<String> keywordList, 
 										 @Param("pageNum") int pageNum, 
 										 @Param("amount") int amount);
@@ -28,6 +30,7 @@ public interface ProductMapper {
 	public int categoryCount(@Param("category1") String category1,
 							 @Param("category2") String category2,
 							 @Param("category3") String category3);
+	public int keySearchCategoryCount(CategoryKeySearchVO vo);
 	public int homeCategoryCount();
 	public List<String> homeCategoryList();
 	

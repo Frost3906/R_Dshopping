@@ -41,7 +41,8 @@
 				<div>
 				</div>
 				<div>
-			      <div class="collapse navbar-collapse" id="navbarResponsive">
+			      <!-- <div class="collapse navbar-collapse" id="navbarResponsive"> -->
+			      <div>
 			        <ul class="navbar-nav ml-auto">
 			        <!-- 로그인 상황에 따른 navbar 변경(로그인 시) -->
 			          <c:if test="${!empty auth}">
@@ -105,10 +106,10 @@
 	    	
 			<div class="container" style="justify-content: center; padding: 15px;">
 				<div style="display: flex; align-items: center;">
-					<!-- 홈 로고 -->
+					<!-- 홈 로고 --><!-- 
 				    <button class="navbar-toggler mr-3" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
 				        <span class="navbar-toggler-icon"></span>
-				    </button>			
+				    </button>			 -->
 	      			<a class="navbar-brand" href="/">Shop</a>
 				    <!-- 검색 및 검색 버튼 -->
 				    <form class="form-inline my-2 my-lg-0" method="get" action="/shop/search" style="display: contents;" >

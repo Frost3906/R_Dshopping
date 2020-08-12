@@ -16,7 +16,7 @@ $(function(){
 	});
 	
 	// 한페이지에 보여줄 리스트 수 조절 옵션 부분
-	$(".form-control").change(function(){
+	$("#amount").change(function(){
 		// 전송해야 할 폼 가져온 후 amount 값을 변경한 후
 		actionForm.find("input[name='amount']").val($(this).val());
 		// amount 변경시 1번 페이지로 이동
