@@ -90,10 +90,18 @@
 				p_category1 = #{category1} and p_category2 = #{category2} and p_category3 = #{category3}
 			</if>
 	</select>
+	
+	<select id="homeCategoryCount" resultType="int">
+		select count(distinct p_category1) from product
+	</select>
+	
+	<select id="homeCategoryList" resultType="string">
+		select distinct p_category1 from product
+	</select>
 
 	<!-- 상품 등록 sql -->
 	<insert id="addProduct">
-		insert into product(p_code,p_name,p_price,p_stock,p_content) values(#{p_code},#{p_name},#{p_price},#{p_stock},#{p_content})
+		insert into product(p_code,p_name,p_price,p_stock,p_content,p_category1,p_category2,p_category3,property) values(#{p_code},#{p_name},#{p_price},#{p_stock},#{p_content},#{p_category1},#{p_category2},#{p_category3},#{property})
 	</insert>
 
 	<!-- 장바구니 담는 sql -->
@@ -113,11 +121,28 @@
 	</select>
 	
 	
+	<!-- 카트 정보 갱신 -->
+	<update id="updateCart">
+		update cart 
+		set cart_Stock = #{cart_Stock}
+		where cartNum = #{cartNum} 
+	</update>
+	
 	<!-- 카트 물품 삭제 -->
 	<delete id="removeFromCart">
 		delete from cart
 		where cartNum = #{cartNum} and email = #{email}
 	</delete>
+	
+	
+	<!-- 리뷰 관련 쿼리 -->
+	<select id="listReview" resultType="com.spring.domain.ReviewVO">
+		select * from review
+	</select>
+	
+	<insert id="writeReview">
+		insert into review(reviewid,p_code,title,p_rating,content,email) values(seq_review_id.nextval,#{p_code},#{title},#{p_rating},#{content},#{email})
+	</insert>
 	
 	
 </mapper>

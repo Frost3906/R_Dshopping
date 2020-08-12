@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 
 import com.spring.domain.CartVO;
 import com.spring.domain.ProductVO;
+import com.spring.domain.ReviewVO;
 
 public interface ProductMapper {
 	
@@ -28,11 +29,17 @@ public interface ProductMapper {
 	public int categoryCount(@Param("category1") String category1,
 							 @Param("category2") String category2,
 							 @Param("category3") String category3);
+	public int homeCategoryCount();
+	public List<String> homeCategoryList();
 	
 	
 	public int addCart(CartVO vo);
 	public List<CartVO> cartList(String email);
 	
 	public void removeFromCart(CartVO vo);
+	public void updateCart(CartVO vo);
+	
+	public int writeReview(ReviewVO vo);
+	public List<ReviewVO> listReview();
 
 }

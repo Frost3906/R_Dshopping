@@ -24,9 +24,8 @@ public class HomeController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Model model) {
 		log.info("홈페이지 호출");
-		List<ProductVO> list = service.getList();
-		model.addAttribute("product", list);
-		log.info("홈 상품 리스트 : " + list);
+		List<String> list = service.homeCategoryList();
+		model.addAttribute("category", list);
 		return "shop/home";
 	}
 	

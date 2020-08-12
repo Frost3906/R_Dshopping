@@ -13,4 +13,5 @@ public class ProductVO {
 	private String p_category1;
 	private String p_category2;
 	private String p_category3;
+	private String property;
 }

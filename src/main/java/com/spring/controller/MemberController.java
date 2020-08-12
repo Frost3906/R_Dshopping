@@ -1,18 +1,28 @@
 package com.spring.controller;
 
+import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.social.google.connect.GoogleConnectionFactory;
+import org.springframework.social.oauth2.GrantType;
+import org.springframework.social.oauth2.OAuth2Operations;
+import org.springframework.social.oauth2.OAuth2Parameters;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 
 import com.spring.domain.MemberVO;
 import com.spring.domain.ModifyMemberVO;
@@ -20,6 +30,8 @@ import com.spring.email.EmailSender;
 import com.spring.email.EmailVO;
 import com.spring.email.RandomString;
 import com.spring.service.MemberService;
+import com.spring.sns.SNSSignIn;
+import com.spring.sns.SNSValue;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -30,14 +42,39 @@ public class MemberController {
 
 	@Autowired
 	private MemberService service;
-	@Autowired
-	private EmailSender emailSender;
-	@Autowired
+	
+	//email 발송을 위한 객체 
+	@Inject
+	private EmailSender emailSender;	
+	@Inject
 	private EmailVO email;
 	
+	//소셜 로그인을 위한 객체
+	@Inject
+	private SNSValue naverSNS;
+	@Inject
+	private SNSValue googleSNS;
+	@Inject
+	private GoogleConnectionFactory googleConnectionFactory;
+	@Inject
+	private OAuth2Parameters googleOAuth2Parameters;
+	
+	
 	@GetMapping("/signIn")
-	public void signinForm() {
-		log.info("로그인 화면 표시");		
+	public void signinForm(Model model) {
+		log.info("로그인 화면 표시");	
+		
+		//네이버code 발행을 위한 URL 생성
+		SNSSignIn snsLogin = new SNSSignIn(naverSNS);
+		model.addAttribute("naver_url", snsLogin.getNaverAuthURL());
+		
+//		SNSSignIn googleLogin = new SNSSignIn(googleSNS);
+//		model.addAttribute("naver_url", googleLogin.getNaverAuthURL());
+		
+		//구글code 발행을 위한 URL 생성
+		OAuth2Operations oauthOperations = googleConnectionFactory.getOAuthOperations();
+		String url = oauthOperations.buildAuthorizeUrl(GrantType.AUTHORIZATION_CODE, googleOAuth2Parameters);
+		model.addAttribute("google_url", url);
 	}
 	
 	@PostMapping("/signIn")
@@ -53,6 +90,43 @@ public class MemberController {
 			}
 		}
 		return "/member/signIn";		
+	}
+	
+	@GetMapping("/loginResult")
+	public void loginResult() {
+		log.info("SNS로그인 Profile 확인 화면");	
+	}
+	
+	@RequestMapping(value = "/auth/{snsName}/callback", 
+			method = { RequestMethod.GET, RequestMethod.POST})
+	public String snsLogin(@PathVariable String snsName, Model model, @RequestParam String code, HttpSession session) throws Exception {
+		log.info("SNS로그인 절차 진행");
+		log.info("snsLogin : snsName => ", snsName);
+		SNSValue snsValue=null;
+		if(StringUtils.pathEquals("naver", snsName)) {
+			snsValue=naverSNS;
+		}else if(StringUtils.pathEquals("google", snsName)) {
+			snsValue=googleSNS;			
+		}
+		
+		// 1. code를 이용해서 access_token 받기
+		// 2. access_token을 이용해서 사용자 profile 정보 가져오기
+		SNSSignIn snsSignin = new SNSSignIn(googleSNS);
+		MemberVO snsMember=snsSignin.getUserProfile(code);
+		log.info("Profile : " + snsMember);
+		
+		// 3. DB 해당 유저가 존재하는 체크 (googleid, naverid 컬럼 추가)	
+		MemberVO member=service.getBySNS(snsMember);
+		
+		if(member == null) {
+			model.addAttribute("result", "존재하지 않는 사용자 입니다. 가입해 주세요.");
+			return "redirect:/member/signUp";
+		}else {
+			model.addAttribute("result", member.getFirstName()+"님 반갑습니다.");			
+			// 4. 존재시 강제로그인
+			session.setAttribute("auth", member);
+		}
+		return "redirect:/member/loginResult";
 	}
 	
 	@GetMapping("/logout")

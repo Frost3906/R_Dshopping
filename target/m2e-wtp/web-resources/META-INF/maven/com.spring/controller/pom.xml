@@ -15,6 +15,26 @@
 	</properties>
 	<dependencies>	
 		
+	<!-- 소셜 로그인 라이브러리 -->
+	<!-- scribejava-apis -->
+	<dependency>
+	    <groupId>com.github.scribejava</groupId>
+	    <artifactId>scribejava-apis</artifactId>
+	    <version>5.6.0</version>
+	</dependency>
+	<!-- scribejava-core -->
+	<dependency>
+	    <groupId>com.github.scribejava</groupId>
+	    <artifactId>scribejava-core</artifactId>
+	    <version>5.6.0</version>
+	</dependency>
+	<!-- spring-social-google -->
+	<dependency>
+	    <groupId>org.springframework.social</groupId>
+	    <artifactId>spring-social-google</artifactId>
+	    <version>1.0.0.RELEASE</version>
+	</dependency>
+	
 	<!-- 아이디 비밀번호 찾기 메일발송 관련 lib -->
 	<dependency>
 	    <groupId>javax.mail</groupId>
@@ -105,6 +125,21 @@
 		    <artifactId>jackson-databind</artifactId>
 		    <version>2.11.1</version>
 		</dependency>
+		
+		<!-- jackson-annotations -->
+		<dependency>
+		    <groupId>com.fasterxml.jackson.core</groupId>
+		    <artifactId>jackson-annotations</artifactId>
+		    <version>2.11.1</version>
+		</dependency>
+		<!-- jackson-core -->
+		<dependency>
+		    <groupId>com.fasterxml.jackson.core</groupId>
+		    <artifactId>jackson-core</artifactId>
+		    <version>2.11.1</version>
+		</dependency>
+		
+		
 		
 		<dependency>
    			 <groupId>org.mybatis</groupId>

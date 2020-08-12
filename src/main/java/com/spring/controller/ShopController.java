@@ -1,8 +1,10 @@
 package com.spring.controller;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
-
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -20,6 +23,7 @@ import com.spring.domain.CartVO;
 import com.spring.domain.MemberVO;
 import com.spring.domain.BoardPageVO;
 import com.spring.domain.ProductVO;
+import com.spring.domain.ReviewVO;
 import com.spring.domain.ShopPageVO;
 import com.spring.service.ProductService;
 
@@ -75,15 +79,23 @@ public class ShopController {
 	}
 	
 	@GetMapping("/cart")
-	public void cart(Model model, HttpSession session) {
+	public String cart(Model model, HttpSession session) {
 		log.info("장바구니 호출");
-		MemberVO vo = (MemberVO) session.getAttribute("auth");
-		log.info("email : " + vo.getEmail());
-		List<CartVO> list = service.cartList(vo.getEmail());
-		model.addAttribute("mycart",list);
-		
-		
+		if(session.getAttribute("auth")!=null) {
+			MemberVO vo = (MemberVO) session.getAttribute("auth");
+			log.info("email : " + vo.getEmail());
+			List<CartVO> list = service.cartList(vo.getEmail());
+			model.addAttribute("mycart",list);
+		}else {
+			MemberVO vo = new MemberVO();
+			log.info("비회원 접근");
+			List<CartVO> list = new ArrayList<CartVO>();
+			model.addAttribute("mycart",list);
+		}
+		return "shop/cart";
 	}
+	
+
 	
 	@ResponseBody
 	@PostMapping("/addCart")
@@ -123,8 +135,36 @@ public class ShopController {
 			result = 1;
 		}  
 		return result;  
-		
 	}
+	
+	@ResponseBody
+	@PostMapping("/updateCart")
+	public int updateCart(HttpSession session, @RequestBody List<Map<String, Object>> Arr, CartVO vo) {
+		log.info("카트 물품 변경 "+Arr);
+		MemberVO auth = (MemberVO) session.getAttribute("auth");
+		String email = auth.getEmail();
+		int result = 0;
+		
+		int cartNum = 0;
+		 
+		System.out.println(Arr);
+		
+		if(auth != null) {
+			vo.setEmail(email);
+		  
+			for(Map<String, Object> i : Arr) {   
+				cartNum = Integer.parseInt((String) i.get("cartNum"));
+				vo.setCartNum(cartNum);
+				vo.setCart_Stock(Integer.parseInt((String) i.get("amount")));
+				service.updateCart(vo);
+			}   
+			result = 1;
+		}  
+		return result;  
+	}
+	
+	
+	
 	
 	
 	@GetMapping("/product")
@@ -132,8 +172,21 @@ public class ShopController {
 		log.info("제품 상세페이지 호출" + p_code);
 		ProductVO vo = service.getProduct(p_code);
 		model.addAttribute("vo", vo);
+		model.addAttribute("list",service.listReview());
 		log.info("vo = " + vo);
+		
 	}
+
+	
+	@PostMapping("/review/write")
+	public String writeReview(ReviewVO vo, HttpSession session) {
+		log.info("리뷰 작성 요청 "+vo);
+		service.writeReview(vo);
+		
+		return "redirect:/shop/product?p_code="+vo.getP_code();
+	}
+
+	
 	
 	@GetMapping("/search")
 	public String searchGet(String keyword, 
@@ -170,4 +223,12 @@ public class ShopController {
 			return "/shop/searchList";			
 		}
 	}
+	
+	
+	@GetMapping("/check")
+	public void check() {
+		
+		
+	}
+	
 }
