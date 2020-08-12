@@ -27,7 +27,21 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js"></script>
   
   
-  
+  <style>
+  	th {
+  		text-align: center;
+  	}
+  	td {
+  		text-align: center;  		
+  	}
+    #star_grade a{
+        text-decoration: none;
+        color: gray;
+    }
+    #star_grade a.on{
+        color: red;
+    }  	
+  </style>
   
 </head>
 

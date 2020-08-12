@@ -23,6 +23,7 @@ import com.spring.domain.CartVO;
 import com.spring.domain.MemberVO;
 import com.spring.domain.BoardPageVO;
 import com.spring.domain.ProductVO;
+import com.spring.domain.ReviewVO;
 import com.spring.domain.ShopPageVO;
 import com.spring.service.ProductService;
 
@@ -171,10 +172,20 @@ public class ShopController {
 		log.info("제품 상세페이지 호출" + p_code);
 		ProductVO vo = service.getProduct(p_code);
 		model.addAttribute("vo", vo);
+		model.addAttribute("list",service.listReview());
 		log.info("vo = " + vo);
+		
 	}
+
 	
-	
+	@PostMapping("/review/write")
+	public String writeReview(ReviewVO vo, HttpSession session) {
+		log.info("리뷰 작성 요청 "+vo);
+		service.writeReview(vo);
+		
+		return "redirect:/shop/product?p_code="+vo.getP_code();
+	}
+
 	
 	
 	@GetMapping("/search")

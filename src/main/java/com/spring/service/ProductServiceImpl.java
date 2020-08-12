@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.spring.domain.CartVO;
 import com.spring.domain.ProductVO;
+import com.spring.domain.ReviewVO;
 import com.spring.mapper.ProductMapper;
 
 @Service
@@ -82,6 +83,14 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public void updateCart(CartVO vo) {
 		product.updateCart(vo);
+	}
+	@Override
+	public int writeReview(ReviewVO vo) {
+		return product.writeReview(vo);
+	}
+	@Override
+	public List<ReviewVO> listReview() {
+		return product.listReview();
 	}
 	
 	
