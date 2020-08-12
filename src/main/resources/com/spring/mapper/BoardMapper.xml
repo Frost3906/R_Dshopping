@@ -38,8 +38,8 @@
 		]]>
 		<include refid="criteria"></include>
 		<![CDATA[
-			bno > 0 and rownum <= (#{pageNum}*#{amount})
-			where rn > (#{pageNum -1_)*#{amount}
+			bno > 0 and rownum <= (#{pageNum}*#{amount}))
+			where rn > (#{pageNum}-1)*#{amount}
 		]]>
 	</select>
 	
@@ -54,6 +54,8 @@
 		<include refid="criteria"></include>
 		 bno>0
 	</select>
+	
+	
 	
 	<!-- 동적 sql 작성 -->
 	<sql id="criteria">
