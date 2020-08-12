@@ -7,6 +7,7 @@
 <title>loginResult</title>
 </head>
 <body>
-	${result}
+<h1>로그인 결과 확인 페이지</h1>
+	<h2>${result}</h2>
 </body>
 </html>
