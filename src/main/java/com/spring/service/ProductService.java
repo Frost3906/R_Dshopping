@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.spring.domain.CartVO;
 import com.spring.domain.ProductVO;
+import com.spring.domain.ReviewVO;
 
 public interface ProductService {
 	public void addProduct(ProductVO vo);
@@ -21,4 +22,7 @@ public interface ProductService {
 	public int homeCategoryCount();
 	public List<String> homeCategoryList();
 	public void updateCart(CartVO vo);
+	
+	public int writeReview(ReviewVO vo);
+	public List<ReviewVO> listReview();
 }

@@ -4,8 +4,8 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-@Setter
 @Getter
+@Setter
 @ToString
 public class Criteria {
 	private int pageNum;	// 페이지 번호
@@ -21,6 +21,11 @@ public class Criteria {
 	public Criteria(int pageNum, int amount) {
 		this.pageNum = pageNum;
 		this.amount = amount;
+	}
+	
+	// type 값을 받아서 배열로 리턴
+	public String[] getTypeArr() {
+		return type == null ? new String[] {} : type.split("");
 	}
 	
 }
