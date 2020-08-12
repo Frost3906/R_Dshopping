@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 import com.spring.domain.CartVO;
 import com.spring.domain.CategoryKeySearchVO;
 import com.spring.domain.ProductVO;
+import com.spring.domain.ReviewVO;
 
 public interface ProductMapper {
 	
@@ -40,5 +41,8 @@ public interface ProductMapper {
 	
 	public void removeFromCart(CartVO vo);
 	public void updateCart(CartVO vo);
+	
+	public int writeReview(ReviewVO vo);
+	public List<ReviewVO> listReview();
 
 }

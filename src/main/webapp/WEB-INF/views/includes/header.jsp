@@ -27,7 +27,21 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js"></script>
   
   
-  
+  <style>
+  	th {
+  		text-align: center;
+  	}
+  	td {
+  		text-align: center;  		
+  	}
+    #star_grade a{
+        text-decoration: none;
+        color: gray;
+    }
+    #star_grade a.on{
+        color: red;
+    }  	
+  </style>
   
 </head>
 
@@ -64,7 +78,7 @@
 			            <a class="nav-link" href="/member/logout">LogOut</a>
 			          </li>
 			          <li class="nav-item">
-			            <a class="nav-link" href="#">Contact</a>
+			            <a class="nav-link" href="/board/list">게시판</a>
 			          </li>
    			     
    			          <c:if test="${auth.role=='admin'}">
@@ -92,7 +106,7 @@
 			            <a class="nav-link" href="/member/signUp">Sign up</a>
 			          </li>
 			          <li class="nav-item">
-			            <a class="nav-link" href="#">Contact</a>
+			            <a class="nav-link" href="/board/list">게시판</a>
 			          </li>
 			          <!-- 권한에 따라 관리자 페이지 표시여부 -->
 			          

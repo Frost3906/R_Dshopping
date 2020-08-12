@@ -31,9 +31,5 @@ import org.springframework.mail.javamail.JavaMailSender;
 	        	System.out.println("MailException�߻�");
 	        	e.printStackTrace();
 	        }
-	        
-	        
-	        
 	    }
-
 }
