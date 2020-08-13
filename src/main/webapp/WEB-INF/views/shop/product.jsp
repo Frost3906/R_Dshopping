@@ -70,7 +70,6 @@
 				<li class="nav-item col-sm text-center"><a class="nav-link active" href="#goods-description" data-toggle="tab" aria-controls="goods-description" aria-selected="true">상품설명</a></li>
       			<li class="nav-item col-sm text-center"><a class="nav-link" href="#goods-infomation" data-toggle="tab" aria-controls="goods-infomation" aria-selected="true">상세정보</a></li>
       			<li class="nav-item col-sm text-center"><a class="nav-link" href="#goods-review" data-toggle="tab" aria-controls="goods-review" aria-selected="false">구매후기</a></li>
-      			<li class="nav-item col-sm text-center"><a class="nav-link" href="#goods-qna" data-toggle="tab" aria-controls="goods-qna" aria-selected="false">상품문의</a></li>
       		</ul>
       		<div class="tab-content" id="productTabContent">
       			<div id="goods-description" class="tab-pane show active" aria-labelledby="goods-description-tab">
@@ -124,13 +123,11 @@
 				</div>
 				<!-- 리뷰 끝 -->
 				
-			</div>
+				</div>
       			</div>     			
-       			<div id="goods-qna" class="tab-pane" aria-labelledby="goods-qna-tab">
-      				Q & A
-      			</div>     			      			
+   			      			
       		</div>
-      		</div>
+    </div>
       		
 </div>
 
