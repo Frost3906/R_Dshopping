@@ -11,6 +11,68 @@
 		select * from product where p_code = #{code}
 	</select>
 	
+	<select id="keySearchCategoryList" resultType="com.spring.domain.ProductVO" parameterType="com.spring.domain.CategoryKeySearchVO">
+		select * from ( 
+			select <![CDATA[rownum rno,]]>product.* 
+			from product 
+			where 
+				<if test="category2==null">
+					p_category1 = #{category1}
+				</if> 
+				<if test="category2!=null and category3==null">
+					p_category1 = #{category1} and p_category2 = #{category2}
+				</if>
+				<if test="category3!=null">
+					p_category1 = #{category1} and p_category2 = #{category2} and p_category3 = #{category3}
+				</if>
+				and 
+				p_code in (
+					select p_code 
+					from searchList 
+					where 
+						<foreach collection="keywordList" item="keyList" separator=" or ">
+							p_name like upper('%'||#{keyList}||'%') or 
+							p_code like '%'||#{keyList}||'%' or 
+							p_content like upper('%'||#{keyList}||'%') or 
+							p_category1 like upper('%'||#{keyList}||'%') or 
+							p_category2 like upper('%'||#{keyList}||'%') or 
+							p_category3 like upper('%'||#{keyList}||'%') 
+						</foreach>
+				)
+		) where <![CDATA[rno>(#{pageNum}-1)*#{amount} and rno<=#{pageNum}*#{amount}]]>
+	</select>
+	
+	<select id="keySearchCategoryCount" resultType="int" parameterType="com.spring.domain.CategoryKeySearchVO">
+		select count(*) from ( 
+			select product.* 
+			from product 
+			where 
+				<if test="category2==null">
+					p_category1 = #{category1}
+				</if> 
+				<if test="category2!=null and category3==null">
+					p_category1 = #{category1} and p_category2 = #{category2}
+				</if>
+				<if test="category3!=null">
+					p_category1 = #{category1} and p_category2 = #{category2} and p_category3 = #{category3}
+				</if>
+				and 
+				p_code in (
+					select p_code 
+					from searchList 
+					where 
+						<foreach collection="keywordList" item="keyList" separator=" or ">
+							p_name like upper('%'||#{keyList}||'%') or 
+							p_code like '%'||#{keyList}||'%' or 
+							p_content like upper('%'||#{keyList}||'%') or 
+							p_category1 like upper('%'||#{keyList}||'%') or 
+							p_category2 like upper('%'||#{keyList}||'%') or 
+							p_category3 like upper('%'||#{keyList}||'%') 
+						</foreach>
+				)
+		)
+	</select>
+	
 	<select id="searchCategoryList" resultType="com.spring.domain.ProductVO">
 		select * from ( 
 			select <![CDATA[rownum rno,]]>product.* 
@@ -133,6 +195,24 @@
 		delete from cart
 		where cartNum = #{cartNum} and email = #{email}
 	</delete>
+	
+	
+	<!-- 리뷰 관련 쿼리 -->
+	<select id="listReview" resultType="com.spring.domain.ReviewVO">
+		select * from review where p_code = #{p_code} order by reviewid desc
+	</select>
+	
+	<insert id="writeReview">
+		insert into review(reviewid,p_code,title,p_rating,content,email) values(seq_review_id.nextval,#{p_code},#{title},#{p_rating},#{content},#{email})
+	</insert>
+	
+	
+	<!-- 평점 계산 -->
+	<update id="updateStar">
+		update product 
+		set p_rating = (select sum(p_rating) from review where p_code = #{p_code})/(select count(*) from review where p_code = #{p_code})
+		where p_code = #{p_code}
+	</update>
 	
 	
 </mapper>

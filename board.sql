@@ -1,4 +1,5 @@
 drop table board;
+
 -- 게시판
 create table board (
     bno         NUMBER(10)		not null,
@@ -11,5 +12,7 @@ create table board (
 );
 
 alter table board add constraint pk_board primary key(bno);
+
+create sequence seq_board;
 
 select * from board;

@@ -45,7 +45,7 @@
                             <div class="row">
                                 <ul>
                                     <a href=""><li><i class="fab fa-facebook-f"></i></li></a>
-                                    <a href="${naver_url}"><li><i class="fab fa-twitter"></i></li></a>
+                                    <a href="${naver_url}"><li><i class="fab fa-instagram"></i></li></a>
                                     <a href="${google_url}"><li><i class="fab fa-google"></i></li></a>
                                 </ul>
                             </div>

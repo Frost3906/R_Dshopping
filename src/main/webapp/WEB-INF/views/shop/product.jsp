@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ include file="../includes/header.jsp" %>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
@@ -77,15 +78,134 @@
       			<div id="goods-infomation" class="tab-pane" aria-labelledby="goods-infomation-tab">
       				제품 상세
       			</div>
+      			<!-- 리뷰 시작 -->
        			<div id="goods-review" class="tab-pane" aria-labelledby="goods-review-tab">
-      				상품 리뷰
+      			<div class="review-board">
+				<table class="table table-boardered">
+					
+					
+					<colgroup>
+						<col style="width: 70px;"/>
+						<col style="width: auto;"/>
+						<col style="width: 100px;"/>
+						<col style="width: 100px;"/>
+						<col style="width: 120px;"/>
+						<col style="width: 80px;"/>
+					</colgroup>
+					<thead class="table">
+						<tr>
+							<th>번  호</th>
+							<th>제  목</th>
+							<th>작성자</th>
+							<th>작성일</th>
+							<th>별  점</th>
+						</tr>
+					</thead>
+					<tbody class="reviewList">
+						<!-- 게시판 리스트 반복문 -->
+						<c:forEach var="vo" items="${list}">
+							<tr>
+								<td>${vo.reviewId}</td>
+								<td>${vo.title}</td>
+								<td>${vo.email}</td>
+								<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${vo.regdate}"/></td>
+								<td><small class="text-muted">
+		                			<c:if test="${vo.p_rating==0}">
+		                				&#9734; &#9734; &#9734; &#9734; &#9734;
+		                			</c:if>
+		                			<c:if test="${vo.p_rating==1}">
+		                				&#9733; &#9734; &#9734; &#9734; &#9734;
+		                			</c:if>
+		                			<c:if test="${vo.p_rating==2}">
+		                				&#9733; &#9733; &#9734; &#9734; &#9734;
+		                			</c:if>
+		                			<c:if test="${vo.p_rating==3}">
+		                				&#9733; &#9733; &#9733; &#9734; &#9734;
+		                			</c:if>
+		                			<c:if test="${vo.p_rating==4}">
+		                				&#9733; &#9733; &#9733; &#9733; &#9734;
+		                			</c:if>
+		                			<c:if test="${vo.p_rating==5}">
+		                				&#9733; &#9733; &#9733; &#9733; &#9733;
+		                			</c:if>
+		                			</small></td>
+							</tr>
+						</c:forEach>						
+
+					</tbody>
+				</table>
+				<div class="float-right">
+					<button class="btn btn-primary writeReview" data-toggle="modal" data-target="#review_modal">Write</button>
+				</div>
+					
+				<!-- start Pagination -->
+				<div class="text-center">
+					<ul class="pagination">
+						<c:if test="${pageVO.prev}">
+							<li class="paginate_button previous"><a href="${pageVO.startPage-1}">Previous</a></li>
+						</c:if>
+						<c:forEach var="idx" begin="${pageVO.startPage}" end="${pageVO.endPage}">
+							<li class="paginate_button ${pageVO.cri.pageNum==idx?'active':''}"><a href="${idx}">${idx}</a></li>
+						</c:forEach>
+						<c:if test="${pageVO.next}">
+							<li class="paginate_button next"><a href="${pageVO.endPage+1}">Next</a></li>
+						</c:if>
+					</ul>
+				</div>
+				<!-- 리뷰 끝 -->
+				
+			</div>
       			</div>     			
        			<div id="goods-qna" class="tab-pane" aria-labelledby="goods-qna-tab">
       				Q & A
       			</div>     			      			
       		</div>
       		</div>
+      		
 </div>
+
+<!--리뷰 Modal -->
+<div class="modal fade" id="review_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel"></h4>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div>
+          	<p id="star_grade">
+        		<a href="#">★</a>
+        		<a href="#">★</a>
+        		<a href="#">★</a>
+        		<a href="#">★</a>
+        		<a href="#">★</a>
+			</p>
+          </div>        
+          <div class="form-group">
+            <label for="review_title" class="col-form-label">title</label>
+            <input type="text" class="form-control" id="review_title">
+          </div>
+          <div class="form-group">
+            <label for="review_content" class="col-form-label">content</label>
+            <textarea class="form-control" id="review_content"></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success write" class="close" data-dismiss="modal">submit</button>
+        <button type="button" class="btn btn-primary closeBtn" class="close" data-dismiss="modal">cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
 
 <!-- Modal -->
 <div class="modal fade" id="shoppingorcheck" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -109,14 +229,112 @@
 <script>
 $(function(){
 	
+	let email = "${auth.email}";
+	let p_code = ${vo.p_code};
+	let rating = 0;
+	
 	//탭 이동 활성화 스크립트
-	$('#productTab a').click(function (e) {
+	$('#productTab a').on("click",function (e) {
 		  e.preventDefault();
 		  $(this).tab('show');
 		  $('#productTab a').removeClass('active');
 		  $(this).addClass('active');
 	})
 
+
+	//모달 초기화
+	$('.modal').on('hidden.bs.modal', function (e) {
+		$('#star_grade a').parent().children("a").removeClass("on");
+  		$(this).find('form')[0].reset();
+	});
+	
+	
+	
+	//리뷰 작성 눌렀을때
+	$(".writeReview").on("click", function(){
+		$("#review_modal").modal('show');
+		
+	});
+	
+	//별점
+	$('#star_grade a').click(function(){
+    	$(this).parent().children("a").removeClass("on");  /* 별점의 on 클래스 전부 제거 */ 
+        $(this).addClass("on").prevAll("a").addClass("on"); /* 클릭한 별과, 그 앞 까지 별점에 on 클래스 추가 */
+        $('.on').each(function(i){
+        	rating=i+1;
+        })
+    });
+	
+	
+	//모달 리뷰 작성 버튼
+	$(".write").on("click", function(){
+		let title = $("#review_title").val();
+		let content = $("#review_content").val();
+
+		
+		let data = {
+				email : email,
+				p_code : p_code,
+				p_rating : rating,
+				title : title,
+				content : content
+		}
+		
+		
+		$.ajax({
+			url : "/shop/review/write",
+			type : "post",
+			data : data,
+			success : function(result){
+				
+				$("#review_modal").modal('hide');
+				
+				$.ajax({
+			        type:'GET',
+			        url : '/shop/review/list',
+			        data: {p_code:p_code},
+			        success : function(result){
+			            console.log(result);
+			            let html = "";
+			            
+			            if(result.length > 0){
+			                
+			                for(i=0; i < result.length; i++){
+			                    html += "<tr><td>"+result[i].reviewId+"</td>";
+			                    html += "<td>"+result[i].title+"</td>";
+			                    html += "<td>"+result[i].email+"</td>";
+			                    html += "<td><fmt:formatDate pattern='yyyy-MM-dd HH:mm' value='"+result[i].regdate+"'/></td>"
+			                    html += "<td><small class='text-muted'><c:if test='"+result[i].p_rating+"==0'>";
+                				html += "&#9734; &#9734; &#9734; &#9734; &#9734;</c:if>";
+                				html += "<c:if test='"+result[i].p_rating+"==1'>&#9733; &#9734; &#9734; &#9734; &#9734;</c:if>";
+                				html += "<c:if test='"+result[i].p_rating+"==2'>&#9733; &#9733; &#9734; &#9734; &#9734;</c:if>";
+                				html += "<c:if test='"+result[i].p_rating+"==3'>&#9733; &#9733; &#9733; &#9734; &#9734;</c:if>";
+                				html += "<c:if test='"+result[i].p_rating+"==4'>&#9733; &#9733; &#9733; &#9733; &#9734;</c:if>";
+                				html += "<c:if test='"+result[i].p_rating+"==5'>&#9733; &#9733; &#9733; &#9733; &#9733;</c:if></small></td></tr>";
+			                    
+			                }
+			                
+			            } 
+
+			            $(".reviewList").html(html);
+			            
+			        },
+			        error:function(request,status,error){
+			            alert("실패");
+			       }
+			    });
+	
+				
+			},
+			error : function(){
+				alert("잠시 후 다시 시도 해 주세요")
+			}
+
+		})
+		
+	})
+	
+	
 	//갯수에 맞춰 가격 출력하는 스크립트
 	$("#cartStock").on("propertychange change keyup paste input", function(){
 		let amount = $("#cartStock").val();
@@ -129,8 +347,7 @@ $(function(){
 	$(".addCart").click(function(){
 		if("${auth.email}"!=""){
 			if($("#cartStock").val()!=0){
-				let email = "${auth.email}";
-				let p_code = ${vo.p_code};
+				
 				let cart_Stock = $("#cartStock").val();
 				
 				let data = {
@@ -149,7 +366,7 @@ $(function(){
 						
 					},
 					error : function(){
-						alert("잠시 후 다시 시도 해 주세요")
+						alert("잠시 후 다시 시도 해 주세요");
 					}
 
 				})
@@ -158,7 +375,7 @@ $(function(){
 				alert("구매 수량을 확인 해 주세요");
 			}
 		}else{
-			alert("로그인 후 이용 해 주세요")
+			alert("로그인 후 이용 해 주세요");
 		}
 		
 	})

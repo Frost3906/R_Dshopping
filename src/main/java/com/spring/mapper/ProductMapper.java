@@ -3,16 +3,20 @@ package com.spring.mapper;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
 import com.spring.domain.CartVO;
+import com.spring.domain.CategoryKeySearchVO;
 import com.spring.domain.ProductVO;
+import com.spring.domain.ReviewVO;
 
+@Repository
 public interface ProductMapper {
 	
 	public void addProduct(ProductVO vo);
 	
 	public List<ProductVO> getList();
-	public ProductVO getProduct(String code);
+	public ProductVO getProduct(int code);
 	public List<String> searchCategory2(String category1);
 	public List<String> searchCategory3(@Param ("category2") String category2, 
 										@Param("category1") String category1);
@@ -21,6 +25,7 @@ public interface ProductMapper {
 											  @Param("category3") String category3, 
 											  @Param("pageNum") int pageNum, 
 											  @Param("amount") int amount);
+	public List<ProductVO> keySearchCategoryList(CategoryKeySearchVO vo);
 	public List<ProductVO> searchKeyword(@Param("keywordList") List<String> keywordList, 
 										 @Param("pageNum") int pageNum, 
 										 @Param("amount") int amount);
@@ -28,6 +33,7 @@ public interface ProductMapper {
 	public int categoryCount(@Param("category1") String category1,
 							 @Param("category2") String category2,
 							 @Param("category3") String category3);
+	public int keySearchCategoryCount(CategoryKeySearchVO vo);
 	public int homeCategoryCount();
 	public List<String> homeCategoryList();
 	
@@ -37,5 +43,10 @@ public interface ProductMapper {
 	
 	public void removeFromCart(CartVO vo);
 	public void updateCart(CartVO vo);
+	
+	public int writeReview(ReviewVO vo);
+	public List<ReviewVO> listReview(int p_code);
+	
+	public void updateStar(int p_code);
 
 }

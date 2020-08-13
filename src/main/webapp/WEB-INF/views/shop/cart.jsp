@@ -106,21 +106,15 @@ $(function(){
 				}
 			}else{
 				let JsonArray = new Array();
-				let Json = new Object();
 
 
 				$(".amount").each(function(){
+					let Json = new Object();
 					Json.amount = $(this).val();
 					Json.cartNum = $(this).attr("data-cartNum");
-					console.log(Json);
-					JsonArray.push(temp);
-					console.log(JsonArray);
 				}); 
 				
-					
-			
-				
-				
+
 
 				console.log(JsonArray);
 				
