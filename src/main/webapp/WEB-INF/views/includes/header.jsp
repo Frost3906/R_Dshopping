@@ -55,7 +55,8 @@
 				<div>
 				</div>
 				<div>
-			      <div class="collapse navbar-collapse" id="navbarResponsive">
+			      <!-- <div class="collapse navbar-collapse" id="navbarResponsive"> -->
+			      <div>
 			        <ul class="navbar-nav ml-auto">
 			        <!-- 로그인 상황에 따른 navbar 변경(로그인 시) -->
 			          <c:if test="${!empty auth}">
@@ -77,7 +78,7 @@
 			            <a class="nav-link" href="/member/logout">LogOut</a>
 			          </li>
 			          <li class="nav-item">
-			            <a class="nav-link" href="#">Contact</a>
+			            <a class="nav-link" href="/board/list">게시판</a>
 			          </li>
    			     
    			          <c:if test="${auth.role=='admin'}">
@@ -105,7 +106,7 @@
 			            <a class="nav-link" href="/member/signUp">Sign up</a>
 			          </li>
 			          <li class="nav-item">
-			            <a class="nav-link" href="#">Contact</a>
+			            <a class="nav-link" href="/board/list">게시판</a>
 			          </li>
 			          <!-- 권한에 따라 관리자 페이지 표시여부 -->
 			          
@@ -119,10 +120,10 @@
 	    	
 			<div class="container" style="justify-content: center; padding: 15px;">
 				<div style="display: flex; align-items: center;">
-					<!-- 홈 로고 -->
+					<!-- 홈 로고 --><!-- 
 				    <button class="navbar-toggler mr-3" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
 				        <span class="navbar-toggler-icon"></span>
-				    </button>			
+				    </button>			 -->
 	      			<a class="navbar-brand" href="/">Shop</a>
 				    <!-- 검색 및 검색 버튼 -->
 				    <form class="form-inline my-2 my-lg-0" method="get" action="/shop/search" style="display: contents;" >

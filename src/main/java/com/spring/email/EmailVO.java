@@ -25,6 +25,4 @@ public class EmailVO {
     public void setContent(String content) {
         this.content = content;
     }
-    
-     
 }

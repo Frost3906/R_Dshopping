@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.spring.domain.CartVO;
+import com.spring.domain.CategoryKeySearchVO;
 import com.spring.domain.MemberVO;
 import com.spring.domain.BoardPageVO;
 import com.spring.domain.ProductVO;
@@ -39,7 +40,8 @@ public class ShopController {
 
 	@GetMapping("/categoryList")
 	public void getCategoryList(@Param("amount") int amount, 
-								@Param("amount") int pageNum, 
+								@Param("pageNum") int pageNum, 
+								String categoryKeyword,
 								String category1, 
 								String category2, 
 								String category3, 
@@ -48,18 +50,21 @@ public class ShopController {
 		model.addAttribute("pageNum", pageNum); // 현재 페이지 번호
 		model.addAttribute("amount", amount); // 현재 페이지 당 리스트 개수
 		ShopPageVO pageVO = new ShopPageVO(pageNum, amount,service.categoryCount(category1, category2, category3));
-		model.addAttribute("pageVO", pageVO);
 		int products = service.categoryCount(category1, category2, category3); // 조회된 상품 수
-		model.addAttribute("productAmt", (int)(Math.ceil(products/(double)(amount))));
-		int idx = 0;
-		if(products%amount==0) {
-			idx = (products/amount);
+		model.addAttribute("categoryKeyword", categoryKeyword);
+		log.info("categoryKeword" + categoryKeyword);
+		List<ProductVO> list = null;
+		if(!categoryKeyword.isEmpty()) {
+			String[] keyArray = categoryKeyword.split(" "); // 검색어를 공백 기준으로 나누어서 배열 형태로 생성
+			List<String> keyList = Arrays.asList(keyArray); // 배열 형태의 검색어를 리스트로 변환
+			CategoryKeySearchVO keySearchVO = new
+					CategoryKeySearchVO(pageVO, category1, category2, category3, keyList);
+			list = service.keySearchCategoryList(keySearchVO);
+			pageVO = new ShopPageVO(pageNum, amount, service.keySearchCategoryCount(keySearchVO));
+			products = service.keySearchCategoryCount(keySearchVO);
 		} else {
-			idx = (products/amount+1);
+			list = service.searchCategoryList(category1, category2, category3,pageNum,amount);
 		}
-		model.addAttribute("idx", idx);
-		
-		List<ProductVO> list = service.searchCategoryList(category1, category2, category3,pageNum,amount);
 		List<String> categoryList = null;
 		if(category3!=null) {
 			categoryList = service.searchCategory3(category3, category2);
@@ -74,8 +79,19 @@ public class ShopController {
 			categoryList = service.searchCategory2(category1);
 			model.addAttribute("category2List", categoryList);
 		}
+
+		
+		model.addAttribute("productAmt", (int)(Math.ceil(products/(double)(amount))));
+		int idx = 0;
+		if(products%amount==0) {
+			idx = (products/amount);
+		} else {
+			idx = (products/amount+1);
+		}
+		model.addAttribute("idx", idx);
 		model.addAttribute("category1",category1);
 		model.addAttribute("product", list);
+		model.addAttribute("pageVO", pageVO);
 	}
 	
 	@GetMapping("/cart")

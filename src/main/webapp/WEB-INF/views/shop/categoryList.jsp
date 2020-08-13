@@ -14,23 +14,26 @@
   				<a href="/" style="color:black;">Home</a>
   			<c:if test="${not empty category1}">
   				<c:out value=" > "></c:out>
-  				<a href="?category1=${category1}&pageNum=1&amount=6" style="color:black;">
+  				<a class="upCategory1" href="${category1}" style="color:black;">
 	  				<c:out value="${category1}"/>
   				</a>
   			</c:if>
   			<c:if test="${not empty category2}">
   				<c:out value=" > "></c:out>
-  				<a href="?category1=${category1}&category2=${category2}&pageNum=1&amount=6" style="color:black;">
+  				<a class="upCategory2" href="${category2}" style="color:black;">
 	  				<c:out value="${category2}"/>
   				</a>
   			</c:if>
   			<c:if test="${not empty category3}">
   				<c:out value=" > "></c:out>
-  				<a href="?category1=${category1}&category2=${category2}&category3=${category3}&pageNum=1&amount=6" style="color:black;">
+  				<a class="upCategory3" href="${category3}" style="color:black;">
   					<c:out value="${category3}"/>
   				</a>
   			</c:if>
   			 "
+  			<c:if test="${not empty categoryKeyword}">
+  				- Keyword : <c:out value="${categoryKeyword}"/>
+  			</c:if>
   		</h5>
   	</div>
   	<div class="row mb-3">
@@ -75,6 +78,29 @@
 		<!-- 페이지 나누기 부분 -->
   		<%@ include file="optionshop/pagination.jsp" %> 
 	</div>
+  	<div class="mb-3" style="display: flex; justify-content: center;">
+  		<div style="margin-right: 5px;">
+  			<h4>Search in Category : </h4>
+  		</div>
+  		<div>
+		    <!-- 검색 및 검색 버튼 -->
+		    <form class="form-inline my-2 my-lg-0" method="get" action="/shop/categoryList" style="display: contents;" >
+		      <input class="form-control mr-sm-2" style="margin-right: 8px; width: 200px;" name="categoryKeyword" type="search" placeholder="Search in Category" aria-label="Search" <c:if test="${!empty categoryKeyword}">value="${categoryKeyword}"</c:if>>
+		      <c:if test="${not empty category1}">
+		      	<input type="hidden" name="category1" value="${category1}" />
+		      </c:if>
+		      <c:if test="${not empty category2}">
+		      	<input type="hidden" name="category2" value="${category2}" />
+		      </c:if>
+		      <c:if test="${not empty category3}">
+		      	<input type="hidden" name="category3" value="${category3}" />
+		      </c:if>
+		      <input type="hidden" name="pageNum" value="1" />
+		      <input type="hidden" name="amount" value="${amount}" />
+		      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+		    </form>  		
+  		</div>
+  	</div>
   </div>
   <!-- /.container -->
 <!-- 정보를 전달하는 히든 폼 -->
@@ -88,6 +114,7 @@
 	</c:if>
 	<input type="hidden" name="pageNum" value="${pageNum}" />
 	<input type="hidden" name="amount" value="${amount}" />
+	<input type="hidden" name="categoryKeyword" value="${categoryKeyword}" />
 </form>            
 <input type="hidden" id="productAmt" name="productAmt" value="${productAmt}" />
 <!-- 모달 추가 -->

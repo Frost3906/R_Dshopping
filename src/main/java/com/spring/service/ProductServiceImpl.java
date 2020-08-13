@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.spring.domain.CartVO;
+import com.spring.domain.CategoryKeySearchVO;
 import com.spring.domain.ProductVO;
 import com.spring.domain.ReviewVO;
 import com.spring.mapper.ProductMapper;
@@ -85,6 +86,14 @@ public class ProductServiceImpl implements ProductService {
 		product.updateCart(vo);
 	}
 	@Override
+	public List<ProductVO> keySearchCategoryList(CategoryKeySearchVO vo) {
+		return product.keySearchCategoryList(vo);
+	}
+	@Override
+	public int keySearchCategoryCount(CategoryKeySearchVO vo) {
+		return product.keySearchCategoryCount(vo);
+	}
+	@Override
 	public int writeReview(ReviewVO vo) {
 		return product.writeReview(vo);
 	}
@@ -96,6 +105,7 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public void updateStar(int p_code) {
 		product.updateStar(p_code);
+
 	}
 	
 	

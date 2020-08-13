@@ -49,11 +49,11 @@ public class MemberController {
 	@Inject
 	private EmailVO email;
 	
-	//소셜 로그인을 위한 객체
+	
 	@Inject
 	private SNSValue naverSNS;
-	@Inject
-	private SNSValue googleSNS;
+//	@Inject
+//	private SNSValue googleSNS;
 	@Inject
 	private GoogleConnectionFactory googleConnectionFactory;
 	@Inject
@@ -95,39 +95,10 @@ public class MemberController {
 	@GetMapping("/loginResult")
 	public void loginResult() {
 		log.info("SNS로그인 Profile 확인 화면");	
+		
 	}
 	
-	@RequestMapping(value = "/auth/{snsName}/callback", 
-			method = { RequestMethod.GET, RequestMethod.POST})
-	public String snsLogin(@PathVariable String snsName, Model model, @RequestParam String code, HttpSession session) throws Exception {
-		log.info("SNS로그인 절차 진행");
-		log.info("snsLogin : snsName => ", snsName);
-		SNSValue snsValue=null;
-		if(StringUtils.pathEquals("naver", snsName)) {
-			snsValue=naverSNS;
-		}else if(StringUtils.pathEquals("google", snsName)) {
-			snsValue=googleSNS;			
-		}
-		
-		// 1. code를 이용해서 access_token 받기
-		// 2. access_token을 이용해서 사용자 profile 정보 가져오기
-		SNSSignIn snsSignin = new SNSSignIn(googleSNS);
-		MemberVO snsMember=snsSignin.getUserProfile(code);
-		log.info("Profile : " + snsMember);
-		
-		// 3. DB 해당 유저가 존재하는 체크 (googleid, naverid 컬럼 추가)	
-		MemberVO member=service.getBySNS(snsMember);
-		
-		if(member == null) {
-			model.addAttribute("result", "존재하지 않는 사용자 입니다. 가입해 주세요.");
-			return "redirect:/member/signUp";
-		}else {
-			model.addAttribute("result", member.getFirstName()+"님 반갑습니다.");			
-			// 4. 존재시 강제로그인
-			session.setAttribute("auth", member);
-		}
-		return "redirect:/member/loginResult";
-	}
+	
 	
 	@GetMapping("/logout")
 	public String logout(HttpSession session) {
@@ -206,7 +177,7 @@ public class MemberController {
         String tempPwd=randomStr.generate(DATA_FOR_RANDOM_STRING, random_string_length);
         
         
-        MemberVO vo=service.checkPwd(member);
+        MemberVO vo=service.checkPwd(member);	//메일 발송 알림 팝업 창 설정 필요
         if(vo != null) {
         	if(member.getMobile().equals(vo.getMobile())) {
         		vo.setPassword(tempPwd);

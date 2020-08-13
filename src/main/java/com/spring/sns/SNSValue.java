@@ -44,9 +44,6 @@ public class SNSValue implements SNSUrls {
 		}else if(StringUtils.pathEquals(snsName, "facebook")) {
 			
 			
-		}else if(StringUtils.pathEquals(snsName, "twitter")) {
-			
-			
 		}
 	}	
 }
