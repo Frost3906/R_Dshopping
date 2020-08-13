@@ -89,9 +89,8 @@
 						<col style="width: auto;"/>
 						<col style="width: 100px;"/>
 						<col style="width: 100px;"/>
-						<col style="width: 100px;"/>
-						<col style="width: 100px;"/>
-						<col style="width: 100px;"/>
+						<col style="width: 120px;"/>
+						<col style="width: 80px;"/>
 					</colgroup>
 					<thead class="table">
 						<tr>
@@ -100,39 +99,45 @@
 							<th>작성자</th>
 							<th>작성일</th>
 							<th>별  점</th>
-							<th>조회수</th>
 						</tr>
 					</thead>
-					<tbody>
+					<tbody class="reviewList">
 						<!-- 게시판 리스트 반복문 -->
 						<c:forEach var="vo" items="${list}">
 							<tr>
 								<td>${vo.reviewId}</td>
-								<td><a href='<c:out value="${vo.reviewId}"/>' class="move">${vo.title}</a></td>
+								<td>${vo.title}</td>
 								<td>${vo.email}</td>
 								<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${vo.regdate}"/></td>
-								<td>${vo.p_rating}</td>
-								<td></td>
+								<td><small class="text-muted">
+		                			<c:if test="${vo.p_rating==0}">
+		                				&#9734; &#9734; &#9734; &#9734; &#9734;
+		                			</c:if>
+		                			<c:if test="${vo.p_rating==1}">
+		                				&#9733; &#9734; &#9734; &#9734; &#9734;
+		                			</c:if>
+		                			<c:if test="${vo.p_rating==2}">
+		                				&#9733; &#9733; &#9734; &#9734; &#9734;
+		                			</c:if>
+		                			<c:if test="${vo.p_rating==3}">
+		                				&#9733; &#9733; &#9733; &#9734; &#9734;
+		                			</c:if>
+		                			<c:if test="${vo.p_rating==4}">
+		                				&#9733; &#9733; &#9733; &#9733; &#9734;
+		                			</c:if>
+		                			<c:if test="${vo.p_rating==5}">
+		                				&#9733; &#9733; &#9733; &#9733; &#9733;
+		                			</c:if>
+		                			</small></td>
 							</tr>
-						</c:forEach>
+						</c:forEach>						
+
 					</tbody>
 				</table>
 				<div class="float-right">
 					<button class="btn btn-primary writeReview" data-toggle="modal" data-target="#review_modal">Write</button>
 				</div>
-				<div class="row">	
-					<div class="col-md-12">
-						<div class="col-md-2 col-md-offset-2">
-							<!-- 페이지 목록 갯수 지정하는 폼 -->
-							<select class="form-control" name="amount">
-								<option value="10" <c:out value="${criteria.amount == 10?'selected':''}"/>>10</option>
-								<option value="20" <c:out value="${criteria.amount == 20?'selected':''}"/>>20</option>
-								<option value="30" <c:out value="${criteria.amount == 30?'selected':''}"/>>30</option>
-								<option value="40" <c:out value="${criteria.amount == 40?'selected':''}"/>>40</option>
-							</select>
-						</div>
-					</div>
-				</div>	
+					
 				<!-- start Pagination -->
 				<div class="text-center">
 					<ul class="pagination">
@@ -189,7 +194,7 @@
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-success write">submit</button>
+        <button type="button" class="btn btn-success write" class="close" data-dismiss="modal">submit</button>
         <button type="button" class="btn btn-primary closeBtn" class="close" data-dismiss="modal">cancel</button>
       </div>
     </div>
@@ -236,12 +241,20 @@ $(function(){
 		  $(this).addClass('active');
 	})
 
+
+	//모달 초기화
+	$('.modal').on('hidden.bs.modal', function (e) {
+		$('#star_grade a').parent().children("a").removeClass("on");
+  		$(this).find('form')[0].reset();
+	});
+	
+	
 	
 	//리뷰 작성 눌렀을때
 	$(".writeReview").on("click", function(){
 		$("#review_modal").modal('show');
 		
-	})
+	});
 	
 	//별점
 	$('#star_grade a').click(function(){
@@ -267,8 +280,6 @@ $(function(){
 				content : content
 		}
 		
-		console.log(data);
-
 		
 		$.ajax({
 			url : "/shop/review/write",
@@ -277,6 +288,42 @@ $(function(){
 			success : function(result){
 				
 				$("#review_modal").modal('hide');
+				
+				$.ajax({
+			        type:'GET',
+			        url : '/shop/review/list',
+			        data: {p_code:p_code},
+			        success : function(result){
+			            console.log(result);
+			            let html = "";
+			            
+			            if(result.length > 0){
+			                
+			                for(i=0; i < result.length; i++){
+			                    html += "<tr><td>"+result[i].reviewId+"</td>";
+			                    html += "<td>"+result[i].title+"</td>";
+			                    html += "<td>"+result[i].email+"</td>";
+			                    html += "<td><fmt:formatDate pattern='yyyy-MM-dd HH:mm' value='"+result[i].regdate+"'/></td>"
+			                    html += "<td><small class='text-muted'><c:if test='"+result[i].p_rating+"==0'>";
+                				html += "&#9734; &#9734; &#9734; &#9734; &#9734;</c:if>";
+                				html += "<c:if test='"+result[i].p_rating+"==1'>&#9733; &#9734; &#9734; &#9734; &#9734;</c:if>";
+                				html += "<c:if test='"+result[i].p_rating+"==2'>&#9733; &#9733; &#9734; &#9734; &#9734;</c:if>";
+                				html += "<c:if test='"+result[i].p_rating+"==3'>&#9733; &#9733; &#9733; &#9734; &#9734;</c:if>";
+                				html += "<c:if test='"+result[i].p_rating+"==4'>&#9733; &#9733; &#9733; &#9733; &#9734;</c:if>";
+                				html += "<c:if test='"+result[i].p_rating+"==5'>&#9733; &#9733; &#9733; &#9733; &#9733;</c:if></small></td></tr>";
+			                    
+			                }
+			                
+			            } 
+
+			            $(".reviewList").html(html);
+			            
+			        },
+			        error:function(request,status,error){
+			            alert("실패");
+			       }
+			    });
+	
 				
 			},
 			error : function(){
