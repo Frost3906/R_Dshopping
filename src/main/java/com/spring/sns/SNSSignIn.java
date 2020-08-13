@@ -4,8 +4,6 @@ import java.util.Iterator;
 
 import org.springframework.util.StringUtils;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.scribejava.core.builder.ServiceBuilder;
@@ -79,6 +77,7 @@ public class SNSSignIn {
 			member.setEmail(resNode.get("email").asText());
 		}
 		
+		System.out.println(member);
 		return member;		
 	}
 }

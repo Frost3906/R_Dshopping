@@ -53,7 +53,7 @@
         <beans:constructor-arg value="Yg1HLy59nRMcGN4qcD8FscZw" />
 	</beans:bean>
 	<beans:bean id="googleRedirectUrl" class="java.lang.String">       
-	<beans:constructor-arg value="http://localhost:8080/auth/google/callback" />
+		<beans:constructor-arg value="http://localhost:8080/auth/google/callback" />
 	</beans:bean>
     
 	<beans:bean id="googleSNS" class="com.spring.sns.SNSValue">
@@ -64,8 +64,8 @@
 	</beans:bean>
 	
 	<beans:bean id="googleConnectionFactory" class="org.springframework.social.google.connect.GoogleConnectionFactory">
-	<beans:constructor-arg ref="googleClientID" />
-	<beans:constructor-arg ref="googleClientSecret" />
+		<beans:constructor-arg ref="googleClientID" />
+		<beans:constructor-arg ref="googleClientSecret" />
 	</beans:bean>
     
 	<beans:bean id="googleOAuth2Parameters" class="org.springframework.social.oauth2.OAuth2Parameters">
