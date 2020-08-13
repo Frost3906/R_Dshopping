@@ -168,22 +168,29 @@ public class ShopController {
 	
 	
 	@GetMapping("/product")
-	public void product(String p_code, Model model) {
+	public void product(int p_code, Model model) {
 		log.info("제품 상세페이지 호출" + p_code);
 		ProductVO vo = service.getProduct(p_code);
 		model.addAttribute("vo", vo);
-		model.addAttribute("list",service.listReview());
+		model.addAttribute("list",service.listReview(p_code));
 		log.info("vo = " + vo);
 		
 	}
 
+	@ResponseBody
+	@GetMapping("/review/list")
+	public List<ReviewVO> listReview(int p_code){
+		return service.listReview(p_code);
+	}
 	
+	
+	@ResponseBody
 	@PostMapping("/review/write")
-	public String writeReview(ReviewVO vo, HttpSession session) {
+	public int writeReview(ReviewVO vo) {
 		log.info("리뷰 작성 요청 "+vo);
-		service.writeReview(vo);
-		
-		return "redirect:/shop/product?p_code="+vo.getP_code();
+		int result = service.writeReview(vo);
+		service.updateStar(vo.getP_code());
+		return result;
 	}
 
 	

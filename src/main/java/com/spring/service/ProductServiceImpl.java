@@ -27,7 +27,7 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public ProductVO getProduct(String code) {
+	public ProductVO getProduct(int code) {
 		return product.getProduct(code);
 	}
 
@@ -89,8 +89,13 @@ public class ProductServiceImpl implements ProductService {
 		return product.writeReview(vo);
 	}
 	@Override
-	public List<ReviewVO> listReview() {
-		return product.listReview();
+	public List<ReviewVO> listReview(int p_code) {
+		return product.listReview(p_code);
+	}
+	
+	@Override
+	public void updateStar(int p_code) {
+		product.updateStar(p_code);
 	}
 	
 	

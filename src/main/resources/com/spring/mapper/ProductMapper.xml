@@ -137,12 +137,20 @@
 	
 	<!-- 리뷰 관련 쿼리 -->
 	<select id="listReview" resultType="com.spring.domain.ReviewVO">
-		select * from review
+		select * from review where p_code = #{p_code} order by reviewid desc
 	</select>
 	
 	<insert id="writeReview">
 		insert into review(reviewid,p_code,title,p_rating,content,email) values(seq_review_id.nextval,#{p_code},#{title},#{p_rating},#{content},#{email})
 	</insert>
+	
+	
+	<!-- 평점 계산 -->
+	<update id="updateStar">
+		update product 
+		set p_rating = (select sum(p_rating) from review where p_code = #{p_code})/(select count(*) from review where p_code = #{p_code})
+		where p_code = #{p_code}
+	</update>
 	
 	
 </mapper>

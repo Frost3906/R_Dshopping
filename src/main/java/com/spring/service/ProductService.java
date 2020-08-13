@@ -9,7 +9,7 @@ import com.spring.domain.ReviewVO;
 public interface ProductService {
 	public void addProduct(ProductVO vo);
 	public List<ProductVO> getList();
-	public ProductVO getProduct(String code);
+	public ProductVO getProduct(int code);
 	public List<String> searchCategory2(String p_category1);
 	public List<String> searchCategory3(String p_category2, String p_category1);
 	public int addCart(CartVO vo);
@@ -24,5 +24,6 @@ public interface ProductService {
 	public void updateCart(CartVO vo);
 	
 	public int writeReview(ReviewVO vo);
-	public List<ReviewVO> listReview();
+	public List<ReviewVO> listReview(int p_code);
+	public void updateStar(int p_code);
 }
