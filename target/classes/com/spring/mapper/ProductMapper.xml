@@ -7,6 +7,18 @@
 		from product
 	</select>
 	
+	<select id="manageList" resultType="com.spring.domain.ProductVO">
+		select * from (
+			select <![CDATA[rownum rno,]]> product.* 
+			from product 
+		)
+		where <![CDATA[rno>(#{pageNum}-1)*#{amount} and rno<=#{pageNum}*#{amount}]]>
+	</select>
+	
+	<select id="listCount" resultType="int">
+		select count(*) from product
+	</select>
+	
 	<select id="getProduct" resultType="com.spring.domain.ProductVO">
 		select * from product where p_code = #{code}
 	</select>
@@ -199,13 +211,31 @@
 	
 	<!-- 리뷰 관련 쿼리 -->
 	<select id="listReview" resultType="com.spring.domain.ReviewVO">
-		select * from review where p_code = #{p_code} order by reviewid desc
+		select reviewid,title,email,regdate,p_rating from review where p_code = #{p_code} order by reviewid desc
+	</select>
+	
+	<select id="getReview" resultType="com.spring.domain.ReviewVO">
+		select * from review where reviewid = #{reviewid} 
 	</select>
 	
 	<insert id="writeReview">
-		insert into review(reviewid,p_code,title,p_rating,content,email) values(seq_review_id.nextval,#{p_code},#{title},#{p_rating},#{content},#{email})
+		insert into review(reviewid,p_code,title,p_rating,content,email,image) values(seq_review_id.nextval,#{p_code},#{title},#{p_rating},#{content},#{email},#{image})
 	</insert>
 	
+	
+	
+	<update id="productModify">
+		update product
+		set p_name = #{p_name},
+		    p_price = #{p_price},
+		    p_stock = #{p_stock},
+		    p_content = #{p_content},
+		    p_category1 = #{p_category1},
+		    p_category2 = #{p_category2},
+		    p_category3 = #{p_category3},
+		    property = #{property}
+		where p_code = #{p_code}
+	</update>
 	
 	<!-- 평점 계산 -->
 	<update id="updateStar">

@@ -101,11 +101,27 @@ public class ProductServiceImpl implements ProductService {
 	public List<ReviewVO> listReview(int p_code) {
 		return product.listReview(p_code);
 	}
+	@Override
+	public ReviewVO getReview(int reviewId) {
+		return product.getReview(reviewId);
+	}
 	
 	@Override
 	public void updateStar(int p_code) {
 		product.updateStar(p_code);
 
+	}
+	@Override
+	public int productModify(ProductVO vo) {
+		return product.productModify(vo);
+	}
+	@Override
+	public int listCount() {
+		return product.listCount();
+	}
+	@Override
+	public List<ProductVO> manageList(int pageNum, int amount) {
+		return product.manageList(pageNum, amount);
 	}
 	
 	

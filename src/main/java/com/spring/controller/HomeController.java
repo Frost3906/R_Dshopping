@@ -146,14 +146,13 @@ public class HomeController {
 //	}
 //
 	// 구글 Callback호출 메소드
-	@RequestMapping(value = "/auth/google/callback", method = { RequestMethod.GET, RequestMethod.POST })
-	@ResponseBody
+	@RequestMapping(value = "/auth/google/callback", method = { RequestMethod.GET, RequestMethod.POST })	
 	public String googleCallback(MemberVO member, Model model, @RequestParam String code, HttpSession session) throws IOException {
 		log.info("GOOGLE Callback");
 		log.info(""+member);
 		
 //		session.setAttribute("auth", value);
 		
-		return "/";
+		return "redirect:/";
 	}
 }

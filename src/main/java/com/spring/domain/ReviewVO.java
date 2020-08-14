@@ -13,5 +13,6 @@ public class ReviewVO {
 	private int p_rating;
 	private String email;
 	private Date regdate;
+	private String image;
 	
 }

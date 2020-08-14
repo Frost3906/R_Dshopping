@@ -12,6 +12,7 @@ public class CartListVO {
 	private int p_code;
 	private int cart_Stock;
 	private Date addDate;
+	private String image;
 	
 	private int num;
 	private String p_name;

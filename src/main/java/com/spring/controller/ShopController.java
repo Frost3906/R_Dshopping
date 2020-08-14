@@ -199,6 +199,12 @@ public class ShopController {
 		return service.listReview(p_code);
 	}
 	
+	@ResponseBody
+	@GetMapping("/review/get")
+	public ReviewVO getReview(int reviewId) {
+		return service.getReview(reviewId);
+	}
+	
 	
 	@ResponseBody
 	@PostMapping("/review/write")
