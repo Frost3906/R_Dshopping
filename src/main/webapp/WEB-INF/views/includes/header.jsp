@@ -29,16 +29,10 @@
   <!-- SignUp Validation -->
   <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js"></script>
-  
-<<<<<<< HEAD
+
   <!-- 구글 로그인 -->
   <script src="https://apis.google.com/js/platform.js" async defer></script>
-  
-=======
 
- 
->>>>>>> branch 'master' of https://github.com/Frost3906/R_Dshopping.git
-  
   <style>
   	th {
   		text-align: center;
