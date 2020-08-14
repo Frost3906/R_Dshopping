@@ -158,11 +158,14 @@
             <label for="review_content" class="col-form-label">content</label>
             <textarea class="form-control" id="review_content"></textarea>
           </div>
+          <section>
+          	<input type="file" id="imageFile" name="imageFile"/>
+          </section>
         </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-success write" class="close" data-dismiss="modal">submit</button>
-        <button type="button" class="btn btn-primary closeBtn" class="close" data-dismiss="modal">cancel</button>
+        <button type="button" class="btn btn-default closeBtn" class="close" data-dismiss="modal">cancel</button>
       </div>
     </div>
   </div>
@@ -174,29 +177,20 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
+        <h4 class="modal-title" id="readReviewTitle"></h4>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel"></h4>
       </div>
       <div class="modal-body">
-        <form>
           <div>
-          	<p id="star_grade">
-        		<a href="#">★</a>
-        		<a href="#">★</a>
-        		<a href="#">★</a>
-        		<a href="#">★</a>
-        		<a href="#">★</a>
-			</p>
+          	<p class="mb-3" id="readReviewEmail"></p>
+          </div>
+          <div>
+			<p class="float-right" id="readReviewRegDate"></p>
+          	<p id="readReviewStarGrade" style="color:gold"></p>
           </div>        
           <div class="form-group">
-            <label for="review_title" class="col-form-label">title</label>
-            <input type="text" class="form-control" id="review_title">
+            <p id="readReviewContent"></p>
           </div>
-          <div class="form-group">
-            <label for="review_content" class="col-form-label">content</label>
-            <textarea class="form-control" id="review_content"></textarea>
-          </div>
-        </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-success write" class="close" data-dismiss="modal">submit</button>
@@ -262,17 +256,17 @@ $(function(){
 		                html += "<td>"+moment(result[i].regdate).format('YYYY-MM-DD HH:mm:ss')+"</td>";
 		                
 		                if(result[i].p_rating==0){
-		                	html += "<td><small class='text-muted'>&#9734; &#9734; &#9734; &#9734; &#9734;</small></td></tr>"
+		                	html += "<td><small style='color:gold;'>&#9734;&#9734;&#9734;&#9734;&#9734;</small></td></tr>"
 		                }else if(result[i].p_rating==1){
-		                	html += "<td><small class='text-muted'>&#9733; &#9734; &#9734; &#9734; &#9734;</small></td></tr>"
+		                	html += "<td><small style='color:gold;'>&#9733;&#9734;&#9734;&#9734;&#9734;</small></td></tr>"
 		                }else if(result[i].p_rating==2){
-		                	html += "<td><small class='text-muted'>&#9733; &#9733; &#9734; &#9734; &#9734;</small></td></tr>"
+		                	html += "<td><small style='color:gold;'>&#9733;&#9733;&#9734;&#9734;&#9734;</small></td></tr>"
 		                }else if(result[i].p_rating==3){
-		                	html += "<td><small class='text-muted'>&#9733; &#9733; &#9733; &#9734; &#9734;</small></td></tr>"
+		                	html += "<td><small style='color:gold;'>&#9733;&#9733;&#9733;&#9734;&#9734;</small></td></tr>"
 		                }else if(result[i].p_rating==4){
-		                	html += "<td><small class='text-muted'>&#9733; &#9733; &#9733; &#9733; &#9734;</small></td></tr>"
+		                	html += "<td><small style='color:gold;'>&#9733;&#9733;&#9733;&#9733;&#9734;</small></td></tr>"
 		                }else if(result[i].p_rating==5){
-		                	html += "<td><small class='text-muted'>&#9733; &#9733; &#9733; &#9733; &#9733;</small></td></tr>"
+		                	html += "<td><small style='color:gold;'>&#9733;&#9733;&#9733;&#9733;&#9733;</small></td></tr>"
 		                }
 		                
 		            }
@@ -297,8 +291,33 @@ $(function(){
 
 	
 	$(document.body).delegate('.review', 'click', function() {
-		console.log($(this).text());
-		$("#review_read_modal").modal('show');
+		
+		let reviewId = $(this).children().eq(0).text();
+		let stargrade = $(this).children().eq(4).text();
+		console.log(stargrade);
+		$.ajax({
+		    type:'GET',
+		    url : '/shop/review/get',
+		    data: {reviewId:reviewId},
+		    success : function(result){
+		    	$("#review_read_modal").modal('show');
+				$("#readReviewTitle").html(result.title);
+				$("#readReviewEmail").html(result.email);
+				$("#readReviewStarGrade").html(stargrade);
+				$("#readReviewContent").html(result.content);
+				$("#readReviewRegDate").html(moment(result.regdate).format('YYYY-MM-DD HH:mm:ss'));
+				$("#readReviewImage").html(result.image);
+		    },
+		    error:function(request,status,error){
+		        alert("실패");
+		    }
+		});
+		
+		
+
+		
+		//$("#readReviewContent").html(content);
+
 	});
 	
 	
@@ -312,7 +331,7 @@ $(function(){
 
 
 	//모달 초기화
-	$('.modal').on('hidden.bs.modal', function (e) {
+	$('#review_write_modal').on('hidden.bs.modal', function (e) {
 		$('#star_grade a').parent().children("a").removeClass("on");
   		$(this).find('form')[0].reset();
 	});
@@ -339,14 +358,16 @@ $(function(){
 	$(".write").on("click", function(){
 		let title = $("#review_title").val();
 		let content = $("#review_content").val();
-
+		let image = $("#imageFile").val();
 		
 		let data = {
 				email : email,
 				p_code : p_code,
 				p_rating : rating,
 				title : title,
-				content : content
+				content : content,
+				image : image
+				
 		}
 		
 		

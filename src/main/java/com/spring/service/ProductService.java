@@ -29,6 +29,7 @@ public interface ProductService {
 	public int writeReview(ReviewVO vo);
 	public int productModify(ProductVO vo);
 	public List<ReviewVO> listReview(int p_code);
+	public ReviewVO getReview(int reviewId);
 	public void updateStar(int p_code);
 	public int listCount();
 	public List<ProductVO> manageList(int pageNum, int amount);
