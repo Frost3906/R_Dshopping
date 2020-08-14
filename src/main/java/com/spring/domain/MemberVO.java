@@ -11,7 +11,6 @@ public class MemberVO {
 	private String nickName;
 	private String role;
 	private String mobile;
-	private String naverid;
-	private String googleid;
-	
+	private String naverID;
+	private String googleID;	
 }

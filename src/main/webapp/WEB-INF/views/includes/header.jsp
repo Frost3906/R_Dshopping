@@ -8,6 +8,10 @@
 
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!-- 소셜 로그인 ClientID(구글) -->
+  <meta name = "google-signin-client_id"content = "245346684776-185hq3i3j9iujvt4cl5e42pc4egbh0tg.apps.googleusercontent.com">
+
+
   <meta name="description" content="">
   <meta name="author" content="">
 
@@ -25,6 +29,9 @@
   <!-- SignUp Validation -->
   <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js"></script>
+  
+  <!-- 구글 로그인 -->
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
   
   
   <style>

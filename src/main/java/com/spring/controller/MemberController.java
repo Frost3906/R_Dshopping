@@ -58,8 +58,7 @@ public class MemberController {
 	private GoogleConnectionFactory googleConnectionFactory;
 	@Inject
 	private OAuth2Parameters googleOAuth2Parameters;
-	
-	
+		
 	@GetMapping("/signIn")
 	public void signinForm(Model model) {
 		log.info("로그인 화면 표시");	

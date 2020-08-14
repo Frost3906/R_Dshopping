@@ -41,9 +41,9 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public MemberVO getBySNS(MemberVO snsMember) {
 		MemberVO member=null;
-		if(snsMember.getGoogleid() != null) {
+		if(snsMember.getGoogleID() != null) {
 			member=mapper.getBySnsGoogle(snsMember);			
-		}else if(snsMember.getNaverid() != null) {
+		}else if(snsMember.getNaverID() != null) {
 			member=mapper.getBySnsNaver(snsMember);			
 		}
 		return member;

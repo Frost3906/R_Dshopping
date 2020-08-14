@@ -74,6 +74,50 @@
 
   </div>
   <!-- /.container -->
+
+<form action="" id="SNSSignIn">
+	<div class="g-signin2" data-onsuccess="onSignIn">
+		<input type="hidden" name=googleID value="1"/>
+		<input type="hidden" name=firstName />
+		<input type="hidden" name=lastName />
+		<input type="hidden" name=email />
+	</div>
+</form> 
+
+<script>
+	var googleForm=$("#SNSSignIn");
+	function onSignIn(googleUser) {		
+	  var profile = googleUser.getBasicProfile();
+	  console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+	  console.log('FirstName: ' + profile.getGivenName());
+	  console.log('LastName: ' + profile.getFamilyName());
+	  console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+	  let googleID=profile.getId();
+	  let firstName=profile.getGivenName();
+	  let lastName=profile.getFamilyName();
+	  let email=profile.getEmail();
+	  
+		let data = {
+				googleID:googleID,
+				firstName:firstName,
+				lastName:lastName,
+				email:email
+		  };
+	  console.log(data);
+	  $.ajax({
+		  url:"/auth/google/callback",
+		  type:"get",
+		  data:data,
+		  success:function(result){
+			  window.location.href="/"			  
+		  },
+		  error:function(){
+			  alert("실패")
+		  }		  
+	  })	  
+	}
+</script>
+
 <%@ include file="../includes/footer.jsp" %> 
 
 
