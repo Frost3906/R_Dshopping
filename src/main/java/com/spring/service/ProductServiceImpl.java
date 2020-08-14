@@ -111,6 +111,14 @@ public class ProductServiceImpl implements ProductService {
 	public int productModify(ProductVO vo) {
 		return product.productModify(vo);
 	}
+	@Override
+	public int listCount() {
+		return product.listCount();
+	}
+	@Override
+	public List<ProductVO> manageList(int pageNum, int amount) {
+		return product.manageList(pageNum, amount);
+	}
 	
 	
 }

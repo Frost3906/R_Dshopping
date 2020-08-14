@@ -58,7 +58,7 @@
 	  		</h5>
   		</div>
   		<div class="col-auto">
-  			<%@ include file="optionshop/listAmount.jsp" %> 
+  			<%@ include file="../option/listAmount.jsp" %> 
   		</div>
   	</div>
     <div class="row">
@@ -76,7 +76,7 @@
     <!-- /.row -->
 	<div>
 		<!-- 페이지 나누기 부분 -->
-  		<%@ include file="optionshop/pagination.jsp" %> 
+  		<%@ include file="../option/pagination.jsp" %> 
 	</div>
   	<div class="mb-3" style="display: flex; justify-content: center;">
   		<div style="margin-right: 5px;">
@@ -118,7 +118,7 @@
 </form>            
 <input type="hidden" id="productAmt" name="productAmt" value="${productAmt}" />
 <!-- 모달 추가 -->
-<%@ include file="optionshop/paginationModal.jsp" %>
+<%@ include file="../option/paginationModal.jsp" %>
 <!-- 페이지 나누기 관련 js -->
 <script src="/resources/js/paging.js"></script>
 <!-- 카테고리 리스트 페이지 히든 폼 전송 js -->

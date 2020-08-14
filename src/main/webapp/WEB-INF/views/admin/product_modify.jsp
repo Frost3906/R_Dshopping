@@ -72,7 +72,7 @@
 	 				</li>
 	 			</ul>       	
         	<div class="mb-3">
-        		<button type="button" class="btn btn-danger btn-lg float-right mt-3" onclick="location.href='product_manage'">뒤로가기</button>
+        		<button type="button" class="btn btn-danger btn-lg float-right mt-3" onclick="location.href='product_manage?pageNum=${pageNum}&amount=${amount}'">뒤로가기</button>
         		<button type="submit" class="btn btn-success btn-lg float-right mt-3">상품 수정</button>
         	</div>
         	</form>

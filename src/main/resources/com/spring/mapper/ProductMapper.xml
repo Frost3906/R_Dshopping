@@ -7,6 +7,18 @@
 		from product
 	</select>
 	
+	<select id="manageList" resultType="com.spring.domain.ProductVO">
+		select * from (
+			select <![CDATA[rownum rno,]]> product.* 
+			from product 
+		)
+		where <![CDATA[rno>(#{pageNum}-1)*#{amount} and rno<=#{pageNum}*#{amount}]]>
+	</select>
+	
+	<select id="listCount" resultType="int">
+		select count(*) from product
+	</select>
+	
 	<select id="getProduct" resultType="com.spring.domain.ProductVO">
 		select * from product where p_code = #{code}
 	</select>

@@ -14,7 +14,7 @@
   			<h5 class="mb-0 mt-3">result for "${keyword}"</h5>
   		</div>
   		<div class="col-auto">
-  			<%@ include file="optionshop/listAmount.jsp" %> 
+  			<%@ include file="../option/listAmount.jsp" %> 
   		</div>
   	</div>
     <div class="row">
@@ -33,7 +33,7 @@
     
 	<div>
 		<!-- 페이지 나누기 부분 -->
-  		<%@ include file="optionshop/pagination.jsp" %> 
+  		<%@ include file="../option/pagination.jsp" %> 
 	</div>
   </div>
   <!-- /.container -->
@@ -45,7 +45,7 @@
 </form>
 <input type="hidden" id="productAmt" name="productAmt" value="${productAmt}" />
 <!-- 모달 추가 -->
-<%@ include file="optionshop/paginationModal.jsp" %> 
+<%@ include file="../option/paginationModal.jsp" %> 
 <!-- 페이지 나누기 관련 js -->
 <script src="/resources/js/paging.js"></script>
 <%@include file="../includes/footer.jsp" %> 

@@ -30,4 +30,6 @@ public interface ProductService {
 	public int productModify(ProductVO vo);
 	public List<ReviewVO> listReview(int p_code);
 	public void updateStar(int p_code);
+	public int listCount();
+	public List<ProductVO> manageList(int pageNum, int amount);
 }
