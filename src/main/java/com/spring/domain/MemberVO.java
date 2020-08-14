@@ -14,12 +14,8 @@ public class MemberVO {
 	private String nickName;
 	private String role;
 	private String mobile;
-<<<<<<< HEAD
 	private String naverID;
-	private String googleID;	
-=======
-	private String naverid;
-	private String googleid;
+	private String googleID;
 	
 	// board
 	private String userid;
@@ -30,5 +26,4 @@ public class MemberVO {
 	private boolean enabled;
 	//권한정보
 	private List<AuthVO> authList;
->>>>>>> branch 'master' of https://github.com/Frost3906/R_Dshopping.git
 }
