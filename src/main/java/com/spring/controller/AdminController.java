@@ -72,7 +72,7 @@ public class AdminController {
 	}
 	
 	@PostMapping("/product_modify")
-	public void productModify(Model model, ProductVO vo) {
+	public String productModify(Model model, ProductVO vo,@Param("p_code") int p_code, @Param("pageNum") int pageNum, @Param("amount") int amount) {
 		log.info("상품 관리 form 호출" + vo);
 		if(service.productModify(vo)>0) {
 			log.info("수정 성공");
@@ -81,6 +81,18 @@ public class AdminController {
 		}
 		ProductVO list = service.getProduct(vo.getP_code());
 		model.addAttribute("vo", list);
+		model.addAttribute("pageNum", pageNum);
+		model.addAttribute("amount", amount);
+		model.addAttribute("p_code", p_code);
+		return "redirect:/admin/product_modify";
+	}
+	
+	@GetMapping("/product_delete")
+	public String productDelete(Model model, @Param("p_code") int p_code, @Param("pageNum") int pageNum, @Param("amount") int amount) {
+		model.addAttribute("pageNum", pageNum);
+		model.addAttribute("amount", amount);
+		log.info("삭제 작업==========");
+		return "redirect:/admin/product_manage";
 	}
 	
 	

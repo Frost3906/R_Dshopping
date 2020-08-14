@@ -55,7 +55,7 @@
 			      <th scope="col">
 				  	<button onclick="location.href='/shop/product?p_code=${vo.p_code}'">조회</button>
 				  	<button onclick="location.href='product_modify?p_code=${vo.p_code}&pageNum=${pageNum}&amount=${amount}'">수정</button>
-				  	<button class="product-delete">삭제</button>
+				  	<button class="product-delete" value="${vo.p_code}">삭제</button>
 				  </th>
 			    </tr>
 			  </tbody>
@@ -87,5 +87,40 @@
 <%@ include file="../option/paginationModal.jsp" %> 
 <!-- 페이지 나누기 관련 js -->
 <script src="/resources/js/paging.js"></script>
+<div class="modal" tabindex="-1" role="dialog" id="deleteModal">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content" style="align-items: center">
+      <div class="modal-header">
+        <h5 class="modal-title">삭제하시겠습니까?</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>이동하려는 페이지 번호를 입력해주세요.</p>
+        <p style="text-align: center;">1 ~ ${productAmt}</p>
+      </div>
+      <div>
+      	<input type="number" min="1" max="${productAmt}" name="pageNumSel" id="pageNumSel" placeholder="Number Only" style="width: 120px;"/>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary product-delete-btn" data-dismiss="modal">삭제</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+	$(function(){
+		$(".product-delete").click(function(e){
+			e.preventDefault();
+			$('#deleteModal').modal("show");
+			// this의 p_code를 받아온 후 
+			let deleteCode = $(this).val();
+			// product-delete-btn 에 href로 p_code, pageNum, amount 넘겨주면서 리스트로 이동
+			$(".product-delete-btn").attr('onClick',"location.href='product_delete?p_code="+deleteCode+"&pageNum="+${pageNum}+"&amount="+${amount}+"'");
+		})
+	})
+</script>
 <%@ include file="../includes/footer.jsp" %> 
 

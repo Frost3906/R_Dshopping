@@ -11,7 +11,7 @@
         	<!-- 상품 카드 위치 -->
         	<img src="http://placehold.it/400x400" alt=""/>
         	<div class="product-details ml-5 col-lg">
-        		<form action="product_modify" method="post">
+        		<form action="product_modify" method="post" id="product_modify">
 	        	<h1>상품 수정</h1>
 	        	<br>
 	 			
@@ -72,6 +72,9 @@
 	 				</li>
 	 			</ul>       	
         	<div class="mb-3">
+        		<input type="hidden" name="pageNum" value="${pageNum}" />
+        		<input type="hidden" name="amount" value="${amount}" />
+        		<input type="hidden" name="p_code" value="${vo.p_code}" />
         		<button type="button" class="btn btn-danger btn-lg float-right mt-3" onclick="location.href='product_manage?pageNum=${pageNum}&amount=${amount}'">뒤로가기</button>
         		<button type="submit" class="btn btn-success btn-lg float-right mt-3">상품 수정</button>
         	</div>
@@ -87,8 +90,101 @@
       	
 </div>
 
+<div class="modal" tabindex="-1" role="dialog" id="modifyModal">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content" style="align-items: center">
+      <div class="modal-header">
+        <h5 class="modal-title">수정하시겠습니까?</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      	<div class="row">
+	      	<table class="table">
+			  <thead>
+			    <tr>
+			      <th scope="col">속 성</th>
+			      <th scope="col">변경 전</th>
+			      <th scope="col">변경 후</th>
+			    </tr>
+			  </thead>
+			  <tbody>
+			    <tr>
+			      <th scope="row">상품코드</th>
+			      <td>${vo.p_code}</td>
+			      <td><label id="modCode"></label></td>
+			    </tr>
+			    <tr>
+			      <th scope="row">상품이름</th>
+			      <td>${vo.p_name}</td>
+			      <td><label id="modName"></label></td>
+			    </tr>
+			    <tr>
+			      <th scope="row">상품설명</th>
+			      <td>${vo.p_content}</td>
+			      <td><label id="modContent"></label></td>
+			    </tr>
+			    <tr>
+			      <th scope="row">가격</th>
+			      <td>${vo.p_price}</td>
+			      <td><label id="modPrice"></label></td>
+			    </tr>
+			    <tr>
+			      <th scope="row">재고</th>
+			      <td>${vo.p_stock}</td>
+			      <td><label id="modStock"></label></td>
+			    </tr>
+			    <tr>
+			      <th scope="row">대분류</th>
+			      <td>${vo.p_category1}</td>
+			      <td><label id="modCategory1"></label></td>
+			    </tr>
+			    <tr>
+			      <th scope="row">중분류</th>
+			      <td>${vo.p_category2}</td>
+			      <td><label id="modCategory2"></label></td>
+			    </tr>
+			    <tr>
+			      <th scope="row">소분류</th>
+			      <td>${vo.p_category3}</td>
+			      <td><label id="modCategory3"></label></td>
+			    </tr>
+			    <tr>
+			      <th scope="row">속성</th>
+			      <td>${vo.property}</td>
+			      <td><label id="modProperty"></label></td>
+			    </tr>
+			  </tbody>
+			</table>
+      	</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">확인</button>
+      </div>
+    </div>
+  </div>
+</div>
 <script>
-
+$(function(){
+	let modifyForm = $("#product_modify");
+	$(".btn-success").click(function(e){
+		e.preventDefault();
+		$("#modCode").text($("#p_code").val());
+		$("#modName").text($("#p_name").val());
+		$("#modContent").text($("#p_content").val());
+		$("#modPrice").text($("#p_price").val());
+		$("#modStock").text($("#p_stock").val());
+		$("#modCategory1").text($("#p_category1").val());
+		$("#modCategory2").text($("#p_category2").val());
+		$("#modCategory3").text($("#p_category3").val());
+		$("#modProperty").text($("#property").val());
+		$("#modifyModal").modal("show");
+		$(".btn-secondary").click(function(){
+			modifyForm.submit();
+		})
+	})
+})
 </script>
 
 <%@ include file="../includes/footer.jsp" %> 
