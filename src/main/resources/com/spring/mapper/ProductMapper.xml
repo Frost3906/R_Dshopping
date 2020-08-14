@@ -244,5 +244,8 @@
 		where p_code = #{p_code}
 	</update>
 	
+	<delete id="deleteProduct">
+		delete from product where p_code = #{p_code}
+	</delete>
 	
 </mapper>

@@ -123,6 +123,10 @@ public class ProductServiceImpl implements ProductService {
 	public List<ProductVO> manageList(int pageNum, int amount) {
 		return product.manageList(pageNum, amount);
 	}
+	@Override
+	public int deleteProduct(int p_code) {
+		return product.deleteProduct(p_code);
+	}
 	
 	
 }

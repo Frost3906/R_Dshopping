@@ -33,4 +33,5 @@ public interface ProductService {
 	public void updateStar(int p_code);
 	public int listCount();
 	public List<ProductVO> manageList(int pageNum, int amount);
+	public int deleteProduct(int p_code);
 }

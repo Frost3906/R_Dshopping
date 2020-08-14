@@ -73,7 +73,22 @@
 	<div class="row">
 		<button type="button" class="btn btn-danger btn-lg float-right mt-3" onclick="location.href='admin'">뒤로가기</button>
 	</div>
-      	
+	
+  	<div class="mb-3" style="display: flex; justify-content: center;">
+  		<div style="margin-right: 5px;">
+  			<h4>Search in Category : </h4>
+  		</div>
+  		<div>
+		    <!-- 검색 및 검색 버튼 -->
+		    <form class="form-inline my-2 my-lg-0" method="get" action="product_manage" style="display: contents;" >
+		      <input class="form-control mr-sm-2" style="margin-right: 8px; width: 200px;" name="manageKeyword" type="search" placeholder="Search in Keyword" aria-label="Search" <c:if test="${!empty manageKeyword}">value="${manageKeyword}"</c:if>>
+		      <input type="hidden" name="pageNum" value="1" />
+		      <input type="hidden" name="amount" value="${amount}" />
+		      <input type="hidden" name="manageKeyword" value="${manageKeyword}" />
+		      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+		    </form>  		
+  		</div>
+  	</div>
 </div>
 
 <!-- 정보를 전달할 히든 폼 -->
@@ -97,11 +112,54 @@
         </button>
       </div>
       <div class="modal-body">
-        <p>이동하려는 페이지 번호를 입력해주세요.</p>
-        <p style="text-align: center;">1 ~ ${productAmt}</p>
-      </div>
-      <div>
-      	<input type="number" min="1" max="${productAmt}" name="pageNumSel" id="pageNumSel" placeholder="Number Only" style="width: 120px;"/>
+      	<div class="row">
+	      	<table class="table">
+			  <thead>
+			    <tr>
+			      <th scope="col">속 성</th>
+			      <th scope="col">내 용</th>
+			    </tr>
+			  </thead>
+			  <tbody>
+			    <tr>
+			      <th scope="row">상품코드</th>
+			      <td><label id="delCode"></label></td>
+			    </tr>
+			    <tr>
+			      <th scope="row">상품이름</th>
+			      <td><label id="delName"></label></td>
+			    </tr>
+			    <tr>
+			      <th scope="row">상품설명</th>
+			      <td><label id="delContent"></label></td>
+			    </tr>
+			    <tr>
+			      <th scope="row">가격</th>
+			      <td><label id="delPrice"></label></td>
+			    </tr>
+			    <tr>
+			      <th scope="row">재고</th>
+			      <td><label id="delStock"></label></td>
+			    </tr>
+			    <tr>
+			      <th scope="row">대분류</th>
+			      <td><label id="delCategory1"></label></td>
+			    </tr>
+			    <tr>
+			      <th scope="row">중분류</th>
+			      <td><label id="delCategory2"></label></td>
+			    </tr>
+			    <tr>
+			      <th scope="row">소분류</th>
+			      <td><label id="delCategory3"></label></td>
+			    </tr>
+			    <tr>
+			      <th scope="row">속성</th>
+			      <td><label id="delProperty"></label></td>
+			    </tr>
+			  </tbody>
+			</table>
+      	</div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary product-delete-btn" data-dismiss="modal">삭제</button>
@@ -117,9 +175,30 @@
 			$('#deleteModal').modal("show");
 			// this의 p_code를 받아온 후 
 			let deleteCode = $(this).val();
+			// ajax로 코드를 보내서 db 조회 후 정보 뿌려주기
+			$.ajax({
+				type : 'GET',
+				url : '/admin/deleteInfo',
+				data : {"p_code" : deleteCode},
+				success : function(result){
+					// 정보 뿌려주기
+					$("#delCode").text(result.p_code);
+					$("#delName").text(result.p_name);
+					$("#delContent").text(result.p_content);
+					$("#delPrice").text(result.p_price);
+					$("#delStock").text(result.p_stock);
+					$("#delCategory1").text(result.p_category1);
+					$("#delCategory2").text(result.p_category2);
+					$("#delCategory3").text(result.p_category3);
+					$("#delProperty").text(result.p_property);
+				},
+			    error:function(request,status,error){
+			        alert("실패");
+			    }
+			})
 			// product-delete-btn 에 href로 p_code, pageNum, amount 넘겨주면서 리스트로 이동
 			$(".product-delete-btn").attr('onClick',"location.href='product_delete?p_code="+deleteCode+"&pageNum="+${pageNum}+"&amount="+${amount}+"'");
-		})
+		});
 	})
 </script>
 <%@ include file="../includes/footer.jsp" %> 

@@ -54,4 +54,5 @@ public interface ProductMapper {
 	public int listCount();
 	public List<ProductVO> manageList(@Param("pageNum") int pageNum, 
 									  @Param("amount") int amount);
+	public int deleteProduct(int p_code);
 }

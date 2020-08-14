@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.spring.domain.ProductVO;
 import com.spring.domain.ShopPageVO;
@@ -40,7 +41,8 @@ public class AdminController {
 	@GetMapping("/product_manage")
 	public void productManage(Model model,
 							  @Param("amount") int amount, 
-							  @Param("pageNum") int pageNum) {
+							  @Param("pageNum") int pageNum,
+							  String manageKeyword) {
 		model.addAttribute("pageNum", pageNum); // 현재 페이지 번호
 		model.addAttribute("amount", amount); // 현재 페이지 당 리스트 개수
 		ShopPageVO pageVO = new ShopPageVO(pageNum, amount,service.listCount());
@@ -91,7 +93,11 @@ public class AdminController {
 	public String productDelete(Model model, @Param("p_code") int p_code, @Param("pageNum") int pageNum, @Param("amount") int amount) {
 		model.addAttribute("pageNum", pageNum);
 		model.addAttribute("amount", amount);
-		log.info("삭제 작업==========");
+		if(service.deleteProduct(p_code)>0) {
+			log.info("삭제 성공====================");
+		} else {
+			log.info("삭제 실패=================");
+		}
 		return "redirect:/admin/product_manage";
 	}
 	
@@ -101,6 +107,13 @@ public class AdminController {
 		log.info("상품 등록 요청");
 		service.addProduct(vo);
 		return "redirect:/";
+	}
+
+	@ResponseBody
+	@GetMapping("/deleteInfo")
+	public ProductVO deleteInfo(int p_code){
+		log.info("삭제 정보 조회");
+		return service.getProduct(p_code);
 	}
 
 
