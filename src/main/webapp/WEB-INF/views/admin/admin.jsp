@@ -7,6 +7,7 @@
 <div class="container mt-5">
 	<button onclick="location.href='add'">상품등록</button>
 	<button onclick="location.href=''">회원관리</button>
+	<button onclick="location.href='product_manage'">상품관리</button>
 
 </div>
 

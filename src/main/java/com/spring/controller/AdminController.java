@@ -34,6 +34,32 @@ public class AdminController {
 		log.info("상품 등록 form 호출");
 		return "/admin/add_product";
 	}
+
+	@GetMapping("/product_manage")
+	public void productManage(Model model) {
+		log.info("상품 관리 form 호출");
+		List<ProductVO> vo = service.getList();
+		model.addAttribute("vo", vo);		
+	}
+	
+	@GetMapping("/product_modify")
+	public void productModify(Model model, String p_code) {
+		log.info("상품 관리 form 호출");
+		ProductVO vo = service.getProduct(p_code);
+		model.addAttribute("vo", vo);
+	}
+	
+	@PostMapping("/product_modify")
+	public void productModify(Model model, ProductVO vo) {
+		log.info("상품 관리 form 호출" + vo);
+		if(service.productModify(vo)>0) {
+			log.info("수정 성공");
+		} else {
+			log.info("수정 실패");
+		}
+		ProductVO list = service.getProduct(""+vo.getP_code());
+		model.addAttribute("vo", list);
+	}
 	
 	
 	@PostMapping("/add")

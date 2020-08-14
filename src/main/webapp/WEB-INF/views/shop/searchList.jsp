@@ -5,9 +5,9 @@
 <script src="https://code.jquery.com/jquery-3.5.1.slim.js" integrity="sha256-DrT5NfxfbHvMHux31Lkhxg42LY6of8TaYyK50jnxRnM=" crossorigin="anonymous"></script>
   <!-- Page Content -->
   <div class="container mt-3">
-  	<div>
-  		<h1>Search List</h1>
-  	</div>
+	<div>
+		<h1>Search List</h1>
+	</div>
   	<div class="row mb-3">
   		<div class="col-auto mr-auto">
   			<!-- 검색어 보여주기 -->

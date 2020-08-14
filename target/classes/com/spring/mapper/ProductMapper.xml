@@ -206,5 +206,17 @@
 		insert into review(reviewid,p_code,title,p_rating,content,email) values(seq_review_id.nextval,#{p_code},#{title},#{p_rating},#{content},#{email})
 	</insert>
 	
+	<update id="productModify">
+		update product
+		set p_name = #{p_name},
+		    p_price = #{p_price},
+		    p_stock = #{p_stock},
+		    p_content = #{p_content},
+		    p_category1 = #{p_category1},
+		    p_category2 = #{p_category2},
+		    p_category3 = #{p_category3},
+		    property = #{property}
+		where p_code = #{p_code}
+	</update>
 	
 </mapper>

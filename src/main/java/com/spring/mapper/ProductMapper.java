@@ -44,5 +44,5 @@ public interface ProductMapper {
 	
 	public int writeReview(ReviewVO vo);
 	public List<ReviewVO> listReview();
-
+	public int productModify(ProductVO vo);
 }

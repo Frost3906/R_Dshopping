@@ -40,7 +40,7 @@
     }
     #star_grade a.on{
         color: red;
-    }  	
+    }
   </style>
   
 </head>
@@ -56,57 +56,57 @@
 				</div>
 				<div>
 			      <!-- <div class="collapse navbar-collapse" id="navbarResponsive"> -->
-			      <div>
-			        <ul class="navbar-nav ml-auto">
+			      <div style="display: flex;">
+			        <ul class="navbar-nav ml-auto" style="display: contents;">
 			        <!-- 로그인 상황에 따른 navbar 변경(로그인 시) -->
 			          <c:if test="${!empty auth}">
 			          	<li class="nav-item active">			          
-			            <a class="nav-link" href="/">Home
+			            <a class="nav-link" style="padding: 8px;" href="/">Home
 			              <span class="sr-only">(current)</span>
 			            </a>
 			          </li>
 			          <li class="nav-item">
-			            <a class="nav-link" href="#">About</a>
+			            <a class="nav-link" style="padding: 8px;" href="#">About</a>
 			          </li>
 			          <li class="nav-item">
-			            <a class="nav-link" href="/shop/cart">Cart</a>
+			            <a class="nav-link" style="padding: 8px;" href="/shop/cart">Cart</a>
 			          </li>
 			          <li class="nav-item">
-			            <a class="nav-link" href="/member/myPage" style="text-decoration: underline;">HI!! ${auth.firstName}</a>
+			            <a class="nav-link" style="padding: 8px;" href="/member/myPage" style="text-decoration: underline;">HI!! ${auth.firstName}</a>
 			          </li>
 			          <li class="nav-item">
-			            <a class="nav-link" href="/member/logout">LogOut</a>
+			            <a class="nav-link" style="padding: 8px;" href="/member/logout">LogOut</a>
 			          </li>
 			          <li class="nav-item">
-			            <a class="nav-link" href="/board/list">게시판</a>
+			            <a class="nav-link" style="padding: 8px;" href="/board/list">게시판</a>
 			          </li>
    			     
    			          <c:if test="${auth.role=='admin'}">
-			          	<li><a class="nav-link" href="/admin/admin">Manage</a></li>
+			          	<li><a class="nav-link" style="padding: 8px;" href="/admin/admin">Manage</a></li>
 			          </c:if>
 			     
 			          </c:if>
 			          <!-- 로그인 상황에 따른 navbar 변경(비로그인 시) -->
 			          <c:if test="${empty auth}">			          
 			          <li class="nav-item active">			          
-			            <a class="nav-link" href="/">Home
+			            <a class="nav-link" style="padding: 8px;" href="/">Home
 			              <span class="sr-only">(current)</span>
 			            </a>
 			          </li>
 			          <li class="nav-item">
-			            <a class="nav-link" href="#">About</a>
+			            <a class="nav-link" style="padding: 8px;" href="#">About</a>
 			          </li>
 			          <li class="nav-item">
-			            <a class="nav-link" href="/shop/cart">Cart</a>
+			            <a class="nav-link" style="padding: 8px;" href="/shop/cart">Cart</a>
 			          </li>
 			          <li class="nav-item">
-			            <a class="nav-link" href="/member/signIn">Sign in</a>
+			            <a class="nav-link" style="padding: 8px;" href="/member/signIn">Sign in</a>
 			          </li>
 			          <li class="nav-item">
-			            <a class="nav-link" href="/member/signUp">Sign up</a>
+			            <a class="nav-link" style="padding: 8px;" href="/member/signUp">Sign up</a>
 			          </li>
 			          <li class="nav-item">
-			            <a class="nav-link" href="/board/list">게시판</a>
+			            <a class="nav-link" style="padding: 8px;" href="/board/list">게시판</a>
 			          </li>
 			          <!-- 권한에 따라 관리자 페이지 표시여부 -->
 			          

@@ -101,6 +101,10 @@ public class ProductServiceImpl implements ProductService {
 	public List<ReviewVO> listReview() {
 		return product.listReview();
 	}
+	@Override
+	public int productModify(ProductVO vo) {
+		return product.productModify(vo);
+	}
 	
 	
 }
