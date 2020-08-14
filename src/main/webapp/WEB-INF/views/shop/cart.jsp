@@ -112,11 +112,12 @@ $(function(){
 					let Json = new Object();
 					Json.amount = $(this).val();
 					Json.cartNum = $(this).attr("data-cartNum");
-					JsonArray.push(Json);
-					
-				});
+				}); 
+				
+
 
 				console.log(JsonArray);
+				
 				$.ajax({
 		   			url : "/shop/updateCart",
 		    		type : "post",
@@ -240,6 +241,7 @@ $(function(){
 				
 				var checkArr = new Array();
 
+
 		  		checkArr.push($(this).attr("data-cartNum"));
 		  		
 		  		$.ajax({
@@ -266,7 +268,7 @@ $(function(){
 		$(this).parent().parent().children().eq(5).html(total_price);
 		$(".sum_price").html(total_price);
 
-		
+ 		
 		//.sum_price의 가격 변경
 		for (let i = 0; i < $('#cartTable > tbody > tr').length; i++) {
 			sum_price += Number($('#cartTable > tbody > tr').eq(i).children().eq(5).text());

@@ -82,7 +82,7 @@ public class MemberController {
 		log.info("로그인 절차 진행");
 		log.info(""+vo);		
 		
-		MemberVO member=service.getMember(vo.getEmail());
+		MemberVO member=service.getMember(vo.getEmail());		
 		if(member != null) {
 			if(member.getPassword().equals(vo.getPassword())) {
 				session.setAttribute("auth", member);

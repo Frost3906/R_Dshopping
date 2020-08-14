@@ -13,4 +13,6 @@ create table board (
 
 alter table board add constraint pk_board primary key(bno);
 
+create sequence seq_board;
+
 select * from board;

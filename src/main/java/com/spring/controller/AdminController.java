@@ -2,6 +2,7 @@ package com.spring.controller;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -43,7 +44,7 @@ public class AdminController {
 	}
 	
 	@GetMapping("/product_modify")
-	public void productModify(Model model, String p_code) {
+	public void productModify(Model model, @Param("p_code") int p_code) {
 		log.info("상품 관리 form 호출");
 		ProductVO vo = service.getProduct(p_code);
 		model.addAttribute("vo", vo);
@@ -57,7 +58,7 @@ public class AdminController {
 		} else {
 			log.info("수정 실패");
 		}
-		ProductVO list = service.getProduct(""+vo.getP_code());
+		ProductVO list = service.getProduct(vo.getP_code());
 		model.addAttribute("vo", list);
 	}
 	
