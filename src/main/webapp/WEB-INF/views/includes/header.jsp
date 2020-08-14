@@ -40,9 +40,10 @@
         text-decoration: none;
         color: gray;
     }
-    #star_grade a.on{
+    #star_grade .on{
         color: gold;
-    }  	
+    }
+	
   </style>
   
 </head>
