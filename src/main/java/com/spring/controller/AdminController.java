@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.spring.domain.ProductVO;
+import com.spring.domain.ShopPageVO;
 import com.spring.service.ProductService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -37,17 +38,37 @@ public class AdminController {
 	}
 
 	@GetMapping("/product_manage")
-	public void productManage(Model model) {
+	public void productManage(Model model,
+							  @Param("amount") int amount, 
+							  @Param("pageNum") int pageNum) {
+		model.addAttribute("pageNum", pageNum); // 현재 페이지 번호
+		model.addAttribute("amount", amount); // 현재 페이지 당 리스트 개수
+		ShopPageVO pageVO = new ShopPageVO(pageNum, amount,service.listCount());
+		int products = service.listCount();
+		model.addAttribute("productAmt", (int)(Math.ceil(products/(double)(amount))));
+		int idx = 0;
+		if(products%amount==0) {
+			idx = (products/amount);
+		} else {
+			idx = (products/amount+1);
+		}
 		log.info("상품 관리 form 호출");
-		List<ProductVO> vo = service.getList();
-		model.addAttribute("vo", vo);		
+		List<ProductVO> vo = service.manageList(pageNum, amount);
+		model.addAttribute("vo", vo);
+		model.addAttribute("idx", idx);
+		model.addAttribute("pageVO", pageVO);
 	}
 	
 	@GetMapping("/product_modify")
-	public void productModify(Model model, @Param("p_code") int p_code) {
+	public void productModify(Model model, 
+							  @Param("p_code") int p_code, 
+							  @Param("pageNum") int pageNum, 
+							  @Param("amount") int amount) {
 		log.info("상품 관리 form 호출");
 		ProductVO vo = service.getProduct(p_code);
 		model.addAttribute("vo", vo);
+		model.addAttribute("pageNum", pageNum);
+		model.addAttribute("amount", amount);
 	}
 	
 	@PostMapping("/product_modify")

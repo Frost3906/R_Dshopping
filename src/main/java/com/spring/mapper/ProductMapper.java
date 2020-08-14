@@ -50,4 +50,8 @@ public interface ProductMapper {
 	public ReviewVO getReview(int reviewId);
 	
 	public void updateStar(int p_code);
+
+	public int listCount();
+	public List<ProductVO> manageList(@Param("pageNum") int pageNum, 
+									  @Param("amount") int amount);
 }
