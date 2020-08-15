@@ -34,11 +34,11 @@ public class BoardController {
 	@Autowired
 	private BoardService service;
 	
-	@PreAuthorize("isAuthenticated()")
-	@GetMapping("/register")
-	public void registerGet() {
-		log.info("register form 요청");
-	}
+//	@PreAuthorize("isAuthenticated()")
+//	@GetMapping("/register")
+//	public void registerGet() {
+//		log.info("register form 요청");
+//	}
 	
 	// 글 등록하기
 	@PreAuthorize("isAuthenticated()")
