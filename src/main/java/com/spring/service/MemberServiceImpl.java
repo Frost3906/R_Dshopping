@@ -1,8 +1,11 @@
 package com.spring.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.spring.domain.BoardVO;
 import com.spring.domain.MemberVO;
 import com.spring.domain.ModifyMemberVO;
 import com.spring.mapper.MemberMapper;
@@ -47,5 +50,17 @@ public class MemberServiceImpl implements MemberService {
 			member=mapper.getBySnsNaver(snsMember);			
 		}
 		return member;
+	}
+	
+	@Override
+	public List<MemberVO> listMember() {
+		return mapper.listMember();
+	}
+
+	
+	//MyPage
+	@Override
+	public List<BoardVO> qnaList(String email) {
+		return mapper.qnaList(email);
 	}
 }

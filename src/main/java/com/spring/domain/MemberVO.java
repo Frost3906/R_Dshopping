@@ -9,6 +9,8 @@ import lombok.Data;
 public class MemberVO {
 	private String email;
 	private String password;
+	private String memLevel;
+	private String country;
 	private String firstName;
 	private String lastName;
 	private String nickName;

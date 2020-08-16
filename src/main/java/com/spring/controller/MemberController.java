@@ -1,5 +1,7 @@
 package com.spring.controller;
 
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
@@ -23,9 +25,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-
+import com.spring.domain.AuthVO;
+import com.spring.domain.BoardVO;
 import com.spring.domain.MemberVO;
 import com.spring.domain.ModifyMemberVO;
+import com.spring.domain.ReviewVO;
 import com.spring.email.EmailSender;
 import com.spring.email.EmailVO;
 import com.spring.email.RandomString;
@@ -147,11 +151,11 @@ public class MemberController {
 			session.removeAttribute("auth");
 			return "redirect:/member/signIn";
 		}
-		return "/member/myPage";
+		return "/member/myPage#v-pills-account";
 	}
 	
 	@GetMapping("/myPage")
-	public void myPageForm() {
+	public void myPageForm() {;
 		log.info("마이페이지 화면 표시");
 	}
 	
@@ -193,4 +197,24 @@ public class MemberController {
         	return "redirect:/";
         }
     }
+	
+	
+	//MyPage
+	@GetMapping("/myPage/qnaList")
+	@ResponseBody
+	public List<BoardVO> qnaList(String email) {
+		log.info("MyPage QnA 탭 테이블 처리");
+		log.info(email);
+		
+		return service.qnaList(email);
+	}
+	
+	//Admin
+	@GetMapping("/member_manage")
+	public void memberManage(Model model) {
+		log.info("Member Manage 화면 표시");
+		
+		List<MemberVO> list=service.listMember();
+		model.addAttribute("list", list);		
+	}
 }

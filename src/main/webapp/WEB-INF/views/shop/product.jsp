@@ -249,6 +249,7 @@ $(function(){
 		        
 		        if(result.length > 0){
 		            
+		        	
 		            for(i=0; i < result.length; i++){
 		                html += "<tr class='review'><td>"+result[i].reviewId+"</td>";
 		                html += "<td>"+result[i].title+"</td>";
