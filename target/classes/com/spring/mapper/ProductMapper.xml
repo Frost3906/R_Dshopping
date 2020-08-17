@@ -209,7 +209,7 @@
 
 	<!-- 상품 등록 sql -->
 	<insert id="addProduct">
-		insert into product(p_code,p_name,p_price,p_stock,p_content,p_category1,p_category2,p_category3,property) values(#{p_code},#{p_name},#{p_price},#{p_stock},#{p_content},#{p_category1},#{p_category2},#{p_category3},#{property})
+		insert into product(p_code,p_name,p_price,p_stock,p_content,p_category1,p_category2,p_category3,property,image) values(#{p_code},#{p_name},#{p_price},#{p_stock},#{p_content},#{p_category1},#{p_category2},#{p_category3},#{property},#{image})
 	</insert>
 
 	<!-- 장바구니 담는 sql -->

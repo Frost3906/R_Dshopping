@@ -158,13 +158,14 @@
             <label for="review_content" class="col-form-label">content</label>
             <textarea class="form-control" id="review_content"></textarea>
           </div>
+
 		  <div class="form-group">
           	<input type="file" id="imageFile" name="imageFile"/>
 		  </div>
         </form>
-		  <div class="uploadResult">
-		  	<ul></ul>
-		  </div>
+          <div class="uploadResult">
+          	<ul></ul>
+          </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-success write" class="close" data-dismiss="modal">submit</button>
@@ -311,8 +312,9 @@ $(function(){
 				$("#readReviewStarGrade").html(stargrade);
 				$("#readReviewContent").html(result.content);
 				$("#readReviewRegDate").html(moment(result.regdate).format('YYYY-MM-DD HH:mm:ss'));
-				//$("#readReviewImage").html("<img src='/upload/"+result.image+"'/>");
-				$("#readReviewImage").html("<img src='/upload/cf8745e0-f20a-4c26-a3e0-44ead0557a46_dkdkdk.jpg'/>");
+				result.image = decodeURI(result.image);
+				$("#readReviewImage").html("<img src='/upload/"+result.image+"' style='max-width: 100%; height: auto;'/>");
+				//$("#readReviewImage").html("<img src='/upload/815ab87f-771d-4940-afa9-6199fd9e01a9_1090.png_860.png'/>");
 		    //encuri 컴포넌트 태워서 다시
 		    },
 		    error:function(request,status,error){
@@ -323,7 +325,6 @@ $(function(){
 		
 
 		
-		//$("#readReviewContent").html(content);
 
 	});
 	
@@ -340,7 +341,8 @@ $(function(){
 	//모달 초기화
 	$('#review_write_modal').on('hidden.bs.modal', function (e) {
 		$('#star_grade a').parent().children("a").removeClass("on");
-		$('.uploadResult').val("");
+		$('.uploadResult').html("<ul></ul>");
+		$("input[type='file']").val("");
   		$(this).find('form')[0].reset();
 	});
 	
@@ -363,24 +365,23 @@ $(function(){
 	
 	
 	//모달 리뷰 작성 버튼
-	$(".write").on("click", function(){
+	$(".write").on("click", function(e){
 		let title = $("#review_title").val();
 		let content = $("#review_content").val();
 		let image = $("#imageFile").val();
 		
 		let str = "";
-		
+
 		$(".uploadResult ul li").each(function(i,ele){
 			let job = $(ele);
 			console.log(job);
-			image = job.data("path")+"\\"+job.data("uuid")+"_"+job.data("filename");
+			image = encodeURI(job.data("path")+"\\"+job.data("uuid")+"_"+job.data("filename"));
 			str += "<input type='hidden' name='attachList["+i+"].uuid' value='"+job.data("uuid")+"'>";
 			str += "<input type='hidden' name='attachList["+i+"].uploadPath' value='"+job.data("path")+"'>";
 			str += "<input type='hidden' name='attachList["+i+"].fileName' value='"+job.data("filename")+"'>";
 			str += "<input type='hidden' name='attachList["+i+"].fileType' value='"+job.data("type")+"'>";			
 		
 		})
-		
 		
 		
 		let data = {
