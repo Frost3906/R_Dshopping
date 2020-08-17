@@ -158,10 +158,13 @@
             <label for="review_content" class="col-form-label">content</label>
             <textarea class="form-control" id="review_content"></textarea>
           </div>
-          <section>
-          	<input type="file" id="imageFile" name="imageFile"/>
-          </section>
+          <div id="form-group uploadDiv">
+          	<input type="file" id="imageFile" name="imageFile" multiple="multiple"/>
+          </div>
         </form>
+          <div class="uploadResult">
+          	<ul></ul>
+          </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-success write" class="close" data-dismiss="modal">submit</button>
@@ -294,7 +297,6 @@ $(function(){
 		
 		let reviewId = $(this).children().eq(0).text();
 		let stargrade = $(this).children().eq(4).text();
-		console.log(stargrade);
 		$.ajax({
 		    type:'GET',
 		    url : '/shop/review/get',
@@ -316,7 +318,6 @@ $(function(){
 		
 
 		
-		//$("#readReviewContent").html(content);
 
 	});
 	
@@ -355,10 +356,27 @@ $(function(){
 	
 	
 	//모달 리뷰 작성 버튼
-	$(".write").on("click", function(){
+	$(".write").on("click", function(e){
 		let title = $("#review_title").val();
 		let content = $("#review_content").val();
 		let image = $("#imageFile").val();
+		
+		let str = "";
+		
+		e.preventDefault();
+		
+		$(".uploadResult ul li").each(function(i,ele){
+			let job = $(ele);
+			console.log(job);
+			
+			str += "<input type='hidden' name='attachList["+i+"].uuid' value='"+job.data("uuid")+"'>";
+			str += "<input type='hidden' name='attachList["+i+"].uploadPath' value='"+job.data("path")+"'>";
+			str += "<input type='hidden' name='attachList["+i+"].fileName' value='"+job.data("filename")+"'>";
+			str += "<input type='hidden' name='attachList["+i+"].fileType' value='"+job.data("type")+"'>";			
+			
+		})
+		console.log(str);
+		
 		
 		let data = {
 				email : email,
