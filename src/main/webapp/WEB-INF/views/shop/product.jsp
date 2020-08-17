@@ -158,10 +158,13 @@
             <label for="review_content" class="col-form-label">content</label>
             <textarea class="form-control" id="review_content"></textarea>
           </div>
-          <section>
+		  <div class="form-group">
           	<input type="file" id="imageFile" name="imageFile"/>
-          </section>
+		  </div>
         </form>
+		  <div class="uploadResult">
+		  	<ul></ul>
+		  </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-success write" class="close" data-dismiss="modal">submit</button>
@@ -191,6 +194,7 @@
           <div class="form-group">
             <p id="readReviewContent"></p>
           </div>
+          <div id="readReviewImage"></div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-success write" class="close" data-dismiss="modal">submit</button>
@@ -295,19 +299,21 @@ $(function(){
 		
 		let reviewId = $(this).children().eq(0).text();
 		let stargrade = $(this).children().eq(4).text();
-		console.log(stargrade);
 		$.ajax({
 		    type:'GET',
 		    url : '/shop/review/get',
 		    data: {reviewId:reviewId},
 		    success : function(result){
+		    	console.log(result.image);
 		    	$("#review_read_modal").modal('show');
 				$("#readReviewTitle").html(result.title);
 				$("#readReviewEmail").html(result.email);
 				$("#readReviewStarGrade").html(stargrade);
 				$("#readReviewContent").html(result.content);
 				$("#readReviewRegDate").html(moment(result.regdate).format('YYYY-MM-DD HH:mm:ss'));
-				$("#readReviewImage").html(result.image);
+				//$("#readReviewImage").html("<img src='/upload/"+result.image+"'/>");
+				$("#readReviewImage").html("<img src='/upload/cf8745e0-f20a-4c26-a3e0-44ead0557a46_dkdkdk.jpg'/>");
+		    //encuri 컴포넌트 태워서 다시
 		    },
 		    error:function(request,status,error){
 		        alert("실패");
@@ -334,6 +340,7 @@ $(function(){
 	//모달 초기화
 	$('#review_write_modal').on('hidden.bs.modal', function (e) {
 		$('#star_grade a').parent().children("a").removeClass("on");
+		$('.uploadResult').val("");
   		$(this).find('form')[0].reset();
 	});
 	
@@ -360,6 +367,21 @@ $(function(){
 		let title = $("#review_title").val();
 		let content = $("#review_content").val();
 		let image = $("#imageFile").val();
+		
+		let str = "";
+		
+		$(".uploadResult ul li").each(function(i,ele){
+			let job = $(ele);
+			console.log(job);
+			image = job.data("path")+"\\"+job.data("uuid")+"_"+job.data("filename");
+			str += "<input type='hidden' name='attachList["+i+"].uuid' value='"+job.data("uuid")+"'>";
+			str += "<input type='hidden' name='attachList["+i+"].uploadPath' value='"+job.data("path")+"'>";
+			str += "<input type='hidden' name='attachList["+i+"].fileName' value='"+job.data("filename")+"'>";
+			str += "<input type='hidden' name='attachList["+i+"].fileType' value='"+job.data("type")+"'>";			
+		
+		})
+		
+		
 		
 		let data = {
 				email : email,
@@ -388,6 +410,154 @@ $(function(){
 
 		})
 		
+	})
+	
+	
+	let csrfHeaderName = "${_csrf.headerName}";
+	let csrfTokenValue = "${_csrf.token}";
+		
+	
+	
+	$("input[type='file']").change(function(){
+			//form의 형태로 데이터를 구성할 수 있음
+			//let formData = new FormData();
+			var formData = new FormData();
+			
+			//첨부파일 목록 가져오기
+			let imageFile = $("input[name='imageFile']");
+			console.log(imageFile);
+			let files= imageFile[0].files;
+			console.log(files);
+			
+			//form의 형태로 붙이기
+			for(var i=0;i<files.length;i++){
+				if(!checkExtension(files[i].name, files[i].size)){
+					return false;
+				}
+				formData.append("uploadFile",files[i]);
+				console.log(files[i]);
+			}
+			
+			
+			//processData : 데이터를 query string으로 변환할 것인지 결정
+			//				기본값은 application/x-www-form-urlencoded로 true 이므로 false 지정
+			
+			
+			//contentType : 기본값은 application/x-www-form-urlencoded
+			//				파일의 경우에 enctype은  multipart/form-data로 보내야 하기 때문에 false로 지정
+			
+			
+			$.ajax({
+				url : '/upload',
+				type : 'post',
+/* 				beforeSend : function(xhr){
+					xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+				}, */
+				processData : false,
+				contentType : false,
+				data : formData,
+
+				success:function(result){
+					console.log(result);
+					showUploadFile(result);
+//					$("input[name='uploadFile']").val("");
+				},
+				error:function(xhr,status,error){
+					alert(xhr.responseText);
+				}
+			})
+			
+		})
+		
+		//첨부파일 제한 / 크기 제한
+		function checkExtension(fileName, fileSize){
+			let regex = new RegExp("(.*?)\.(jpg|jpeg|png|gif|bmp)$");
+			let maxSize = 2097152;
+			
+			if(fileSize > maxSize){
+				alert("파일 사이즈 초과");
+				return false;
+			}
+			
+			
+			if(!(regex.test(fileName))){
+				alert("해당 종류의 파일은 업로드 할 수 없습니다.");
+				$("input[name='imageFile']").val("");
+				return false;
+			}
+			return true;
+		}
+	
+	//업로드 된 파일 보여주기
+	function showUploadFile(uploadResultArr){
+		//결과를 보여줄 영역 가져오기
+		let str = "";
+		let uploadResult = $(".uploadResult ul");
+		console.log(uploadResult);
+		$(uploadResultArr).each(function(i,element){
+			if(element.fileType){//이미지 파일
+				//섬네일 이미지 경로
+				var fileCallPath = encodeURIComponent(element.uploadPath+"\\s_"+element.uuid+"_"+element.fileName);
+				//원본 이미지 경로
+				var oriPath = element.uploadPath+"\\"+element.uuid+"_"+element.fileName;
+				oriPath = oriPath.replace(new RegExp(/\\/g),"/");
+				
+				str += "<li data-path='"+element.uploadPath+"' data-uuid='"+element.uuid+"'";
+				str += " data-filename='"+element.fileName+"' data-type='"+element.fileType+"'>";					
+				str += "<a href=\"javascript:showImage(\'"+oriPath+"\')\">";
+				str += "<img src='/display?fileName="+ fileCallPath+"'><div>"+element.fileName+"</a>";
+				str += "<button type='button' class='btn btn-danger btn-circle btn-sm' data-file='"+fileCallPath+"' data-type='image'>";
+				str += "<i class = 'fa fa-times'></i></button>";
+				str += "</div></li>";
+			}else{
+				var fileCallPath = encodeURIComponent(element.uploadPath+"\\"+element.uuid+"_"+element.fileName);
+				str += "<li data-path='"+element.uploadPath +"' data-uuid='"+element.uuid+"'";
+				str += " data-filename='"+element.fileName+"' data-type='"+element.fileType+"'>";
+				str += "<a href='/download?fileName="+fileCallPath+"'>";
+				str += "<img src='/resources/img/attach.png'><div>" + element.fileName+"</a>"
+				str += "<button type='button' class='btn btn-danger btn-circle btn-sm' data-file='"+fileCallPath+"' data-type='file'>";
+				str += "<i class = 'fa fa-times'></i></button>";
+				str += "</div></li>";
+			}
+			console.log(fileCallPath);
+		})
+		console.log(str);
+		uploadResult.append(str);
+	}
+	
+	//X를 누르면 목록에서 삭제 하기
+	$(".uploadResult").on("click","button",function(e){
+	
+		console.log($(this));
+		let targetFile = $(this).data("file");
+		let type = $(this).data("type");
+		let targetLi = $(this).closest("li");
+		
+		console.log(targetFile);
+		console.log(type);
+		console.log(targetLi);
+		
+		$.ajax({
+			url : '/deleteFile',
+			type : 'post',
+/* 			beforeSend : function(xhr){
+				xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+			}, */
+			data : {
+				fileName : targetFile,
+				type : type
+			},
+			success:function(result){
+				targetLi.remove();
+				$("input[type='file']").val("");
+			},
+			error:function(result){
+				alert("실패");
+			}
+		})
+		
+		//다음 이벤트 발생을 막기
+		e.stopPropagation();
 	})
 	
 	
