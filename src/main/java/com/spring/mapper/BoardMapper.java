@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 
 import com.spring.domain.BoardVO;
 import com.spring.domain.Criteria;
+import com.spring.domain.MemberCriteria;
 
 public interface BoardMapper {
 	public List<BoardVO> list(Criteria cri);
@@ -16,4 +17,6 @@ public interface BoardMapper {
 	public int total(Criteria cri);
 	public BoardVO read(int bno);
 	public int updateReplyCnt(@Param("bno") int bno, @Param("amount") int amount);
+	
+	public int totalMember(MemberCriteria memberCri);
 }

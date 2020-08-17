@@ -1,5 +1,4 @@
 package com.spring.controller;
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -14,12 +13,14 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+import org.springframework.context.annotation.Primary;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -151,35 +152,6 @@ public class UploadController {
 		
 		
 	}
-	
-	@GetMapping(value="/download",produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
-	@ResponseBody
-	public ResponseEntity<Resource> downloadFile(String fileName) {
-		log.info("다운로드 파일 : "+fileName);
-		
-		Resource resource = new FileSystemResource("d:\\upload\\"+fileName);
-		
-		String resourceName = resource.getFilename();
-		
-		//브라우저 헤더에 붙여 보내기
-		HttpHeaders headers = new HttpHeaders()
-				;
-		try {
-//			uuid값이 붙어서 다운로드가 되는 상황			
-//			headers.add("Content-Disposition", "attachment;fileName="
-//			+new String(resourceName.getBytes("utf-8"),"ISO-8859-1"));
-	
-			//uuid 값 제거
-			String resouceUidName = resource.getFilename();
-			resourceName = resouceUidName.substring(resouceUidName.indexOf("_")+1);
-			headers.add("Content-Disposition", "attachment;fileName="
-					+new String(resourceName.getBytes("utf-8"),"ISO-8859-1"));
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		}
-		return new ResponseEntity<Resource>(resource,headers,HttpStatus.OK);
-	}
-	
 	
 	
 	private boolean checkImageType(File file) {

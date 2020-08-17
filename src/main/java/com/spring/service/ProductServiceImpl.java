@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.spring.domain.CartVO;
 import com.spring.domain.CategoryKeySearchVO;
+import com.spring.domain.ManageKeySearchVO;
 import com.spring.domain.ProductVO;
 import com.spring.domain.ReviewVO;
 import com.spring.mapper.ProductMapper;
@@ -126,6 +127,14 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public int deleteProduct(int p_code) {
 		return product.deleteProduct(p_code);
+	}
+	@Override
+	public List<ProductVO> keySearchManageList(ManageKeySearchVO vo) {
+		return product.keySearchManageList(vo);
+	}
+	@Override
+	public int searchManageCount(ManageKeySearchVO vo) {
+		return product.searchManageCount(vo);
 	}
 	
 	

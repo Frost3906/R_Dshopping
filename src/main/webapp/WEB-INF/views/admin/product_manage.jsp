@@ -11,7 +11,7 @@
   	<div class="row mb-3">
   		<div class="col-auto mr-auto">
   			<!-- 검색어 보여주기 -->
-  			<h5 class="mb-0 mt-3">result for "${keyword}"</h5>
+  			<h5 class="mb-0 mt-3">result for "${manageKeyword}"</h5>
   		</div>
   		<div class="col-auto">
   		<select class="form-control" id="amount" name="amount">
@@ -54,7 +54,7 @@
 			      <th scope="col">${vo.property}</th>
 			      <th scope="col">
 				  	<button onclick="location.href='/shop/product?p_code=${vo.p_code}'">조회</button>
-				  	<button onclick="location.href='product_modify?p_code=${vo.p_code}&pageNum=${pageNum}&amount=${amount}'">수정</button>
+				  	<button onclick="location.href='product_modify?p_code=${vo.p_code}&pageNum=${pageNum}&amount=${amount}&manageKeyword=${manageKeyword}'">수정</button>
 				  	<button class="product-delete" value="${vo.p_code}">삭제</button>
 				  </th>
 			    </tr>
@@ -72,6 +72,8 @@
 	</div>
 	<div class="row">
 		<button type="button" class="btn btn-danger btn-lg float-right mt-3" onclick="location.href='admin'">뒤로가기</button>
+		<button type="button" class="btn btn-success btn-lg float-right mt-3" onclick="location.href='product_manage?pageNum=1&amount=10&manageKeyword='">전체목록보기</button>
+		<button type="button" class="btn btn-success btn-lg float-right mt-3" onclick="location.href='add'">상품등록</button>
 	</div>
 	
   	<div class="mb-3" style="display: flex; justify-content: center;">
@@ -84,7 +86,6 @@
 		      <input class="form-control mr-sm-2" style="margin-right: 8px; width: 200px;" name="manageKeyword" type="search" placeholder="Search in Keyword" aria-label="Search" <c:if test="${!empty manageKeyword}">value="${manageKeyword}"</c:if>>
 		      <input type="hidden" name="pageNum" value="1" />
 		      <input type="hidden" name="amount" value="${amount}" />
-		      <input type="hidden" name="manageKeyword" value="${manageKeyword}" />
 		      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
 		    </form>  		
   		</div>
@@ -93,7 +94,7 @@
 
 <!-- 정보를 전달할 히든 폼 -->
 <form action="product_manage" id="actionForm">
-	<input type="hidden" name="keyword" value="${keyword}" />
+	<input type="hidden" name="manageKeyword" value="${manageKeyword}" />
 	<input type="hidden" name="pageNum" value="${pageNum}" />
 	<input type="hidden" name="amount" value="${amount}" />
 </form>
@@ -190,14 +191,20 @@
 					$("#delCategory1").text(result.p_category1);
 					$("#delCategory2").text(result.p_category2);
 					$("#delCategory3").text(result.p_category3);
-					$("#delProperty").text(result.p_property);
+					$("#delProperty").text(result.property);
 				},
 			    error:function(request,status,error){
 			        alert("실패");
 			    }
 			})
 			// product-delete-btn 에 href로 p_code, pageNum, amount 넘겨주면서 리스트로 이동
-			$(".product-delete-btn").attr('onClick',"location.href='product_delete?p_code="+deleteCode+"&pageNum="+${pageNum}+"&amount="+${amount}+"'");
+			let actionForm = $("#actionForm");
+			var keyword = actionForm.find("input[name='manageKeyword']").val();
+			if(!keyword){
+				$(".product-delete-btn").attr('onClick',"location.href='product_delete?p_code="+deleteCode+"&pageNum="+${pageNum}+"&amount="+${amount}+"&manageKeyword="+"'");
+			} else {
+				$(".product-delete-btn").attr('onClick',"location.href='product_delete?p_code="+deleteCode+"&pageNum="+${pageNum}+"&amount="+${amount}+"&manageKeyword="+keyword+"'");
+			}
 		});
 	})
 </script>

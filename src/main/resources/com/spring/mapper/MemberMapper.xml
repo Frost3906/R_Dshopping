@@ -6,6 +6,17 @@
 		insert into test_mem(email, password, firstName, lastName, mobile) values(#{email}, #{password}, #{firstName}, #{lastName}, #{mobile})
 	</insert>
 	
+	<select id="listMember" resultType="com.spring.domain.MemberVO">
+		select * from test_mem
+	</select>
+	
+	<select id="manageList" resultType="com.spring.domain.MemberVO">
+	select * from
+		(select <![CDATA[rownum rno,]]> test_mem.* from test_mem)
+	 where <![CDATA[rno>(#{pageNum}-1)*#{amount} and rno<=#{pageNum}*#{amount}]]>
+	
+	</select>
+	
 	<select id="getMember" resultType="com.spring.domain.MemberVO">
 		select * from test_mem where email=#{email}
 	</select>
@@ -23,11 +34,22 @@
 	</update>
 	
 	<select id="getBySnsNaver" resultType="com.spring.domain.MemberVO">
-        select * from test_mem where naverid = #{naverid}
+        select * from test_mem where naverid=#{naverid}
     </select>
     
     <select id="getBySnsGoogle" resultType="com.spring.domain.MemberVO">
-        select * from test_mem where googleid = #{googleid}
+        select * from test_mem where googleid=#{googleid}
+    </select>
+    
+    <!-- 총 회원 인원 -->
+    <select id="totalMember" resultType="int">
+		select count(*) from test_mem
+	</select>
+    
+    
+    <!-- MyPage QnA select 쿼리 -->
+    <select id="qnaList" resultType="com.spring.domain.BoardVO">
+    	select * from board where writer=#{email}
     </select>
 	
 </mapper>

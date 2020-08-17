@@ -75,27 +75,40 @@
   </div>
   <!-- /.container -->
 
-<form action="" id="SNSSignIn">
+<!-- <form class="g-signin2" action="" id="SNSSignIn" data-onsuccess="onSignIn"> -->
 	<div class="g-signin2" data-onsuccess="onSignIn">
-		<input type="hidden" name=googleID value="1"/>
+		<input type="hidden" name=googleID />
 		<input type="hidden" name=firstName />
 		<input type="hidden" name=lastName />
 		<input type="hidden" name=email />
 	</div>
-</form> 
+<!-- </form>  -->
 
 <script>
-	var googleForm=$("#SNSSignIn");
+	/* var googleForm=$("#SNSSignIn"); */
+	
 	function onSignIn(googleUser) {		
 	  var profile = googleUser.getBasicProfile();
 	  console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
 	  console.log('FirstName: ' + profile.getGivenName());
 	  console.log('LastName: ' + profile.getFamilyName());
 	  console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+	  
 	  let googleID=profile.getId();
 	  let firstName=profile.getGivenName();
 	  let lastName=profile.getFamilyName();
 	  let email=profile.getEmail();
+	  
+	  /* $("input[name='googleID']").val(googleID);
+	  $("input[name='firstName']").val(firstName);
+	  $("input[name='lastName']").val(lastName);
+	  $("input[name='email']").val(email);
+	  
+	  console.log($("input[name='googleID']").val(googleID));
+	  console.log($("input[name='firstName']").val(firstName));
+	  console.log($("input[name='lastName']").val(lastName));
+	  console.log($("input[name='email']").val(email)); */
+	  
 	  
 		let data = {
 				googleID:googleID,
@@ -104,17 +117,19 @@
 				email:email
 		  };
 	  console.log(data);
-	  $.ajax({
+	  /* $.ajax({
 		  url:"/auth/google/callback",
 		  type:"get",
 		  data:data,
+		  datatype:"json",
 		  success:function(result){
-			  window.location.href="/"			  
+			  alert("성공")
+			  window.location.href="/"	 		  
 		  },
 		  error:function(){
 			  alert("실패")
 		  }		  
-	  })	  
+	  }) */ 
 	}
 </script>
 

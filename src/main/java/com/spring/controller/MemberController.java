@@ -1,8 +1,11 @@
 package com.spring.controller;
 
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,9 +27,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-
+import com.spring.domain.AuthVO;
+import com.spring.domain.BoardVO;
+import com.spring.domain.MemberCriteria;
+import com.spring.domain.MemberPageVO;
 import com.spring.domain.MemberVO;
 import com.spring.domain.ModifyMemberVO;
+import com.spring.domain.ReviewVO;
 import com.spring.email.EmailSender;
 import com.spring.email.EmailVO;
 import com.spring.email.RandomString;
@@ -151,8 +159,10 @@ public class MemberController {
 	}
 	
 	@GetMapping("/myPage")
-	public void myPageForm() {
+	public void myPageForm(Model model, @ModelAttribute("memberCri") MemberCriteria memberCri) {;
 		log.info("마이페이지 화면 표시");
+		
+		model.addAttribute("memberPage", new MemberPageVO(memberCri, service.totalMember(memberCri)));
 	}
 	
 	
@@ -193,4 +203,40 @@ public class MemberController {
         	return "redirect:/";
         }
     }
+	
+	
+	//MyPage
+	@GetMapping("/myPage/qnaList")
+	@ResponseBody
+	public List<BoardVO> qnaList(String email) {
+		log.info("MyPage QnA 탭 테이블 처리");
+		log.info(email);
+		
+		return service.qnaList(email);
+	}
+	
+	//Admin
+	@GetMapping("/member_manage")
+	public void memberManage(Model model, MemberCriteria memberCri) {
+		log.info("Member Manage 화면 표시");
+		log.info(""+memberCri);
+		
+		MemberPageVO memberPage = new MemberPageVO(memberCri, service.totalMember(memberCri));
+		log.info(""+memberPage);
+		
+		int members=service.totalMember(memberCri);
+		int idx = 0;
+		if(members%memberCri.getAmount()==0) {
+			idx = (members/memberCri.getAmount());
+		} else {
+			idx = (members/memberCri.getAmount()+1);
+		}
+		
+		List<MemberVO> list=service.manageList(memberCri);
+		model.addAttribute("list", list);		
+		model.addAttribute("idx", idx);	
+		model.addAttribute("memberPage", memberPage);	
+		
+		
+	}
 }
