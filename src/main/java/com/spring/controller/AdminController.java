@@ -118,7 +118,7 @@ public class AdminController {
 	
 	@PostMapping("/add")
 	public String addProduct(ProductVO vo) {
-		log.info("상품 등록 요청");
+		log.info("상품 등록 요청"+vo);
 		service.addProduct(vo);
 		return "redirect:/admin/product_manage?pageNum=1&amount=10&manageKeyword=";
 	}
