@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.spring.domain.CartVO;
 import com.spring.domain.CategoryKeySearchVO;
+import com.spring.domain.ManageKeySearchVO;
 import com.spring.domain.ProductVO;
 import com.spring.domain.ReviewVO;
 
@@ -34,4 +35,6 @@ public interface ProductService {
 	public int listCount();
 	public List<ProductVO> manageList(int pageNum, int amount);
 	public int deleteProduct(int p_code);
+	public List<ProductVO> keySearchManageList(ManageKeySearchVO vo);
+	public int searchManageCount(ManageKeySearchVO vo);
 }
