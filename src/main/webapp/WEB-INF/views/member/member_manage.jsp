@@ -58,7 +58,29 @@
     </div>
 	<div>
 		<!-- 페이지 나누기 부분 -->
-  		<%@ include file="../option/pagination.jsp" %> 
+  		<div style="display: table; margin-left: auto; margin-right: auto;">
+		  <ul class="pagination mb-3">
+		    <li class="page-item">
+		      <a class="page-link page-select" href="1" tabindex="-1" aria-disabled="true">First</a>
+		    </li>
+		    <li class="page-item"><a class="page-link page-move" href="#">...</a></li>
+		    <li class="page-item <c:if test='${memberPage.prev}'>disabled</c:if>">
+		      <a class="page-link page-select" href="${memberPage.previousPage}" tabindex="-1" aria-disabled="true">Previous</a>
+		    </li>
+		    <c:forEach var="idx" begin="${memberPage.startPage}" end="${memberPage.endPage}">
+		    	<li class="page-item ${pageNum==idx?'active':''}"><a class="page-link page-select" href="${idx}">${idx}</a></li>
+		    </c:forEach>
+		    <li class="page-item <c:if test='${memberPage.next}'>disabled</c:if>">
+		      <a class="page-link page-select" href="${memberPage.nextPage}">Next</a>
+		    </li>
+		    <li class="page-item"><a class="page-link page-move" href="#">...</a></li>
+		    <li class="page-item">
+		      <a class="page-link page-select" href="${memberPage.lastPage}">Last</a>
+		    </li>
+		  </ul>
+		</div>
+  		
+  		 
 	</div>
 	<div class="row">
 		<button type="button" class="btn btn-danger btn-lg float-right mt-3" onclick="location.href='/admin/admin'">뒤로가기</button>

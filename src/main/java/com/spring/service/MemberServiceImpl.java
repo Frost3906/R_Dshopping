@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.spring.domain.BoardVO;
+import com.spring.domain.MemberCriteria;
 import com.spring.domain.MemberVO;
 import com.spring.domain.ModifyMemberVO;
 import com.spring.mapper.MemberMapper;
@@ -56,7 +57,18 @@ public class MemberServiceImpl implements MemberService {
 	public List<MemberVO> listMember() {
 		return mapper.listMember();
 	}
-
+	
+	@Override
+	public int totalMember(MemberCriteria memberCri) {
+		return mapper.totalMember(memberCri);
+	}
+	
+	//Admin
+	@Override
+	public List<MemberVO> manageList(MemberCriteria memberCri){
+		return mapper.manageList(memberCri);
+	}
+	
 	
 	//MyPage
 	@Override

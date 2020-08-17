@@ -38,8 +38,7 @@
 				      <th scope="col"></th>				      
 				    </tr>
 				  </tbody>
-			</table>
-	        	
+			</table>	        	
 	        <!-- /.row -->
 	      </div>
 	      <!-- /.col-lg-9 -->
@@ -49,7 +48,7 @@
 	  <div class="tab-pane fade" id="v-pills-shipping" role="tabpanel" aria-labelledby="v-pills-shipping-tab">
 	  	Shipping
 	  </div>
-	  <%-- 비밀번호 변경 --%>	  
+	  <%-- 회원정보 수정 --%>	  
 	  <div class="tab-pane fade" id="v-pills-account" role="tabpanel" aria-labelledby="v-pills-account-tab">
 	  	<form id="modify" action="modify" method="post">
 		  	<table>
@@ -144,25 +143,32 @@
 		      <th scope="col">Reporting Date</th>
 		    </tr>
 		  </thead>		 
-		  <tbody id=qnaList>
-		    <%-- Mypage 회원의 QnA 끌어오기 --%>
+		  <tbody id=qnaList>		  
+		    <%-- Mypage QnA 리스트 출력 --%>
 		  </tbody>
 		</table>
+		
+		<%-- 페이지 분할 --%>
+		<%-- <%@include file="../option/pagination.jsp"%> --%>
 		<nav aria-label="Page navigation example">
-		  <ul class="pagination" >
-		    <li class="page-item">
-		      <a class="page-link" style="color:black" href="#" aria-label="Previous">
+		  <ul class="pagination">
+		  <c:if test="${memberPage.prev}">
+		    <li class="page-item" style="justify-content: center">
+		      <a class="page-link" style="color:black" href="${memberPage.startPage-1 }" aria-label="Previous">
 		        <span aria-hidden="true">&laquo;</span>
 		      </a>
-		    </li>
-		    <li class="page-item"><a class="page-link" style="color:black" href="#">1</a></li>
-		    <li class="page-item"><a class="page-link" style="color:black" href="#">2</a></li>
-		    <li class="page-item"><a class="page-link" style="color:black" href="#">3</a></li>
+		    </li>	
+		    </c:if>	    
+		    <c:forEach var="idx" begin="${memberPage.startPage}" end="${memberPage.endPage}">
+		    <li class="page-item ${memberPage.memberCri.pageNum==idx?'active':''}"><a class="page-link" style="color:black" href="${idx}">${idx}</a></li>
+		    </c:forEach>
+		    <c:if test="${memberPage.next}">
 		    <li class="page-item">
-		      <a class="page-link" style="color:black" href="#" aria-label="Next">
+		      <a class="page-link" style="color:black" href="${memberPage.endPage+1}" aria-label="Next">
 		        <span aria-hidden="true">&raquo;</span>
 		      </a>
 		    </li>
+		    </c:if>
 		  </ul>
 		</nav>
 	  </div>

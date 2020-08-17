@@ -19,6 +19,8 @@ public class MemberVO {
 	private String naverID;
 	private String googleID;
 	
+	private int rno;
+	
 	// board
 	private String userid;
 	private String userpw;
