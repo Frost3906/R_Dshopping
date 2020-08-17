@@ -73,6 +73,7 @@
 	<div class="row">
 		<button type="button" class="btn btn-danger btn-lg float-right mt-3" onclick="location.href='admin'">뒤로가기</button>
 		<button type="button" class="btn btn-success btn-lg float-right mt-3" onclick="location.href='product_manage?pageNum=1&amount=10&manageKeyword='">전체목록보기</button>
+		<button type="button" class="btn btn-success btn-lg float-right mt-3" onclick="location.href='add'">상품등록</button>
 	</div>
 	
   	<div class="mb-3" style="display: flex; justify-content: center;">

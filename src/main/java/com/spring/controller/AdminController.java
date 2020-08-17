@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.spring.domain.CategoryKeySearchVO;
 import com.spring.domain.ManageKeySearchVO;
+import com.spring.domain.ManageVO;
 import com.spring.domain.ProductVO;
 import com.spring.domain.ShopPageVO;
 import com.spring.service.ProductService;
@@ -42,36 +42,33 @@ public class AdminController {
 	}
 
 	@GetMapping("/product_manage")
-	public void productManage(Model model,
-							  @Param("amount") int amount, 
-							  @Param("pageNum") int pageNum,
-							  String manageKeyword) {
-		model.addAttribute("pageNum", pageNum); // 현재 페이지 번호
-		model.addAttribute("amount", amount); // 현재 페이지 당 리스트 개수
-		ShopPageVO pageVO = new ShopPageVO(pageNum, amount,service.listCount());
+	public void productManage(Model model, ManageVO mvo) {
+		model.addAttribute("pageNum", mvo.getPageNum()); // 현재 페이지 번호
+		model.addAttribute("amount", mvo.getAmount()); // 현재 페이지 당 리스트 개수
+		ShopPageVO pageVO = new ShopPageVO(mvo.getPageNum(), mvo.getAmount(),service.listCount());
 		int products = service.listCount();
 		log.info("상품 관리 form 호출");
 		List<ProductVO> vo = null;
-		log.info("키워드 : " + manageKeyword);
-		if(!manageKeyword.isEmpty()) {
-			String[] keyArray = manageKeyword.split(" "); // 검색어를 공백 기준으로 나누어서 배열 형태로 생성
+		log.info("키워드 : " + mvo.getManageKeyword());
+		if(!mvo.getManageKeyword().isEmpty()) {
+			String[] keyArray = mvo.getManageKeyword().split(" "); // 검색어를 공백 기준으로 나누어서 배열 형태로 생성
 			List<String> keyList = Arrays.asList(keyArray); // 배열 형태의 검색어를 리스트로 변환
 			ManageKeySearchVO keySearchVO = new
-					ManageKeySearchVO(pageNum, amount, keyList);
+					ManageKeySearchVO(mvo.getPageNum(), mvo.getAmount(), keyList);
 			vo = service.keySearchManageList(keySearchVO);
-			pageVO = new ShopPageVO(pageNum, amount, service.searchManageCount(keySearchVO));
+			pageVO = new ShopPageVO(mvo.getPageNum(), mvo.getAmount(), service.searchManageCount(keySearchVO));
 			products = service.searchManageCount(keySearchVO);
-			model.addAttribute("manageKeyword", manageKeyword);
+			model.addAttribute("manageKeyword", mvo.getManageKeyword());
 		} else {
-			vo = service.manageList(pageNum, amount);
+			vo = service.manageList(mvo.getPageNum(), mvo.getAmount());
 		}
 
-		model.addAttribute("productAmt", (int)(Math.ceil(products/(double)(amount))));
+		model.addAttribute("productAmt", (int)(Math.ceil(products/(double)(mvo.getAmount()))));
 		int idx = 0;
-		if(products%amount==0) {
-			idx = (products/amount);
+		if(products%mvo.getAmount()==0) {
+			idx = (products/mvo.getAmount());
 		} else {
-			idx = (products/amount+1);
+			idx = (products/mvo.getAmount()+1);
 		}
 		model.addAttribute("vo", vo);
 		model.addAttribute("idx", idx);
@@ -79,17 +76,13 @@ public class AdminController {
 	}
 	
 	@GetMapping("/product_modify")
-	public void productModify(Model model, 
-							  @Param("p_code") int p_code, 
-							  @Param("pageNum") int pageNum, 
-							  @Param("amount") int amount,
-							  String manageKeyword) {
+	public void productModify(Model model, ManageVO mvo) {
 		log.info("상품 관리 form 호출");
-		ProductVO vo = service.getProduct(p_code);
+		ProductVO vo = service.getProduct(mvo.getP_code());
 		model.addAttribute("vo", vo);
-		model.addAttribute("pageNum", pageNum);
-		model.addAttribute("amount", amount);
-		model.addAttribute("manageKeyword", manageKeyword);
+		model.addAttribute("pageNum", mvo.getPageNum());
+		model.addAttribute("amount", mvo.getAmount());
+		model.addAttribute("manageKeyword", mvo.getManageKeyword());
 	}
 	
 	@PostMapping("/product_modify")
@@ -110,11 +103,11 @@ public class AdminController {
 	}
 	
 	@GetMapping("/product_delete")
-	public String productDelete(Model model, @Param("p_code") int p_code, @Param("pageNum") int pageNum, @Param("amount") int amount, String manageKeyword) {
-		model.addAttribute("pageNum", pageNum);
-		model.addAttribute("amount", amount);
-		model.addAttribute("manageKeyword", manageKeyword);
-		if(service.deleteProduct(p_code)>0) {
+	public String productDelete(Model model, ManageVO mvo) {
+		model.addAttribute("pageNum", mvo.getPageNum());
+		model.addAttribute("amount", mvo.getAmount());
+		model.addAttribute("manageKeyword", mvo.getManageKeyword());
+		if(service.deleteProduct(mvo.getP_code())>0) {
 			log.info("삭제 성공====================");
 		} else {
 			log.info("삭제 실패=================");
@@ -127,7 +120,7 @@ public class AdminController {
 	public String addProduct(ProductVO vo) {
 		log.info("상품 등록 요청");
 		service.addProduct(vo);
-		return "redirect:/";
+		return "redirect:/admin/product_manage?pageNum=1&amount=10&manageKeyword=";
 	}
 
 	@ResponseBody
