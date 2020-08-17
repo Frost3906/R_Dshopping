@@ -150,10 +150,11 @@
 		
 		<%-- 페이지 분할 --%>
 		<%-- <%@include file="../option/pagination.jsp"%> --%>
+		
 		<nav aria-label="Page navigation example">
-		  <ul class="pagination">
+		  <ul class="pagination" style="justify-content: center">
 		  <c:if test="${memberPage.prev}">
-		    <li class="page-item" style="justify-content: center">
+		    <li class="page-item" >
 		      <a class="page-link" style="color:black" href="${memberPage.startPage-1 }" aria-label="Previous">
 		        <span aria-hidden="true">&laquo;</span>
 		      </a>

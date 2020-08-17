@@ -217,7 +217,7 @@ public class MemberController {
 	
 	//Admin
 	@GetMapping("/member_manage")
-	public void memberManage(Model model, MemberCriteria memberCri) {
+	public void memberManage(Model model, @ModelAttribute("memberCri") MemberCriteria memberCri) {
 		log.info("Member Manage 화면 표시");
 		log.info(""+memberCri);
 		

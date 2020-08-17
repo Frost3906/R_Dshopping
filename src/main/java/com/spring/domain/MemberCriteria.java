@@ -8,6 +8,7 @@ import lombok.ToString;
 @Setter
 @ToString
 public class MemberCriteria {
+	
 	private int pageNum; //페이지번호
 	private int amount;  //한페이지당 보여줄 게시물 수
 	

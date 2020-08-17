@@ -42,12 +42,13 @@
                         
                         <div class="col-lg-6 col-md-6 log-det">                            
                             <h2>Welcome Back</h2>
-                            <div class="row">
-                                <ul>
-                                    <a href=""><li><i class="fab fa-facebook-f"></i></li></a>
-                                    <a href="${naver_url}"><li><i class="fab fa-instagram"></i></li></a>
-                                    <a href="${google_url}"><li><i class="fab fa-google"></i></li></a>
-                                </ul>
+                            <div class="row" style="justify-content: center;">
+                                <div class="g-signin2" data-onsuccess="onSignIn" >                                   
+									<input type="hidden" name=googleID />
+									<input type="hidden" name=firstName />
+									<input type="hidden" name=lastName />
+									<input type="hidden" name=email />									
+                                </div>
                             </div>
                             <div class="row">
                                 <p class="small-info">or use your email account</p>
@@ -89,7 +90,7 @@
             </div>
          </div>
          
-<%-- 비밀번호 찾기 Modal --%>
+<%-- ë¹ë°ë²í¸ ì°¾ê¸° Modal --%>
 <div class="modal fade" id="forgetPwdModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -127,6 +128,55 @@ $(function(){
 		$("#forgetPwdModal").modal("hide");
 	})
 })
+
+
+var googleForm=$("#SNSSignIn");
+	
+function onSignIn(googleUser) {		
+  var profile = googleUser.getBasicProfile();
+  console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+  console.log('FirstName: ' + profile.getGivenName());
+  console.log('LastName: ' + profile.getFamilyName());
+  console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+  
+  let googleID=profile.getId();
+  let firstName=profile.getGivenName();
+  let lastName=profile.getFamilyName();
+  let email=profile.getEmail();
+  
+  /* $("input[name='googleID']").val(googleID);
+  $("input[name='firstName']").val(firstName);
+  $("input[name='lastName']").val(lastName);
+  $("input[name='email']").val(email);
+  
+  console.log($("input[name='googleID']").val(googleID));
+  console.log($("input[name='firstName']").val(firstName));
+  console.log($("input[name='lastName']").val(lastName));
+  console.log($("input[name='email']").val(email)); */
+  
+  
+	let data = {
+			googleID:googleID,
+			firstName:firstName,
+			lastName:lastName,
+			email:email
+	  };
+  console.log(data);
+  /* $.ajax({
+	  url:"/auth/google/callback",
+	  type:"get",
+	  data:data,
+	  datatype:"json",
+	  success:function(result){
+		  alert("성공")
+		  window.location.href="/"	 		  
+	  },
+	  error:function(){
+		  alert("실패")
+	  }		  
+  }) */ 
+}
+
 </script>
 </body>
 <!-- <script src="/resources/signIn/js/jquery-3.2.1.min.js"></script>
