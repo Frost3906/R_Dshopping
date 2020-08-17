@@ -75,7 +75,8 @@
         		<input type="hidden" name="pageNum" value="${pageNum}" />
         		<input type="hidden" name="amount" value="${amount}" />
         		<input type="hidden" name="p_code" value="${vo.p_code}" />
-        		<button type="button" class="btn btn-danger btn-lg float-right mt-3" onclick="location.href='product_manage?pageNum=${pageNum}&amount=${amount}'">뒤로가기</button>
+        		<input type="hidden" name="manageKeyword" value="${manageKeyword}" />
+        		<button type="button" class="btn btn-danger btn-lg float-right mt-3" onclick="location.href='product_manage?pageNum=${pageNum}&amount=${amount}&manageKeyword=${manageKeyword}'">뒤로가기</button>
         		<button type="submit" class="btn btn-success btn-lg float-right mt-3">상품 수정</button>
         	</div>
         	</form>
