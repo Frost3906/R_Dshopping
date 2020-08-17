@@ -7,15 +7,17 @@ import lombok.Data;
 
 @Data
 public class MemberVO {
-	private String email;
-	private String password;
-	private String firstName;
-	private String lastName;
-	private String nickName;
-	private String role;
-	private String mobile;
-	private String naverid;
-	private String googleid;
+	private String email;		//Require
+	private String password;	//Require
+	private String memLevel;	//Rookie > Normal > Bronze > Silver > Gold > Platinum > Diamond > BlackDiamond
+	private String country;		
+	private String firstName;	//Require
+	private String lastName;	//Require
+	private String nickName;	
+	private String role;		//default member
+	private String mobile;		//Require
+	private String naverID;
+	private String googleID;
 	
 	// board
 	private String userid;
@@ -24,6 +26,7 @@ public class MemberVO {
 	private Date regdate;
 	private Date updatedate;
 	private boolean enabled;
+	
 	//권한정보
 	private List<AuthVO> authList;
 }

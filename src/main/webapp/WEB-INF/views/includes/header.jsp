@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
 
@@ -8,11 +9,14 @@
 
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!-- 소셜 로그인 ClientID(구글) -->
+  <meta name = "google-signin-client_id"content = "245346684776-185hq3i3j9iujvt4cl5e42pc4egbh0tg.apps.googleusercontent.com">
+
+
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Shop</title>
-
+  <title>Shop</title>	
   <!-- Bootstrap core CSS -->
   <link href="/resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
@@ -25,8 +29,10 @@
   <!-- SignUp Validation -->
   <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js"></script>
-  
-  
+
+  <!-- 구글 로그인 -->
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
+
   <style>
   	th {
   		text-align: center;
@@ -38,9 +44,10 @@
         text-decoration: none;
         color: gray;
     }
-    #star_grade a.on{
-        color: red;
-    }  	
+    #star_grade .on{
+        color: gold;
+    }
+	
   </style>
   
 </head>
@@ -56,57 +63,57 @@
 				</div>
 				<div>
 			      <!-- <div class="collapse navbar-collapse" id="navbarResponsive"> -->
-			      <div>
-			        <ul class="navbar-nav ml-auto">
+			      <div style="display: flex;">
+			        <ul class="navbar-nav ml-auto" style="display: contents;">
 			        <!-- 로그인 상황에 따른 navbar 변경(로그인 시) -->
 			          <c:if test="${!empty auth}">
 			          	<li class="nav-item active">			          
-			            <a class="nav-link" href="/">Home
+			            <a class="nav-link" style="padding: 8px;" href="/">Home
 			              <span class="sr-only">(current)</span>
 			            </a>
 			          </li>
 			          <li class="nav-item">
-			            <a class="nav-link" href="#">About</a>
+			            <a class="nav-link" style="padding: 8px;" href="#">About</a>
 			          </li>
 			          <li class="nav-item">
-			            <a class="nav-link" href="/shop/cart">Cart</a>
+			            <a class="nav-link" style="padding: 8px;" href="/shop/cart">Cart</a>
 			          </li>
 			          <li class="nav-item">
-			            <a class="nav-link" href="/member/myPage" style="text-decoration: underline;">HI!! ${auth.firstName}</a>
+			            <a class="nav-link" style="padding: 8px;" href="/member/myPage" style="text-decoration: underline;">HI!! ${auth.firstName}</a>
 			          </li>
 			          <li class="nav-item">
-			            <a class="nav-link" href="/member/logout">LogOut</a>
+			            <a class="nav-link" style="padding: 8px;" href="/member/logout">LogOut</a>
 			          </li>
 			          <li class="nav-item">
-			            <a class="nav-link" href="/board/list">게시판</a>
+			            <a class="nav-link" style="padding: 8px;" href="/board/list">게시판</a>
 			          </li>
    			     
    			          <c:if test="${auth.role=='admin'}">
-			          	<li><a class="nav-link" href="/admin/admin">Manage</a></li>
+			          	<li><a class="nav-link" style="padding: 8px;" href="/admin/admin">Manage</a></li>
 			          </c:if>
 			     
 			          </c:if>
 			          <!-- 로그인 상황에 따른 navbar 변경(비로그인 시) -->
 			          <c:if test="${empty auth}">			          
 			          <li class="nav-item active">			          
-			            <a class="nav-link" href="/">Home
+			            <a class="nav-link" style="padding: 8px;" href="/">Home
 			              <span class="sr-only">(current)</span>
 			            </a>
 			          </li>
 			          <li class="nav-item">
-			            <a class="nav-link" href="#">About</a>
+			            <a class="nav-link" style="padding: 8px;" href="#">About</a>
 			          </li>
 			          <li class="nav-item">
-			            <a class="nav-link" href="/shop/cart">Cart</a>
+			            <a class="nav-link" style="padding: 8px;" href="/shop/cart">Cart</a>
 			          </li>
 			          <li class="nav-item">
-			            <a class="nav-link" href="/member/signIn">Sign in</a>
+			            <a class="nav-link" style="padding: 8px;" href="/member/signIn">Sign in</a>
 			          </li>
 			          <li class="nav-item">
-			            <a class="nav-link" href="/member/signUp">Sign up</a>
+			            <a class="nav-link" style="padding: 8px;" href="/member/signUp">Sign up</a>
 			          </li>
 			          <li class="nav-item">
-			            <a class="nav-link" href="/board/list">게시판</a>
+			            <a class="nav-link" style="padding: 8px;" href="/board/list">게시판</a>
 			          </li>
 			          <!-- 권한에 따라 관리자 페이지 표시여부 -->
 			          

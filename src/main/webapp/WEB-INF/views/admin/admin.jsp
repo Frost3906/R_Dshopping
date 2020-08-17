@@ -6,7 +6,8 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <div class="container mt-5">
 	<button onclick="location.href='add'">상품등록</button>
-	<button onclick="location.href=''">회원관리</button>
+	<button onclick="location.href='/member/member_manage'">회원관리</button>
+	<button onclick="location.href='product_manage?pageNum=1&amount=10'">상품관리</button>
 
 </div>
 
