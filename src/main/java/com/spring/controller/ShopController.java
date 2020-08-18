@@ -119,8 +119,8 @@ public class ShopController {
 		int result = 0;
 		log.info("카트 담기 테스트");
 		log.info(""+vo);
-		log.info(vo.getEmail());
-		if(vo.getEmail()!="") {
+		log.info(vo.getUsername());
+		if(vo.getUsername()!="") {
 			result = service.addCart(vo);
 			return result;
 		}else {
@@ -141,7 +141,7 @@ public class ShopController {
 		 
 		 
 		if(auth != null) {
-			vo.setEmail(email);
+			vo.setUsername(email);
 		  
 			for(String i : chArr) {   
 				cartNum = Integer.parseInt(i);
