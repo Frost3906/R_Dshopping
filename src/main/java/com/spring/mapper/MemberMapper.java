@@ -10,7 +10,7 @@ import com.spring.domain.ModifyMemberVO;
 
 public interface MemberMapper {
 	//Member
-	public MemberVO read			(String email);
+	public MemberVO read			(String userid);
 	public int		signUp			(MemberVO member);
 	public MemberVO getMember		(String username);
 	public MemberVO checkPwd		(MemberVO member);

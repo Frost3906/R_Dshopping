@@ -79,7 +79,8 @@
                             </label>
                             <a href="" id="forgetPwd" >forget password ?</a></p>
                                
-                                <div class="input-group center  mb-3">                                           
+                                <div class="input-group center  mb-3">
+									<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
                                     <button type="submit" class="btn btn-success ">LOGIN</button>
                                     <button type="button" class="btn btn-primary " onclick="location.href='signUp'">Sign up</button>                                    
                                 </div>    
