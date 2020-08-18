@@ -38,6 +38,11 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
+	public int manageModify(MemberVO member) {
+		return mapper.manageModify(member);
+	}
+
+	@Override
 	public int forgetPwd(MemberVO member) {
 		return mapper.forgetPwd(member);
 	}
@@ -56,6 +61,11 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public List<MemberVO> listMember() {
 		return mapper.listMember();
+	}
+	
+	@Override
+	public int leaveMember(String username) {
+		return mapper.leaveMember(username);
 	}
 	
 	@Override

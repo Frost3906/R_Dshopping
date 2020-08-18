@@ -236,4 +236,30 @@ public class MemberController {
 	public MemberVO getManageMember(String username) {
 		return service.getMember(username);
 	}
+	
+	@PostMapping("/manageModify")
+	public String manageMember(RedirectAttributes rttr, MemberVO member) {
+		log.info("ManageModal Modify 진행");
+		
+		if(service.manageModify(member)>0) {
+			//rttr.addFlashAttribute("success", "변경이 완료 되었습니다.");
+			return "redirect:/member/member_manage";			
+		}else {
+			//rttr.addFlashAttribute("fail", "변경이 실패했습니다..");			
+			return "redirect:/";			
+		}		
+	}
+	
+	@PostMapping("/manageDelete")
+	public String manageDelete(String username) {
+		log.info("ManageDelete Delete 진행");
+		
+		if(service.leaveMember(username)>0) {
+			//rttr.addFlashAttribute("success", "삭제가 완료 되었습니다.");
+			return "redirect:/member/member_manage";	
+		}else {
+			//rttr.addFlashAttribute("fail", "삭제가 실패했습니다..");			
+			return "redirect:/";			
+		}				
+	}
 }

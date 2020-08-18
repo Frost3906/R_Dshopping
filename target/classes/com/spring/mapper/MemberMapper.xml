@@ -33,6 +33,10 @@
 		update test_mem set password=#{password} where username=#{username} 
 	</update>
 	
+	<delete id="leaveMember">
+		delete from test_mem where username=#{username}
+	</delete>
+	
 	<select id="getBySnsNaver" resultType="com.spring.domain.MemberVO">
         select * from test_mem where naverid=#{naverid}
     </select>

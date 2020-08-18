@@ -10,15 +10,20 @@ import com.spring.domain.ModifyMemberVO;
 
 public interface MemberMapper {
 	//Member
-	public MemberVO read			(String userid);
-	public int		signUp			(MemberVO member);
-	public MemberVO getMember		(String username);
-	public MemberVO checkPwd		(MemberVO member);
-	public int		modify			(ModifyMemberVO modifyMember);
-	public int		forgetPwd		(MemberVO member);
-	public MemberVO getBySnsNaver	(MemberVO snsMember);
-	public MemberVO getBySnsGoogle	(MemberVO snsMember);
+	public MemberVO read(String userid);
+	public int signUp(MemberVO member);
+	public MemberVO getMember(String username);
+	public MemberVO checkPwd(MemberVO member);
+	public int modify(ModifyMemberVO modifyMember);
+	public int manageModify(MemberVO member);
+	public int forgetPwd(MemberVO member);
+	public MemberVO getBySnsNaver(MemberVO snsMember);
+	public MemberVO getBySnsGoogle(MemberVO snsMember);
 	public List<MemberVO> listMember();
+	public int leaveMember(String username);
+	
+	
+	
 	
 	public int totalMember(MemberCriteria memberCri);
 	

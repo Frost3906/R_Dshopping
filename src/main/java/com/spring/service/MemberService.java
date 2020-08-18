@@ -13,9 +13,11 @@ public interface MemberService {
 	public MemberVO getMember(String username);
 	public MemberVO checkPwd(MemberVO member);
 	public int modify(ModifyMemberVO modifyMember);
+	public int manageModify(MemberVO member);
 	public int forgetPwd(MemberVO member);
 	public MemberVO getBySNS(MemberVO snsMember);
 	public List<MemberVO> listMember();
+	public int leaveMember(String username);	
 	
 	public int totalMember(MemberCriteria memberCri);
 	
