@@ -3,6 +3,10 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ include file="../includes/header.jsp" %>
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 
 <div class="container">
 		<h1 class="page-header ml-2">Board List</h1>
@@ -29,7 +33,7 @@
 						<c:forEach var="vo" items="${list}">
 							<tr>
 								<td>${vo.bno}</td>
-								<td><a href='<c:out value="${vo.bno}"/>' class="move">${vo.title}</a><strong>[${vo.replycnt}]</strong></td>
+								<td><a href="<c:out value='${vo.bno}'/>" class="move">${vo.title}</a><strong>[${vo.replycnt }]</strong></td>
 								<td>${vo.writer}</td>
 								<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${vo.regdate}"/></td>
 								<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${vo.updatedate}"/></td>
@@ -96,12 +100,12 @@
 <!-- end row -->
 
 <!-- 페이지 번호를 누르면 동작하는 폼 -->
-<form action="list" id="pageNum">
+<form action="list" id="actionForm">
 	<input type="hidden" name="pageNum" value="${pageVO.cri.pageNum}" />
 	<input type="hidden" name="amount" value="${pageVO.cri.amount}" />
-	<input type="hidden" name="type" value="${cri.type}" />
+	<input type="hidden" name="type" value="${cri.type}" /> <!-- ==pageVO.cri.type -->
 	<input type="hidden" name="keyword" value="${cri.keyword}" />
-</form>
+</form>            
 <!-- 모달 추가 -->
 <div class="modal" tabindex="-1" role="dialog" id="myModal">
 	<div class="modal-dialog">
@@ -129,7 +133,7 @@
 		checkModal(result);
 		history.replaceState({}, null, null);
 		
-		function checkmodal(result) {
+		function checkModal(result) {
 			if (result === '' || history.state) {
 				return;
 			}
@@ -152,11 +156,12 @@
 			actionForm.submit();
 		})
 		
-		// 타이틀 클릭 시 페이지 나누기 정보가 있는 폼 보내기
+		
+		// 타이틀 클릭시 페이지 나누기 정보가 있는 폼 보내기
 		$(".move").click(function(e){
 			e.preventDefault();
-			actionForm.append("<input type='hidden' name='bno' value='" + $(this).attr("href") + "' />");
-			actionForm.attr('action', 'read');
+			actionForm.append("<input type='hidden' name='bno' value='"+ $(this).attr("href") +"'/>");
+			actionForm.attr("action","read");
 			actionForm.submit();
 		})
 		

@@ -17,8 +17,10 @@ import lombok.extern.slf4j.Slf4j;
 public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
 
 	@Override
-	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
-			Authentication authentication) throws IOException, ServletException {
+	public void onAuthenticationSuccess(HttpServletRequest request, 
+										HttpServletResponse response,
+										Authentication authentication) 
+												throws IOException, ServletException {
 		log.info("Login Success Handler");
 		
 		//Authentication 정보 확인해 보기

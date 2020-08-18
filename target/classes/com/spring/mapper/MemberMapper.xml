@@ -52,4 +52,25 @@
     	select * from board where writer=#{email}
     </select>
 	
+	<!-- 세큐리티 실험중 -->
+	<resultMap type="com.spring.domain.MemberVO" id="memberMap">
+		<id property="userid" column="userid"/>
+		<result property="userid" column="userid"/>
+		<result property="userpw" column="userpw"/>
+		<result property="username" column="username"/>
+		<result property="regdate" column="regdate"/>
+		<result property="updatedate" column="updatedate"/>
+		<collection property="authList" resultMap="authMap"></collection>
+	</resultMap>
+	
+	<resultMap type="com.spring.domain.AuthVO" id="authMap">
+		<result property="userid" column="userid"/>
+		<result property="auth" column="auth"/>
+	</resultMap>
+	
+	<select id="read" resultMap="memberMap">
+		select mem.userid, userpw, username, enabled, regdate, updatedate, auth
+		from spring_member mem left outer join spring_member_auth auth on mem.userid = auth.userid
+		where mem.userid = #{userid}
+	</select>
 </mapper>
