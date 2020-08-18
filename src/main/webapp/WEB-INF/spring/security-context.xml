@@ -22,7 +22,7 @@
 	<security:http>
 		<!-- <security:intercept-url pattern="/board/*" access="hasAnyRole('ROLE_MEMBER','ROLE_MANAGER','ROLE_ADMIN')"/> -->
 		<security:access-denied-handler ref="deniedHandler"/>
-		<security:form-login login-page="/member/signin" authentication-success-handler-ref="loginSuccessHandler"/>
+		<security:form-login login-page="/member/login" authentication-success-handler-ref="loginSuccessHandler"/>
 		<security:logout logout-url ="/member/logout" invalidate-session="true"/>
 		<security:remember-me data-source-ref="ds" token-validity-seconds="604800"/>
 	</security:http>
