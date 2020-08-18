@@ -74,6 +74,7 @@
 	 						<div class="float-left">상품 이미지</div>
 	 						<div class="float-right">
 								<input type="file" id="productImage" name="productImage"/>
+								<input type="hidden" id="image" name="image"/>
 	 						</div>
 	 						<div class="uploadResult">
 	 							<ul></ul>
@@ -82,7 +83,7 @@
 	 				
 	 			</ul>       	
         	<div class="mb-3">
-        		<button class="btn btn-success btn-lg float-right mt-3" id="add_product">상품 등록</button>
+        		<button type="button" class="btn btn-success btn-lg float-right mt-3" id="add_product">상품 등록</button>
         	</div>
         	</form>
         	</div>
@@ -102,7 +103,7 @@ $(function(){
 	let csrfHeaderName = "${_csrf.headerName}";
 	let csrfTokenValue = "${_csrf.token}";
 		
-	$("button[type='submit']").click(function(e){
+	$("#add_product").click(function(e){
 		//submit 버튼 기능 막기
 		e.preventDefault();
 		//게시글 등록 + 파일첨부 한번에 처리
@@ -113,13 +114,17 @@ $(function(){
 			let job = $(ele);
 			console.log(job);
 			let image = encodeURI(job.data("path")+"\\"+job.data("uuid")+"_"+job.data("filename"));
-			str += "<input type='text' name='image' value='"+image+"'>";
+			image = decodeURI(image);
+			$("input[id='image']").val(image);
+			console.log($("#image").val());
 			str += "<input type='hidden' name='attachList["+i+"].uuid' value='"+job.data("uuid")+"'>";
 			str += "<input type='hidden' name='attachList["+i+"].uploadPath' value='"+job.data("path")+"'>";
 			str += "<input type='hidden' name='attachList["+i+"].fileName' value='"+job.data("filename")+"'>";
 			str += "<input type='hidden' name='attachList["+i+"].fileType' value='"+job.data("type")+"'>";			
 		})
 		console.log(str);
+		
+		
 		//해당 폼 전송
 		$("form[role='form']").append(str).submit();
 

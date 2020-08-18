@@ -13,7 +13,8 @@
       <div class="col-lg-12">
         <div class="row mt-5">
         	<!-- 상품 카드 위치 -->
-        	<img src="http://placehold.it/400x400" alt=""/>
+        	<img src='/upload/${vo.image}' style='max-width: 50%; height: auto;'/>
+
         	<div class="product-details ml-5 col-lg">
 	        	<h1>${vo.p_name}</h1>
 	        	<br>
@@ -241,7 +242,7 @@ $(function(){
 	let p_code = ${vo.p_code};
 	let rating = 0;
 	
-	
+
 	
 	//리뷰 리스트 
 	function listReview(){
