@@ -93,7 +93,7 @@ $(function(){
 	
 	$("#checkCart").on("click",function(){
 		
-		if("${auth.email}"==""){
+		if("${auth.username}"==""){
 			let login = confirm("Please Sign In");
 			if(login){
 				location.href="/member/signIn";

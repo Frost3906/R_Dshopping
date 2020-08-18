@@ -8,7 +8,7 @@ import lombok.Data;
 @Data
 public class CartVO {
 	private int cartNum;
-	private String email;
+	private String username;
 	private int p_code;
 	private int cart_Stock;
 	private Date addDate;
