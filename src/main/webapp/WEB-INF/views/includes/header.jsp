@@ -107,7 +107,7 @@
 			            <a class="nav-link" style="padding: 8px;" href="/shop/cart">Cart</a>
 			          </li>
 			          <li class="nav-item">
-			            <a class="nav-link" style="padding: 8px;" href="/member/signIn">Sign in</a>
+			            <a class="nav-link" style="padding: 8px;" href="/member/login">Sign in</a>
 			          </li>
 			          <li class="nav-item">
 			            <a class="nav-link" style="padding: 8px;" href="/member/signUp">Sign up</a>
