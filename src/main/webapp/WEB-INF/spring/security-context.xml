@@ -26,5 +26,10 @@
 		<security:logout logout-url ="/member/logout" invalidate-session="true"/>
 		<security:remember-me data-source-ref="ds" token-validity-seconds="604800"/>
 	</security:http>
-	
+	<security:authentication-manager>
+		<!-- DB 인증 + 비밀번호 암호화 --> 
+		<security:authentication-provider user-service-ref="userDetail">
+			<security:password-encoder ref="bcryptPasswordEncoder"/>
+		</security:authentication-provider>
+	</security:authentication-manager>
 </beans>

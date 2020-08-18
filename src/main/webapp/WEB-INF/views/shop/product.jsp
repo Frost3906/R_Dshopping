@@ -238,7 +238,7 @@
 
 $(function(){
 	
-	let email = "${auth.email}";
+	let username = "${auth.username}";
 	let p_code = ${vo.p_code};
 	let rating = 0;
 	
@@ -259,7 +259,7 @@ $(function(){
 		            for(i=0; i < result.length; i++){
 		                html += "<tr class='review'><td>"+result[i].reviewId+"</td>";
 		                html += "<td>"+result[i].title+"</td>";
-		                html += "<td>"+result[i].email+"</td>";
+		                html += "<td>"+result[i].username+"</td>";
 		                html += "<td>"+moment(result[i].regdate).format('YYYY-MM-DD HH:mm:ss')+"</td>";
 		                
 		                if(result[i].p_rating==0){
@@ -309,7 +309,7 @@ $(function(){
 		    	console.log(result.image);
 		    	$("#review_read_modal").modal('show');
 				$("#readReviewTitle").html(result.title);
-				$("#readReviewEmail").html(result.email);
+				$("#readReviewEmail").html(result.username);
 				$("#readReviewStarGrade").html(stargrade);
 				$("#readReviewContent").html(result.content);
 				$("#readReviewRegDate").html(moment(result.regdate).format('YYYY-MM-DD HH:mm:ss'));
@@ -386,7 +386,7 @@ $(function(){
 		
 		
 		let data = {
-				email : email,
+			username : username,
 				p_code : p_code,
 				p_rating : rating,
 				title : title,
@@ -571,13 +571,13 @@ $(function(){
 
 	//카트에 담는 스크립트
 	$(".addCart").click(function(){
-		if("${auth.email}"!=""){
+		if("${auth.username}"!=""){
 			if($("#cartStock").val()!=0){
 				
 				let cart_Stock = $("#cartStock").val();
 				
 				let data = {
-						email : email,
+						username : username,
 						p_code : p_code,
 						cart_Stock : cart_Stock
 				};

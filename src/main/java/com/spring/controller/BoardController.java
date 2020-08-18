@@ -67,13 +67,15 @@ public class BoardController {
 		// 하단의 페이지 나누기와 관련된 정보
 		model.addAttribute("pageVO", new BoardPageVO(cri, service.totalRows(cri)));
 	}
-	
+
 	// 내용보기
-	@GetMapping(value= {"/read", "/modify"})
-	public void read(int bno, @ModelAttribute("cri") Criteria cri, Model model) {
-		log.info("내용보기...",  + bno + "..." + cri);
+	@GetMapping(value= {"/read","/modify"})
+	public void read(int bno,Model model, @ModelAttribute ("cri") Criteria cri) {
+		log.info("게시물 읽기 요청" + bno + "..." + cri);
 		BoardVO vo = service.getBoard(bno);
-		model.addAttribute("vo", vo);
+		model.addAttribute("vo",vo);
+		// http://localhost:8080/board/read
+		// http://localhost:8080/board/modify
 	}
 	
 	// 내용수정

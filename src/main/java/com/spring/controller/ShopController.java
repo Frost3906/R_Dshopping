@@ -99,8 +99,8 @@ public class ShopController {
 		log.info("장바구니 호출");
 		if(session.getAttribute("auth")!=null) {
 			MemberVO vo = (MemberVO) session.getAttribute("auth");
-			log.info("email : " + vo.getEmail());
-			List<CartVO> list = service.cartList(vo.getEmail());
+			log.info("email : " + vo.getUsername());
+			List<CartVO> list = service.cartList(vo.getUsername());
 			model.addAttribute("mycart",list);
 		}else {
 			MemberVO vo = new MemberVO();
@@ -119,8 +119,8 @@ public class ShopController {
 		int result = 0;
 		log.info("카트 담기 테스트");
 		log.info(""+vo);
-		log.info(vo.getEmail());
-		if(vo.getEmail()!="") {
+		log.info(vo.getUsername());
+		if(vo.getUsername()!="") {
 			result = service.addCart(vo);
 			return result;
 		}else {
@@ -135,13 +135,13 @@ public class ShopController {
 	public int removeFromCart(HttpSession session, @RequestParam(value="selectbox[]") List<String> chArr, CartVO vo) {
 		log.info("카트 물품 삭제 "+vo);
 		MemberVO auth = (MemberVO) session.getAttribute("auth");
-		String email = auth.getEmail();
+		String email = auth.getUsername();
 		int result = 0;
 		int cartNum = 0;
 		 
 		 
 		if(auth != null) {
-			vo.setEmail(email);
+			vo.setUsername(email);
 		  
 			for(String i : chArr) {   
 				cartNum = Integer.parseInt(i);
@@ -158,7 +158,7 @@ public class ShopController {
 	public int updateCart(HttpSession session, @RequestBody List<Map<String, Object>> Arr, CartVO vo) {
 		log.info("카트 물품 변경 "+Arr);
 		MemberVO auth = (MemberVO) session.getAttribute("auth");
-		String email = auth.getEmail();
+		String email = auth.getUsername();
 		int result = 0;
 		
 		int cartNum = 0;
@@ -166,7 +166,7 @@ public class ShopController {
 		System.out.println(Arr);
 		
 		if(auth != null) {
-			vo.setEmail(email);
+			vo.setUsername(email);
 		  
 			for(Map<String, Object> i : Arr) {   
 				cartNum = Integer.parseInt((String) i.get("cartNum"));
