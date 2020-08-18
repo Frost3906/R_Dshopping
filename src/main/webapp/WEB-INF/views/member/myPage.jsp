@@ -58,7 +58,7 @@
 			  				E-Mail  				
 			  			</th>
 			  			<td scope="col"> 
-			  				<input type="text" name="email" class="form-control form-control-sm" value="${auth.email}" readonly>
+			  				<input type="text" name="username" class="form-control form-control-sm" value="${auth.username}" readonly>
 			  			</td>
 			  		</tr>
 			  		<tr>
@@ -177,15 +177,15 @@
   </div>
 </div>
 <script>
-let email='${auth.email}';
-console.log(email);
+let username='${auth.username}';
+console.log(username);
 	
 //QnA 리스트
 function qnaList(){	
 	$.ajax({
 	    type:"get",
 	    url : "/member/myPage/qnaList",
-	    data: {email:email},
+	    data: {username:username},
 	    success : function(result){
 	        let str = "";
 	        

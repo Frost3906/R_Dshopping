@@ -67,7 +67,7 @@ public class MemberController {
 	@Inject
 	private OAuth2Parameters googleOAuth2Parameters;
 		
-	@GetMapping("/signIn")
+	@GetMapping("/login")
 	public void signinForm(Model model) {
 		log.info("로그인 화면 표시");	
 		
@@ -84,27 +84,20 @@ public class MemberController {
 		model.addAttribute("google_url", url);
 	}
 	
-	@PostMapping("/signIn")
+	@PostMapping("/login")
 	public String signinPost(MemberVO vo, HttpSession session) {
 		log.info("로그인 절차 진행");
 		log.info(""+vo);		
 		
-		MemberVO member=service.getMember(vo.getEmail());		
+		MemberVO member=service.getMember(vo.getUsername());		
 		if(member != null) {
 			if(member.getPassword().equals(vo.getPassword())) {
 				session.setAttribute("auth", member);
 				return "redirect:/";				
 			}
 		}
-		return "/member/signIn";		
-	}
-	
-	@GetMapping("/loginResult")
-	public void loginResult() {
-		log.info("SNS로그인 Profile 확인 화면");	
-		
-	}
-	
+		return "/member/login";		
+	}	
 	
 	
 	@GetMapping("/logout")
@@ -126,7 +119,7 @@ public class MemberController {
 		
 		if(service.signUp(member)>0) {
 			rttr.addFlashAttribute("info","회원가입이 완료되었습니다.\n 로그인 해 주세요.");
-			return "redirect:signIn";
+			return "redirect:login";
 		}else {
 			rttr.addFlashAttribute("error","회원가입이 실패했습니다.");			
 			return "/member/signUp";
@@ -153,7 +146,7 @@ public class MemberController {
 		
 		if(service.modify(modifyMember)>0) {
 			session.removeAttribute("auth");
-			return "redirect:/member/signIn";
+			return "redirect:/member/login";
 		}
 		return "/member/myPage";
 	}
@@ -192,10 +185,10 @@ public class MemberController {
         		vo.setPassword(tempPwd);
         		service.forgetPwd(vo);
         		email.setContent("비밀번호는 "+vo.getPassword()+" 입니다.");
-        		email.setReciver(vo.getEmail());
+        		email.setReciver(vo.getUsername());
         		email.setSubject(vo.getFirstName()+"님 비밀번호 찾기 메일입니다.");
         		emailSender.SendEmail(email);
-        		return "redirect:/member/signIn";        	
+        		return "redirect:/member/login";        	
         	}else {
         		return "redirect:/";
         	}           	
@@ -208,11 +201,11 @@ public class MemberController {
 	//MyPage
 	@GetMapping("/myPage/qnaList")
 	@ResponseBody
-	public List<BoardVO> qnaList(String email) {
+	public List<BoardVO> qnaList(String username) {
 		log.info("MyPage QnA 탭 테이블 처리");
-		log.info(email);
+		log.info(username);
 		
-		return service.qnaList(email);
+		return service.qnaList(username);
 	}
 	
 	//Admin
@@ -235,8 +228,12 @@ public class MemberController {
 		List<MemberVO> list=service.manageList(memberCri);
 		model.addAttribute("list", list);		
 		model.addAttribute("idx", idx);	
-		model.addAttribute("memberPage", memberPage);	
-		
-		
+		model.addAttribute("memberPage", memberPage);
+	}
+	
+	@GetMapping("/manage_member/get")
+	@ResponseBody
+	public MemberVO getManageMember(String username) {
+		return service.getMember(username);
 	}
 }

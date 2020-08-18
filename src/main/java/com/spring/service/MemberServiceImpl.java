@@ -23,8 +23,8 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public MemberVO getMember(String email) {
-		return mapper.getMember(email);
+	public MemberVO getMember(String username) {
+		return mapper.getMember(username);
 	}
 
 	@Override
@@ -72,7 +72,7 @@ public class MemberServiceImpl implements MemberService {
 	
 	//MyPage
 	@Override
-	public List<BoardVO> qnaList(String email) {
-		return mapper.qnaList(email);
+	public List<BoardVO> qnaList(String username) {
+		return mapper.qnaList(username);
 	}
 }

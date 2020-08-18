@@ -12,7 +12,7 @@ public interface MemberMapper {
 	//Member
 	public MemberVO read			(String userid);
 	public int		signUp			(MemberVO member);
-	public MemberVO getMember		(String email);
+	public MemberVO getMember		(String username);
 	public MemberVO checkPwd		(MemberVO member);
 	public int		modify			(ModifyMemberVO modifyMember);
 	public int		forgetPwd		(MemberVO member);
@@ -27,6 +27,6 @@ public interface MemberMapper {
 	
 	
 	//MyPage 
-	public List<BoardVO> qnaList(String email);
+	public List<BoardVO> qnaList(String username);
 	
 }
