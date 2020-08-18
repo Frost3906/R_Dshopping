@@ -14,7 +14,7 @@ public class MemberVO {
 	private String firstName;	//Require
 	private String lastName;	//Require
 	private String nickName;	
-	private String role;		//default member
+	private String auth;		//default member
 	private String mobile;		//Require
 	private String naverID;
 	private String googleID;

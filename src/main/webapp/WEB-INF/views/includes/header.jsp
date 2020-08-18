@@ -88,7 +88,7 @@
 			            <a class="nav-link" style="padding: 8px;" href="/board/list">게시판</a>
 			          </li>
    			     
-   			          <c:if test="${auth.role=='admin'}">
+   			          <c:if test="${auth.auth=='ROLE_ADMIN'}">
 			          	<li><a class="nav-link" style="padding: 8px;" href="/admin/admin">Manage</a></li>
 			          </c:if>
 			     

@@ -9,7 +9,9 @@
       <div class="col-lg-12">
         <div class="row mt-5">
         	<!-- 상품 카드 위치 -->
-        	<img src="http://placehold.it/400x400" alt=""/>
+        	<div class="uploadResult">
+	 			<ul></ul>
+	 		</div>
         	<div class="product-details ml-5 col-lg">
         		<form action="" method="post" role="form">
 	        	<h1>상품 등록</h1>
@@ -75,9 +77,7 @@
 	 						<div class="float-right">
 								<input type="file" id="productImage" name="productImage"/>
 								<input type="hidden" id="image" name="image"/>
-	 						</div>
-	 						<div class="uploadResult">
-	 							<ul></ul>
+
 	 						</div>
 	 				</li>
 	 				
@@ -211,7 +211,7 @@ $(function(){
 		$(uploadResultArr).each(function(i,element){
 			if(element.fileType){//이미지 파일
 				//섬네일 이미지 경로
-				var fileCallPath = encodeURIComponent(element.uploadPath+"\\s_"+element.uuid+"_"+element.fileName);
+				var fileCallPath = encodeURIComponent(element.uploadPath+"\\"+element.uuid+"_"+element.fileName);
 				//원본 이미지 경로
 				var oriPath = element.uploadPath+"\\"+element.uuid+"_"+element.fileName;
 				oriPath = oriPath.replace(new RegExp(/\\/g),"/");
@@ -219,7 +219,7 @@ $(function(){
 				str += "<li data-path='"+element.uploadPath+"' data-uuid='"+element.uuid+"'";
 				str += " data-filename='"+element.fileName+"' data-type='"+element.fileType+"'>";					
 				str += "<a href=\"javascript:showImage(\'"+oriPath+"\')\">";
-				str += "<img src='/display?fileName="+ fileCallPath+"'><div>"+element.fileName+"</a>";
+				str += "<img src='/display?fileName="+ fileCallPath+"' style='max-width: 50%; height: auto;'><div>"+element.fileName+"</a>";
 				str += "<button type='button' class='btn btn-danger btn-circle btn-sm' data-file='"+fileCallPath+"' data-type='image'>";
 				str += "<i class = 'fa fa-times'></i></button>";
 				str += "</div></li>";
@@ -227,7 +227,7 @@ $(function(){
 				var fileCallPath = encodeURIComponent(element.uploadPath+"\\"+element.uuid+"_"+element.fileName);
 				str += "<li data-path='"+element.uploadPath +"' data-uuid='"+element.uuid+"'";
 				str += " data-filename='"+element.fileName+"' data-type='"+element.fileType+"'>";
-				str += "<a href='/download?fileName="+fileCallPath+"'>";
+				str += "<a href='/download?fileName="+fileCallPath+"' style='max-width: 50%; height: auto;'>";
 				str += "<img src='/resources/img/attach.png'><div>" + element.fileName+"</a>"
 				str += "<button type='button' class='btn btn-danger btn-circle btn-sm' data-file='"+fileCallPath+"' data-type='file'>";
 				str += "<i class = 'fa fa-times'></i></button>";
