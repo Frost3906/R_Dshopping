@@ -9,6 +9,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.social.google.connect.GoogleConnectionFactory;
 import org.springframework.social.oauth2.GrantType;
@@ -94,21 +95,12 @@ public class MemberController {
 		model.addAttribute("google_url", url);
 	}
 	
-//	@PostMapping("/login")
-//	public String signinPost(MemberVO vo, HttpSession session) {
-//		log.info("로그인 절차 진행");
-//		log.info(""+vo);		
-//		
-//		MemberVO member=service.getMember(vo.getUsername());		
-//		if(member != null) {
-//			if(member.getPassword().equals(vo.getPassword())) {
-//				session.setAttribute("auth", member);
-//				log.info("member 정보 : " + member);
-//				return "redirect:/";				
-//			}
-//		}
-//		return "/member/login";		
-//	}	
+//	@GetMapping("/successLogin")
+//	public String successLogin(Authentication auth, MemberVO member) {
+//		log.info("successLogin 컨트롤러");
+//		log.info(""+auth.getPrincipal());
+//		return "redirect:/";
+//	}
 	
 	
 	@GetMapping("/logout")
