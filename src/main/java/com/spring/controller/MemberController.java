@@ -84,20 +84,21 @@ public class MemberController {
 		model.addAttribute("google_url", url);
 	}
 	
-	@PostMapping("/login")
-	public String signinPost(MemberVO vo, HttpSession session) {
-		log.info("로그인 절차 진행");
-		log.info(""+vo);		
-		
-		MemberVO member=service.getMember(vo.getUsername());		
-		if(member != null) {
-			if(member.getPassword().equals(vo.getPassword())) {
-				session.setAttribute("auth", member);
-				return "redirect:/";				
-			}
-		}
-		return "/member/login";		
-	}	
+//	@PostMapping("/login")
+//	public String signinPost(MemberVO vo, HttpSession session) {
+//		log.info("로그인 절차 진행");
+//		log.info(""+vo);		
+//		
+//		MemberVO member=service.getMember(vo.getUsername());		
+//		if(member != null) {
+//			if(member.getPassword().equals(vo.getPassword())) {
+//				session.setAttribute("auth", member);
+//				log.info("member 정보 : " + member);
+//				return "redirect:/";				
+//			}
+//		}
+//		return "/member/login";		
+//	}	
 	
 	
 	@GetMapping("/logout")

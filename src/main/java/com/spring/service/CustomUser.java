@@ -9,6 +9,9 @@ import org.springframework.security.core.userdetails.User;
 
 import com.spring.domain.MemberVO;
 
+import lombok.Getter;
+
+@Getter
 public class CustomUser extends User {
 	
 	private MemberVO member;
