@@ -209,7 +209,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-success sendInfo" >Modify</button>
-        <button type="button" class="btn btn-danger" >Delete</button>
+        <button type="button" class="btn btn-danger manageDelete" >Delete</button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
       </div>
     </div>
@@ -221,20 +221,41 @@
 <script>
 $(function(){
 	
+	//var manageMemberForm=$("#sendInfo");
+	
+	//MemberModal의 modify 버튼 클릭
+	$(".sendInfo").click(function(){
+		var manageMemberForm=$("#sendInfo");
+		
+		//manageMemberForm.setAttribute("action", "/member/manageModify");
+		manageMemberForm.setAttribute("action", manageModify);
+		manageMemberForm.submit();		
+	})
+	
+	//MemberModal의 delete 버튼 클릭
+	$(".manageDelete").click(function(){
+		var manageMemberForm=$("#sendInfo");
+		
+		//manageMemberForm.setAttribute("action", "/member/manageDelete");
+		manageMemberForm.setAttribute("action", manageDelete);
+		manageMemberForm.submit();		
+	})
+	
+	
 	$(".manageMember").click(function(e){
 		e.preventDefault();
 		
-		let email=$(this).text();
+		let username=$(this).text();
 		console.log(username);
 		
 		$.ajax({
 			type:"get",
 			url:"/member/manage_member/get",
-			data:{email:email},
+			data:{username:username},
 			success:function(result){
 				console.log(result)
 				$("#manageMemberModal").modal("show");
-				$("input[name='email']").val(result.username);
+				$("input[name='username']").val(result.username);
 				$("input[name='password']").val(result.password);
 				$("input[name='mobile']").val(result.mobile);
 				$("input[name='memLevel']").val(result.memLevel);

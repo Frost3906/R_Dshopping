@@ -36,7 +36,7 @@
 					<c:forEach var="vo" items="${mycart}">
 							<tr>
 								<td><input type="checkbox" class="selectbox" id="selectbox" name="selectbox" data-cartNum="${vo.cartNum}"/></td>
-								<td>섬네일이미지</td>
+								<td><img src='upload/${vo.image}' style='max-width: auto; height: auto;'/></td>
 								<td><a href="/shop/product?p_code=${vo.p_code}">${vo.p_name}</a></td>
 								<td><input type="number" class="amount" min="0" value="${vo.cart_Stock}" data-cartNum="${vo.cartNum}"/></td>
 								<td>
@@ -91,6 +91,9 @@
 $(function(){
 	
 	
+	let csrfHeaderName = "${_csrf.headerName}";
+	let csrfTokenValue = "${_csrf.token}";
+	
 	$("#checkCart").on("click",function(){
 		
 		if("${auth.username}"==""){
@@ -124,8 +127,13 @@ $(function(){
 		    		contentType: 'application/json',
 		    		dataType: 'json',
 		    		data : JSON.stringify(JsonArray),
+	 				beforeSend : function(xhr){
+						xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+					},
 		    		success : function(result){
 		    			if(result==1){
+		    				
+		    					    				
 		    				location.href="/shop/check";
 		    			}
 		    			else{
@@ -161,6 +169,9 @@ $(function(){
 		   			url : "/shop/removeFromCart",
 		    		type : "post",
 		    		data : { selectbox : checkArr },
+	 				beforeSend : function(xhr){
+						xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+					},
 		    		success : function(result){
 		    			if(result==1){
 				    		location.href = "/shop/cart";
@@ -191,6 +202,9 @@ $(function(){
 	   			url : "/shop/removeFromCart",
 	    		type : "post",
 	    		data : { selectbox : checkArr },
+ 				beforeSend : function(xhr){
+					xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+				},
 	    		success : function(result){
 	    			if(result==1){
 			    		location.href = "/shop/cart";
@@ -248,6 +262,9 @@ $(function(){
 		   			url : "/shop/removeFromCart",
 		    		type : "post",
 		    		data : { selectbox : checkArr },
+	 				beforeSend : function(xhr){
+						xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+					},
 		    		success : function(result){
 		    			if(result==1){
 				    		location.href = "/shop/cart";
@@ -275,6 +292,7 @@ $(function(){
 		}
 		$(".sum_price").html(sum_price);
 	})
+	
 	
 	
 	

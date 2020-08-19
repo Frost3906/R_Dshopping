@@ -40,7 +40,7 @@ public interface ProductMapper {
 	
 	
 	public int addCart(CartVO vo);
-	public List<CartVO> cartList(String email);
+	public List<CartVO> cartList(String username);
 	
 	public void removeFromCart(CartVO vo);
 	public void updateCart(CartVO vo);

@@ -21,7 +21,7 @@ public interface ProductService {
 	public int searchCount(List<String> keywordList);
 	public int categoryCount(String p_category1, String p_category2, String p_category3);
 	public int keySearchCategoryCount(CategoryKeySearchVO vo);
-	public List<CartVO> cartList(String email);
+	public List<CartVO> cartList(String username);
 	public void removeFromCart(CartVO vo);
 	public int homeCategoryCount();
 	public List<String> homeCategoryList();

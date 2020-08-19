@@ -62,8 +62,8 @@ public class ProductServiceImpl implements ProductService {
 	}
 	
 	@Override
-	public List<CartVO> cartList(String email) {
-		return product.cartList(email);
+	public List<CartVO> cartList(String username) {
+		return product.cartList(username);
 	}
 	
 	@Override
