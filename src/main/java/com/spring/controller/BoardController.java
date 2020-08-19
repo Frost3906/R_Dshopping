@@ -34,27 +34,28 @@ public class BoardController {
 	@Autowired
 	private BoardService service;
 	
-//	@PreAuthorize("isAuthenticated()")
-//	@GetMapping("/register")
-//	public void registerGet() {
-//		log.info("register form 요청");
-//	}
+	@PreAuthorize("isAuthenticated()") // 인증된 사용자인 경우 true
+	@GetMapping("/register")
+	public void registerGet() {
+		log.info("레지스터 폼 요청");
+	}
 	
 	// 글 등록하기
 	@PreAuthorize("isAuthenticated()")
 	@PostMapping("/register")
 	public String registerPost(BoardVO vo, RedirectAttributes rttr) {
-		log.info("글 등록 요청 " + vo);
+		log.info("레지스터 요청" + vo);
 		
-		if (vo.getAttachList() != null) {
-			vo.getAttachList().forEach(attach -> log.info(attach + ""));
-		}
-		if (service.insertBoard(vo)) {
-			rttr.addFlashAttribute("result", vo.getBno());
-			return "register";
+		if(vo.getAttachList()!=null) {
+			vo.getAttachList().forEach(attach -> log.info(attach+""));
+		}		
+		
+		if(service.insertBoard(vo)) {
+			rttr.addFlashAttribute("result",vo.getBno());
+			return "redirect:list";
 		} else {
 			return "register";
-		}
+		}		
 	}
 	
 	// list 요청
