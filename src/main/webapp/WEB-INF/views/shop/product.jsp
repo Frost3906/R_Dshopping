@@ -315,8 +315,6 @@ $(function(){
 				$("#readReviewRegDate").html(moment(result.regdate).format('YYYY-MM-DD HH:mm:ss'));
 				result.image = decodeURI(result.image);
 				$("#readReviewImage").html("<img src='/upload/"+result.image+"' style='max-width: 100%; height: auto;'/>");
-				//$("#readReviewImage").html("<img src='/upload/815ab87f-771d-4940-afa9-6199fd9e01a9_1090.png_860.png'/>");
-		    //encuri 컴포넌트 태워서 다시
 		    },
 		    error:function(request,status,error){
 		        alert("실패");
@@ -400,6 +398,9 @@ $(function(){
 			url : "/shop/review/write",
 			type : "post",
 			data : data,
+ 			beforeSend : function(xhr){
+				xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+			}, 
 			success : function(result){
 				
 				$("#review_write_modal").modal('hide');
@@ -450,9 +451,9 @@ $(function(){
 			$.ajax({
 				url : '/upload',
 				type : 'post',
-/* 				beforeSend : function(xhr){
+ 				beforeSend : function(xhr){
 					xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
-				}, */
+				}, 
 				processData : false,
 				contentType : false,
 				data : formData,
@@ -460,7 +461,7 @@ $(function(){
 				success:function(result){
 					console.log(result);
 					showUploadFile(result);
-//					$("input[name='uploadFile']").val("");
+
 				},
 				error:function(xhr,status,error){
 					alert(xhr.responseText);
@@ -540,9 +541,9 @@ $(function(){
 		$.ajax({
 			url : '/deleteFile',
 			type : 'post',
-/* 			beforeSend : function(xhr){
+ 			beforeSend : function(xhr){
 				xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
-			}, */
+			}, 
 			data : {
 				fileName : targetFile,
 				type : type

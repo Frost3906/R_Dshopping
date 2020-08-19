@@ -214,18 +214,18 @@
 
 	<!-- 장바구니 담는 sql -->
 	<insert id="addCart">
-		insert into cart(cartNum,email,p_code,cart_Stock) values(cart_seq.nextval,#{email},#{p_code},#{cart_Stock})
+		insert into cart(cartNum,username,p_code,cart_Stock) values(cart_seq.nextval,#{username},#{p_code},#{cart_Stock})
 	</insert>
 	
 	<select id="cartList" resultType="com.spring.domain.CartListVO">
 		select
      		row_number() over(order by c.p_code desc) as num,
-     		c.cartNum, c.email, c.p_code, c.cart_Stock, c.addDate,
+     		c.cartNum, c.username, c.p_code, c.cart_Stock, c.addDate,
      		p.p_name, p.p_price
  		from cart c
      		inner join product p
          	on c.p_code = p.p_code   
-     	where c.email = #{email}
+     	where c.username = #{username}
 	</select>
 	
 	
@@ -239,13 +239,13 @@
 	<!-- 카트 물품 삭제 -->
 	<delete id="removeFromCart">
 		delete from cart
-		where cartNum = #{cartNum} and email = #{email}
+		where cartNum = #{cartNum} and username = #{username}
 	</delete>
 	
 	
 	<!-- 리뷰 관련 쿼리 -->
 	<select id="listReview" resultType="com.spring.domain.ReviewVO">
-		select reviewid,title,email,regdate,p_rating from review where p_code = #{p_code} order by reviewid desc
+		select reviewid,title,username,regdate,p_rating from review where p_code = #{p_code} order by reviewid desc
 	</select>
 	
 	<select id="getReview" resultType="com.spring.domain.ReviewVO">
@@ -253,7 +253,7 @@
 	</select>
 	
 	<insert id="writeReview">
-		insert into review(reviewid,p_code,title,p_rating,content,email,image) values(seq_review_id.nextval,#{p_code},#{title},#{p_rating},#{content},#{email},#{image})
+		insert into review(reviewid,p_code,title,p_rating,content,username,image) values(seq_review_id.nextval,#{p_code},#{title},#{p_rating},#{content},#{username},#{image})
 	</insert>
 	
 	
@@ -281,5 +281,13 @@
 	<delete id="deleteProduct">
 		delete from product where p_code = #{p_code}
 	</delete>
+	
+	
+	<insert id="insertOrder">
+		
+	</insert>
+	
+	
+	
 	
 </mapper>

@@ -10,58 +10,59 @@
       <div class="col-lg-12">
         <div class="row mt-5">
         	<!-- 상품 카드 위치 -->
-        	<img src="http://placehold.it/400x400" alt=""/>
+        	<img src="http://placehold.it/400x400" style='width: 400px; height: 552px;'/>
         	<div class="product-details ml-5 col-lg">
         		<form action="" method="post">
-	        	<h1>상품 등록</h1>
+	        	<h1>Shipping Info</h1>
 	        	<br>
 	 			
 	 			<ul class="list-group list-group-flush">
 	 				<li class="list-group-item">
-		 					<div class="float-left">상품 코드</div>
+		 					<div class="float-left">Full name</div>
 		 					<div class="float-right">
-								<input type="text" id="p_code" name="p_code"/>
+								<input type="text" id="fullname" name="fullname"/>
 							</div>
 	 			  	</li>	 			
 	 				<li class="list-group-item">
-		 					<div class="float-left">상품 이름</div>
+		 					<div class="float-left">Street address</div>
 		 					<div class="float-right">
-								<input type="text" id="p_name" name="p_name"/>
+								<input type="text" id="streetaddress" name="streetaddress"/>
+								<input type="text" id="detailaddress" name="detailaddress"/>
 							</div>
 	 			  	</li>
 	 				<li class="list-group-item">
-		 					<div class="float-left">상품 설명</div>
+		 					<div class="float-left">city</div>
 		 					<div class="float-right">
-								<input type="text" id="p_content" name="p_content"/>
+								<input type="text" id="city" name="city"/>
 							</div>
 	 			  	</li>	 			  		 			
 	 				<li class="list-group-item">
-		 					<div class="float-left">가격</div>
+		 					<div class="float-left">State / Province / Region</div>
 		 					<div class="float-right">
-								<input type="text" id="p_price" name="p_price"/>
+								<input type="text" id="state" name="state"/>
 							</div>
 	 			  	</li>
 	 				<li class="list-group-item">
-	 						<div class="float-left">재고</div>
+	 						<div class="float-left">Zip Code</div>
 	 						<div class="float-right">
-								<input type="number" id="p_stock" name="p_stock"/>
+								<input type="text" id="zipcode" name="zipcode"/>
 	 						</div>
 	 				</li>
 	 				<li class="list-group-item">	
-	 						<div class="float-left">항목</div>
+	 						<div class="float-left">Custom ID Number</div>
 	 						<div class="float-right">
-								<input type="text" id="p_code" name="p_code"/>
+								<input type="text" id="customid" name="customid"/>
 	 						</div>
 	 				</li>
 	 				<li class="list-group-item">
-	 						<div class="float-left">속성</div>
+	 						<div class="float-left">Phone number</div>
 	 						<div class="float-right">
-								<input type="text" />
+								<input type="text" id="phonenum" name="phonenumber"/>
 	 						</div>
 	 				</li>
 	 			</ul>       	
         	<div class="mb-3">
-        		<button class="btn btn-success btn-lg float-right mt-3">상품 등록</button>
+        		<button class="btn btn-success btn-lg float-right mt-3">Next</button>
         	</div>
         	</form>
         	</div>

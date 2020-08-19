@@ -158,7 +158,7 @@ public class ShopController {
 	public int updateCart(HttpSession session, @RequestBody List<Map<String, Object>> Arr, CartVO vo) {
 		log.info("카트 물품 변경 "+Arr);
 		MemberVO auth = (MemberVO) session.getAttribute("auth");
-		String email = auth.getUsername();
+		String username = auth.getUsername();
 		int result = 0;
 		
 		int cartNum = 0;
@@ -166,7 +166,7 @@ public class ShopController {
 		System.out.println(Arr);
 		
 		if(auth != null) {
-			vo.setUsername(email);
+			vo.setUsername(username);
 		  
 			for(Map<String, Object> i : Arr) {   
 				cartNum = Integer.parseInt((String) i.get("cartNum"));
