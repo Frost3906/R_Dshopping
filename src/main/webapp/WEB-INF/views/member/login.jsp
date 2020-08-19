@@ -42,6 +42,7 @@
                         
                         <div class="col-lg-6 col-md-6 log-det">                            
                             <h2>Welcome Back</h2>
+                            <%-- 구글 로그인 화면 출력 --%>
                             <div class="row" style="justify-content: center;">
                                 <div class="g-signin2" data-onsuccess="onSignIn" >                                   
 									<input type="hidden" name=googleID />
@@ -54,7 +55,7 @@
                                 <p class="small-info">or use your email account</p>
                             </div>
                             
-							<form id="signIn" action="" method="post">
+							<form id="login" action="login" method="post">
 							
                             <div class="text-box-cont">                               
                                  <div class="input-group mb-3">
@@ -63,7 +64,7 @@
                                             <i class="far fa-envelope"></i>
                                         </span>
                                     </div>
-                                    <input type="text" name="email" class="form-control" placeholder="Email Address" aria-label="Username" aria-describedby="basic-addon1">
+                                    <input type="text" name="username" class="form-control" placeholder="Email Address" aria-label="Username" aria-describedby="basic-addon1">
                                 </div>
                                  <div class="input-group mb-3">
                                     <div class="input-group-prepend">
@@ -78,8 +79,9 @@
                             </label>
                             <a href="" id="forgetPwd" >forget password ?</a></p>
                                
-                                <div class="input-group center  mb-3">                                           
-                                    <button type="submit" class="btn btn-success ">Sign In</button>
+                                <div class="input-group center  mb-3">
+									<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                                    <button type="submit" class="btn btn-success ">LOGIN</button>
                                     <button type="button" class="btn btn-primary " onclick="location.href='signUp'">Sign up</button>                                    
                                 </div>    
                             </div>  
@@ -90,7 +92,7 @@
             </div>
          </div>
          
-<%-- ë¹ë°ë²í¸ ì°¾ê¸° Modal --%>
+<%-- Ã«Â¹ÂÃ«Â°ÂÃ«Â²ÂÃ­ÂÂ¸ Ã¬Â°Â¾ÃªÂ¸Â° Modal --%>
 <div class="modal fade" id="forgetPwdModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -168,11 +170,11 @@ function onSignIn(googleUser) {
 	  data:data,
 	  datatype:"json",
 	  success:function(result){
-		  alert("성공")
+		  alert("ì±ê³µ")
 		  window.location.href="/"	 		  
 	  },
 	  error:function(){
-		  alert("실패")
+		  alert("ì¤í¨")
 	  }		  
   }) */ 
 }

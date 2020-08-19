@@ -44,6 +44,22 @@
                                <form id="signUp" action="" method="post">
                                <div class="row form-row">
                                    <div class="col-md-4">
+                                       <label for="">Email Address</label>
+                                   </div>
+                                   <div class="col-md-8">
+                                       <input type="text" name="username" placeholder="example@example.com" class="form-control form-control-sm">
+                                   </div>
+                               </div>
+                               <div class="row form-row">
+                                   <div class="col-md-4">
+                                       <label for="">Password</label>
+                                   </div>
+                                   <div class="col-md-8">
+                                       <input type="password" name="password" placeholder="Enter Password" class="form-control form-control-sm">
+                                   </div>
+                               </div>
+                               <div class="row form-row">
+                                   <div class="col-md-4">
                                        <label for="">First Name</label>
                                    </div>
                                    <div class="col-md-8">
@@ -60,26 +76,10 @@
                                </div>
                                <div class="row form-row">
                                    <div class="col-md-4">
-                                       <label for="">Email Address</label>
-                                   </div>
-                                   <div class="col-md-8">
-                                       <input type="text" name="email" placeholder="example@example.com" class="form-control form-control-sm">
-                                   </div>
-                               </div>
-                               <div class="row form-row">
-                                   <div class="col-md-4">
                                        <label for="">Mobile Number</label>
                                    </div>
                                    <div class="col-md-8">
                                        <input type="text" name="mobile" placeholder="Enter Mobile Number" class="form-control form-control-sm">
-                                   </div>
-                               </div>
-                               <div class="row form-row">
-                                   <div class="col-md-4">
-                                       <label for="">Password</label>
-                                   </div>
-                                   <div class="col-md-8">
-                                       <input type="password" name="password" placeholder="Enter Password" class="form-control form-control-sm">
                                    </div>
                                </div>
                                <div class="row form-row">

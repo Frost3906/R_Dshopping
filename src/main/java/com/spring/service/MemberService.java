@@ -10,12 +10,14 @@ import com.spring.domain.ModifyMemberVO;
 public interface MemberService {
 	//Member
 	public int signUp(MemberVO member);
-	public MemberVO getMember(String email);
+	public MemberVO getMember(String username);
 	public MemberVO checkPwd(MemberVO member);
 	public int modify(ModifyMemberVO modifyMember);
+	public int manageModify(MemberVO member);
 	public int forgetPwd(MemberVO member);
 	public MemberVO getBySNS(MemberVO snsMember);
 	public List<MemberVO> listMember();
+	public int leaveMember(String username);	
 	
 	public int totalMember(MemberCriteria memberCri);
 	
@@ -23,5 +25,5 @@ public interface MemberService {
 	public List<MemberVO> manageList(MemberCriteria memberCri);
 	
 	//MyPage
-	public List<BoardVO> qnaList(String email);
+	public List<BoardVO> qnaList(String username);
 }

@@ -3,7 +3,7 @@
 <mapper namespace="com.spring.mapper.MemberMapper">
 	
 	<insert id="signUp">
-		insert into test_mem(email, password, firstName, lastName, mobile) values(#{email}, #{password}, #{firstName}, #{lastName}, #{mobile})
+		insert into test_mem(username, password, firstName, lastName, mobile) values(#{username}, #{password}, #{firstName}, #{lastName}, #{mobile})
 	</insert>
 	
 	<select id="listMember" resultType="com.spring.domain.MemberVO">
@@ -18,20 +18,24 @@
 	</select>
 	
 	<select id="getMember" resultType="com.spring.domain.MemberVO">
-		select * from test_mem where email=#{email}
+		select * from test_mem where username=#{username}
 	</select>
 	
 	<select id="checkPwd" resultType="com.spring.domain.MemberVO">
-		select * from test_mem where email=#{email}
+		select * from test_mem where username=#{username}
 	</select>
 	
 	<update id="modify">
-		update test_mem set password=#{confirm_password} where email=#{email} 
+		update test_mem set password=#{confirm_password} where username=#{username} 
 	</update>
 	
 	<update id="forgetPwd">
-		update test_mem set password=#{password} where email=#{email} 
+		update test_mem set password=#{password} where username=#{username} 
 	</update>
+	
+	<delete id="leaveMember">
+		delete from test_mem where username=#{username}
+	</delete>
 	
 	<select id="getBySnsNaver" resultType="com.spring.domain.MemberVO">
         select * from test_mem where naverid=#{naverid}
@@ -41,15 +45,23 @@
         select * from test_mem where googleid=#{googleid}
     </select>
     
+    <!-- Admin Page -->
     <!-- 총 회원 인원 -->
     <select id="totalMember" resultType="int">
 		select count(*) from test_mem
 	</select>
     
+    <update id="manageModify">
+    	update test_mem set password=#{password}, mobile=#{mobile}, memLevel=#{memLevel}, 
+    	firstName=#{firstName}, lastName=#{lastName}, country=#{country}, street=#{street}, 
+    	address=#{address}, postcode=#{postcode}, auth=#{auth} where username=#{username}
+    </update>
     
-    <!-- MyPage QnA select 쿼리 -->
+    
+    <!-- MyPage -->
+    <!-- QnA select 쿼리 -->
     <select id="qnaList" resultType="com.spring.domain.BoardVO">
-    	select * from board where writer=#{email}
+    	select * from board where writer=#{username}
     </select>
 	
 	<!-- 세큐리티 실험중 -->

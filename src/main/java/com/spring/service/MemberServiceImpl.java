@@ -23,8 +23,8 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public MemberVO getMember(String email) {
-		return mapper.getMember(email);
+	public MemberVO getMember(String username) {
+		return mapper.getMember(username);
 	}
 
 	@Override
@@ -35,6 +35,11 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public int modify(ModifyMemberVO modifyMember) {
 		return mapper.modify(modifyMember);
+	}
+
+	@Override
+	public int manageModify(MemberVO member) {
+		return mapper.manageModify(member);
 	}
 
 	@Override
@@ -59,6 +64,11 @@ public class MemberServiceImpl implements MemberService {
 	}
 	
 	@Override
+	public int leaveMember(String username) {
+		return mapper.leaveMember(username);
+	}
+	
+	@Override
 	public int totalMember(MemberCriteria memberCri) {
 		return mapper.totalMember(memberCri);
 	}
@@ -72,7 +82,7 @@ public class MemberServiceImpl implements MemberService {
 	
 	//MyPage
 	@Override
-	public List<BoardVO> qnaList(String email) {
-		return mapper.qnaList(email);
+	public List<BoardVO> qnaList(String username) {
+		return mapper.qnaList(username);
 	}
 }

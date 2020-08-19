@@ -417,8 +417,6 @@ $(function(){
 	
 	let csrfHeaderName = "${_csrf.headerName}";
 	let csrfTokenValue = "${_csrf.token}";
-		
-	
 	
 	$("input[type='file']").change(function(){
 			//form의 형태로 데이터를 구성할 수 있음
