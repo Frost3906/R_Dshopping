@@ -21,6 +21,10 @@ public interface MemberService {
 	
 	public int totalMember(MemberCriteria memberCri);
 	
+	//security table 
+	public int SmemAuthInsert(MemberVO member);
+	public int SmemInsert(MemberVO member);
+	
 	//Admin
 	public List<MemberVO> manageList(MemberCriteria memberCri);
 	

@@ -85,4 +85,16 @@ public class MemberServiceImpl implements MemberService {
 	public List<BoardVO> qnaList(String username) {
 		return mapper.qnaList(username);
 	}
+	
+	
+	//Security
+	@Override
+	public int SmemAuthInsert(MemberVO member) {
+		return mapper.SmemAuthInsert(member);
+	}
+
+	@Override
+	public int SmemInsert(MemberVO member) {
+		return mapper.SmemInsert(member);
+	}
 }

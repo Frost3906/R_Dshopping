@@ -9,6 +9,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.social.google.connect.GoogleConnectionFactory;
 import org.springframework.social.oauth2.GrantType;
 import org.springframework.social.oauth2.OAuth2Operations;
@@ -47,7 +48,10 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 @RequestMapping("/member/*")
 public class MemberController {
-
+	
+	//비밀번호 암호화
+	@Autowired
+	private PasswordEncoder encorder;
 	@Autowired
 	private MemberService service;
 	
@@ -66,7 +70,13 @@ public class MemberController {
 	private GoogleConnectionFactory googleConnectionFactory;
 	@Inject
 	private OAuth2Parameters googleOAuth2Parameters;
+	
+	//나라선택 country.jsp 테스트용 컨트롤러
+	@GetMapping("/country")
+	public void country() {
 		
+	}
+	
 	@GetMapping("/login")
 	public void signinForm(Model model) {
 		log.info("로그인 화면 표시");	
@@ -115,9 +125,14 @@ public class MemberController {
 	@PostMapping("/signUp")
 	public String signUpPost(MemberVO member, RedirectAttributes rttr) {
 		log.info("회원가입 절차 진행");
+		member.setPassword(encorder.encode(member.getPassword()));
 		log.info(""+member);
-		
 		if(service.signUp(member)>0) {
+			//Security 테이블에 회원정보 입력
+			MemberVO vo=service.getMember(member.getUsername());
+			service.SmemInsert(vo);
+			service.SmemAuthInsert(vo);
+			
 			rttr.addFlashAttribute("info","회원가입이 완료되었습니다.\n 로그인 해 주세요.");
 			return "redirect:login";
 		}else {
@@ -143,7 +158,7 @@ public class MemberController {
 	public String modifyPost(ModifyMemberVO modifyMember, HttpSession session) {
 		log.info("회원정보 수정 절차 진행");
 		log.info(""+modifyMember);
-		
+		modifyMember.setConfirm_password(encorder.encode(modifyMember.getConfirm_password()));
 		if(service.modify(modifyMember)>0) {
 			session.removeAttribute("auth");
 			return "redirect:/member/login";
