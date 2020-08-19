@@ -55,7 +55,7 @@
                                 <p class="small-info">or use your email account</p>
                             </div>
                             
-							<form id="login" action="login" method="post">
+							<form id="login" action="/login" method="post">
 							
                             <div class="text-box-cont">                               
                                  <div class="input-group mb-3">
