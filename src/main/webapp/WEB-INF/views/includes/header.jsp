@@ -83,7 +83,11 @@
 			            <a class="nav-link" style="padding: 8px;" href="/member/myPage" style="text-decoration: underline;">HI!! ${auth.firstName}</a>
 			          </li>
 			          <li class="nav-item">
-			            <a class="nav-link" style="padding: 8px;" href="/member/logout">LogOut</a>
+			          <form action="/member/logout" method="post">
+						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>		
+			            <!-- <a class="nav-link" style="padding: 8px;" href="/member/logout">LogOut</a> -->
+			            <button>LogOut</button>
+						</form>
 			          </li>
 			          <li class="nav-item">
 			            <a class="nav-link" style="padding: 8px;" href="/board/list">게시판</a>
