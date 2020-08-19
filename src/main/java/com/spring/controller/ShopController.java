@@ -1,7 +1,9 @@
 package com.spring.controller;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,6 +24,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.spring.domain.CartVO;
 import com.spring.domain.CategoryKeySearchVO;
 import com.spring.domain.MemberVO;
+import com.spring.domain.OrderDetailVO;
+import com.spring.domain.OrderVO;
 import com.spring.domain.BoardPageVO;
 import com.spring.domain.ProductVO;
 import com.spring.domain.ReviewVO;
@@ -256,8 +260,42 @@ public class ShopController {
 	
 	@GetMapping("/check")
 	public void check() {
-		
+		log.info("배송정보 입력 form 요청");
 		
 	}
+	
+	
+	// 주문
+	@PostMapping("/check")
+	public String order(HttpSession session, OrderVO order, OrderDetailVO orderDetail) {
+		log.info("주문정보 확인 "+order+" "+session.getAttribute("auth"));
+	 
+		MemberVO member = (MemberVO)session.getAttribute("auth");  
+		String username = member.getUsername();
+	 
+		Calendar cal = Calendar.getInstance();
+		int year = cal.get(Calendar.YEAR);
+		String ym = year + new DecimalFormat("00").format(cal.get(Calendar.MONTH) + 1);
+		String ymd = ym + new DecimalFormat("00").format(cal.get(Calendar.DATE));
+		String subNum = "";
+	 
+		for(int i = 1; i <= 6; i ++) {
+			subNum += (int)(Math.random() * 10);
+		}
+	 
+		String orderId = ymd + "_" + subNum;
+	 
+		order.setOrderId(orderId);
+		order.setUsername(username);
+	  
+		service.makeOrder(order);
+	 
+		orderDetail.setOrderId(orderId);   
+		service.insertOrderDetail(orderDetail);
+	 
+	 
+		return "/shop/payment";  
+	}
+
 	
 }

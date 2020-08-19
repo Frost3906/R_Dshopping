@@ -282,11 +282,17 @@
 		delete from product where p_code = #{p_code}
 	</delete>
 	
-	
-	<insert id="insertOrder">
-		
+	<!-- 주문정보 -->
+	<insert id="makeOrder">
+		insert into orders(orderId,username,fullname,streetaddress,detailaddress,city,state,zipcode,customid,phonenum,total) 
+		values(#{orderId},#{username},#{fullname},#{streetaddress},#{detailaddress},#{city},#{state},#{zipcode},#{customid},#{phonenum},#{total})
 	</insert>
-	
+	<!-- 주문 상세 정보 --> 
+	<insert id="insertOrderDetail">
+		insert into orders_detail(ordersDetailNum, orderId, p_code, cart_Stock)
+    		select orders_detail_seq.nextval, #{orderId}, p_code, cart_Stock
+       		 from cart   
+	</insert> 
 	
 	
 	

@@ -587,6 +587,9 @@ $(function(){
 					url : "/shop/addCart",
 					type : "post",
 					data : data,
+	 				beforeSend : function(xhr){
+						xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+					}, 
 					success : function(result){
 						
 						$("#shoppingorcheck").modal('show');

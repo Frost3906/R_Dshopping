@@ -12,7 +12,7 @@
         	<!-- 상품 카드 위치 -->
         	<img src="http://placehold.it/400x400" style='width: 400px; height: 552px;'/>
         	<div class="product-details ml-5 col-lg">
-        		<form action="" method="post">
+        		<form action="" method="post" role="form">
 	        	<h1>Shipping Info</h1>
 	        	<br>
 	 			
@@ -57,13 +57,15 @@
 	 				<li class="list-group-item">
 	 						<div class="float-left">Phone number</div>
 	 						<div class="float-right">
-								<input type="text" id="phonenum" name="phonenumber"/>
+								<input type="text" id="phonenum" name="phonenum"/>
 	 						</div>
 	 				</li>
 	 			</ul>       	
         	<div class="mb-3">
-        		<button class="btn btn-success btn-lg float-right mt-3">Next</button>
+        		<button class="btn btn-success btn-lg float-right mt-3" id="submit_info" name="submit_info">Next</button>
         	</div>
+        		
+        		<input type="hidden" name='_csrf' value='${_csrf.token}'/>
         	</form>
         	</div>
         		
@@ -77,7 +79,11 @@
 </div>
 
 <script>
-
+$(function(){
+	$("#submit_info").on("click",function(){
+		$("form[role='form']").submit();
+	})
+})
 </script>
 
 <%@ include file="../includes/footer.jsp" %> 
