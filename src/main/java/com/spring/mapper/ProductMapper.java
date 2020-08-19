@@ -8,6 +8,8 @@ import org.springframework.stereotype.Repository;
 import com.spring.domain.CartVO;
 import com.spring.domain.CategoryKeySearchVO;
 import com.spring.domain.ManageKeySearchVO;
+import com.spring.domain.OrderDetailVO;
+import com.spring.domain.OrderVO;
 import com.spring.domain.ProductVO;
 import com.spring.domain.ReviewVO;
 
@@ -58,4 +60,8 @@ public interface ProductMapper {
 	public int deleteProduct(int p_code);
 	public List<ProductVO> keySearchManageList(ManageKeySearchVO vo);
 	public int searchManageCount(ManageKeySearchVO vo);
+	
+	
+	public void makeOrder(OrderVO vo);
+	public void insertOrderDetail(OrderDetailVO vo);
 }
