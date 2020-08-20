@@ -3,7 +3,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <link rel="stylesheet" href="/resources/css/mycss.css" />
-<link rel="stylesheet" href="/resources/css/reply.css" />
 <%@ include file="../includes/header.jsp" %>   
 <div class="container">
     <div class="row">
