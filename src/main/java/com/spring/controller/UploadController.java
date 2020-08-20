@@ -13,6 +13,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.context.annotation.Primary;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
@@ -37,16 +39,15 @@ import net.coobird.thumbnailator.Thumbnailator;
 @Slf4j
 public class UploadController {
 	
-	@GetMapping("/upload")
+	@GetMapping("/uploadAjax")
 	public void uploadAjaxForm() {
 		log.info("upload Ajax form 요청");
 	}
 	
-	@PostMapping(value="/upload",produces= MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping(value="/uploadAjax",produces= MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public ResponseEntity<List<AttachFileVO>> uploadAjaxPost(MultipartFile[] uploadFile) {
-		log.info("upload Ajax 요청");
-		String uploadFolder = "d:\\upload";
+	public ResponseEntity<List<AttachFileVO>> uploadAjaxPost(MultipartFile[] uploadFile){
+		String uploadFolder = "/upload/";			
 		String uploadFileName = "";
 		
 		
@@ -109,9 +110,9 @@ public class UploadController {
 	@ResponseBody
 	@GetMapping("/display")
 	//섬네일 이미지를 리턴하는 컨트롤러
-	public ResponseEntity<byte[]> getFile(String fileName){
+	public ResponseEntity<byte[]> getFile(String fileName, HttpServletRequest req){
 		log.info("썸네일 요청 "+fileName);
-		File f = new File("d:\\upload\\"+fileName);
+		File f = new File("/upload/"+fileName);
 		
 		ResponseEntity<byte[]> result = null;
 		
@@ -129,11 +130,11 @@ public class UploadController {
 	
 	@PostMapping("/deleteFile")
 	@ResponseBody
-	public ResponseEntity<String> deleteFile(String fileName, String type){
+	public ResponseEntity<String> deleteFile(String fileName, String type, HttpServletRequest req){
 		log.info("첨부파일 삭제 fileName : "+fileName+ " type : "+type);
 		
 		try {
-			File file = new File("d:\\upload\\"+URLDecoder.decode(fileName,"utf-8"));
+			File file = new File("/upload/"+URLDecoder.decode(fileName,"utf-8"));
 			
 			//썸네일 혹은 일반 파일 삭제
 			file.delete();
@@ -173,7 +174,39 @@ public class UploadController {
 		return str.replace("-",File.separator);
 	}
 	
+
 	
+	// 다운로드 컨트롤러
+	@GetMapping(value="/download",produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
+	@ResponseBody
+	public ResponseEntity<Resource> downloadFile(String fileName) {
+		log.info("다운로드 파일 : " + fileName);
+		
+		Resource resource = new FileSystemResource("d:\\upload\\" + fileName);
+		
+		String resourceName = resource.getFilename();
+		
+		// 브라우저 헤더에 붙여 보내기
+		HttpHeaders headers = new HttpHeaders();
+		try {
+//			// uuid값이 붙어서 다운로드가 되는 상황
+//			headers.add("Content-Disposition",
+//						"attachment;fileName="+
+//								new String(resourceName.getBytes("utf-8"),
+//						"ISO-8859-1"));
+			
+			// uuid 값 제거
+			String resourceUidName = resource.getFilename();
+			resourceName = resourceUidName.substring(resourceUidName.indexOf("_")+1);
+			headers.add("Content-Disposition",
+			"attachment;fileName="+
+					new String(resourceName.getBytes("utf-8"),
+							"ISO-8859-1"));
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		return new ResponseEntity<Resource>(resource, headers, HttpStatus.OK);
+	}
 	
 	
 }
