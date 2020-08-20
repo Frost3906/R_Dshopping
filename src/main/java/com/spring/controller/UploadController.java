@@ -44,10 +44,11 @@ public class UploadController {
 		log.info("upload Ajax form 요청");
 	}
 	
-	@PostMapping(value="/uploadAjax",produces= MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping(value="/upload",produces= MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public ResponseEntity<List<AttachFileVO>> uploadAjaxPost(MultipartFile[] uploadFile){
 		String uploadFolder = "/upload/";			
+//		String uploadFolder = "d:\\upload\\";			
 		String uploadFileName = "";
 		
 		
@@ -113,6 +114,7 @@ public class UploadController {
 	public ResponseEntity<byte[]> getFile(String fileName, HttpServletRequest req){
 		log.info("썸네일 요청 "+fileName);
 		File f = new File("/upload/"+fileName);
+//		File f = new File("d:\\upload\\"+fileName);
 		
 		ResponseEntity<byte[]> result = null;
 		
@@ -135,6 +137,7 @@ public class UploadController {
 		
 		try {
 			File file = new File("/upload/"+URLDecoder.decode(fileName,"utf-8"));
+//			File file = new File("d:\\upload\\"+URLDecoder.decode(fileName,"utf-8"));
 			
 			//썸네일 혹은 일반 파일 삭제
 			file.delete();

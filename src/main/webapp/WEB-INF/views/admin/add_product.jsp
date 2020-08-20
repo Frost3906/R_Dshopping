@@ -80,6 +80,14 @@
 
 	 						</div>
 	 				</li>
+	 				<li class="list-group-item">
+	 						<div class="float-left">상품 상세 이미지</div>
+	 						<div class="float-right">
+								<input type="file" id="detailImg" name="detailImg"/>
+								<input type="hidden" id="detailImage" name="detailImage"/>
+
+	 						</div>
+	 				</li>
 	 				
 	 			</ul>
         	<div class="mb-3">
@@ -110,14 +118,16 @@ $(function(){
 		//게시글 등록 + 파일첨부 한번에 처리
 		//첨부파일 내용 수집
 		let str = "";
+		let image = new Array();
 		
 		$(".uploadResult ul li").each(function(i,ele){
 			let job = $(ele);
 			console.log(job);
-			let image = encodeURI(job.data("path")+"/"+job.data("uuid")+"_"+job.data("filename"));
-			image = decodeURI(image);
-			$("input[id='image']").val(image);
-			console.log($("#image").val());
+			image[i] = encodeURI(job.data("path")+"/"+job.data("uuid")+"_"+job.data("filename"));
+			image[i] = decodeURI(image[i]);
+			$("input[name='image']").val(image[0]);
+			$("input[name='detailImage']").val(image[1]);
+			//console.log($("#image").val());
 			str += "<input type='hidden' name='attachList["+i+"].uuid' value='"+job.data("uuid")+"'>";
 			str += "<input type='hidden' name='attachList["+i+"].uploadPath' value='"+job.data("path")+"'>";
 			str += "<input type='hidden' name='attachList["+i+"].fileName' value='"+job.data("filename")+"'>";
@@ -137,16 +147,16 @@ $(function(){
 			//form의 형태로 데이터를 구성할 수 있음
 			//let formData = new FormData();
 			var formData = new FormData();
-			
 			//첨부파일 목록 가져오기
-			let image = $("input[name='productImage']");
-			console.log(productImage);
+			let image = $(this);
+			console.log(image);
+			
 			let files= image[0].files;
 			console.log(files);
-			
 			//form의 형태로 붙이기
 			for(var i=0;i<files.length;i++){
 				if(!checkExtension(files[i].name, files[i].size)){
+					$(this).val("");
 					return false;
 				}
 				formData.append("uploadFile",files[i]);
@@ -186,7 +196,7 @@ $(function(){
 		
 		//첨부파일 제한 / 크기 제한
 		function checkExtension(fileName, fileSize){
-			let regex = new RegExp("(.*?)\.(jpg|jpeg|png|gif|bmp)$");
+			let regex = new RegExp("(.*?)\.(JPG|jpg|jpeg|png|gif|bmp)$");
 			let maxSize = 2097152;
 			
 			if(fileSize > maxSize){
@@ -197,7 +207,6 @@ $(function(){
 			
 			if(!(regex.test(fileName))){
 				alert("해당 종류의 파일은 업로드 할 수 없습니다.");
-				$("input[name='image']").val("");
 				return false;
 			}
 			return true;
@@ -255,16 +264,16 @@ $(function(){
 		$.ajax({
 			url : '/deleteFile',
 			type : 'post',
-/* 			beforeSend : function(xhr){
+ 			beforeSend : function(xhr){
 				xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
-			}, */
+			}, 
 			data : {
 				fileName : targetFile,
 				type : type
 			},
 			success:function(result){
 				targetLi.remove();
-				$("input[type='file']").val("");
+				//$("input[type='file']").val("");
 			},
 			error:function(result){
 				alert("실패");
