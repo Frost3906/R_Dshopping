@@ -1,42 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.spring.mapper.MemberMapper">
-	
+	<!-- 회원가입 -->
 	<insert id="signUp">
 		insert into test_mem(username, password, firstName, lastName, mobile) values(#{username}, #{password}, #{firstName}, #{lastName}, #{mobile})
 	</insert>
 	
+	<!-- 회원 전체 검색 -->
 	<select id="listMember" resultType="com.spring.domain.MemberVO">
 		select * from test_mem
 	</select>
 	
+	<!-- 회원 전체 검색 (pagination 사용) -->
 	<select id="manageList" resultType="com.spring.domain.MemberVO">
 	select * from
 		(select <![CDATA[rownum rno,]]> test_mem.* from test_mem)
-	 where <![CDATA[rno>(#{pageNum}-1)*#{amount} and rno<=#{pageNum}*#{amount}]]>
-	
+	 where <![CDATA[rno>(#{pageNum}-1)*#{amount} and rno<=#{pageNum}*#{amount}]]>	
 	</select>
 	
+	<!-- 특정 회원 검색 -->
 	<select id="getMember" resultType="com.spring.domain.MemberVO">
 		select * from test_mem where username=#{username}
 	</select>
 	
+	<!-- 특정 회원 검색 -->
 	<select id="checkPwd" resultType="com.spring.domain.MemberVO">
 		select * from test_mem where username=#{username}
 	</select>
 	
+	<!-- 회원 정보 변경 -->
 	<update id="modify">
 		update test_mem set password=#{confirm_password} where username=#{username} 
 	</update>
 	
+	<!-- 임의의 비밀번호로 변경 -->
 	<update id="forgetPwd">
 		update test_mem set password=#{password} where username=#{username} 
 	</update>
 	
+	<!-- 회원 탈퇴 -->
 	<delete id="leaveMember">
 		delete from test_mem where username=#{username}
 	</delete>
 	
+	
+		
 	<select id="getBySnsNaver" resultType="com.spring.domain.MemberVO">
         select * from test_mem where naverid=#{naverid}
     </select>
@@ -45,12 +53,14 @@
         select * from test_mem where googleid=#{googleid}
     </select>
     
+    
     <!-- Admin Page -->
     <!-- 총 회원 인원 -->
     <select id="totalMember" resultType="int">
 		select count(*) from test_mem
 	</select>
     
+    <!-- 회원관리 페이지 회원정보 수정 -->
     <update id="manageModify">
     	update test_mem set password=#{password}, mobile=#{mobile}, memLevel=#{memLevel}, 
     	firstName=#{firstName}, lastName=#{lastName}, country=#{country}, street=#{street}, 
@@ -63,6 +73,19 @@
     <select id="qnaList" resultType="com.spring.domain.BoardVO">
     	select * from board where writer=#{username}
     </select>
+    
+    <!-- 특정회원 게시물 pagination -->
+    <select id="myPageList" resultType="com.spring.domain.BoardVO">
+	select * from
+		(select <![CDATA[rownum rno,]]> board.* from board where writer='01198711055@naver.com')
+	 where <![CDATA[rno>(#{pageNum}-1)*#{amount} and rno<=#{pageNum}*#{amount}]]>	
+	</select>	
+	
+	<!-- 특정 인원 게시물 총 갯수 -->
+	<select id="getTotalBoard" resultType="int">
+		select count(*) board where writer=#{username}
+	</select>
+	
 	
 	<!-- 세큐리티 실험중 -->
 	<resultMap type="com.spring.domain.MemberVO" id="memberMap">
@@ -84,6 +107,7 @@
 	<insert id="SmemInsert">
 		insert into SPRING_MEMBER(userid, userpw, username) values(#{username},#{password}, #{username})
 	</insert>
+	
 	<!-- SPRING_MEMBER_AUTH 인설트 -->
 	<insert id="SmemAuthInsert">
 		insert into SPRING_MEMBER_AUTH values(#{username}, #{auth})

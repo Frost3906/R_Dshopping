@@ -162,7 +162,7 @@
 		    </li>	
 		    </c:if>	    
 		    <c:forEach var="idx" begin="${memberPage.startPage}" end="${memberPage.endPage}">
-		    <li class="page-item ${memberPage.memberCri.pageNum==idx?'active':''}"><a class="page-link" style="color:black" href="${idx}">${idx}</a></li>
+		    <li class="page-item ${memberPage.memberCri.pageNum==idx?'active':''}"><a class="page-link idx_num" style="color:black" href="${idx}">${idx}</a></li>
 		    </c:forEach>
 		    <c:if test="${memberPage.next}">
 		    <li class="page-item">
@@ -177,16 +177,33 @@
 	</div>
   </div>
 </div>
+
+<!-- 정보를 전달할 히든 폼 -->
+<form action="myPage" id="actionForm">
+	<input type="hidden" name="keyword" value="${memberPage.memberCri.keyword}" />
+	<input type="hidden" name="pageNum" value="${memberPage.nowPage}" />
+	<input type="hidden" name="amount" value="${memberPage.amount}" />
+</form>
+	<input type="hidden" id="totalMember" name="totalMember" value="${memberPage.total}" />
 <script>
+
 let username='${auth.username}';
+let pageNum='${memberPage.memberCri.pageNum}';
+let amount='${memberPage.amount}';
 console.log(username);
+console.log(pageNum);
+console.log(amount);
 	
 //QnA 리스트
 function qnaList(){	
 	$.ajax({
 	    type:"get",
 	    url : "/member/myPage/qnaList",
-	    data: {username:username},
+	    data: {
+		    	username:username,
+		    	pageNum:pageNum,
+		    	amount:amount
+	    	},
 	    success : function(result){
 	        let str = "";
 	        

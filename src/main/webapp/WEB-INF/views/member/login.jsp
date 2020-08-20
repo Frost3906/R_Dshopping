@@ -1,21 +1,9 @@
-	<!-- <script>
-	let info=${info};
-	let error=${error};
-	
-	if(info === " "){
-		alert(error);
-		return false;
-	}else if(error === " "){
-		alert(info);
-		return false;	
-	}
-	</script> -->
 <%@include file="../includes/header.jsp" %>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.1/js/bootstrap.min.js" integrity="sha384-XEerZL0cuoUbHE4nZReLT7nx9gQrQreJekYhJD9WNWhH8nEW+0c5qq7aIo2Wl30J" crossorigin="anonymous"></script>
 	<link rel="shortcut icon" href="/resources/signIn/images/fav.jpg">
     <link rel="stylesheet" href="/resources/signIn/css/bootstrap.min.css">
     <link rel="stylesheet" href="/resources/signIn/css/fontawsom-all.min.css">
     <link rel="stylesheet" type="text/css" href="/resources/signIn/css/style.css" />
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.1/js/bootstrap.min.js" integrity="sha384-XEerZL0cuoUbHE4nZReLT7nx9gQrQreJekYhJD9WNWhH8nEW+0c5qq7aIo2Wl30J" crossorigin="anonymous"></script>
 <title>RDS SignUp</title>
     <div class="container-fluid h-100">
             <div class="row no-margin h-100">
@@ -81,8 +69,8 @@
                                
                                 <div class="input-group center  mb-3">
 									<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-                                    <button type="submit" class="btn btn-success ">LOGIN</button>
-                                    <button type="button" class="btn btn-primary " onclick="location.href='signUp'">Sign up</button>                                    
+                                    <button type="submit" class="btn btn-success ">Sign In</button>
+                                    <button type="button" class="btn btn-primary " onclick="location.href='signUp'">Sign Up</button>                                    
                                 </div>    
                             </div>  
                           </form>                          
