@@ -9,6 +9,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.social.google.connect.GoogleConnectionFactory;
@@ -146,7 +147,7 @@ public class MemberController {
 			return "false";
 		}
 	}
-	
+		
 	@PostMapping("/modify")
 	public String modifyPost(ModifyMemberVO modifyMember, HttpSession session) {
 		log.info("회원정보 수정 절차 진행");
@@ -159,6 +160,7 @@ public class MemberController {
 		return "/member/myPage";
 	}
 	
+	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/myPage")
 	public void myPageForm(Model model, @ModelAttribute("memberCri") MemberCriteria memberCri) {;
 		log.info("마이페이지 화면 표시");
@@ -217,6 +219,7 @@ public class MemberController {
 	}
 	
 	//Admin
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/member_manage")
 	public void memberManage(Model model, @ModelAttribute("memberCri") MemberCriteria memberCri) {
 		log.info("Member Manage 화면 표시");
@@ -243,7 +246,7 @@ public class MemberController {
 	@ResponseBody
 	public MemberVO getManageMember(String username) {
 		return service.getMember(username);
-	}
+	}	
 	
 	@PostMapping("/manageModify")
 	public String manageMember(RedirectAttributes rttr, MemberVO member) {

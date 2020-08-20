@@ -229,8 +229,8 @@ $(function(){
 		var manageMemberForm=$("#sendInfo");
 		console.log(manageMemberForm);
 		//manageMemberForm.setAttribute("action", "/member/manageModify");
-		//manageMemberForm.attr("action", "manageModify");
-		//manageMemberForm.submit();		
+		manageMemberForm.attr("action", "manageModify");
+		manageMemberForm.submit();		
 	})
 	
 	//MemberModal의 delete 버튼 클릭
