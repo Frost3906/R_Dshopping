@@ -49,12 +49,15 @@ public class BoardController {
 		if(vo.getAttachList()!=null) {
 			vo.getAttachList().forEach(attach -> log.info(attach+""));
 		}		
+		log.info("============진입=====");
 		
 		if(service.insertBoard(vo)) {
+			log.info("============성공=====");
 			rttr.addFlashAttribute("result",vo.getBno());
 			return "redirect:list";
 		} else {
-			return "register";
+			log.info("============실패=====");
+			return "/board/register";
 		}		
 	}
 	

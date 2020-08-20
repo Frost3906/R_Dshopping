@@ -61,7 +61,7 @@
 <script>
 $(function(){
 	$("button[type='submit']").click(function(e){
-		// submit 버튼 기능 막기
+		//submit 버튼 기능 막기
 		e.preventDefault();
 		// 게시글 등록 + 파일 첨부 한꺼번에 처리
 		// 첨부 파일 내용 수집
@@ -79,6 +79,10 @@ $(function(){
 		$("form[role='form']").append(str).submit();
 	})
 	
+	// csrf 토큰 값 생성
+	let csrfHeaderName = "${_csrf.headerName}";
+	let csrfTokenValue = "${_csrf.token}"
+	
 	$("input[type='file']").change(function(){
 		// form 의 형태로 데이터를 구성할 수 있음
 		// key, value
@@ -89,20 +93,29 @@ $(function(){
 		let files = uploadFile[0].files;
 		console.log(files);
 		
-		// form의 형태로 붙이기
+		//form의 형태로 붙이기
 		for(var i=0;i<files.length;i++){
 			if(!checkExtension(files[i].name, files[i].size)){
 				return false;
 			}			
 			formData.append("uploadFile",files[i]);
-		}
+		}	
+		// processData : 데이터를 query string(http://~~~?uploadFile=테스트.txt)로 변환할 것인지 결정
+		//               기본값은 application/x-www-form-urlencoded 로 true 이기
+		//               때문에 false로 지정
+		// contentType : 기본값은 application/x-www-form-urlencoded
+		//               파일의 경우에 enctype 은 multipart/form-data로 보내야
+		//               하기 때문에 false로 지정
 		
 		$.ajax({
 			url : '/uploadAjax',
 			type : 'post',
+			beforeSend : function(xhr){
+				xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+			},
 			processData : false,
 			contentType : false,
-			data : formData,			
+			data : formData,
 			success:function(result){
 				console.log(result);
 				showUploadFile(result);
@@ -111,11 +124,11 @@ $(function(){
 				alert(xhr.responseText);
 			}
 		})		
-	})
+	}) //end
 	
 	// 첨부파일 제한 / 크기 제한
 	function checkExtension(fileName, fileSize){
-		let regex = new RegExp("(.*?)\.(exe|sh|zip|alz)$");
+		let regex = new RegExp("(.*?)\.(exe|sh|zip|alx)$");
 		let maxSize = 2097152;
 		
 		if(fileSize > maxSize){
@@ -128,34 +141,33 @@ $(function(){
 		}
 		return true;
 	}
-	
-	// 업로드 된 파일 보여주기
+
+	//업로드 된 파일 보여주기
 	function showUploadFile(uploadResultArr){
 		let str="";
-		// 결과를 보여줄 영역 가져오기
+		//결과를 보여줄 영역 가져오기
 		let uploadResult = $(".uploadResult ul");
 		$(uploadResultArr).each(function(i, element) {
 			if(element.fileType){ //이미지파일
-				// 썸네일 이미지 경로
+				//썸네일 이미지 경로
 				var fileCallPath = encodeURIComponent(element.uploadPath+"\\s_"+element.uuid+"_"+element.fileName);
 				// 원본 이미지 경로
 				var oriPath = element.uploadPath+"\\"+element.uuid+"_"+element.fileName;
 				oriPath = oriPath.replace(new RegExp(/\\/g),"/");
-				
-				str += "<li data-path='"+ element.uploadPath +"' data-uuid='"+element.uuid+"'";
+				str += "<li data-path='"+ element.uploadPath +"'data-uuid='"+element.uuid+"'";
 				str += " data-filename='"+element.fileName+"' data-type='"+element.fileType+"'>";
 				str += "<a href=\"javascript:showImage(\'"+oriPath+"\')\">";
 				str += "<img src='/display?fileName="+ fileCallPath +"'><div>"+element.fileName+"</a>";
-				str += " <button type='button' class='btn btn-danger btn-circle btn-sm'>";
+				str += "<button type='button' class='btn btn-warning btn-circle btn-sm' data-file='"+fileCallPath+"' data-type='image>";
 				str += "<i class='fa fa-times'></i></button>";
-				str += "</div></li>";				
-			}else{ // 일반파일
+				str += "</div></li>";
+			}else{ //일반파일
 				var fileCallPath = encodeURIComponent(element.uploadPath+"\\"+element.uuid+"_"+element.fileName);
-				str += "<li data-path='"+ element.uploadPath +"' data-uuid='"+element.uuid+"'";
+				str += "<li data-path='"+ element.uploadPath +"'data-uuid='"+element.uuid+"'";
 				str += " data-filename='"+element.fileName+"' data-type='"+element.fileType+"'>";
-				str += "<a href='/download?fileName="+ fileCallPath +"'>";
+				str += "<a href='/download?fileName="+fileCallPath+"'>";
 				str += "<img src='/resources/img/attach.png'><div>"+element.fileName+"</a>";
-				str += " <button type='button' class='btn btn-danger btn-circle btn-sm'>";
+				str += "<button type='button' class='btn btn-danger btn-circle btn-sm' data-file='"+fileCallPath+"' data-type='file>";
 				str += "<i class='fa fa-times'></i></button>";
 				str += "</div></li>";
 			}
@@ -163,6 +175,33 @@ $(function(){
 		uploadResult.append(str);
 	}	
 	
+
+	// x를 누르면 목록에서 삭제하기
+	$(".uploadResult").on("click","button",function(e){
+		
+		let targetFile = $(this).data("file");
+		let type = $(this).data("type");
+		let targetLi = $(this).closest("li");
+		
+		$.ajax({
+			url : '/deleteFile',
+			type : 'post',
+			before : function(xhr){
+				xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+			},
+			data : {
+				fileName : targetFile,
+				type : type
+			},
+			success : function(result){
+				targetLi.remove();
+			}
+		})
+		
+		// 다음 이벤트 발생 막기
+		e.stopPropagation();
+		
+	})// 첨부파일 삭제 종료
 })
-</script>        
+</script>
 <%@include file="../includes/footer.jsp" %>

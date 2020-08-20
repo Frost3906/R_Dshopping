@@ -85,6 +85,7 @@
 	 			<input type="hidden"  name="${_csrf.parameterName}"   value="${_csrf.token}"/>      	
         	<div class="mb-3">
         		<button type="button" class="btn btn-success btn-lg float-right mt-3" id="add_product">상품 등록</button>
+				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />    
         	</div>
         	</form>
         	</div>

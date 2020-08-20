@@ -34,7 +34,7 @@ public class BoardServiceImpl implements BoardService {
 			attach1.setBno(vo.getBno());
 			attach.insert(attach1);
 		});
-		return false;
+		return true;
 	}
 	
 	@Transactional
