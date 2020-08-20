@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <!DOCTYPE html>
 <html>
 
@@ -82,7 +83,11 @@
 			            <a class="nav-link" style="padding: 8px;" href="/member/myPage" style="text-decoration: underline;">HI!! ${auth.firstName}</a>
 			          </li>
 			          <li class="nav-item">
-			            <a class="nav-link" style="padding: 8px;" href="/member/logout">LogOut</a>
+			          <form action="/member/logout" method="post">
+						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>		
+			            <!-- <a class="nav-link" style="padding: 8px;" href="/member/logout">LogOut</a> -->
+			            <button>LogOut</button>
+						</form>
 			          </li>
 			          <li class="nav-item">
 			            <a class="nav-link" style="padding: 8px;" href="/board/list">게시판</a>

@@ -208,7 +208,8 @@
          </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-success sendInfo" >Modify</button>
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+        <button type="button" class="btn btn-success manageModify" >Modify</button>
         <button type="button" class="btn btn-danger manageDelete" >Delete</button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
       </div>
@@ -224,11 +225,11 @@ $(function(){
 	//var manageMemberForm=$("#sendInfo");
 	
 	//MemberModal의 modify 버튼 클릭
-	$(".sendInfo").click(function(){
+	$(".manageModify").click(function(){
 		var manageMemberForm=$("#sendInfo");
-		
+		console.log(manageMemberForm);
 		//manageMemberForm.setAttribute("action", "/member/manageModify");
-		manageMemberForm.setAttribute("action", manageModify);
+		manageMemberForm.attr("action", "manageModify");
 		manageMemberForm.submit();		
 	})
 	
@@ -237,7 +238,7 @@ $(function(){
 		var manageMemberForm=$("#sendInfo");
 		
 		//manageMemberForm.setAttribute("action", "/member/manageDelete");
-		manageMemberForm.setAttribute("action", manageDelete);
+		manageMemberForm.setAttribute("action", "manageDelete");
 		manageMemberForm.submit();		
 	})
 	

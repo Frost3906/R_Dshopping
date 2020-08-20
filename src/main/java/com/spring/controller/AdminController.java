@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,19 +29,21 @@ public class AdminController {
 	@Autowired
 	private ProductService service;
 	
-	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/admin")
 	public String admin() {
 		log.info("관리자 페이지 호출");
 		return "/admin/admin";
 	}
 
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/add")
 	public String addProductForm() {
 		log.info("상품 등록 form 호출");
 		return "/admin/add_product";
 	}
 
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/product_manage")
 	public void productManage(Model model, ManageVO mvo) {
 		model.addAttribute("pageNum", mvo.getPageNum()); // 현재 페이지 번호
@@ -74,7 +77,8 @@ public class AdminController {
 		model.addAttribute("idx", idx);
 		model.addAttribute("pageVO", pageVO);
 	}
-	
+
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/product_modify")
 	public void productModify(Model model, ManageVO mvo) {
 		log.info("상품 관리 form 호출");
@@ -84,7 +88,8 @@ public class AdminController {
 		model.addAttribute("amount", mvo.getAmount());
 		model.addAttribute("manageKeyword", mvo.getManageKeyword());
 	}
-	
+
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@PostMapping("/product_modify")
 	public String productModify(Model model, ProductVO vo,@Param("p_code") int p_code, @Param("pageNum") int pageNum, @Param("amount") int amount, String manageKeyword) {
 		log.info("상품 관리 form 호출" + vo);
@@ -101,7 +106,7 @@ public class AdminController {
 		model.addAttribute("manageKeyword", manageKeyword);
 		return "redirect:/admin/product_modify";
 	}
-	
+
 	@GetMapping("/product_delete")
 	public String productDelete(Model model, ManageVO mvo) {
 		model.addAttribute("pageNum", mvo.getPageNum());
@@ -115,7 +120,7 @@ public class AdminController {
 		return "redirect:/admin/product_manage";
 	}
 	
-	
+
 	@PostMapping("/add")
 	public String addProduct(ProductVO vo) {
 		log.info("상품 등록 요청"+vo);

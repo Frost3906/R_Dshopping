@@ -22,6 +22,10 @@ public interface MemberMapper {
 	public List<MemberVO> listMember();
 	public int leaveMember(String username);
 	
+	//security table 
+	public int SmemAuthInsert(MemberVO member);
+	public int SmemInsert(MemberVO member);
+	
 	
 	
 	

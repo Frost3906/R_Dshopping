@@ -127,6 +127,7 @@
 			  		</tr>	
 		  		</tbody>
 		  	</table>
+		  	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 			<button type="submit" class="btn btn-secondary">Confirm</button>
 			<button type="reset" class="btn btn-secondary">Cancel</button>
 		</form>

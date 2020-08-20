@@ -80,6 +80,15 @@
 		<result property="auth" column="auth"/>
 	</resultMap>
 	
+	<!-- SPRING_MEMBER 인설트 -->
+	<insert id="SmemInsert">
+		insert into SPRING_MEMBER(userid, userpw, username) values(#{username},#{password}, #{username})
+	</insert>
+	<!-- SPRING_MEMBER_AUTH 인설트 -->
+	<insert id="SmemAuthInsert">
+		insert into SPRING_MEMBER_AUTH values(#{username}, #{auth})
+	</insert>
+	
 	<select id="read" resultMap="memberMap">
 		select mem.userid, userpw, username, enabled, regdate, updatedate, auth
 		from spring_member mem left outer join spring_member_auth auth on mem.userid = auth.userid

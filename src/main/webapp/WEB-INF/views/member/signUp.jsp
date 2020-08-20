@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="/resources/signUp/css/fontawsom-all.min.css">
     <link rel="stylesheet" type="text/css" href="/resources/signUp/css/style.css" />
         
-    <script src="/resources/signUp/js/signup.js"></script>
+    <!-- <script src="/resources/signUp/js/signup.js"></script> -->
     
     <title>RDS SignUp</title>
            <div class="register">
@@ -60,6 +60,16 @@
                                </div>
                                <div class="row form-row">
                                    <div class="col-md-4">
+                                       <label for="">Country</label>
+                                   </div>
+                                   <div class="col-md-8">
+                                   	   <select name="country"> 
+                                   	   		<option value="country" selected="selected">Country</option>
+                                   	   </select>                                      
+                                   </div>
+                               </div>
+                               <div class="row form-row">
+                                   <div class="col-md-4">
                                        <label for="">First Name</label>
                                    </div>
                                    <div class="col-md-8">
@@ -87,6 +97,7 @@
                                       
                                    </div>
                                    <div class="col-md-8">
+                                   	   <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
                                        <button type="submit" class="btn btn-info">Sign Up</button>
                                        <button type="reset" class="btn btn-danger">Cancel</button>
                                    </div>

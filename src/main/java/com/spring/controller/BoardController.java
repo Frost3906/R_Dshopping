@@ -59,6 +59,7 @@ public class BoardController {
 	}
 	
 	// list 요청
+	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/list")
 	public void list(Model model, @ModelAttribute("cri") Criteria cri) {
 		log.info("list 요청");
@@ -70,6 +71,7 @@ public class BoardController {
 	}
 
 	// 내용보기
+	@PreAuthorize("isAuthenticated()")
 	@GetMapping(value= {"/read","/modify"})
 	public void read(int bno,Model model, @ModelAttribute ("cri") Criteria cri) {
 		log.info("게시물 읽기 요청" + bno + "..." + cri);
