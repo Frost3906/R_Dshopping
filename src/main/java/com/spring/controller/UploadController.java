@@ -13,6 +13,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.context.annotation.Primary;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
@@ -44,9 +46,8 @@ public class UploadController {
 	
 	@PostMapping(value="/uploadAjax",produces= MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public ResponseEntity<List<AttachFileVO>> uploadAjaxPost(MultipartFile[] uploadFile) {
-		log.info("upload Ajax 요청");
-		String uploadFolder = "\\home\\ec2-user\\upload";
+	public ResponseEntity<List<AttachFileVO>> uploadAjaxPost(MultipartFile[] uploadFile){
+		String uploadFolder = "/upload/";			
 		String uploadFileName = "";
 		
 		
@@ -109,9 +110,9 @@ public class UploadController {
 	@ResponseBody
 	@GetMapping("/display")
 	//섬네일 이미지를 리턴하는 컨트롤러
-	public ResponseEntity<byte[]> getFile(String fileName){
+	public ResponseEntity<byte[]> getFile(String fileName, HttpServletRequest req){
 		log.info("썸네일 요청 "+fileName);
-		File f = new File("\\home\\ec2-user\\upload\\"+fileName);
+		File f = new File("/upload/"+fileName);
 		
 		ResponseEntity<byte[]> result = null;
 		
@@ -129,11 +130,11 @@ public class UploadController {
 	
 	@PostMapping("/deleteFile")
 	@ResponseBody
-	public ResponseEntity<String> deleteFile(String fileName, String type){
+	public ResponseEntity<String> deleteFile(String fileName, String type, HttpServletRequest req){
 		log.info("첨부파일 삭제 fileName : "+fileName+ " type : "+type);
 		
 		try {
-			File file = new File("\\home\\ec2-user\\upload\\"+URLDecoder.decode(fileName,"utf-8"));
+			File file = new File("/upload/"+URLDecoder.decode(fileName,"utf-8"));
 			
 			//썸네일 혹은 일반 파일 삭제
 			file.delete();
