@@ -87,6 +87,10 @@ public class MemberServiceImpl implements MemberService {
 	public List<MemberVO> manageList(MemberCriteria memberCri){
 		return mapper.manageList(memberCri);
 	}
+	@Override
+	public int createAdmin(MemberVO member) {
+		return mapper.createAdmin(member);
+	}
 	
 	
 	//MyPage

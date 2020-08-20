@@ -37,7 +37,7 @@ public interface MemberMapper {
 	
 	//Admin
 	public List<MemberVO> manageList(MemberCriteria memberCri);
-	
+	public int createAdmin(MemberVO member);
 	
 	//MyPage 
 	public List<BoardVO> qnaList(String username);

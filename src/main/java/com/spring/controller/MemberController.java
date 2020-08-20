@@ -212,6 +212,7 @@ public class MemberController {
 	
 	
 	//MyPage
+	//QnA 게시판 글 가져오기
 	@GetMapping("/myPage/qnaList")
 	@ResponseBody
 	public List<BoardVO> qnaList(String username, MemberCriteria memberCri, Model model) {
@@ -232,6 +233,14 @@ public class MemberController {
 		model.addAttribute("idx", idx);	
 		model.addAttribute("memberPage", memberPage);
 		return service.myPageList(username, memberCri);
+	}
+	
+	@PreAuthorize("isAuthenticated()")
+	//QnA 게시판 글 읽기
+	@GetMapping("/myPage/QnARead")
+	public String QnARead() {
+		
+		return "redirect:/board/read";
 	}
 	
 	//Admin
@@ -288,5 +297,22 @@ public class MemberController {
 			rttr.addFlashAttribute("fail", "삭제가 실패했습니다..");			
 			return "redirect:/";			
 		}				
+	}
+	
+	@PostMapping("/createAdmin")
+	public String createAdmin(MemberVO member, RedirectAttributes rttr, HttpSession session) {
+		log.info("Admin 계정 생성 절차 진행");
+		log.info(""+member);
+		
+		member.setPassword(encorder.encode(member.getPassword()));
+		
+		if(service.createAdmin(member)>0) {
+			session.removeAttribute("auth");
+			rttr.addFlashAttribute("info", "관리자 계정 생성이 완료 되었습니다.");			
+			return "redirect:login";
+		}else {
+			rttr.addFlashAttribute("info", "관리자 계정 생성이 실패 했습니다.");
+			return "redirect:member_manage";			
+		}
 	}
 }

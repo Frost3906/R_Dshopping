@@ -181,7 +181,7 @@
 <!-- 정보를 전달할 히든 폼 -->
 <form action="myPage" id="actionForm">
 	<input type="hidden" name="keyword" value="${memberPage.memberCri.keyword}" />
-	<input type="hidden" name="pageNum" value="${memberPage.nowPage}" />
+	<input type="hidden" name="pageNum" value="${memberPage.memberCri.pageNum}" />
 	<input type="hidden" name="amount" value="${memberPage.memberCri.amount}" />
 </form>
 	<input type="hidden" id="totalMember" name="totalMember" value="${memberPage.total}" />
@@ -201,11 +201,17 @@ let actionForm = $("#actionForm");
 // 페이지 나누기 버튼 동작 부분
 	$(".idx_num").click(function(e){
 	e.preventDefault();
-	let selectPage = $(this).attr("href");
-	alert(selectPage);
-	$(this).addClass("active");
+	let selectPage = $(this).attr("href");	
+	
+	let pageNum='${memberPage.memberCri.pageNum}';
+	//$(this).addClass("active");
+	$(this).parent().addClass("active");	
+	
+	
+	
 	// 전송해야 할 폼 가져온 후 pageNum 의 값 변경
-	actionForm.find("input[name='pageNum']").val($(this).attr("href"));
+	actionForm.find("input[name='pageNum']").val(selectPage);
+	
 	$.ajax({
 	    type:"get",
 	    url : "/member/myPage/qnaList",
@@ -228,7 +234,7 @@ let actionForm = $("#actionForm");
 	            for(i=0; i < result.length; i++){
 	                str+="<tr id='qna'>";
 	                str+="<th>"+result[i].bno+"</th>";
-	                str+="<td><a href='#'>"+result[i].title+"</a></td>";	                
+	                str+="<td><a href='/myPage/QnARead'>"+result[i].title+"</a></td>";	                
 	                str+="<td>"+result[i].answer+"</td>";
 	                str+="<td>"+result[i].writer+"</td>";
 	                str+="<td>"+moment(result[i].regdate).format('YYYY-MM-DD HH:mm:ss')+"</td>";                	

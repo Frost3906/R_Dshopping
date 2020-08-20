@@ -67,6 +67,11 @@
     	address=#{address}, postcode=#{postcode}, auth=#{auth} where username=#{username}
     </update>
     
+    <!-- Admin 계정 생성 -->
+    <insert id="createAdmin">
+    	insert into test_mem(username, password, mobile, firstName, lastName) values(#{username}, #{password}, #{mobile}, #{firstName}, #{lastName})
+    </insert>
+    
     
     <!-- MyPage -->
     <!-- QnA select 쿼리 -->
