@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <link rel="stylesheet" href="/resources/css/mycss.css" />
 <%@ include file="../includes/header.jsp" %>
 
@@ -38,7 +39,8 @@
         				</div>  
         				<button type="submit" data-oper='modify' class="btn btn-default">Modify</button>              			
         				<button type="submit" data-oper='remove' class="btn btn-danger">Remove</button>              			
-        				<button type="submit" data-oper='list' class="btn btn-info">List</button>              			
+        				<button type="submit" data-oper='list' class="btn btn-info">List</button>
+						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
         			</form>
         		</div>
         	</div>
@@ -66,11 +68,13 @@
 </div>
  <%-- remove와 list를 위한 폼--%>
 <form method="post" id="myForm">
+	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />  
 	<input type="hidden" name="bno" value="${vo.bno}" />
+	<input type="hidden" name="writer" value="${vo.writer}" />
 	<input type="hidden" name="pageNum" value="${cri.pageNum}" />
 	<input type="hidden" name="amount" value="${cri.amount}" />
 	<input type="hidden" name="type" value="${cri.type}" />
-	<input type="hidden" name="keyword" value="${cri.keyword}" />
+	<input type="hidden" name="keyword" value="${cri.keyword}" />  
 </form>
 <%-- 스크립트 --%>
 <script>
@@ -82,6 +86,10 @@ function showImage(fileCallPath){
 	                .animate({width:'100%',height:'100%'}, 1000);
 }
 $(function(){
+
+	// csrf 토큰 값 생성
+	let csrfHeaderName = "${_csrf.headerName}";
+	let csrfTokenValue = "${_csrf.token}"
 	
 	$("input[type='file']").change(function(){
 		// form 의 형태로 데이터를 구성할 수 있음
@@ -93,19 +101,29 @@ $(function(){
 		let files = uploadFile[0].files;
 		console.log(files);
 		
-		// form의 형태로 붙이기
+		//form의 형태로 붙이기
 		for(var i=0;i<files.length;i++){
 			if(!checkExtension(files[i].name, files[i].size)){
 				return false;
 			}			
 			formData.append("uploadFile",files[i]);
-		}			
+		}	
+		// processData : 데이터를 query string(http://~~~?uploadFile=테스트.txt)로 변환할 것인지 결정
+		//               기본값은 application/x-www-form-urlencoded 로 true 이기
+		//               때문에 false로 지정
+		// contentType : 기본값은 application/x-www-form-urlencoded
+		//               파일의 경우에 enctype 은 multipart/form-data로 보내야
+		//               하기 때문에 false로 지정
+		
 		$.ajax({
 			url : '/uploadAjax',
 			type : 'post',
+			beforeSend : function(xhr){
+				xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+			},
 			processData : false,
 			contentType : false,
-			data : formData,			
+			data : formData,
 			success:function(result){
 				console.log(result);
 				showUploadFile(result);
@@ -114,35 +132,35 @@ $(function(){
 				alert(xhr.responseText);
 			}
 		})		
-	})
+	}) //end
 	
-	// 업로드 된 파일 보여주기
+
+	//업로드 된 파일 보여주기
 	function showUploadFile(uploadResultArr){
 		let str="";
-		// 결과를 보여줄 영역 가져오기
+		//결과를 보여줄 영역 가져오기
 		let uploadResult = $(".uploadResult ul");
 		$(uploadResultArr).each(function(i, element) {
 			if(element.fileType){ //이미지파일
-				// 썸네일 이미지 경로
+				//썸네일 이미지 경로
 				var fileCallPath = encodeURIComponent(element.uploadPath+"\\s_"+element.uuid+"_"+element.fileName);
 				// 원본 이미지 경로
 				var oriPath = element.uploadPath+"\\"+element.uuid+"_"+element.fileName;
 				oriPath = oriPath.replace(new RegExp(/\\/g),"/");
-				
-				str += "<li data-path='"+ element.uploadPath +"' data-uuid='"+element.uuid+"'";
+				str += "<li data-path='"+ element.uploadPath +"'data-uuid='"+element.uuid+"'";
 				str += " data-filename='"+element.fileName+"' data-type='"+element.fileType+"'>";
 				str += "<a href=\"javascript:showImage(\'"+oriPath+"\')\">";
 				str += "<img src='/display?fileName="+ fileCallPath +"'><div>"+element.fileName+"</a>";
-				str += " <button type='button' class='btn btn-danger btn-circle btn-sm'>";
+				str += "<button type='button' class='btn btn-warning btn-circle btn-sm'>";
 				str += "<i class='fa fa-times'></i></button>";
-				str += "</div></li>";				
-			}else{ // 일반파일
+				str += "</div></li>";
+			}else{ //일반파일
 				var fileCallPath = encodeURIComponent(element.uploadPath+"\\"+element.uuid+"_"+element.fileName);
-				str += "<li data-path='"+ element.uploadPath +"' data-uuid='"+element.uuid+"'";
+				str += "<li data-path='"+ element.uploadPath +"'data-uuid='"+element.uuid+"'";
 				str += " data-filename='"+element.fileName+"' data-type='"+element.fileType+"'>";
-				str += "<a href='/download?fileName="+ fileCallPath +"'>";
+				str += "<a href='/download?fileName="+fileCallPath+"'>";
 				str += "<img src='/resources/img/attach.png'><div>"+element.fileName+"</a>";
-				str += " <button type='button' class='btn btn-danger btn-circle btn-sm'>";
+				str += "<button type='button' class='btn btn-danger btn-circle btn-sm'>";
 				str += "<i class='fa fa-times'></i></button>";
 				str += "</div></li>";
 			}
@@ -151,9 +169,10 @@ $(function(){
 	}	
 	
 	
+	
 	// 첨부파일 제한 / 크기 제한
 	function checkExtension(fileName, fileSize){
-		let regex = new RegExp("(.*?)\.(exe|sh|zip|alz)$");
+		let regex = new RegExp("(.*?)\.(exe|sh|zip|alx)$");
 		let maxSize = 2097152;
 		
 		if(fileSize > maxSize){
@@ -166,12 +185,6 @@ $(function(){
 		}
 		return true;
 	}
-	
-	
-	
-	
-	
-	
 	
 	
 	
@@ -238,35 +251,59 @@ $(function(){
 			$(".bigPictureWrapper").hide();
 		}, 1000);
 	})	
-
-	// x를 누르면 서버 폴더에서 삭제하고 목록에서 삭제하기
-	$(".uploadResult").on("click","button",function(e){		
-
-		if (confirm("파일을 삭제하시겠습니까?")) {
-			
-			let targetLi = $(this).closeset("li");
+	
+	// x를 누르면 목록에서 삭제하기
+	$(".uploadResult").on("click","button",function(e){
+		
+		if(confirm("파일을 삭제하시겠습니까?")){
+			let targetLi = $(this).closest("li");
 			targetLi.remove();
 		}
+		// 삭제해야 할 파일 경로
+		let targetFile = $(this).data("file");
+		// 삭제해야할 파일 타입
+		let type = $(this).data("type");
+		
+		console.log("targetFile " +targetFile);
+		console.log("type " + type);
+		
+		let targetLi = $(this).closest("li");
+		$.ajax({
+			url : '/deleteFile',
+			data : {
+				fileName : targetFile,
+				type : type
+			},
+			type : 'post',
+			success : function(result){
+				console.log(result);
+				targetLi.remove();
+			}
+		}) 
 		
 		// 다음 이벤트 발생 막기
 		e.stopPropagation();
-	}) // 첨부 파일 삭제 종료
+		
+	})// 첨부파일 삭제 종료
+	
 	//------------------------- 첨부파일 스크립트 종료	
 })
+
 </script>
 <script>
 $(function(){
 	let form = $("#myForm");
+
 	
 	$("button").click(function(e){
-		//버튼은 모두 submit 형태이기 때문에 submit 속성 중지시키기
+		// 버튼은 모두 submit 형태이기 때문에 submit 속성 중지시키기
 		e.preventDefault();
 		
-		//버튼이 눌러지면 어느 버튼에서 온 것인지 알아내기
+		// 버튼이 눌러지면 어느 버튼에서 온 것인지 알아내기
 		let oper = $(this).data("oper");
 		
 		if(oper === 'modify'){
-			//Modify 버튼이 눌러지면 수정 폼 보내기
+			// modify버튼이 눌러지면 수정 폼 보내기
 			form = $("form[role='form']");
 			// 첨부파일 정보를 수집해서 수정 버튼이 눌러지면 다시 보내기
 			let str = "";
@@ -281,18 +318,18 @@ $(function(){
 			console.log(str);
 			form.append(str);
 			
-			
-		}else if(oper === 'list'){			
-			//List가 눌러지면 bno는 삭제하고 method=get 방식으로 myForm 보내기
+		} else if(oper === 'list'){
+			// List가 눌러지면 bno는 삭제하고 method=get 방식으로 myForm 보내기
 			form.attr('action','list');
 			form.attr('method','get');
-			form.find("input[name='bno']").remove();			
-		}else if(oper === 'remove'){
-			//Remove가 눌러지면 myForm 보내기
-			form.attr('action','remove');			
-		}	
+			form.find("input[name='bno']").remove();
+		} else if(oper === 'remove'){
+			// remove가 눌러지면 myForm 보내기
+			form.attr('action','remove');
+		}		
 		form.submit();
-	})	
+	})
 })
 </script>
+<%-- 스크립트 --%>
 <%@include file="../includes/footer.jsp" %> 

@@ -78,7 +78,6 @@ public class AdminController {
 		model.addAttribute("pageVO", pageVO);
 	}
 
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/product_modify")
 	public void productModify(Model model, ManageVO mvo) {
 		log.info("상품 관리 form 호출");
@@ -89,7 +88,6 @@ public class AdminController {
 		model.addAttribute("manageKeyword", mvo.getManageKeyword());
 	}
 
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@PostMapping("/product_modify")
 	public String productModify(Model model, ProductVO vo,@Param("p_code") int p_code, @Param("pageNum") int pageNum, @Param("amount") int amount, String manageKeyword) {
 		log.info("상품 관리 form 호출" + vo);
