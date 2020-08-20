@@ -374,7 +374,7 @@ $(function(){
 		$(".uploadResult ul li").each(function(i,ele){
 			let job = $(ele);
 			console.log(job);
-			image = encodeURI(job.data("path")+"\\"+job.data("uuid")+"_"+job.data("filename"));
+			image = encodeURI(job.data("path")+"/"+job.data("uuid")+"_"+job.data("filename"));
 			str += "<input type='hidden' name='attachList["+i+"].uuid' value='"+job.data("uuid")+"'>";
 			str += "<input type='hidden' name='attachList["+i+"].uploadPath' value='"+job.data("path")+"'>";
 			str += "<input type='hidden' name='attachList["+i+"].fileName' value='"+job.data("filename")+"'>";
@@ -498,9 +498,9 @@ $(function(){
 		$(uploadResultArr).each(function(i,element){
 			if(element.fileType){//이미지 파일
 				//섬네일 이미지 경로
-				var fileCallPath = encodeURIComponent(element.uploadPath+"\\s_"+element.uuid+"_"+element.fileName);
+				var fileCallPath = encodeURIComponent(element.uploadPath+"/s_"+element.uuid+"_"+element.fileName);
 				//원본 이미지 경로
-				var oriPath = element.uploadPath+"\\"+element.uuid+"_"+element.fileName;
+				var oriPath = element.uploadPath+"/"+element.uuid+"_"+element.fileName;
 				oriPath = oriPath.replace(new RegExp(/\\/g),"/");
 				
 				str += "<li data-path='"+element.uploadPath+"' data-uuid='"+element.uuid+"'";
@@ -511,7 +511,7 @@ $(function(){
 				str += "<i class = 'fa fa-times'></i></button>";
 				str += "</div></li>";
 			}else{
-				var fileCallPath = encodeURIComponent(element.uploadPath+"\\"+element.uuid+"_"+element.fileName);
+				var fileCallPath = encodeURIComponent(element.uploadPath+"/"+element.uuid+"_"+element.fileName);
 				str += "<li data-path='"+element.uploadPath +"' data-uuid='"+element.uuid+"'";
 				str += " data-filename='"+element.fileName+"' data-type='"+element.fileType+"'>";
 				str += "<a href='/download?fileName="+fileCallPath+"'>";

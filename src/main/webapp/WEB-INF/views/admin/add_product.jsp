@@ -81,7 +81,8 @@
 	 						</div>
 	 				</li>
 	 				
-	 			</ul>       	
+	 			</ul>
+	 			<input type="hidden"  name="${_csrf.parameterName}"   value="${_csrf.token}"/>      	
         	<div class="mb-3">
         		<button type="button" class="btn btn-success btn-lg float-right mt-3" id="add_product">상품 등록</button>
         	</div>
@@ -113,7 +114,7 @@ $(function(){
 		$(".uploadResult ul li").each(function(i,ele){
 			let job = $(ele);
 			console.log(job);
-			let image = encodeURI(job.data("path")+"\\"+job.data("uuid")+"_"+job.data("filename"));
+			let image = encodeURI(job.data("path")+"/"+job.data("uuid")+"_"+job.data("filename"));
 			image = decodeURI(image);
 			$("input[id='image']").val(image);
 			console.log($("#image").val());
@@ -164,9 +165,9 @@ $(function(){
 			$.ajax({
 				url : '/upload',
 				type : 'post',
-/* 				beforeSend : function(xhr){
+ 				beforeSend : function(xhr){
 					xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
-				}, */
+				}, 
 				processData : false,
 				contentType : false,
 				data : formData,
@@ -211,9 +212,9 @@ $(function(){
 		$(uploadResultArr).each(function(i,element){
 			if(element.fileType){//이미지 파일
 				//섬네일 이미지 경로
-				var fileCallPath = encodeURIComponent(element.uploadPath+"\\"+element.uuid+"_"+element.fileName);
+				var fileCallPath = encodeURIComponent(element.uploadPath+"/"+element.uuid+"_"+element.fileName);
 				//원본 이미지 경로
-				var oriPath = element.uploadPath+"\\"+element.uuid+"_"+element.fileName;
+				var oriPath = element.uploadPath+"/"+element.uuid+"_"+element.fileName;
 				oriPath = oriPath.replace(new RegExp(/\\/g),"/");
 				
 				str += "<li data-path='"+element.uploadPath+"' data-uuid='"+element.uuid+"'";
@@ -224,7 +225,7 @@ $(function(){
 				str += "<i class = 'fa fa-times'></i></button>";
 				str += "</div></li>";
 			}else{
-				var fileCallPath = encodeURIComponent(element.uploadPath+"\\"+element.uuid+"_"+element.fileName);
+				var fileCallPath = encodeURIComponent(element.uploadPath+"/"+element.uuid+"_"+element.fileName);
 				str += "<li data-path='"+element.uploadPath +"' data-uuid='"+element.uuid+"'";
 				str += " data-filename='"+element.fileName+"' data-type='"+element.fileType+"'>";
 				str += "<a href='/download?fileName="+fileCallPath+"' style='max-width: 50%; height: auto;'>";
