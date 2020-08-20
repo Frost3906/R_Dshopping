@@ -46,7 +46,7 @@ public class UploadController {
 	@ResponseBody
 	public ResponseEntity<List<AttachFileVO>> uploadAjaxPost(MultipartFile[] uploadFile) {
 		log.info("upload Ajax 요청");
-		String uploadFolder = "d:\\upload";
+		String uploadFolder = "\\home\\ec2-user\\upload";
 		String uploadFileName = "";
 		
 		
@@ -111,7 +111,7 @@ public class UploadController {
 	//섬네일 이미지를 리턴하는 컨트롤러
 	public ResponseEntity<byte[]> getFile(String fileName){
 		log.info("썸네일 요청 "+fileName);
-		File f = new File("d:\\upload\\"+fileName);
+		File f = new File("\\home\\ec2-user\\upload\\"+fileName);
 		
 		ResponseEntity<byte[]> result = null;
 		
@@ -133,7 +133,7 @@ public class UploadController {
 		log.info("첨부파일 삭제 fileName : "+fileName+ " type : "+type);
 		
 		try {
-			File file = new File("d:\\upload\\"+URLDecoder.decode(fileName,"utf-8"));
+			File file = new File("\\home\\ec2-user\\upload\\"+URLDecoder.decode(fileName,"utf-8"));
 			
 			//썸네일 혹은 일반 파일 삭제
 			file.delete();
