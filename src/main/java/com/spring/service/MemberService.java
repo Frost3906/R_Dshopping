@@ -24,8 +24,8 @@ public interface MemberService {
 	
 	//pagination
 	public int totalMember(MemberCriteria memberCri);
-	public int getTotalBoard(MemberCriteria memberCri);
-	public List<BoardVO> myPageList(int pageNum, int amount);
+	public int getTotalBoard(String username);
+	public List<BoardVO> myPageList(String username, MemberCriteria memberCri);
 	
 	
 	//security table 

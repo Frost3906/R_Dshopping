@@ -10,6 +10,8 @@ import com.spring.domain.MemberPageVO;
 import com.spring.domain.MemberVO;
 import com.spring.domain.ModifyMemberVO;
 
+import lombok.experimental.PackagePrivate;
+
 public interface MemberMapper {
 	//Member
 	public MemberVO read(String userid);
@@ -26,8 +28,8 @@ public interface MemberMapper {
 		
 	//pagination
 	public int totalMember(MemberCriteria memberCri);
-	public List<BoardVO> myPageList(@Param("pageNum") int pageNum, @Param("amount") int amount);
-	public int getTotalBoard(MemberCriteria memberCri);
+	public List<BoardVO> myPageList(@Param("username") String username, @Param("memberCri") MemberCriteria memberCri);
+	public int getTotalBoard(String username);
 	
 	//security table 
 	public int SmemAuthInsert(MemberVO member);

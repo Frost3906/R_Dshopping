@@ -217,21 +217,21 @@ public class MemberController {
 	public List<BoardVO> qnaList(String username, MemberCriteria memberCri, Model model) {
 		log.info("MyPage QnA 탭 테이블 처리");
 		log.info(username);
-//		log.info(""+memberCri);
-//		MemberPageVO memberPage = new MemberPageVO(memberCri, service.getTotalBoard(memberCri));
-//		log.info(""+memberPage);
-//		
-//		int boards=service.getTotalBoard(memberCri);
-//		int idx = 0;
-//		if(boards%memberCri.getAmount()==0) {
-//			idx = (boards/memberCri.getAmount());
-//		} else {
-//			idx = (boards/memberCri.getAmount()+1);
-//		}
-//		
-//		model.addAttribute("idx", idx);	
-//		model.addAttribute("memberPage", memberPage);
-		return service.qnaList(username);
+		log.info(""+memberCri);
+		MemberPageVO memberPage = new MemberPageVO(memberCri, service.getTotalBoard(username));
+		log.info(""+memberPage);
+		
+		int boards=service.getTotalBoard(username);
+		int idx = 0;
+		if(boards%memberCri.getAmount()==0) {
+			idx = (boards/memberCri.getAmount());
+		} else {
+			idx = (boards/memberCri.getAmount()+1);
+		}
+		
+		model.addAttribute("idx", idx);	
+		model.addAttribute("memberPage", memberPage);
+		return service.myPageList(username, memberCri);
 	}
 	
 	//Admin

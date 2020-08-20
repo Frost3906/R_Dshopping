@@ -77,13 +77,13 @@
     <!-- 특정회원 게시물 pagination -->
     <select id="myPageList" resultType="com.spring.domain.BoardVO">
 	select * from
-		(select <![CDATA[rownum rno,]]> board.* from board where writer='01198711055@naver.com')
-	 where <![CDATA[rno>(#{pageNum}-1)*#{amount} and rno<=#{pageNum}*#{amount}]]>	
+		(select <![CDATA[rownum rno,]]> board.* from board where writer=#{username})
+	 where <![CDATA[rno>(#{memberCri.pageNum}-1)*#{memberCri.amount} and rno<=#{memberCri.pageNum}*#{memberCri.amount}]]>	
 	</select>	
 	
 	<!-- 특정 인원 게시물 총 갯수 -->
 	<select id="getTotalBoard" resultType="int">
-		select count(*) board where writer=#{username}
+		select count(*) from board where writer=#{username}
 	</select>
 	
 	

@@ -74,12 +74,12 @@ public class MemberServiceImpl implements MemberService {
 		return mapper.totalMember(memberCri);
 	}
 	@Override
-	public int getTotalBoard(MemberCriteria memberCri) {
-		return mapper.getTotalBoard(memberCri);
+	public int getTotalBoard(String username) {
+		return mapper.getTotalBoard(username);
 	}
 	@Override
-	public List<BoardVO> myPageList(int pageNum, int amount) {
-		return mapper.myPageList(pageNum, amount);
+	public List<BoardVO> myPageList(String username, MemberCriteria memberCri) {
+		return mapper.myPageList(username, memberCri);
 	}
 	
 	//Admin
