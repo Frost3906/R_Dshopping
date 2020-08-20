@@ -13,8 +13,36 @@
 	<div>
 	<div>
 		<div>
-			<div class="float-right mb-3">
-				<button id='regBtn' type='button' class='btn btn-xs pull-right btn-success' onclick="location.href='register'">Register New Board</button>
+			<div class="row mb-3">	<!-- start search -->
+				<div class="col-auto mr-auto">
+					<div class="col-auto">	<!-- search Form -->
+						<form action="" id="searchForm">
+							<input type="hidden" name="pageNum" value="${cri.pageNum}" />
+							<input type="hidden" name="amount" value="${cri.amount}" />
+							<select name="type" id="">
+								<option value="" <c:out value="${empty cri.type?'selected':''}" />>------</option>
+								<option value="T" <c:out value="${cri.type=='T'?'selected':''}" />>제목</option>
+								<option value="C" <c:out value="${cri.type=='T'?'selected':''}" />>내용</option>
+								<option value="W" <c:out value="${cri.type=='T'?'selected':''}" />>작성자</option>
+								<option value="TC" <c:out value="${cri.type=='T'?'selected':''}" />>제목 or 내용</option>
+								<option value="TW" <c:out value="${cri.type=='T'?'selected':''}" />>제목 or 작성자</option>
+								<option value="TCW" <c:out value="${cri.type=='T'?'selected':''}" />>제목 or 내용 or 작성자</option>
+							</select>
+							<input type="text" name="keyword" value="${cri.keyword}" />
+							<button class="btn btn-success" type="button">검색</button>
+						</form>
+					</div>
+				</div>	
+				<!-- end search -->
+				<div class="col-auto">
+					<!-- 페이지 목록 갯수 지정하는 폼 -->
+					<select class="form-control" name="amount">
+						<option value="10" <c:out value="${criteria.amount == 10?'selected':''}"/>>10</option>
+						<option value="20" <c:out value="${criteria.amount == 20?'selected':''}"/>>20</option>
+						<option value="30" <c:out value="${criteria.amount == 30?'selected':''}"/>>30</option>
+						<option value="40" <c:out value="${criteria.amount == 40?'selected':''}"/>>40</option>
+					</select>
+				</div>
 			</div>
 			<!-- /.panel-heading -->
 			<div>
@@ -41,47 +69,20 @@
 						</c:forEach>
 					</tbody>
 				</table>
-				<div class="row">	<!-- start search -->
-					<div class="col-md-12">
-						<div class="col-md-8">	<!-- search Form -->
-							<form action="" id="searchForm">
-								<input type="hidden" name="pageNum" value="${cri.pageNum}" />
-								<input type="hidden" name="amount" value="${cri.amount}" />
-								<select name="type" id="">
-									<option value="" <c:out value="${empty cri.type?'selected':''}" />>------</option>
-									<option value="T" <c:out value="${cri.type=='T'?'selected':''}" />>제목</option>
-									<option value="C" <c:out value="${cri.type=='T'?'selected':''}" />>내용</option>
-									<option value="W" <c:out value="${cri.type=='T'?'selected':''}" />>작성자</option>
-									<option value="TC" <c:out value="${cri.type=='T'?'selected':''}" />>제목 or 내용</option>
-									<option value="TW" <c:out value="${cri.type=='T'?'selected':''}" />>제목 or 작성자</option>
-									<option value="TCW" <c:out value="${cri.type=='T'?'selected':''}" />>제목 or 내용 or 작성자</option>
-								</select>
-								<input type="text" name="keyword" value="${cri.keyword}" />
-								<button class="btn btn-success" type="button">검색</button>
-							</form>
-						</div>
-						<div class="col-md-2 col-md-offset-2">
-							<!-- 페이지 목록 갯수 지정하는 폼 -->
-							<select class="form-control" name="amount">
-								<option value="10" <c:out value="${criteria.amount == 10?'selected':''}"/>>10</option>
-								<option value="20" <c:out value="${criteria.amount == 20?'selected':''}"/>>20</option>
-								<option value="30" <c:out value="${criteria.amount == 30?'selected':''}"/>>30</option>
-								<option value="40" <c:out value="${criteria.amount == 40?'selected':''}"/>>40</option>
-							</select>
-						</div>
-					</div>
-				</div>	<!-- end search -->
+				<div class="float-right mb-3">
+					<button id='regBtn' type='button' class='btn btn-xs pull-right btn-success' onclick="location.href='register'">Register New Board</button>
+				</div>
 				<!-- start Pagination -->
-				<div class="text-center">
-					<ul class="pagination">
+				<div style="display: table; margin-left: auto; margin-right: auto;">
+					<ul class="pagination mb-3">
 						<c:if test="${pageVO.prev}">
-							<li class="paginate_button previous"><a href="${pageVO.startPage-1}">Previous</a></li>
+							<li class="page-item paginate_button previous"><a class="page-link" href="${pageVO.startPage-1}">Previous</a></li>
 						</c:if>
 						<c:forEach var="idx" begin="${pageVO.startPage}" end="${pageVO.endPage}">
-							<li class="paginate_button ${pageVO.cri.pageNum==idx?'active':''}"><a href="${idx}">${idx}</a></li>
+							<li class="page-item paginate_button ${pageVO.cri.pageNum==idx?'active':''}"><a class="page-link" href="${idx}">${idx}</a></li>
 						</c:forEach>
 						<c:if test="${pageVO.next}">
-							<li class="paginate_button next"><a href="${pageVO.endPage+1}">Next</a></li>
+							<li class="page-item paginate_button next"><a class="page-link" href="${pageVO.endPage+1}">Next</a></li>
 						</c:if>
 					</ul>
 				</div>

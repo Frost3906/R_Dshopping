@@ -2,6 +2,8 @@ package com.spring.service;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.spring.domain.BoardVO;
 import com.spring.domain.MemberCriteria;
 import com.spring.domain.MemberVO;
@@ -19,7 +21,12 @@ public interface MemberService {
 	public List<MemberVO> listMember();
 	public int leaveMember(String username);	
 	
+	
+	//pagination
 	public int totalMember(MemberCriteria memberCri);
+	public int getTotalBoard(String username);
+	public List<BoardVO> myPageList(String username, MemberCriteria memberCri);
+	
 	
 	//security table 
 	public int SmemAuthInsert(MemberVO member);

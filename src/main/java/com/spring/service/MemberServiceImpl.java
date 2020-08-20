@@ -68,9 +68,18 @@ public class MemberServiceImpl implements MemberService {
 		return mapper.leaveMember(username);
 	}
 	
+	//pagination
 	@Override
 	public int totalMember(MemberCriteria memberCri) {
 		return mapper.totalMember(memberCri);
+	}
+	@Override
+	public int getTotalBoard(String username) {
+		return mapper.getTotalBoard(username);
+	}
+	@Override
+	public List<BoardVO> myPageList(String username, MemberCriteria memberCri) {
+		return mapper.myPageList(username, memberCri);
 	}
 	
 	//Admin
@@ -97,4 +106,6 @@ public class MemberServiceImpl implements MemberService {
 	public int SmemInsert(MemberVO member) {
 		return mapper.SmemInsert(member);
 	}
+
+
 }

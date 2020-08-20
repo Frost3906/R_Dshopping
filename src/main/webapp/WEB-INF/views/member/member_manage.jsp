@@ -205,13 +205,13 @@
                     <input type="text" name="auth" class="form-control form-control-sm">
                 </div>
             </div>	                 
+	      <div class="modal-footer">
+	        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+	        <button type="button" class="btn btn-success manageModify" >Modify</button>
+	        <button type="button" class="btn btn-danger manageDelete" >Delete</button>
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+	      </div>
          </form>
-      </div>
-      <div class="modal-footer">
-        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-        <button type="button" class="btn btn-success manageModify" >Modify</button>
-        <button type="button" class="btn btn-danger manageDelete" >Delete</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
       </div>
     </div>
   </div>
@@ -227,22 +227,21 @@ $(function(){
 	//MemberModal의 modify 버튼 클릭
 	$(".manageModify").click(function(){
 		var manageMemberForm=$("#sendInfo");
-		console.log(manageMemberForm);
-		//manageMemberForm.setAttribute("action", "/member/manageModify");
+		
 		manageMemberForm.attr("action", "manageModify");
 		manageMemberForm.submit();		
 	})
 	
 	//MemberModal의 delete 버튼 클릭
-	$(".manageDelete").click(function(){
+	$(".manageDelete").click(function(e){
+		e.preventDefault();
 		var manageMemberForm=$("#sendInfo");
 		
-		//manageMemberForm.setAttribute("action", "/member/manageDelete");
-		manageMemberForm.setAttribute("action", "manageDelete");
+		manageMemberForm.attr("action", "manageDelete");
 		manageMemberForm.submit();		
-	})
+	})	
 	
-	
+	//Manage Modal에 회원 정보 띄우기
 	$(".manageMember").click(function(e){
 		e.preventDefault();
 		
@@ -286,6 +285,7 @@ $(function(){
 		// 폼 전송하기
 		actionForm.submit();		
 	});
+	
 	
 	// 한페이지에 보여줄 리스트 수 조절 옵션 부분
 	$("#amount").change(function(){
