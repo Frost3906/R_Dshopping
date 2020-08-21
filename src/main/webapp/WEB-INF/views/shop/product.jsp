@@ -77,7 +77,7 @@
       				상품에 대한 설명
       			</div>
       			<div id="goods-infomation" class="tab-pane" aria-labelledby="goods-infomation-tab">
-      				제품 상세
+      				<img src='/upload/${vo.detailImage}' style='max-width: 100%; height: auto;'/>
       			</div>
       			<!-- 리뷰 시작 -->
        			<div id="goods-review" class="tab-pane" aria-labelledby="goods-review-tab">

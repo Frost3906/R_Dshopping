@@ -130,8 +130,8 @@ public class MemberController {
 			rttr.addFlashAttribute("info","회원가입이 완료되었습니다.\n 로그인 해 주세요.");
 			return "redirect:login";
 		}else {
-			rttr.addFlashAttribute("error","회원가입이 실패했습니다.");			
-			return "/member/signUp";
+			rttr.addFlashAttribute("info","회원가입이 실패했습니다.");			
+			return "redirect/member/signUp";
 		}
 	}
 	
@@ -170,7 +170,7 @@ public class MemberController {
 	
 	
 	@PostMapping("/forgetPwd")
-    public String sendEmailAction (MemberVO member, Model model) throws Exception {
+    public String sendEmailAction (RedirectAttributes rttr, MemberVO member, Model model) throws Exception {
         log.info("E-mail 전송 서비스");
         log.info(""+member);
         
@@ -198,24 +198,49 @@ public class MemberController {
         		email.setReciver(vo.getUsername());
         		email.setSubject(vo.getFirstName()+"님 비밀번호 찾기 메일입니다.");
         		emailSender.SendEmail(email);
+        		rttr.addFlashAttribute("info", "메일이 발송되었습니다.");
         		return "redirect:/member/login";        	
         	}else {
+        		rttr.addFlashAttribute("info", "핸드폰 번호가 일치하지 않습니다.");
         		return "redirect:/";
         	}           	
         }else {
+        	rttr.addFlashAttribute("info", "이메일이 일치하지 않습니다.");
         	return "redirect:/";
         }
     }
 	
 	
 	//MyPage
+	//QnA 게시판 글 가져오기
 	@GetMapping("/myPage/qnaList")
 	@ResponseBody
-	public List<BoardVO> qnaList(String username) {
+	public List<BoardVO> qnaList(String username, MemberCriteria memberCri, Model model) {
 		log.info("MyPage QnA 탭 테이블 처리");
 		log.info(username);
+		log.info(""+memberCri);
+		MemberPageVO memberPage = new MemberPageVO(memberCri, service.getTotalBoard(username));
+		log.info(""+memberPage);
 		
-		return service.qnaList(username);
+		int boards=service.getTotalBoard(username);
+		int idx = 0;
+		if(boards%memberCri.getAmount()==0) {
+			idx = (boards/memberCri.getAmount());
+		} else {
+			idx = (boards/memberCri.getAmount()+1);
+		}
+		
+		model.addAttribute("idx", idx);	
+		model.addAttribute("memberPage", memberPage);
+		return service.myPageList(username, memberCri);
+	}
+	
+	@PreAuthorize("isAuthenticated()")
+	//QnA 게시판 글 읽기
+	@GetMapping("/myPage/QnARead")
+	public String QnARead() {
+		
+		return "redirect:/board/read";
 	}
 	
 	//Admin
@@ -253,24 +278,41 @@ public class MemberController {
 		log.info("ManageModal Modify 진행");
 		
 		if(service.manageModify(member)>0) {
-			//rttr.addFlashAttribute("success", "변경이 완료 되었습니다.");
+			rttr.addFlashAttribute("info", "변경이 완료 되었습니다.");
 			return "redirect:/member/member_manage";			
 		}else {
-			//rttr.addFlashAttribute("fail", "변경이 실패했습니다..");			
+			rttr.addFlashAttribute("info", "변경이 실패했습니다..");			
 			return "redirect:/";			
 		}		
 	}
 	
 	@PostMapping("/manageDelete")
-	public String manageDelete(String username) {
+	public String manageDelete(RedirectAttributes rttr, String username) {
 		log.info("ManageDelete Delete 진행");
 		
 		if(service.leaveMember(username)>0) {
-			//rttr.addFlashAttribute("success", "삭제가 완료 되었습니다.");
+			rttr.addFlashAttribute("info", "삭제가 완료 되었습니다.");
 			return "redirect:/member/member_manage";	
 		}else {
-			//rttr.addFlashAttribute("fail", "삭제가 실패했습니다..");			
+			rttr.addFlashAttribute("fail", "삭제가 실패했습니다..");			
 			return "redirect:/";			
 		}				
+	}
+	
+	@PostMapping("/createAdmin")
+	public String createAdmin(MemberVO member, RedirectAttributes rttr, HttpSession session) {
+		log.info("Admin 계정 생성 절차 진행");
+		log.info(""+member);
+		
+		member.setPassword(encorder.encode(member.getPassword()));
+		
+		if(service.createAdmin(member)>0) {
+			session.removeAttribute("auth");
+			rttr.addFlashAttribute("info", "관리자 계정 생성이 완료 되었습니다.");			
+			return "redirect:login";
+		}else {
+			rttr.addFlashAttribute("info", "관리자 계정 생성이 실패 했습니다.");
+			return "redirect:member_manage";			
+		}
 	}
 }

@@ -10,8 +10,9 @@
 	</div>
   	<div class="row mb-3">
   		<div class="col-auto mr-auto">
+  		<button type="button" class="btn btn-success" id="createAdminBtn">Create Admin Account</button>
   		</div>
-  		<div class="col-auto">
+  		<div class="col-auto">  		
   		<select class="form-control" id="amount" name="amount">
 			<option value="10" <c:out value="${memberPage.amount==10?'selected':''}"/>>10</option>
 			<option value="20" <c:out value="${memberPage.amount==20?'selected':''}"/>>20</option>
@@ -99,13 +100,12 @@
 <!-- 정보를 전달할 히든 폼 -->
 <form action="member_manage" id="actionForm">
 	<input type="hidden" name="keyword" value="${memberPage.memberCri.keyword}" />
-	<input type="hidden" name="pageNum" value="${memberPage.nowPage}" />
+	<input type="hidden" name="pageNum" value="${memberPage.memberCri.pageNum}" />
 	<input type="hidden" name="amount" value="${memberPage.amount}" />
 </form>
 <input type="hidden" id="totalMember" name="totalMember" value="${memberPage.total}" />
 
-
-<%-- Manage Modify Member Modal --%>
+<%-- Manage Member ModifyModal --%>
 <div class="modal fade"  id="manageMemberModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -205,18 +205,83 @@
                     <input type="text" name="auth" class="form-control form-control-sm">
                 </div>
             </div>	                 
+	      <div class="modal-footer">
+	        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+	        <button type="button" class="btn btn-success manageModify" >Modify</button>
+	        <button type="button" class="btn btn-danger manageDelete" >Delete</button>
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+	      </div>
          </form>
-      </div>
-      <div class="modal-footer">
-        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-        <button type="button" class="btn btn-success manageModify" >Modify</button>
-        <button type="button" class="btn btn-danger manageDelete" >Delete</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
       </div>
     </div>
   </div>
 </div>
 
+<%-- Create Admin Account Modal --%>
+<div class="modal fade" id="createAdminModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Create Admin Account</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+	     <form action="createAdmin" method="post">	     	
+	     	<div class="row form-row">
+                <div class="col-md-4 mb-2">
+                    <label for="">Admin ID</label>
+                </div>
+                <div class="col-md-8">
+                    <input type="text" name="username" class="form-control form-control-sm">
+                </div>
+            </div>
+	     	<div class="row form-row">
+                <div class="col-md-4 mb-2">
+                    <label for="">Password</label>
+                </div>
+                <div class="col-md-8">
+                    <input type="text" name="password" class="form-control form-control-sm">
+                </div>
+            </div>	                 
+	     	<div class="row form-row">
+                <div class="col-md-4 mb-2">
+                    <label for="">Mobile</label>
+                </div>
+                <div class="col-md-8">
+                    <input type="text" name="mobile" class="form-control form-control-sm">
+                </div>
+            </div>	                 
+	     	<div class="row form-row">
+                <div class="col-md-4 mb-2">
+                    <label for="">First Name</label>
+                </div>
+                <div class="col-md-8">
+                    <input type="text" name="firstName" class="form-control form-control-sm">
+                </div>
+            </div>	                 
+	     	<div class="row form-row">
+                <div class="col-md-4 mb-2">
+                    <label for="">Last Name</label>
+                </div>
+                <div class="col-md-8">
+                    <input type="text" name="lastName" class="form-control form-control-sm">
+                </div>
+            </div>	
+          <input type="hidden" name="auth" class="form-control form-control-sm" value="ROLE_ADMIN">
+                               
+	      <div class="modal-footer">
+	        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+	        <button type="submit" class="btn btn-success" >Create</button>
+	        <button type="reset" class="btn btn-danger" >Reset</button>
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+	      </div>
+         </form>
+      </div>
+    </div>
+  </div>
+</div>
 <!-- 페이지 나누기 모달 추가 -->
 <%@ include file="../option/paginationModal.jsp" %> 
 <script>
@@ -227,22 +292,21 @@ $(function(){
 	//MemberModal의 modify 버튼 클릭
 	$(".manageModify").click(function(){
 		var manageMemberForm=$("#sendInfo");
-		console.log(manageMemberForm);
-		//manageMemberForm.setAttribute("action", "/member/manageModify");
+		
 		manageMemberForm.attr("action", "manageModify");
 		manageMemberForm.submit();		
-	})
+	});
 	
 	//MemberModal의 delete 버튼 클릭
-	$(".manageDelete").click(function(){
+	$(".manageDelete").click(function(e){
+		e.preventDefault();
 		var manageMemberForm=$("#sendInfo");
 		
-		//manageMemberForm.setAttribute("action", "/member/manageDelete");
-		manageMemberForm.setAttribute("action", "manageDelete");
+		manageMemberForm.attr("action", "manageDelete");
 		manageMemberForm.submit();		
-	})
+	});
 	
-	
+	//Manage Modal에 회원 정보 띄우기
 	$(".manageMember").click(function(e){
 		e.preventDefault();
 		
@@ -272,7 +336,7 @@ $(function(){
 		        alert("실패");
 		    }
 		})
-	})
+	});
 	
 	//페이지 나누기  관련 Script
 	// 정보를 보낼 hidden 폼인 actionForm 가져오기
@@ -286,6 +350,7 @@ $(function(){
 		// 폼 전송하기
 		actionForm.submit();		
 	});
+	
 	
 	// 한페이지에 보여줄 리스트 수 조절 옵션 부분
 	$("#amount").change(function(){
@@ -312,6 +377,9 @@ $(function(){
 			}
 		})
 	});
+	$("#createAdminBtn").click(function(){
+		$("#createAdminModal").modal("show")
+	})
 });
 </script>
 

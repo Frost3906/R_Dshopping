@@ -15,5 +15,6 @@ public class ProductVO {
 	private String p_category3;
 	private String property;
 	private String image;
+	private String detailImage;
 	private int rno;
 }

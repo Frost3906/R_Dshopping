@@ -6,7 +6,7 @@
 <div class="row mp_main">
   <div class="col-3">
 	<div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-	  <a class="nav-link active" id="v-pills-order-tab" data-toggle="pill" href="#v-pills-order" role="tab" aria-controls="v-pills-order" aria-selected="true">Order</a>
+	  <a class="nav-link active" id="v-pills-order-tab" data-toggle="pill" href="#v-pills-order" role="tab" aria-controls="v-pills-order" aria-selected="false">Order</a>
 	  <a class="nav-link" id="v-pills-shipping-tab" data-toggle="pill" href="#v-pills-shipping" role="tab" aria-controls="v-pills-shipping" aria-selected="false">Shipping</a>
 	  <a class="nav-link" id="v-pills-account-tab" data-toggle="pill" href="#v-pills-account" role="tab" aria-controls="v-pills-account" aria-selected="false">Your Account</a>	  
 	  <a class="nav-link" id="v-pills-question-tab" data-toggle="pill" href="#v-pills-question" role="tab" aria-controls="v-pills-question" aria-selected="false">Question</a>
@@ -162,7 +162,7 @@
 		    </li>	
 		    </c:if>	    
 		    <c:forEach var="idx" begin="${memberPage.startPage}" end="${memberPage.endPage}">
-		    <li class="page-item ${memberPage.memberCri.pageNum==idx?'active':''}"><a class="page-link" style="color:black" href="${idx}">${idx}</a></li>
+		    <li class="page-item pageColor ${memberPage.memberCri.pageNum==idx?'active':''}"><a class="page-link idx_num" style="color:black" href="${idx}">${idx}</a></li>
 		    </c:forEach>
 		    <c:if test="${memberPage.next}">
 		    <li class="page-item">
@@ -177,16 +177,88 @@
 	</div>
   </div>
 </div>
+
+<!-- 정보를 전달할 히든 폼 -->
+<form action="myPage" id="actionForm">
+	<input type="hidden" name="keyword" value="${memberPage.memberCri.keyword}" />
+	<input type="hidden" name="pageNum" value="${memberPage.memberCri.pageNum}" />
+	<input type="hidden" name="amount" value="${memberPage.memberCri.amount}" />
+</form>
+	<input type="hidden" id="totalMember" name="totalMember" value="${memberPage.total}" />
 <script>
+
 let username='${auth.username}';
+let pageNum='${memberPage.memberCri.pageNum}';
+let amount='${memberPage.amount}';
 console.log(username);
+console.log(pageNum);
+console.log(amount);
 	
+//페이지 나누기  관련 Script
+// 정보를 보낼 hidden 폼인 actionForm 가져오기
+let actionForm = $("#actionForm");
+
+// 페이지 나누기 버튼 동작 부분
+	$(".idx_num").click(function(e){
+	e.preventDefault();
+	let selectPage = $(this).attr("href");	
+	
+	let pageNum='${memberPage.memberCri.pageNum}';
+	//$(this).addClass("active");
+	$(this).parent().addClass("active");	
+	
+	
+	
+	// 전송해야 할 폼 가져온 후 pageNum 의 값 변경
+	actionForm.find("input[name='pageNum']").val(selectPage);
+	
+	$.ajax({
+	    type:"get",
+	    url : "/member/myPage/qnaList",
+	    data: {
+		    	username:username,
+		    	pageNum:selectPage,
+		    	amount:amount
+	    	},
+	    success : function(result){
+	        let str = "";
+	        
+	        console.log(result);
+	        console.log(result.length);
+	        console.log(result[0].bno);
+	        console.log(result[0].title);
+	        console.log(result[0].writer);
+	        console.log(moment(result[0].regdate).format('YYYY-MM-DD HH:mm:ss'));
+	        
+	        if(result.length > 0){
+	            for(i=0; i < result.length; i++){
+	                str+="<tr id='qna'>";
+	                str+="<th>"+result[i].bno+"</th>";
+	                str+="<td><a href='/myPage/QnARead'>"+result[i].title+"</a></td>";	                
+	                str+="<td>"+result[i].answer+"</td>";
+	                str+="<td>"+result[i].writer+"</td>";
+	                str+="<td>"+moment(result[i].regdate).format('YYYY-MM-DD HH:mm:ss')+"</td>";                	
+	                str+="</tr>";	                
+	            }	            
+	        } 	        
+	        $("#qnaList").html(str);	        
+	    },
+	    error:function(request,status,error){
+	        alert("fail");
+	   }
+	});	
+});	
+
 //QnA 리스트
 function qnaList(){	
 	$.ajax({
 	    type:"get",
 	    url : "/member/myPage/qnaList",
-	    data: {username:username},
+	    data: {
+		    	username:username,
+		    	pageNum:pageNum,
+		    	amount:amount
+	    	},
 	    success : function(result){
 	        let str = "";
 	        

@@ -80,7 +80,7 @@
 			            <a class="nav-link" style="padding: 8px;" href="/shop/cart">Cart</a>
 			          </li>
 			          <li class="nav-item">
-			            <a class="nav-link" style="padding: 8px;" href="/member/myPage" style="text-decoration: underline;">HI!! ${auth.firstName}</a>
+			            <a class="nav-link" style="padding: 8px;" href="/member/myPage?pageNum=1&amount=10" style="text-decoration: underline;">HI!! ${auth.firstName}</a>
 			          </li>
 			          <li class="nav-item">
 			          <form action="/member/logout" method="post">
@@ -148,3 +148,9 @@
 			</div>
 		</nav>
 	</div>
+<script>
+	let info='${info}';
+	if (info !== ""){
+		alert(info);
+	}
+</script>
