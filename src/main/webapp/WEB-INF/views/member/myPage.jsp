@@ -156,7 +156,7 @@
 		  <ul class="pagination" style="justify-content: center">
 		  <c:if test="${memberPage.prev}">
 		    <li class="page-item" >
-		      <a class="page-link" style="color:black" href="${memberPage.startPage-1 }" aria-label="Previous">
+		      <a class="page-link previousPage" style="color:black" href="${memberPage.previousPage}" aria-label="Previous">
 		        <span aria-hidden="true">&laquo;</span>
 		      </a>
 		    </li>	
@@ -166,7 +166,7 @@
 		    </c:forEach>
 		    <c:if test="${memberPage.next}">
 		    <li class="page-item">
-		      <a class="page-link" style="color:black" href="${memberPage.endPage+1}" aria-label="Next">
+		      <a class="page-link nextPage" style="color:black" href="${memberPage.nextPage}" aria-label="Next">
 		        <span aria-hidden="true">&raquo;</span>
 		      </a>
 		    </li>
@@ -183,71 +183,174 @@
 	<input type="hidden" name="keyword" value="${memberPage.memberCri.keyword}" />
 	<input type="hidden" name="pageNum" value="${memberPage.memberCri.pageNum}" />
 	<input type="hidden" name="amount" value="${memberPage.memberCri.amount}" />
-</form>
 	<input type="hidden" id="totalMember" name="totalMember" value="${memberPage.total}" />
+</form>
 <script>
 
 let username='${auth.username}';
 let pageNum='${memberPage.memberCri.pageNum}';
 let amount='${memberPage.amount}';
+let total='${memberPage.total}';
 console.log(username);
 console.log(pageNum);
 console.log(amount);
+console.log(total);
 	
 //페이지 나누기  관련 Script
 // 정보를 보낼 hidden 폼인 actionForm 가져오기
 let actionForm = $("#actionForm");
+	
 
-// 페이지 나누기 버튼 동작 부분
+	// 페이지 나누기 버튼 동작 부분
+	//page 번호 누를시
 	$(".idx_num").click(function(e){
-	e.preventDefault();
-	let selectPage = $(this).attr("href");	
-	
-	let pageNum='${memberPage.memberCri.pageNum}';
-	//$(this).addClass("active");
-	$(this).parent().addClass("active");	
-	
-	
-	
-	// 전송해야 할 폼 가져온 후 pageNum 의 값 변경
-	actionForm.find("input[name='pageNum']").val(selectPage);
-	
-	$.ajax({
-	    type:"get",
-	    url : "/member/myPage/qnaList",
-	    data: {
-		    	username:username,
-		    	pageNum:selectPage,
-		    	amount:amount
-	    	},
-	    success : function(result){
-	        let str = "";
-	        
-	        console.log(result);
-	        console.log(result.length);
-	        console.log(result[0].bno);
-	        console.log(result[0].title);
-	        console.log(result[0].writer);
-	        console.log(moment(result[0].regdate).format('YYYY-MM-DD HH:mm:ss'));
-	        
-	        if(result.length > 0){
-	            for(i=0; i < result.length; i++){
-	                str+="<tr id='qna'>";
-	                str+="<th>"+result[i].bno+"</th>";
-	                str+="<td><a href='/myPage/QnARead'>"+result[i].title+"</a></td>";	                
-	                str+="<td>"+result[i].answer+"</td>";
-	                str+="<td>"+result[i].writer+"</td>";
-	                str+="<td>"+moment(result[i].regdate).format('YYYY-MM-DD HH:mm:ss')+"</td>";                	
-	                str+="</tr>";	                
-	            }	            
-	        } 	        
-	        $("#qnaList").html(str);	        
-	    },
-	    error:function(request,status,error){
-	        alert("fail");
-	   }
+		e.preventDefault();
+		let selectPage = $(this).attr("href");	
+		
+		//$(this).addClass("active");
+		$(".pageColor").removeClass('active');
+		$(this).parent().addClass("active");
+		
+		// 전송해야 할 폼 가져온 후 pageNum 의 값 변경
+		actionForm.find("input[name='pageNum']").val(selectPage);
+		
+		$.ajax({
+		    type:"get",
+		    url : "/member/myPage/qnaList",
+		    data: {
+			    	username:username,
+			    	pageNum:selectPage,
+			    	amount:amount,
+			    	total:total
+		    	},
+		    	success : function(result){
+		        let str = "";
+		        
+		        console.log(result);
+		        console.log(result.length);
+		        console.log(result[0].bno);
+		        console.log(result[0].title);
+		        console.log(result[0].writer);
+		        console.log(moment(result[0].regdate).format('YYYY-MM-DD HH:mm:ss'));
+		        
+		        if(result.length > 0){
+		            for(i=0; i < result.length; i++){
+		                str+="<tr id='qna'>";
+		                str+="<th>"+result[i].bno+"</th>";
+		                str+="<td><a href='/myPage/QnARead'>"+result[i].title+"</a></td>";	                
+		                str+="<td>"+result[i].answer+"</td>";
+		                str+="<td>"+result[i].writer+"</td>";
+		                str+="<td>"+moment(result[i].regdate).format('YYYY-MM-DD HH:mm:ss')+"</td>";                	
+		                str+="</tr>";	                
+		            }	            
+		        } 	        
+		        $("#qnaList").html(str);	        
+		    },
+		    error:function(request,status,error){
+		        alert("fail");
+		   }
+		});	
 	});	
-});	
+	
+	// 다음 페이지 버튼을 누르면
+	$(".nextPage").click(function(e){
+		// 실행을 멈추고
+		e.preventDefault();
+		// 현재 페이지가 어디인지 가져온 다음 (1)
+		let nowPage = actionForm.find("input[name='pageNum']").val();		
+		// 그 페이지에 +1을 해주고			
+		// ajax를 이용해서 현재페이지+1에 해당하는 정보를 가져온 후
+		$.ajax({
+		    type:"get",
+		    url : "/member/myPage/qnaList",
+		    data: {
+			    	username:username,
+			    	pageNum:parseInt(nowPage)+1,
+			    	amount:amount,
+			    	total:total
+		    	},
+		    	success : function(result){
+		        let str = "";
+		        
+		        console.log(result);
+		        console.log(result.length);
+		        console.log(result[0].bno);
+		        console.log(result[0].title);
+		        console.log(result[0].writer);
+		        console.log(moment(result[0].regdate).format('YYYY-MM-DD HH:mm:ss'));
+		        
+		        if(result.length > 0){
+		            for(i=0; i < result.length; i++){
+		                str+="<tr id='qna'>";
+		                str+="<th>"+result[i].bno+"</th>";
+		                str+="<td><a href='/myPage/QnARead'>"+result[i].title+"</a></td>";	                
+		                str+="<td>"+result[i].answer+"</td>";
+		                str+="<td>"+result[i].writer+"</td>";
+		                str+="<td>"+moment(result[i].regdate).format('YYYY-MM-DD HH:mm:ss')+"</td>";                	
+		                str+="</tr>";	                
+		            }	            
+		        } 	        
+		        $("#qnaList").html(str);	        
+		    },
+		    error:function(request,status,error){
+		        alert("fail");
+		   }
+		});
+		// 처리를 해주고
+		// 늘어난 페이지 값을
+		// 다시 hidden form에 넣어주기
+		actionForm.find("input[name='pageNum']").val(parseInt(nowPage)+1);
+	});
+	
+	// 다음 페이지 버튼을 누르면
+	$(".previousPage").click(function(e){
+		// 실행을 멈추고
+		e.preventDefault();
+		// 현재 페이지가 어디인지 가져온 다음 (1)
+		let nowPage = actionForm.find("input[name='pageNum']").val();		
+		// 그 페이지에 +1을 해주고			
+		// ajax를 이용해서 현재페이지+1에 해당하는 정보를 가져온 후
+		$.ajax({
+		    type:"get",
+		    url : "/member/myPage/qnaList",
+		    data: {
+			    	username:username,
+			    	pageNum:parseInt(nowPage)-1,
+			    	amount:amount,
+			    	total:total
+		    	},
+		    	success : function(result){
+		        let str = "";
+		        
+		        console.log(result);
+		        console.log(result.length);
+		        console.log(result[0].bno);
+		        console.log(result[0].title);
+		        console.log(result[0].writer);
+		        console.log(moment(result[0].regdate).format('YYYY-MM-DD HH:mm:ss'));
+		        
+		        if(result.length > 0){
+		            for(i=0; i < result.length; i++){
+		                str+="<tr id='qna'>";
+		                str+="<th>"+result[i].bno+"</th>";
+		                str+="<td><a href='/myPage/QnARead'>"+result[i].title+"</a></td>";	                
+		                str+="<td>"+result[i].answer+"</td>";
+		                str+="<td>"+result[i].writer+"</td>";
+		                str+="<td>"+moment(result[i].regdate).format('YYYY-MM-DD HH:mm:ss')+"</td>";                	
+		                str+="</tr>";	                
+		            }	            
+		        } 	        
+		        $("#qnaList").html(str);	        
+		    },
+		    error:function(request,status,error){
+		        alert("fail");
+		   }
+		});
+		// 처리를 해주고
+		// 늘어난 페이지 값을
+		// 다시 hidden form에 넣어주기
+		actionForm.find("input[name='pageNum']").val(parseInt(nowPage)-1);
+	});
 
 //QnA 리스트
 function qnaList(){	
@@ -257,7 +360,8 @@ function qnaList(){
 	    data: {
 		    	username:username,
 		    	pageNum:pageNum,
-		    	amount:amount
+		    	amount:amount,
+		    	total:total
 	    	},
 	    success : function(result){
 	        let str = "";

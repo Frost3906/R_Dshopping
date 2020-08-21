@@ -3,6 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <link rel="stylesheet" href="/resources/css/mycss.css" />
+<link rel="stylesheet" href="/resources/css/reply.css" />
 <%@ include file="../includes/header.jsp" %>   
 <div class="container">
     <div class="row">
@@ -32,13 +33,15 @@
         					<label>Content</label>
         					<textarea class="form-control" rows="3" name="content" readonly="readonly">${vo.content}</textarea>               				
         				</div> 
+        				<div style="text-align: right;">
              				<sec:authentication property="principal" var="info"/>
              				<sec:authorize access="isAuthenticated()">
              					<c:if test="${info.username == vo.writer}">
-             						<button type="button" class="btn btn-default">Modify</button>
+             						<button type="button" class="btn btn-default" style="border: 1px solid #ddd;">Modify</button>
              					</c:if>
              				</sec:authorize>
-            				<button type="reset" class="btn btn-info">List</button>      			
+            				<button type="reset" class="btn btn-info" style="border: 1px solid #ddd;">List</button>
+        				</div>
         			</form>
         		</div>
         	</div>
@@ -67,7 +70,7 @@
 				<div class="panel-heading">
 					<i class="fa fa-comments fa-fw"></i>
 					Reply
-					<button id="addReplyBtn" class="btn btn-primary btn-xs pull-right">
+					<button id="addReplyBtn" class="btn btn-primary btn-xs pull-right" style="padding: 1px 5px;font-size: 12px;line-height: 1.5;border-radius: 3px;">
 						New Reply
 					</button>
 				</div>

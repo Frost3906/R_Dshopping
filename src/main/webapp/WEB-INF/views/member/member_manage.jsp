@@ -87,7 +87,7 @@
   		<div>
 		    <!-- 검색 및 검색 버튼 -->
 		    <form class="form-inline my-2 my-lg-0" method="get" action="product_manage" style="display: contents;" >
-		      <input class="form-control mr-sm-2" style="margin-right: 8px; width: 350px;" name="manageKeyword" type="search" placeholder="Input E-mail(RD_Shop@RDS.com)" aria-label="Search" <c:if test="${!empty manageKeyword}">value="${manageKeyword}"</c:if>>
+		      <input class="form-control mr-sm-2" style="margin-right: 8px; width: 350px;" name="manageKeyword" type="search" placeholder="Input E-mail or Admin ID" aria-label="Search" <c:if test="${!empty manageKeyword}">value="${manageKeyword}"</c:if>>
 		      <input type="hidden" name="pageNum" value="1" />
 		      <input type="hidden" name="amount" value="${amount}" />
 		      <input type="hidden" name="manageKeyword" value="${manageKeyword}" />
@@ -242,7 +242,7 @@
                     <label for="">Password</label>
                 </div>
                 <div class="col-md-8">
-                    <input type="text" name="password" class="form-control form-control-sm">
+                    <input type="password" name="password" class="form-control form-control-sm">
                 </div>
             </div>	                 
 	     	<div class="row form-row">
