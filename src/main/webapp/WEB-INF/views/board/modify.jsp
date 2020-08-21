@@ -5,6 +5,7 @@
 <link rel="stylesheet" href="/resources/css/mycss.css" />
 <link rel="stylesheet" href="/resources/css/reply.css" />
 <%@ include file="../includes/header.jsp" %>
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.2/dist/jquery.validate.min.js"></script>
 
 <div class="container">
     <div class="row">
@@ -307,31 +308,37 @@ $(function(){
 		let oper = $(this).data("oper");
 		
 		if(oper === 'modify'){
-			// modify버튼이 눌러지면 수정 폼 보내기
-			form = $("form[role='form']");
-			// 첨부파일 정보를 수집해서 수정 버튼이 눌러지면 다시 보내기
-			let str = "";
-			$(".uploadResult ul li").each(function(i, ele) {
-				let job = $(ele);
-				
-				str += "<input type='hidden' name='attachList["+i+"].uuid' value='"+job.data("uuid")+"'>";
-				str += "<input type='hidden' name='attachList["+i+"].uploadPath' value='"+job.data("path")+"'>";
-				str += "<input type='hidden' name='attachList["+i+"].fileName' value='"+job.data("filename")+"'>";
-				str += "<input type='hidden' name='attachList["+i+"].fileType' value='"+job.data("type")+"'>";			
-			})
-			console.log(str);
-			form.append(str);
+			if($("input[name='title']").val()==""){
+				alert("제목을 입력해주세요.");
+			} else {
+				// modify버튼이 눌러지면 수정 폼 보내기
+				form = $("form[role='form']");
+				// 첨부파일 정보를 수집해서 수정 버튼이 눌러지면 다시 보내기
+				let str = "";
+				$(".uploadResult ul li").each(function(i, ele) {
+					let job = $(ele);
+					
+					str += "<input type='hidden' name='attachList["+i+"].uuid' value='"+job.data("uuid")+"'>";
+					str += "<input type='hidden' name='attachList["+i+"].uploadPath' value='"+job.data("path")+"'>";
+					str += "<input type='hidden' name='attachList["+i+"].fileName' value='"+job.data("filename")+"'>";
+					str += "<input type='hidden' name='attachList["+i+"].fileType' value='"+job.data("type")+"'>";			
+				})
+				console.log(str);
+				form.append(str);
+				form.submit();
+			}
 			
 		} else if(oper === 'list'){
 			// List가 눌러지면 bno는 삭제하고 method=get 방식으로 myForm 보내기
 			form.attr('action','list');
 			form.attr('method','get');
 			form.find("input[name='bno']").remove();
+			form.submit();
 		} else if(oper === 'remove'){
 			// remove가 눌러지면 myForm 보내기
 			form.attr('action','remove');
+			form.submit();
 		}		
-		form.submit();
 	})
 })
 </script>
