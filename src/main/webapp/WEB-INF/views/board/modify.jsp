@@ -3,6 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <link rel="stylesheet" href="/resources/css/mycss.css" />
+<link rel="stylesheet" href="/resources/css/reply.css" />
 <%@ include file="../includes/header.jsp" %>
 
 <div class="container">
@@ -36,10 +37,13 @@
         				<div class="form-group">
         					<label>Writer</label>
         					<input class="form-control" name="writer" readonly="readonly" value="${vo.writer}">                				
-        				</div>  
-        				<button type="submit" data-oper='modify' class="btn btn-default">Modify</button>              			
-        				<button type="submit" data-oper='remove' class="btn btn-danger">Remove</button>              			
-        				<button type="submit" data-oper='list' class="btn btn-info">List</button>
+        				</div>
+        				<div style="text-align: right;">
+	        				<button type="submit" data-oper='modify' class="btn btn-default" style="border: 1px solid #ddd;">Modify</button>              			
+	        				<button type="submit" data-oper='remove' class="btn btn-danger" style="border: 1px solid #ddd;">Remove</button>              			
+	        				<button type="submit" data-oper='list' class="btn btn-info" style="border: 1px solid #ddd;">List</button>
+			        		<input type="button" class="btn btn-default" style="border: 1px solid #ddd;" onclick="history.back()" value="Back"/>
+        				</div>
 						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
         			</form>
         		</div>
@@ -116,7 +120,7 @@ $(function(){
 		//               하기 때문에 false로 지정
 		
 		$.ajax({
-			url : '/uploadAjax',
+			url : '/upload',
 			type : 'post',
 			beforeSend : function(xhr){
 				xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);

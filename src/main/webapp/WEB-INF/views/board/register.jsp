@@ -3,6 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <link rel="stylesheet" href="/resources/css/mycss.css" />
+<link rel="stylesheet" href="/resources/css/reply.css" />
 <%@ include file="../includes/header.jsp" %>
 
 <div class="container">
@@ -33,8 +34,11 @@
                					<label>Writer</label>
                					<input class="form-control" name="writer" value='<sec:authentication property="principal.username"/>' readonly>                				
                				</div>  
-        				<button type="submit" class="btn btn-default">Submit</button>              			
-        				<button type="reset" class="btn btn-default">reset</button>  
+               				<div style="text-align: right;">
+		        				<button type="submit" class="btn btn-default" style="border: 1px solid #ddd;">Submit</button>              			
+		        				<button type="reset" class="btn btn-default" style="border: 1px solid #ddd;">reset</button>
+		        				<button type="button" class="btn btn-default" style="border: 1px solid #ddd;" onclick="history.back()">Back</button>
+               				</div>
 						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />               			
         			</form>
         		</div>
@@ -108,7 +112,7 @@ $(function(){
 		//               하기 때문에 false로 지정
 		
 		$.ajax({
-			url : '/uploadAjax',
+			url : '/upload',
 			type : 'post',
 			beforeSend : function(xhr){
 				xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
