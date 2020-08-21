@@ -74,9 +74,6 @@
 			            </a>
 			          </li>
 			          <li class="nav-item">
-			            <a class="nav-link" style="padding: 8px;" href="#">About</a>
-			          </li>
-			          <li class="nav-item">
 			            <a class="nav-link" style="padding: 8px;" href="/shop/cart">Cart</a>
 			          </li>
 			          <li class="nav-item">
@@ -90,7 +87,7 @@
 						</form>
 			          </li>
 			          <li class="nav-item">
-			            <a class="nav-link" style="padding: 8px;" href="/board/list">게시판</a>
+			            <a class="nav-link" style="padding: 8px;" href="/board/list">Help</a>
 			          </li>
    			     
    			          <c:if test="${auth.auth=='ROLE_ADMIN'}">
@@ -106,9 +103,6 @@
 			            </a>
 			          </li>
 			          <li class="nav-item">
-			            <a class="nav-link" style="padding: 8px;" href="#">About</a>
-			          </li>
-			          <li class="nav-item">
 			            <a class="nav-link" style="padding: 8px;" href="/shop/cart">Cart</a>
 			          </li>
 			          <li class="nav-item">
@@ -118,7 +112,7 @@
 			            <a class="nav-link" style="padding: 8px;" href="/member/signUp">Sign up</a>
 			          </li>
 			          <li class="nav-item">
-			            <a class="nav-link" style="padding: 8px;" href="/board/list">게시판</a>
+			            <a class="nav-link" style="padding: 8px;" href="/board/list">Help</a>
 			          </li>
 			          <!-- 권한에 따라 관리자 페이지 표시여부 -->
 			          

@@ -9,7 +9,6 @@
 	<div class="row">
       <div class="col-lg-12">
         <div class="row mt-5">
-        	<!-- 상품 카드 위치 -->
         	<img src="http://placehold.it/400x400" style='width: 400px; height: 552px;'/>
         	<div class="product-details ml-5 col-lg">
         		<form action="" method="post" role="form">
