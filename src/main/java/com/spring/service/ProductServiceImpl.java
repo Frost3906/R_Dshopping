@@ -7,10 +7,12 @@ import org.springframework.stereotype.Service;
 
 import com.spring.domain.CartVO;
 import com.spring.domain.CategoryKeySearchVO;
+import com.spring.domain.Criteria;
 import com.spring.domain.ManageKeySearchVO;
 import com.spring.domain.OrderDetailVO;
 import com.spring.domain.OrderVO;
 import com.spring.domain.ProductVO;
+import com.spring.domain.ReviewPageVO;
 import com.spring.domain.ReviewVO;
 import com.spring.mapper.ProductMapper;
 
@@ -101,8 +103,8 @@ public class ProductServiceImpl implements ProductService {
 		return product.writeReview(vo);
 	}
 	@Override
-	public List<ReviewVO> listReview(int p_code) {
-		return product.listReview(p_code);
+	public ReviewPageVO listReview(Criteria cri, int p_code) {
+		return new ReviewPageVO(product.getCountByPcode(p_code),product.listReview(cri, p_code));
 	}
 	@Override
 	public ReviewVO getReview(int reviewId) {

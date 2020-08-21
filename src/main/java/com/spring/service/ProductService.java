@@ -4,10 +4,12 @@ import java.util.List;
 
 import com.spring.domain.CartVO;
 import com.spring.domain.CategoryKeySearchVO;
+import com.spring.domain.Criteria;
 import com.spring.domain.ManageKeySearchVO;
 import com.spring.domain.OrderDetailVO;
 import com.spring.domain.OrderVO;
 import com.spring.domain.ProductVO;
+import com.spring.domain.ReviewPageVO;
 import com.spring.domain.ReviewVO;
 
 public interface ProductService {
@@ -31,7 +33,7 @@ public interface ProductService {
 	
 	public int writeReview(ReviewVO vo);
 	public int productModify(ProductVO vo);
-	public List<ReviewVO> listReview(int p_code);
+	public ReviewPageVO listReview(Criteria cri, int p_code);
 	public ReviewVO getReview(int reviewId);
 	public void updateStar(int p_code);
 	public int listCount();

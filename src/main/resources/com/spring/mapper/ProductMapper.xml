@@ -245,7 +245,21 @@
 	
 	<!-- 리뷰 관련 쿼리 -->
 	<select id="listReview" resultType="com.spring.domain.ReviewVO">
-		select reviewid,title,username,regdate,p_rating from review where p_code = #{p_code} order by reviewid desc
+		<![CDATA[
+		select * from ( 
+				select 
+				rownum rn, reviewid,title,username,regdate,p_rating
+				from review
+				where p_code = #{p_code} and reviewid > 0 and rownum <= (#{cri.pageNum}*#{cri.amount}))
+		where rn > ((#{cri.pageNum} -1) * #{cri.amount})
+		
+		]]>
+	<!-- /*Index(spring_reply idx_reply)*/ -->
+	</select>
+		
+	<!-- 하나의 상품에 대한 전체 후기 수 -->
+	<select id="getCountByPcode" resultType="int">
+		select count(*) from review where p_code = #{p_code}
 	</select>
 	
 	<select id="getReview" resultType="com.spring.domain.ReviewVO">
