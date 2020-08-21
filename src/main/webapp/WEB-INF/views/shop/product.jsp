@@ -77,7 +77,7 @@
       				상품에 대한 설명
       			</div>
       			<div id="goods-infomation" class="tab-pane" aria-labelledby="goods-infomation-tab">
-      				<img src='/upload/${vo.detailImage}' style='max-width: 100%; height: auto;'/>
+      				<img src='/upload/${vo.detailImage}' style='width: -webkit-fill-available; height: auto;'/>
       			</div>
       			<!-- 리뷰 시작 -->
        			<div id="goods-review" class="tab-pane" aria-labelledby="goods-review-tab">
@@ -104,25 +104,16 @@
 					<tbody class="reviewList">
 					</tbody>
 				</table>
+				<div class="noReview mb-3" style="text-align:center;"></div>
 				<div class="float-right">
-					<button class="btn btn-primary writeReview">Write</button>
+					<button class="btn btn-primary mb-3 writeReview">Write</button>
 				</div>
 					
-				<!-- start Pagination -->
-				<div class="text-center">
-					<ul class="pagination">
-						<c:if test="${pageVO.prev}">
-							<li class="paginate_button previous"><a href="${pageVO.startPage-1}">Previous</a></li>
-						</c:if>
-						<c:forEach var="idx" begin="${pageVO.startPage}" end="${pageVO.endPage}">
-							<li class="paginate_button ${pageVO.cri.pageNum==idx?'active':''}"><a href="${idx}">${idx}</a></li>
-						</c:forEach>
-						<c:if test="${pageVO.next}">
-							<li class="paginate_button next"><a href="${pageVO.endPage+1}">Next</a></li>
-						</c:if>
-					</ul>
-				</div>
 				<!-- 리뷰 끝 -->
+				<!-- 리뷰 페이지 시작 -->
+				<div class="review-footer">
+				</div>
+				<!-- 리뷰 페이지 끝 -->
 				
 				</div>
       			</div>     			
@@ -245,42 +236,56 @@ $(function(){
 
 	
 	//리뷰 리스트 
-	function listReview(){
+	function listReview(page){
+		console.log(page);
+		if(page == -1){
+			pageNum = Math.ceil(total / 10.0);
+			listReview(pageNum);
+			return;
+		}
+		
+		
+		
 		$.ajax({
 		    type:'GET',
 		    url : '/shop/review/list',
-		    data: {p_code:p_code},
+		    data: {p_code:p_code, page:page},
 		    success : function(result){
 		        let html = "";
 		        
-		        if(result.length > 0){
+		        if(result.list.length > 0){
 		            
 		        	
-		            for(i=0; i < result.length; i++){
-		                html += "<tr class='review'><td>"+result[i].reviewId+"</td>";
-		                html += "<td>"+result[i].title+"</td>";
-		                html += "<td>"+result[i].username+"</td>";
-		                html += "<td>"+moment(result[i].regdate).format('YYYY-MM-DD HH:mm:ss')+"</td>";
+		            for(i=0; i < result.list.length; i++){
+		                html += "<tr class='review'><td>"+result.list[i].reviewId+"</td>";
+		                html += "<td>"+result.list[i].title+"</td>";
+		                html += "<td>"+result.list[i].username+"</td>";
+		                html += "<td>"+moment(result.list[i].regdate).format('YYYY-MM-DD HH:mm:ss')+"</td>";
 		                
-		                if(result[i].p_rating==0){
+		                if(result.list[i].p_rating==0){
 		                	html += "<td><small style='color:gold;'>&#9734;&#9734;&#9734;&#9734;&#9734;</small></td></tr>"
-		                }else if(result[i].p_rating==1){
+		                }else if(result.list[i].p_rating==1){
 		                	html += "<td><small style='color:gold;'>&#9733;&#9734;&#9734;&#9734;&#9734;</small></td></tr>"
-		                }else if(result[i].p_rating==2){
+		                }else if(result.list[i].p_rating==2){
 		                	html += "<td><small style='color:gold;'>&#9733;&#9733;&#9734;&#9734;&#9734;</small></td></tr>"
-		                }else if(result[i].p_rating==3){
+		                }else if(result.list[i].p_rating==3){
 		                	html += "<td><small style='color:gold;'>&#9733;&#9733;&#9733;&#9734;&#9734;</small></td></tr>"
-		                }else if(result[i].p_rating==4){
+		                }else if(result.list[i].p_rating==4){
 		                	html += "<td><small style='color:gold;'>&#9733;&#9733;&#9733;&#9733;&#9734;</small></td></tr>"
-		                }else if(result[i].p_rating==5){
+		                }else if(result.list[i].p_rating==5){
 		                	html += "<td><small style='color:gold;'>&#9733;&#9733;&#9733;&#9733;&#9733;</small></td></tr>"
 		                }
 		                
 		            }
 		            
-		        } 
+		        }
+		        else if(result.list=== null || result.list.length===0){
+					$(".noReview").html("후기가 없습니다.");
+					return;
+				}
 
 		        $(".reviewList").html(html);
+		        showReviewPage(result.reviewCnt);
 		        
 		    },
 		    error:function(request,status,error){
@@ -290,12 +295,63 @@ $(function(){
 
 	}
 	
+	let pageNum = 1;
 	
 	
+	listReview(1);
 	
-	listReview();
-
-
+	//댓글 페이지 나누기로 추가
+	function showReviewPage(total){
+		//댓글 페이지 영역 가져오기
+		
+		let reviewFooter = $(".review-footer");
+		
+		//마지막 페이지 계산
+		let endPage = Math.ceil(pageNum/10.0)*10;
+		//시작 페이지 계산
+		let startPage = endPage - 9;
+		//이전 버튼
+		let prev = startPage != 1;
+		//다음버튼
+		let next = false;
+		
+		if(endPage * 10 >= total){
+			endPage = Math.ceil(total/10.0);
+		}
+		if(endPage * 10 < total){
+			next=true;		
+		}
+		//디자인 작성 후 댓글 페이지 영역에 보여주기
+		let str = "<ul class='pagination pull-right' style='justify-content:center'>";
+		if(prev){
+			str+="<li class='page-item'><a class='page-link'";
+			str+="href='"+(startPage -1)+"'>Prev</a></li>";
+		}
+		for(var i = startPage; i<= endPage; i++){
+			let active = pageNum == i ? "active":"";
+			str += "<li class='page-item "+active+"'>";
+			str += "<a class='page-link' href='"+i+"'>"+i;
+			str += "</a></li>";
+		}
+		if(next){
+			str += "<li class='page-item'><a class='page-link'";
+			str += "href='"+(endPage + 1 ) + "'>Next</a></li>";
+		}
+		str += "</ul></div>";
+		reviewFooter.html(str);
+		
+		//댓글 페이지 번호를 누르면 실행되는 스크립트
+		reviewFooter.on("click","li a",function(e){
+			
+			//href 방지
+			e.preventDefault();
+			
+			pageNum = $(this).attr("href");
+			listReview(pageNum);
+		})
+	}
+	
+	
 	
 	$(document.body).delegate('.review', 'click', function() {
 		

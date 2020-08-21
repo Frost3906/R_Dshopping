@@ -114,11 +114,11 @@
 			<div class="modal-header">
 				<h5 class="modal-title">게시글 등록</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">$times;</span>
+					<span aria-hidden="true">X</span>
 				</button>
 			</div>
 			<div>
-				<p>처리가 완료되었습니다.</p>
+				<p style="text-align: center;">처리가 완료되었습니다.</p>
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

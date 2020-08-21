@@ -39,7 +39,7 @@ import net.coobird.thumbnailator.Thumbnailator;
 @Slf4j
 public class UploadController {
 	
-	@GetMapping("/uploadAjax")
+	@GetMapping("/upload")
 	public void uploadAjaxForm() {
 		log.info("upload Ajax form 요청");
 	}

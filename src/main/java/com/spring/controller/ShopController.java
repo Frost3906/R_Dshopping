@@ -23,11 +23,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.spring.domain.CartVO;
 import com.spring.domain.CategoryKeySearchVO;
+import com.spring.domain.Criteria;
 import com.spring.domain.MemberVO;
 import com.spring.domain.OrderDetailVO;
 import com.spring.domain.OrderVO;
 import com.spring.domain.BoardPageVO;
 import com.spring.domain.ProductVO;
+import com.spring.domain.ReviewPageVO;
 import com.spring.domain.ReviewVO;
 import com.spring.domain.ShopPageVO;
 import com.spring.service.ProductService;
@@ -191,16 +193,20 @@ public class ShopController {
 	public void product(int p_code, Model model) {
 		log.info("제품 상세페이지 호출" + p_code);
 		ProductVO vo = service.getProduct(p_code);
+		Criteria cri = new Criteria(1, 10);
 		model.addAttribute("vo", vo);
-		model.addAttribute("list",service.listReview(p_code));
+		model.addAttribute("list",service.listReview(cri,p_code));
 		log.info("vo = " + vo);
 		
 	}
 
 	@ResponseBody
 	@GetMapping("/review/list")
-	public List<ReviewVO> listReview(int p_code){
-		return service.listReview(p_code);
+	public ReviewPageVO listReview(int p_code, int page){
+		
+		Criteria cri = new Criteria(page, 10);
+		
+		return service.listReview(cri,p_code);
 	}
 	
 	@ResponseBody
