@@ -31,12 +31,12 @@
                         <div class="col-lg-6 col-md-6 log-det">                            
                             <h2>Welcome Back</h2>
                             <%-- 구글 로그인 화면 출력 --%>
-                            <div class="row" style="justify-content: center;">
+                            <div class="row" style="justify-content: center;">                            	
                                 <div class="g-signin2" data-onsuccess="onSignIn" >                                   
-									<input type="hidden" name=googleID />
-									<input type="hidden" name=firstName />
-									<input type="hidden" name=lastName />
-									<input type="hidden" name=email />									
+									<input type="text" name="ggoogleID" />
+									<input type="text" name="gfirstName" />
+									<input type="text" name="glastName" />
+									<input type="text" name="email" />									
                                 </div>
                             </div>
                             <div class="row">
@@ -103,9 +103,18 @@
     </div>
   </div>
 </div>
+<form action="googleLogin" id="googleInfo">
+	<input type="hidden" name="googleID" />
+	<input type="hidden" name="firstName" />
+	<input type="hidden" name="lastName" />
+	<input type="hidden" name="username" />	
+	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+</form>
 
 <script>
 let forgetPwdForm=$("#sendInfo");
+let googleInfoForm=$("#googleInfo");
+
 $(function(){
 	$("#forgetPwd").click(function(e){
 		e.preventDefault();
@@ -124,6 +133,7 @@ var googleForm=$("#SNSSignIn");
 	
 function onSignIn(googleUser) {		
   var profile = googleUser.getBasicProfile();
+  console.log(profile);
   console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
   console.log('FirstName: ' + profile.getGivenName());
   console.log('LastName: ' + profile.getFamilyName());
@@ -134,15 +144,14 @@ function onSignIn(googleUser) {
   let lastName=profile.getFamilyName();
   let email=profile.getEmail();
   
-  /* $("input[name='googleID']").val(googleID);
+  $("input[name='googleID']").val(googleID);
   $("input[name='firstName']").val(firstName);
   $("input[name='lastName']").val(lastName);
-  $("input[name='email']").val(email);
+  $("input[name='username']").val(email);
+ 
   
-  console.log($("input[name='googleID']").val(googleID));
-  console.log($("input[name='firstName']").val(firstName));
-  console.log($("input[name='lastName']").val(lastName));
-  console.log($("input[name='email']").val(email)); */
+  googleInfoForm.submit();
+  
   
   
 	let data = {
@@ -152,19 +161,20 @@ function onSignIn(googleUser) {
 			email:email
 	  };
   console.log(data);
+  
   /* $.ajax({
 	  url:"/auth/google/callback",
 	  type:"get",
 	  data:data,
-	  datatype:"json",
 	  success:function(result){
 		  alert("ì±ê³µ")
+		  if(result.)
 		  window.location.href="/"	 		  
 	  },
 	  error:function(){
 		  alert("ì¤í¨")
 	  }		  
-  }) */ 
+  })  */ 
 }
 
 </script>

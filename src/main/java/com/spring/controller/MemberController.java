@@ -111,6 +111,20 @@ public class MemberController {
 		return "redirect:/";
 	}
 	
+	@GetMapping("/googleLogin")	
+	public String googlerSignUp(MemberVO member, HttpSession session) {
+		log.info("google Login 인원 판별");
+		
+		if(member.getGoogleID()==null) {
+			
+			return "redirect:signUp";
+		}else {
+			MemberVO vo=service.getMember(member.getUsername());
+			session.setAttribute("auth", "vo");
+			return "redirect:login";
+		}
+	}
+	
 	@GetMapping("/signUp")
 	public void signupForm() {
 		log.info("회원가입 화면 표시");
@@ -299,6 +313,7 @@ public class MemberController {
 		}				
 	}
 	
+	//@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@PostMapping("/createAdmin")
 	public String createAdmin(MemberVO member, RedirectAttributes rttr, HttpSession session) {
 		log.info("Admin 계정 생성 절차 진행");
@@ -307,9 +322,12 @@ public class MemberController {
 		member.setPassword(encorder.encode(member.getPassword()));
 		
 		if(service.createAdmin(member)>0) {
-			session.removeAttribute("auth");
+			service.SmemInsert(member);
+			service.SmemAuthInsert(member);
+			
+			//session.removeAttribute("auth");
 			rttr.addFlashAttribute("info", "관리자 계정 생성이 완료 되었습니다.");			
-			return "redirect:login";
+			return "redirect:member_manage";
 		}else {
 			rttr.addFlashAttribute("info", "관리자 계정 생성이 실패 했습니다.");
 			return "redirect:member_manage";			
