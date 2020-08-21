@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import com.spring.domain.CartVO;
 import com.spring.domain.CategoryKeySearchVO;
+import com.spring.domain.Criteria;
 import com.spring.domain.ManageKeySearchVO;
 import com.spring.domain.OrderDetailVO;
 import com.spring.domain.OrderVO;
@@ -49,7 +50,10 @@ public interface ProductMapper {
 	
 	public int writeReview(ReviewVO vo);
 	public int productModify(ProductVO vo);
-	public List<ReviewVO> listReview(int p_code);
+	public List<ReviewVO> listReview(@Param("cri") Criteria cri, @Param("p_code") int p_code);
+	int getCountByPcode(int p_code);
+	
+	
 	public ReviewVO getReview(int reviewId);
 	
 	public void updateStar(int p_code);
