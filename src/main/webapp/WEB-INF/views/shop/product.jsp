@@ -43,7 +43,7 @@
         	</div>
         </div>
         	
-        	<div class="check float-right mb-3">
+        	<div class="check float-right">
         		<div>
         			총 상품 금액
         			<div id="price"></div> 
@@ -104,16 +104,17 @@
 					<tbody class="reviewList">
 					</tbody>
 				</table>
-				<div class="noReview mb-3" style="text-align:center;"></div>
-				<div class="float-right">
-					<button class="btn btn-primary mb-3 writeReview">Write</button>
-				</div>
+				<div class="noReview" style="text-align:center;"></div>
+				
 					
 				<!-- 리뷰 끝 -->
 				<!-- 리뷰 페이지 시작 -->
 				<div class="review-footer">
 				</div>
 				<!-- 리뷰 페이지 끝 -->
+				<div class="float-right">
+					<button class="btn btn-primary writeReview">Write</button>
+				</div>
 				
 				</div>
       			</div>     			
