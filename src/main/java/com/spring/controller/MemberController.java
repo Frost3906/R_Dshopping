@@ -32,10 +32,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.domain.AuthVO;
 import com.spring.domain.BoardVO;
+import com.spring.domain.Criteria;
 import com.spring.domain.MemberCriteria;
 import com.spring.domain.MemberPageVO;
 import com.spring.domain.MemberVO;
-import com.spring.domain.ModifyMemberVO;
 import com.spring.domain.ReviewVO;
 import com.spring.email.EmailSender;
 import com.spring.email.EmailVO;
@@ -63,66 +63,25 @@ public class MemberController {
 	@Inject
 	private EmailVO email;
 	
-	
-	@Inject
-	private SNSValue naverSNS;
-//	@Inject
-//	private SNSValue googleSNS;
-	@Inject
-	private GoogleConnectionFactory googleConnectionFactory;
-	@Inject
-	private OAuth2Parameters googleOAuth2Parameters;
-	
-	//나라선택 country.jsp 테스트용 컨트롤러
-	@GetMapping("/country")
-	public void country() {
-		
-	}
-	
 	@GetMapping("/login")
 	public void signinForm(Model model) {
-		log.info("로그인 화면 표시");	
-		
-		//네이버code 발행을 위한 URL 생성
-		SNSSignIn snsLogin = new SNSSignIn(naverSNS);
-		model.addAttribute("naver_url", snsLogin.getNaverAuthURL());
-		
-//		SNSSignIn googleLogin = new SNSSignIn(googleSNS);
-//		model.addAttribute("naver_url", googleLogin.getNaverAuthURL());
-		
-		//구글code 발행을 위한 URL 생성
-		OAuth2Operations oauthOperations = googleConnectionFactory.getOAuthOperations();
-		String url = oauthOperations.buildAuthorizeUrl(GrantType.AUTHORIZATION_CODE, googleOAuth2Parameters);
-		model.addAttribute("google_url", url);
+		log.info("로그인 화면 표시");
 	}
 	
-//	@GetMapping("/successLogin")
-//	public String successLogin(Authentication auth, MemberVO member) {
-//		log.info("successLogin 컨트롤러");
-//		log.info(""+auth.getPrincipal());
-//		return "redirect:/";
-//	}
+	@PostMapping("/googleSignIn")
+	public String googleSignIn(MemberVO member) {
+		log.info("구글 로그인 처리");
+		log.info(""+member);
+		
+		return "redirect:/";
+	}
 	
 	
 	@GetMapping("/logout")
 	public String logout(HttpSession session) {
 		log.info("로그아웃");
-		session.removeAttribute("auth");
+		session.invalidate();
 		return "redirect:/";
-	}
-	
-	@GetMapping("/googleLogin")	
-	public String googlerSignUp(MemberVO member, HttpSession session) {
-		log.info("google Login 인원 판별");
-		
-		if(member.getGoogleID()==null) {
-			
-			return "redirect:signUp";
-		}else {
-			MemberVO vo=service.getMember(member.getUsername());
-			session.setAttribute("auth", "vo");
-			return "redirect:login";
-		}
 	}
 	
 	@GetMapping("/signUp")
@@ -163,16 +122,23 @@ public class MemberController {
 	}
 		
 	@PostMapping("/modify")
-	public String modifyPost(ModifyMemberVO modifyMember, HttpSession session) {
+	public String modifyPost(MemberVO member, HttpSession session, RedirectAttributes rttr) {
 		log.info("회원정보 수정 절차 진행");
-		log.info(""+modifyMember);
-		modifyMember.setConfirm_password(encorder.encode(modifyMember.getConfirm_password()));
-		if(service.modify(modifyMember)>0) {
+		log.info(""+member);
+		
+		member.setConfirm_password(encorder.encode(member.getConfirm_password()));
+		if(service.modify(member)>0) {
+			service.SmemUpdateM(member);
 			session.removeAttribute("auth");
+			rttr.addFlashAttribute("info", "비밀번호 변경에 성공했습니다.\n 다시 로그인해 주세요.");
 			return "redirect:/member/login";
+		}else {
+			rttr.addFlashAttribute("info", "비밀번호 변경에 실패했습니다.\n 다시 시도해 주세요.");
+			return "redirect:/member/myPage";				
 		}
-		return "/member/myPage";
+			
 	}
+	
 	
 	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/myPage")
@@ -185,7 +151,7 @@ public class MemberController {
 	
 	@PostMapping("/forgetPwd")
     public String sendEmailAction (RedirectAttributes rttr, MemberVO member, Model model) throws Exception {
-        log.info("E-mail 전송 서비스");
+        log.info("비밀번호 찾기 => E-mail 전송 서비스");
         log.info(""+member);
         
         //랜덤 문자열 reference
@@ -203,12 +169,13 @@ public class MemberController {
         String tempPwd=randomStr.generate(DATA_FOR_RANDOM_STRING, random_string_length);
         
         
-        MemberVO vo=service.checkPwd(member);	//메일 발송 알림 팝업 창 설정 필요
+        MemberVO vo=service.getMember(member.getUsername());	
         if(vo != null) {
         	if(member.getMobile().equals(vo.getMobile())) {
-        		vo.setPassword(tempPwd);
+        		vo.setPassword(encorder.encode(tempPwd));
         		service.forgetPwd(vo);
-        		email.setContent("비밀번호는 "+vo.getPassword()+" 입니다.");
+        		service.SmemUpdateA(vo);
+        		email.setContent("비밀번호는 "+tempPwd+" 입니다.");
         		email.setReciver(vo.getUsername());
         		email.setSubject(vo.getFirstName()+"님 비밀번호 찾기 메일입니다.");
         		emailSender.SendEmail(email);
@@ -219,7 +186,7 @@ public class MemberController {
         		return "redirect:/";
         	}           	
         }else {
-        	rttr.addFlashAttribute("info", "이메일이 일치하지 않습니다.");
+        	rttr.addFlashAttribute("info", "이메일이 존재 하지 않습니다.");
         	return "redirect:/";
         }
     }
@@ -249,13 +216,16 @@ public class MemberController {
 		return service.myPageList(username, memberCri);
 	}
 	
-	@PreAuthorize("isAuthenticated()")
 	//QnA 게시판 글 읽기
-	@GetMapping("/myPage/QnARead")
-	public String QnARead() {
-		
-		return "redirect:/board/read";
-	}
+//	@PreAuthorize("isAuthenticated()")
+//	@GetMapping("/myPage/QnARead")
+//	public String QnARead(int bno, Model model, @ModelAttribute ("cri") Criteria cri) {
+//		log.info("게시물 읽기 요청" + bno + "..." + cri);
+//		BoardVO vo = service.getBoard(bno);
+//		model.addAttribute("vo",vo);
+//		
+//		return "redirect:/board/read";
+//	}
 	
 	//Admin
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
@@ -290,8 +260,9 @@ public class MemberController {
 	@PostMapping("/manageModify")
 	public String manageMember(RedirectAttributes rttr, MemberVO member) {
 		log.info("ManageModal Modify 진행");
-		
+		member.setPassword(encorder.encode(member.getPassword()));
 		if(service.manageModify(member)>0) {
+			service.SmemUpdateA(member);
 			rttr.addFlashAttribute("info", "변경이 완료 되었습니다.");
 			return "redirect:/member/member_manage";			
 		}else {
@@ -305,6 +276,8 @@ public class MemberController {
 		log.info("ManageDelete Delete 진행");
 		
 		if(service.leaveMember(username)>0) {
+			service.SmemAuthDelete(username);
+			service.SmemDelete(username);
 			rttr.addFlashAttribute("info", "삭제가 완료 되었습니다.");
 			return "redirect:/member/member_manage";	
 		}else {
@@ -313,7 +286,7 @@ public class MemberController {
 		}				
 	}
 	
-	//@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@PostMapping("/createAdmin")
 	public String createAdmin(MemberVO member, RedirectAttributes rttr, HttpSession session) {
 		log.info("Admin 계정 생성 절차 진행");

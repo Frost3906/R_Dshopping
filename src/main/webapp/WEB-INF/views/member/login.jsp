@@ -30,7 +30,7 @@
                         
                         <div class="col-lg-6 col-md-6 log-det">                            
                             <h2>Welcome Back</h2>
-                            <%-- 구글 로그인 화면 출력 --%>
+                            <%-- êµ¬ê¸ ë¡ê·¸ì¸ íë©´ ì¶ë ¥ --%>
                             <div class="row" style="justify-content: center;">                            	
                                 <div class="g-signin2" data-onsuccess="onSignIn" >                                   
 									<input type="text" name="ggoogleID" />
@@ -80,7 +80,7 @@
             </div>
          </div>
          
-<%-- Ã«Â¹ÂÃ«Â°ÂÃ«Â²ÂÃ­ÂÂ¸ Ã¬Â°Â¾ÃªÂ¸Â° Modal --%>
+<%-- ÃÂ«ÃÂ¹ÃÂÃÂ«ÃÂ°ÃÂÃÂ«ÃÂ²ÃÂÃÂ­ÃÂÃÂ¸ ÃÂ¬ÃÂ°ÃÂ¾ÃÂªÃÂ¸ÃÂ° Modal --%>
 <div class="modal fade" id="forgetPwdModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -91,25 +91,33 @@
         </button>
       </div>
       <div class="modal-body">
-	     <form action="forgetPwd" method="post" id="sendInfo">
-	         <input type="text" name="email" class="form-control" placeholder="Email Address" aria-label="Username" aria-describedby="basic-addon1">
-	         <input type="text" name="mobile" class="form-control" placeholder="ex)000-0000-0000" aria-label="Username" aria-describedby="basic-addon1">
+	     <form action="forgetPwd" method="post">
+		     <div class="mb-3">
+		     	<label for="">E-Mail</label>
+		     	<input type="text" name="username" class="form-control" placeholder="Email Address" aria-label="Username" aria-describedby="basic-addon1">
+		     </div>
+		     <div>
+		     	<label for="">Mobile</label>
+		     	<input type="text" name="mobile" class="form-control" placeholder="ex)000-0000-0000" aria-label="Username" aria-describedby="basic-addon1">
+		     </div>	  			
+		      <div class="modal-footer">
+		      	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+		        <button type="submit" class="btn btn-success" >Send E-mail</button>
+		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+		      </div>
          </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-success sendInfo" >Send E-mail</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
       </div>
     </div>
   </div>
 </div>
-<form action="googleLogin" id="googleInfo">
+
+<form action="/auth/google/callback" method="get" id="googleInfo">
 	<input type="hidden" name="googleID" />
 	<input type="hidden" name="firstName" />
 	<input type="hidden" name="lastName" />
-	<input type="hidden" name="username" />	
-	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+	<input type="hidden" name="email" />
 </form>
+
 
 <script>
 let forgetPwdForm=$("#sendInfo");
@@ -119,12 +127,6 @@ $(function(){
 	$("#forgetPwd").click(function(e){
 		e.preventDefault();
 		$("#forgetPwdModal").modal("show");
-	})
-	
-	$(".sendInfo").click(function (){
-		console.log(forgetPwdForm);
-		forgetPwdForm.submit();
-		$("#forgetPwdModal").modal("hide");
 	})
 })
 
@@ -147,34 +149,29 @@ function onSignIn(googleUser) {
   $("input[name='googleID']").val(googleID);
   $("input[name='firstName']").val(firstName);
   $("input[name='lastName']").val(lastName);
-  $("input[name='username']").val(email);
- 
+  $("input[name='email']").val(email);
   
   googleInfoForm.submit();
   
-  
-  
-	let data = {
-			googleID:googleID,
-			firstName:firstName,
-			lastName:lastName,
-			email:email
-	  };
+  /* let data = {
+		googleID:googleID,
+		firstName:firstName,
+		lastName:lastName,
+		email:email
+  };
   console.log(data);
   
-  /* $.ajax({
+  $.ajax({
 	  url:"/auth/google/callback",
 	  type:"get",
 	  data:data,
 	  success:function(result){
-		  alert("ì±ê³µ")
-		  if(result.)
-		  window.location.href="/"	 		  
+		  alert("성공")
 	  },
 	  error:function(){
-		  alert("ì¤í¨")
+		  alert("실패")
 	  }		  
-  })  */ 
+  })  */  
 }
 
 </script>

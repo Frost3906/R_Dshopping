@@ -47,7 +47,7 @@
                                        <label for="">Email Address</label>
                                    </div>
                                    <div class="col-md-8">
-                                       <input type="text" name="username" placeholder="example@example.com" class="form-control form-control-sm">
+                                       <input type="text" name="username" placeholder="example@example.com" value="${google.username}" class="form-control form-control-sm">
                                    </div>
                                </div>
                                <div class="row form-row">
@@ -73,7 +73,7 @@
                                        <label for="">First Name</label>
                                    </div>
                                    <div class="col-md-8">
-                                       <input type="text" name="firstName" placeholder="Enter First Name" class="form-control form-control-sm">
+                                       <input type="text" name="firstName" placeholder="Enter First Name" value="${google.firstName}" class="form-control form-control-sm">
                                    </div>
                                </div>
                                <div class="row form-row">
@@ -81,7 +81,7 @@
                                        <label for="">Last Name</label>
                                    </div>
                                    <div class="col-md-8">
-                                       <input type="text" name="lastName" placeholder="Enter Last Name" class="form-control form-control-sm">
+                                       <input type="text" name="lastName" placeholder="Enter Last Name" value="${google.lastName}" class="form-control form-control-sm">
                                    </div>
                                </div>
                                <div class="row form-row">

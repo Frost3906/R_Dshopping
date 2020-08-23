@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import com.spring.domain.BoardVO;
 import com.spring.domain.MemberCriteria;
 import com.spring.domain.MemberVO;
-import com.spring.domain.ModifyMemberVO;
 import com.spring.mapper.MemberMapper;
 
 @Service
@@ -33,8 +32,8 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public int modify(ModifyMemberVO modifyMember) {
-		return mapper.modify(modifyMember);
+	public int modify(MemberVO member) {
+		return mapper.modify(member);
 	}
 
 	@Override
@@ -52,8 +51,6 @@ public class MemberServiceImpl implements MemberService {
 		MemberVO member=null;
 		if(snsMember.getGoogleID() != null) {
 			member=mapper.getBySnsGoogle(snsMember);			
-		}else if(snsMember.getNaverID() != null) {
-			member=mapper.getBySnsNaver(snsMember);			
 		}
 		return member;
 	}
@@ -110,6 +107,24 @@ public class MemberServiceImpl implements MemberService {
 	public int SmemInsert(MemberVO member) {
 		return mapper.SmemInsert(member);
 	}
+	
+	@Override
+	public int SmemDelete(String username) {
+		return mapper.SmemDelete(username);
+	}
 
+	@Override
+	public int SmemAuthDelete(String username) {
+		return mapper.SmemAuthDelete(username);
+	}
 
+	@Override
+	public int SmemUpdateM(MemberVO member) {
+		return mapper.SmemUpdateM(member);
+	}
+
+	@Override
+	public int SmemUpdateA(MemberVO member) {
+		return mapper.SmemUpdateA(member);
+	}
 }
