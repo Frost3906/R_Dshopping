@@ -32,6 +32,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.domain.AuthVO;
 import com.spring.domain.BoardVO;
+import com.spring.domain.Criteria;
 import com.spring.domain.MemberCriteria;
 import com.spring.domain.MemberPageVO;
 import com.spring.domain.MemberVO;
@@ -136,7 +137,7 @@ public class MemberController {
 			return "redirect:/member/myPage";				
 		}
 			
-		}
+	}
 	
 	
 	@PreAuthorize("isAuthenticated()")
@@ -216,12 +217,15 @@ public class MemberController {
 	}
 	
 	//QnA 게시판 글 읽기
-	@PreAuthorize("isAuthenticated()")
-	@GetMapping("/myPage/QnARead")
-	public String QnARead() {
-		
-		return "redirect:/board/read";
-	}
+//	@PreAuthorize("isAuthenticated()")
+//	@GetMapping("/myPage/QnARead")
+//	public String QnARead(int bno, Model model, @ModelAttribute ("cri") Criteria cri) {
+//		log.info("게시물 읽기 요청" + bno + "..." + cri);
+//		BoardVO vo = service.getBoard(bno);
+//		model.addAttribute("vo",vo);
+//		
+//		return "redirect:/board/read";
+//	}
 	
 	//Admin
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
