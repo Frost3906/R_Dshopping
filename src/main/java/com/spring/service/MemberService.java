@@ -7,14 +7,13 @@ import org.apache.ibatis.annotations.Param;
 import com.spring.domain.BoardVO;
 import com.spring.domain.MemberCriteria;
 import com.spring.domain.MemberVO;
-import com.spring.domain.ModifyMemberVO;
 
 public interface MemberService {
 	//Member
 	public int signUp(MemberVO member);
 	public MemberVO getMember(String username);
 	public MemberVO checkPwd(MemberVO member);
-	public int modify(ModifyMemberVO modifyMember);
+	public int modify(MemberVO member);
 	public int manageModify(MemberVO member);
 	public int forgetPwd(MemberVO member);
 	public MemberVO getBySNS(MemberVO snsMember);
@@ -31,6 +30,10 @@ public interface MemberService {
 	//security table 
 	public int SmemAuthInsert(MemberVO member);
 	public int SmemInsert(MemberVO member);
+	public int SmemDelete(String username);
+	public int SmemAuthDelete(String username);
+	public int SmemUpdateM(MemberVO member);
+	public int SmemUpdateA(MemberVO member);
 	
 	//Admin
 	public List<MemberVO> manageList(MemberCriteria memberCri);

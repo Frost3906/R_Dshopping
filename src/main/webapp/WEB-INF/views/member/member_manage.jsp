@@ -321,7 +321,6 @@ $(function(){
 				console.log(result)
 				$("#manageMemberModal").modal("show");
 				$("input[name='username']").val(result.username);
-				$("input[name='password']").val(result.password);
 				$("input[name='mobile']").val(result.mobile);
 				$("input[name='memLevel']").val(result.memLevel);
 				$("input[name='firstName']").val(result.firstName);

@@ -9,6 +9,8 @@ import lombok.Data;
 public class MemberVO {
 	private String username;	//Require email-PK
 	private String password;	//Require
+	private String new_password;	
+	private String confirm_password;
 	private String mobile;		//Require
 	private String memLevel;	//Rookie > Normal > Bronze > Silver > Gold > Platinum > Diamond > BlackDiamond
 	private String firstName;	//Require
@@ -19,7 +21,6 @@ public class MemberVO {
 	private String postcode;		
 	private String nickName;	
 	private String auth;		//default member
-	private String naverID;
 	private String googleID;
 	
 	private int rno;

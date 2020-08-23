@@ -30,7 +30,7 @@
 	
 	<!-- 회원 정보 변경 -->
 	<update id="modify">
-		update test_mem set password=#{confirm_password} where username=#{username} 
+		update test_mem set password=#{confirm_password} where username=#{username}
 	</update>
 	
 	<!-- 임의의 비밀번호로 변경 -->
@@ -43,12 +43,6 @@
 		delete from test_mem where username=#{username}
 	</delete>
 	
-	
-		
-	<select id="getBySnsNaver" resultType="com.spring.domain.MemberVO">
-        select * from test_mem where naverid=#{naverid}
-    </select>
-    
     <select id="getBySnsGoogle" resultType="com.spring.domain.MemberVO">
         select * from test_mem where googleid=#{googleid}
     </select>
@@ -108,15 +102,32 @@
 		<result property="auth" column="auth"/>
 	</resultMap>
 	
-	<!-- SPRING_MEMBER 인설트 -->
+	<!-- SPRING_MEMBER Insert -->
 	<insert id="SmemInsert">
 		insert into SPRING_MEMBER(userid, userpw, username) values(#{username},#{password}, #{username})
-	</insert>
-	
-	<!-- SPRING_MEMBER_AUTH 인설트 -->
+	</insert>	
+	<!-- SPRING_MEMBER_AUTH Insert -->
 	<insert id="SmemAuthInsert">
 		insert into SPRING_MEMBER_AUTH values(#{username}, #{auth})
 	</insert>
+	
+	<!-- SPRING_MEMBER Delete -->
+	<delete id="SmemDelete">
+		delete from SPRING_MEMBER where userid=#{username}
+	</delete>	
+	<!-- SPRING_MEMBER_AUTH Delete -->
+	<delete id="SmemAuthDelete">
+		delete from SPRING_MEMBER_AUTH where userid=#{username}
+	</delete>
+	
+	<!-- SPRING_MEMBER Update(mypage) -->
+	<update id="SmemUpdateM">
+		update SPRING_MEMBER set userpw=#{confirm_password} where userid=#{username}
+	</update>
+	<!-- SPRING_MEMBER Update(admin) -->
+	<update id="SmemUpdateA">
+		update SPRING_MEMBER set userpw=#{password} where userid=#{username}
+	</update>
 	
 	<select id="read" resultMap="memberMap">
 		select mem.userid, userpw, username, enabled, regdate, updatedate, auth
