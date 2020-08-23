@@ -5,7 +5,6 @@
   <div class="container">
         <h1 class="my-4">Carts</h1>
 
-	<form action="">
     	<div class="row">
 
 			<div class="cart_goods">
@@ -60,9 +59,7 @@
 			<div>
 				<div class="float-right mb-3">
 					총 상품금액
-					<div class="total_price mb-3 sum_price">
-					  ${sum}
-					</div>
+					<div class="total_price mb-3 sum_price">${sum}</div>
 					<button type="button" class="btn btn-danger btn-lg" id="selectDelete" data-cartNum="">Delete</button>
 					<button type="button" class="btn btn-primary btn-lg" id="checkCart">Check</button>
 				</div>
@@ -70,6 +67,8 @@
 		</div>
     </div>
     <!-- /.row -->
+    <form action="check" method="post" role="total">
+    	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 	</form>
   </div>
   <!-- /.container -->
@@ -115,6 +114,7 @@ $(function(){
 					let Json = new Object();
 					Json.amount = $(this).val();
 					Json.cartNum = $(this).attr("data-cartNum");
+					JsonArray.push(Json);
 				}); 
 				
 
@@ -133,8 +133,7 @@ $(function(){
 		    		success : function(result){
 		    			if(result==1){
 		    				
-		    					    				
-		    				location.href="/shop/check";
+		    				//location.href="/shop/check";
 		    			}
 		    			else{
 		    				alert("잠시 후 다시 시도해 주십시오.");
@@ -142,11 +141,15 @@ $(function(){
 		    	
 		    		}	
 				});
-				
-				
+				let total = $('.sum_price').text();
+				let str = "<input type='hidden' id='total' name='total' value='"+total+"'/>";
+				console.log(str);
+				$("form[role='total']").append(str).submit();
+			
+			
 			}
-		}
 		
+		}
 	})
 	
 	

@@ -264,15 +264,18 @@ public class ShopController {
 	}
 	
 	
-	@GetMapping("/check")
-	public void check() {
-		log.info("배송정보 입력 form 요청");
+	@PostMapping("/check")
+	public String check(int total, Model model) {
+		log.info("배송정보 입력 form 요청 "+total);
 		
+		model.addAttribute("total",total);
+		
+		return "/shop/check";
 	}
 	
 	
 	// 주문
-	@PostMapping("/check")
+	@PostMapping("/order")
 	public String order(HttpSession session, OrderVO order, OrderDetailVO orderDetail) {
 		log.info("주문정보 확인 "+order+" "+session.getAttribute("auth"));
 	 

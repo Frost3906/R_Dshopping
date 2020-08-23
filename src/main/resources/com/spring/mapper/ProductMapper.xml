@@ -247,11 +247,12 @@
 	<select id="listReview" resultType="com.spring.domain.ReviewVO">
 		<![CDATA[
 		select * from ( 
-				select 
+				select /*+ INDEX_DESC(review SYS_C004047)*/
 				rownum rn, reviewid,title,username,regdate,p_rating
 				from review
 				where p_code = #{p_code} and reviewid > 0 and rownum <= (#{cri.pageNum}*#{cri.amount}))
 		where rn > ((#{cri.pageNum} -1) * #{cri.amount})
+		
 		
 		]]>
 	<!-- /*Index(spring_reply idx_reply)*/ -->

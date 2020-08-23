@@ -7,7 +7,8 @@
   <div class="container">
         <h1 class="my-4">Payment</h1>
 
-	
+	<script src="https://www.paypal.com/sdk/js?client-id=sb"></script>
+	<script>paypal.Buttons().render('body');</script>
   </div>
   <!-- /.container -->
 <%@include file="../includes/footer.jsp" %> 

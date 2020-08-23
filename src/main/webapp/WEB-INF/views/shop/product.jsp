@@ -461,7 +461,7 @@ $(function(){
 			success : function(result){
 				
 				$("#review_write_modal").modal('hide');
-				listReview();
+				listReview(1);
 				
 			},
 			error : function(){
