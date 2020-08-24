@@ -11,6 +11,7 @@ import com.spring.domain.MemberVO;
 public interface MemberService {
 	//Member
 	public int signUp(MemberVO member);
+	public int googleSignUp(MemberVO member);
 	public MemberVO getMember(String username);
 	public MemberVO checkPwd(MemberVO member);
 	public int modify(MemberVO member);

@@ -5,6 +5,10 @@
 	<insert id="signUp">
 		insert into test_mem(username, password, firstName, lastName, mobile) values(#{username}, #{password}, #{firstName}, #{lastName}, #{mobile})
 	</insert>
+	<!-- google 로그인 회원가입 -->
+	<insert id="googleSignUp">
+		insert into test_mem(username, password, firstName, lastName, googleID) values(#{username}, #{password}, #{firstName}, #{lastName}, #{googleID})
+	</insert>
 	
 	<!-- 회원 전체 검색 -->
 	<select id="listMember" resultType="com.spring.domain.MemberVO">

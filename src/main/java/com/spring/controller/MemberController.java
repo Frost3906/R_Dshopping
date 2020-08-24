@@ -204,6 +204,7 @@ public class MemberController {
 		log.info(""+memberPage);
 		
 		int boards=service.getTotalBoard(username);
+		log.info(""+boards);
 		int idx = 0;
 		if(boards%memberCri.getAmount()==0) {
 			idx = (boards/memberCri.getAmount());
@@ -213,6 +214,7 @@ public class MemberController {
 		
 		model.addAttribute("idx", idx);	
 		model.addAttribute("memberPage", memberPage);
+		log.info("========== 갯수" + memberPage.getTotal());
 		return service.myPageList(username, memberCri);
 	}
 	
@@ -303,6 +305,26 @@ public class MemberController {
 			return "redirect:member_manage";
 		}else {
 			rttr.addFlashAttribute("info", "관리자 계정 생성이 실패 했습니다.");
+			return "redirect:member_manage";			
+		}
+	}
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@PostMapping("/createManager")
+	public String createManager(MemberVO member, RedirectAttributes rttr, HttpSession session) {
+		log.info("Admin 계정 생성 절차 진행");
+		log.info(""+member);
+		
+		member.setPassword(encorder.encode(member.getPassword()));
+		
+		if(service.createAdmin(member)>0) {
+			service.SmemInsert(member);
+			service.SmemAuthInsert(member);
+			
+			//session.removeAttribute("auth");
+			rttr.addFlashAttribute("info", "매니저 계정 생성이 완료 되었습니다.");			
+			return "redirect:member_manage";
+		}else {
+			rttr.addFlashAttribute("info", "매니저 계정 생성이 실패 했습니다.");
 			return "redirect:member_manage";			
 		}
 	}
