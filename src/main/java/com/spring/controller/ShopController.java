@@ -311,7 +311,7 @@ public class ShopController {
 		service.deleteCart(username);
 	 
 	 
-		return "/shop/payment";  
+		return "/shop/complete";  
 	}
 
 	
