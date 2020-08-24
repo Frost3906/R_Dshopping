@@ -224,7 +224,14 @@ public class ShopController {
 		service.updateStar(vo.getP_code());
 		return result;
 	}
-
+	
+	@PostMapping("/review/delete")
+	@ResponseBody
+	public int delReview(int reviewId) {
+		log.info("리뷰 삭제 요청 : "+reviewId);
+		
+		return service.delReview(reviewId);
+	}
 	
 	
 	@GetMapping("/search")
@@ -301,6 +308,7 @@ public class ShopController {
 	 
 		orderDetail.setOrderId(orderId);   
 		service.insertOrderDetail(orderDetail);
+		service.deleteCart(username);
 	 
 	 
 		return "/shop/payment";  

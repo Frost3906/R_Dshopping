@@ -242,6 +242,11 @@
 		where cartNum = #{cartNum} and username = #{username}
 	</delete>
 	
+	<delete id="deleteCart">
+		delete from cart
+		where username= #{username}
+	</delete>
+	
 	
 	<!-- 리뷰 관련 쿼리 -->
 	<select id="listReview" resultType="com.spring.domain.ReviewVO">
@@ -270,6 +275,10 @@
 	<insert id="writeReview">
 		insert into review(reviewid,p_code,title,p_rating,content,username,image) values(seq_review_id.nextval,#{p_code},#{title},#{p_rating},#{content},#{username},#{image})
 	</insert>
+	
+	<delete id="delReview">
+		delete from review where reviewid = #{reviewid}
+	</delete>
 	
 	
 	
