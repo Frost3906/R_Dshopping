@@ -178,6 +178,7 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
       </div>
       <div class="modal-body">
+      <input type="hidden" id="rno" value=""/>
           <div>
           	<p class="mb-3" id="readReviewEmail"></p>
           </div>
@@ -364,6 +365,7 @@ $(function(){
 		    data: {reviewId:reviewId},
 		    success : function(result){
 		    	console.log(result.image);
+		    	$("#rno").val(result.reviewId);
 		    	$("#review_read_modal").modal('show');
 				$("#readReviewTitle").html(result.title);
 				$("#readReviewEmail").html(result.username);
@@ -489,8 +491,7 @@ $(function(){
 	
 		$(".read-footer").on("click",".delBtn", function(e){
 
-		let reviewId = $(this);
-		console.log(reviewId);
+		let reviewId = $("#rno").val();
 		$.ajax({
 			url : "/shop/review/delete",
 			type : "post",
