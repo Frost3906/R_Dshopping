@@ -77,7 +77,7 @@ public class BoardController {
 	// 내용보기 및 수정페이지 호출 (작성자 및 매니저, 관리자만 열람 가능)
 	@PreAuthorize("principal.username == #writer or hasAnyRole('ROLE_ADMIN','ROLE_MANAGER')")
 	@GetMapping(value= {"/read","/modify"})
-	public void read(int bno,Model model, String writer, @ModelAttribute ("cri") Criteria cri) {
+	public void read(int bno, Model model, String writer, @ModelAttribute ("cri") Criteria cri) {
 		log.info("게시물 읽기 요청" + bno + "..." + cri);
 		BoardVO vo = service.getBoard(bno);
 		model.addAttribute("vo",vo);

@@ -1,4 +1,6 @@
-<%@include file="../includes/header.jsp"  %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@include file="../includes/header.jsp" %>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <script src="/resources/myPage/js/modify.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
@@ -140,6 +142,7 @@
 	<input type="hidden" name="pageNum" value="${memberPage.memberCri.pageNum}" />
 	<input type="hidden" name="amount" value="${memberPage.memberCri.amount}" />
 	<input type="hidden" name="total" value="${memberPage.total}" />
+	<input type="hidden" name="writer" value="${auth.username}" />	
 </form>
 <script>
 
@@ -159,8 +162,9 @@ let actionForm = $("#actionForm");
 	
 	
 //타이틀 클릭시 페이지 나누기 정보가 있는 폼 보내기
-$(".move").click(function(e){
+$("#qnaList").on("click", ".move", function(e){
 	e.preventDefault();
+	
 	actionForm.append("<input type='hidden' name='bno' value='"+ $(this).attr("href") +"'/>");
 	actionForm.attr("action","/board/read");
 	actionForm.submit();
@@ -185,7 +189,7 @@ $(".idx_num").click(function(e){
 	    data: {
 		    	username:username,
 		    	pageNum:selectPage,
-		    	amount:amount
+		    	amount:amount,
 	    	},
 	    	success : function(result){
 	        let str = "";
@@ -195,13 +199,14 @@ $(".idx_num").click(function(e){
 	        console.log(result[0].bno);
 	        console.log(result[0].title);
 	        console.log(result[0].writer);
+	        console.log(result[0].replycnt);
 	        console.log(moment(result[0].regdate).format('YYYY-MM-DD HH:mm:ss'));
 	        
 	        if(result.length > 0){
 	            for(i=0; i < result.length; i++){
 	                str+="<tr id='qna'>";
 	                str+="<th>"+result[i].bno+"</th>";
-	                str+="<td><a class='move' href=<c:out value='"+result[i].bno+"'/>>"+result[i].title+"</a></td>";	                
+	                str+="<td class='title'><a class='move' href='"+result[i].bno+"'>"+result[i].title+"</a><strong>["+result[i].replycnt+"]</strong></td>";	                
 	                str+="<td>"+result[i].answer+"</td>";
 	                str+="<td>"+result[i].writer+"</td>";
 	                str+="<td>"+moment(result[i].regdate).format('YYYY-MM-DD HH:mm:ss')+"</td>";                	
@@ -246,7 +251,7 @@ $(".nextPage").click(function(e){
 	            for(i=0; i < result.length; i++){
 	                str+="<tr id='qna'>";
 	                str+="<th>"+result[i].bno+"</th>";
-	                str+="<td><a class='move' href=<c:out value='"+result[i].bno+"'/>>"+result[i].title+"</a></td>";	                
+	                str+="<td class='title'><a class='move' href='"+result[i].bno+"'>"+result[i].title+"</a><strong>["+result[i].replycnt+"]</strong></td>";	                
 	                str+="<td>"+result[i].answer+"</td>";
 	                str+="<td>"+result[i].writer+"</td>";
 	                str+="<td>"+moment(result[i].regdate).format('YYYY-MM-DD HH:mm:ss')+"</td>";                	
@@ -295,7 +300,7 @@ $(".previousPage").click(function(e){
 	            for(i=0; i < result.length; i++){
 	                str+="<tr id='qna'>";
 	                str+="<th>"+result[i].bno+"</th>";
-	                str+="<td><a class='move' href=<c:out value='"+result[i].bno+"'/>>"+result[i].title+"</a></td>";	                
+	                str+="<td class='title'><a class='move' href='"+result[i].bno+"'>"+result[i].title+"</a><strong>["+result[i].replycnt+"]</strong></td>";	                
 	                str+="<td>"+result[i].answer+"</td>";
 	                str+="<td>"+result[i].writer+"</td>";
 	                str+="<td>"+moment(result[i].regdate).format('YYYY-MM-DD HH:mm:ss')+"</td>";                	
@@ -337,8 +342,8 @@ function qnaList(){
 	        if(result.length > 0){
 	            for(i=0; i < result.length; i++){
 	                str+="<tr id='qna'>";
-	                str+="<th>"+result[i].bno+"</th>";
-	                str+="<td><a class='move' href=<c:out value='"+result[i].bno+"'/>>"+result[i].title+"</a></td>";	                
+	                str+="<th>"+result[i].bno+"</th>";    	                	
+	                str+="<td class='title'><a class='move' href='"+result[i].bno+"'>"+result[i].title+"</a><strong>["+result[i].replycnt+"]</strong></td>";	                
 	                str+="<td>"+result[i].answer+"</td>";
 	                str+="<td>"+result[i].writer+"</td>";
 	                str+="<td>"+moment(result[i].regdate).format('YYYY-MM-DD HH:mm:ss')+"</td>";                	
