@@ -47,8 +47,12 @@ public interface ProductMapper {
 	
 	public void removeFromCart(CartVO vo);
 	public void updateCart(CartVO vo);
+	public void deleteCart(String username);
 	
 	public int writeReview(ReviewVO vo);
+	public int delReview(int reviewId);
+	
+	
 	public int productModify(ProductVO vo);
 	public List<ReviewVO> listReview(@Param("cri") Criteria cri, @Param("p_code") int p_code);
 	int getCountByPcode(int p_code);

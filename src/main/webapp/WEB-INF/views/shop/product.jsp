@@ -178,6 +178,7 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
       </div>
       <div class="modal-body">
+      <input type="hidden" id="rno" value=""/>
           <div>
           	<p class="mb-3" id="readReviewEmail"></p>
           </div>
@@ -190,9 +191,8 @@
           </div>
           <div id="readReviewImage"></div>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-success write" class="close" data-dismiss="modal">submit</button>
-        <button type="button" class="btn btn-primary closeBtn" class="close" data-dismiss="modal">cancel</button>
+      <div class="modal-footer read-footer">
+        
       </div>
     </div>
   </div>
@@ -234,7 +234,8 @@ $(function(){
 	let p_code = ${vo.p_code};
 	let rating = 0;
 	
-
+	let csrfHeaderName = "${_csrf.headerName}";
+	let csrfTokenValue = "${_csrf.token}";
 	
 	//리뷰 리스트 
 	function listReview(page){
@@ -364,6 +365,7 @@ $(function(){
 		    data: {reviewId:reviewId},
 		    success : function(result){
 		    	console.log(result.image);
+		    	$("#rno").val(result.reviewId);
 		    	$("#review_read_modal").modal('show');
 				$("#readReviewTitle").html(result.title);
 				$("#readReviewEmail").html(result.username);
@@ -372,6 +374,16 @@ $(function(){
 				$("#readReviewRegDate").html(moment(result.regdate).format('YYYY-MM-DD HH:mm:ss'));
 				result.image = decodeURI(result.image);
 				$("#readReviewImage").html("<img src='/upload/"+result.image+"' style='max-width: 100%; height: auto;'/>");
+		    	if(result.username===username){
+		    		let str = "<button type='button' class='btn btn-warning modBtn'>modify</button>";
+		    		str += "<button type='button' class='btn btn-danger delBtn'>delete</button>";
+					str += "<button type='button' class='btn btn-primary closeBtn' class='close' data-dismiss='modal'>close</button>";
+		    		$('.read-footer').html(str);
+		    	}else{
+		    		let str = "<button type='button' class='btn btn-primary closeBtn' class='close' data-dismiss='modal'>close</button>";
+			    	$('.read-footer').html(str);
+		    	}
+		    
 		    },
 		    error:function(request,status,error){
 		        alert("실패");
@@ -383,6 +395,10 @@ $(function(){
 		
 
 	});
+	
+	
+	
+	
 	
 	
 	//탭 이동 활성화 스크립트
@@ -473,8 +489,32 @@ $(function(){
 	})
 	
 	
-	let csrfHeaderName = "${_csrf.headerName}";
-	let csrfTokenValue = "${_csrf.token}";
+		$(".read-footer").on("click",".delBtn", function(e){
+
+		let reviewId = $("#rno").val();
+		$.ajax({
+			url : "/shop/review/delete",
+			type : "post",
+			data : {reviewId : reviewId},
+ 			beforeSend : function(xhr){
+				xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+			}, 
+			success : function(result){
+				
+				$("#review_read_modal").modal('hide');
+				listReview(1);
+				
+			},
+			error : function(){
+				alert("잠시 후 다시 시도 해 주세요")
+			}
+
+		})
+		
+	})
+	
+	
+
 	
 	$("input[type='file']").change(function(){
 			//form의 형태로 데이터를 구성할 수 있음

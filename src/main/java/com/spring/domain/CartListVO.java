@@ -16,6 +16,6 @@ public class CartListVO {
 	
 	private int num;
 	private String p_name;
-	private int p_price;
+	private double p_price;
 	private String p_img;
 }

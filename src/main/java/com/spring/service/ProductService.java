@@ -27,11 +27,14 @@ public interface ProductService {
 	public int keySearchCategoryCount(CategoryKeySearchVO vo);
 	public List<CartVO> cartList(String username);
 	public void removeFromCart(CartVO vo);
+	public void deleteCart(String username);
+	
 	public int homeCategoryCount();
 	public List<String> homeCategoryList();
 	public void updateCart(CartVO vo);
 	
 	public int writeReview(ReviewVO vo);
+	public int delReview(int reviewId);
 	public int productModify(ProductVO vo);
 	public ReviewPageVO listReview(Criteria cri, int p_code);
 	public ReviewVO getReview(int reviewId);

@@ -112,6 +112,11 @@ public class ProductServiceImpl implements ProductService {
 	}
 	
 	@Override
+	public int delReview(int reviewId) {
+		return product.delReview(reviewId);
+	}
+	
+	@Override
 	public void updateStar(int p_code) {
 		product.updateStar(p_code);
 
@@ -148,6 +153,10 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public void insertOrderDetail(OrderDetailVO vo) {
 		product.insertOrderDetail(vo);
+	}
+	@Override
+	public void deleteCart(String username) {
+		product.deleteCart(username);
 	}
 
 	

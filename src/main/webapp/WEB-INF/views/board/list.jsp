@@ -12,7 +12,7 @@
 		<h1 class="page-header ml-2">Board List</h1>
 	<div>
 	<div>
-		<div>
+		<div class="mb-5">
 			<div class="row mb-3">	<!-- start search -->
 				<div class="col-auto mr-auto">
 					<div class="col-auto">	<!-- search Form -->
@@ -22,14 +22,14 @@
 							<select name="type" id="">
 								<option value="" <c:out value="${empty cri.type?'selected':''}" />>------</option>
 								<option value="T" <c:out value="${cri.type=='T'?'selected':''}" />>제목</option>
-								<option value="C" <c:out value="${cri.type=='T'?'selected':''}" />>내용</option>
-								<option value="W" <c:out value="${cri.type=='T'?'selected':''}" />>작성자</option>
-								<option value="TC" <c:out value="${cri.type=='T'?'selected':''}" />>제목 or 내용</option>
-								<option value="TW" <c:out value="${cri.type=='T'?'selected':''}" />>제목 or 작성자</option>
-								<option value="TCW" <c:out value="${cri.type=='T'?'selected':''}" />>제목 or 내용 or 작성자</option>
+								<option value="C" <c:out value="${cri.type=='C'?'selected':''}" />>내용</option>
+								<option value="W" <c:out value="${cri.type=='W'?'selected':''}" />>작성자</option>
+								<option value="TC" <c:out value="${cri.type=='TC'?'selected':''}" />>제목 or 내용</option>
+								<option value="TW" <c:out value="${cri.type=='TW'?'selected':''}" />>제목 or 작성자</option>
+								<option value="TCW" <c:out value="${cri.type=='TCW'?'selected':''}" />>제목 or 내용 or 작성자</option>
 							</select>
-							<input type="text" name="keyword" value="${cri.keyword}" />
-							<button class="btn btn-success" type="button">검색</button>
+							<input id="keyword" type="text" name="keyword" value="${cri.keyword}" />
+							<button class="btn btn-success btn-default" type="button">검색</button>
 						</form>
 					</div>
 				</div>	
@@ -37,10 +37,10 @@
 				<div class="col-auto">
 					<!-- 페이지 목록 갯수 지정하는 폼 -->
 					<select class="form-control" name="amount">
-						<option value="10" <c:out value="${criteria.amount == 10?'selected':''}"/>>10</option>
-						<option value="20" <c:out value="${criteria.amount == 20?'selected':''}"/>>20</option>
-						<option value="30" <c:out value="${criteria.amount == 30?'selected':''}"/>>30</option>
-						<option value="40" <c:out value="${criteria.amount == 40?'selected':''}"/>>40</option>
+						<option value="10" <c:out value="${cri.amount == 10?'selected':''}"/>>10</option>
+						<option value="20" <c:out value="${cri.amount == 20?'selected':''}"/>>20</option>
+						<option value="30" <c:out value="${cri.amount == 30?'selected':''}"/>>30</option>
+						<option value="40" <c:out value="${cri.amount == 40?'selected':''}"/>>40</option>
 					</select>
 				</div>
 			</div>
@@ -69,6 +69,9 @@
 						</c:forEach>
 					</tbody>
 				</table>
+				<c:if test="${empty list}">
+					<p style="text-align-last: center;">검색 결과 없음</p>
+				</c:if>
 				<div class="float-right mb-3">
 					<button id='regBtn' type='button' class='btn btn-xs pull-right btn-success' onclick="location.href='register'">Register New Board</button>
 				</div>
@@ -117,7 +120,7 @@
 					<span aria-hidden="true">X</span>
 				</button>
 			</div>
-			<div>
+			<div class="mt-3">
 				<p style="text-align: center;">처리가 완료되었습니다.</p>
 			</div>
 			<div class="modal-footer">
@@ -162,17 +165,29 @@
 		$(".move").click(function(e){
 			e.preventDefault();
 			actionForm.append("<input type='hidden' name='bno' value='"+ $(this).attr("href") +"'/>");
+			actionForm.append("<input type='hidden' name='writer' value='"+ $(this).parent().parent().children().eq(2).text() +"'/>");
 			actionForm.attr("action","read");
 			actionForm.submit();
 		})
 		
-		// 검색 버튼 클릭시 동작하는 스크리브
+		// 검색 버튼 클릭시 동작하는 스크립트
+		
 		$(".btn-default").click(function() {
+			$.search();
+		})
+		
+		$("#keyword").keydown(function(key){
+			if(key.keyCode == 13){
+				key.preventDefault();
+				$.search();
+			}
+		})
+		
+		$.search = function(){
 			let searchForm = $("#searchForm");
 			
 			let type = $("select[name='type']").val();
-			let keyword = $("input[name='keyword']").val();
-			
+			let keyword = searchForm.find("input[name='keyword']").val();
 			if (type == '') {
 				alert('검색 기준을 입력해 주세요');
 				return false;
@@ -180,9 +195,10 @@
 				alert('검색어를 입력해 주세요');
 				return false;
 			}
-			searchForm.find("intput[name='pageNum']").val("1");
-			searchForm.submit();
-		})
+			searchForm.find("input[name='pageNum']").val("1");
+			searchForm.submit();		
+		}
 	})
+	
 </script>
 <%@ include file="../includes/footer.jsp" %>

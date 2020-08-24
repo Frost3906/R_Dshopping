@@ -16,10 +16,9 @@ public class OrderVO {
 	private String detailaddress;
 	private String city;
 	private String state;
+	private String country;
 	private String zipcode;
-	private String customid;
-	private String phonenum;
-	private int total;
+	private double total;
 	private Date orderDate;
 	
 	

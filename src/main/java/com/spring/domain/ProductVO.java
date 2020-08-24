@@ -6,7 +6,7 @@ import lombok.Data;
 public class ProductVO {
 	private int p_code;
 	private String p_name;
-	private int p_price;
+	private double p_price;
 	private int p_stock;
 	private int p_rating;
 	private String p_content;

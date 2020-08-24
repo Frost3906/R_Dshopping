@@ -224,7 +224,14 @@ public class ShopController {
 		service.updateStar(vo.getP_code());
 		return result;
 	}
-
+	
+	@PostMapping("/review/delete")
+	@ResponseBody
+	public int delReview(int reviewId) {
+		log.info("리뷰 삭제 요청 : "+reviewId);
+		
+		return service.delReview(reviewId);
+	}
 	
 	
 	@GetMapping("/search")
@@ -265,7 +272,7 @@ public class ShopController {
 	
 	
 	@PostMapping("/check")
-	public String check(int total, Model model) {
+	public String check(double total, Model model) {
 		log.info("배송정보 입력 form 요청 "+total);
 		
 		model.addAttribute("total",total);
@@ -277,7 +284,7 @@ public class ShopController {
 	// 주문
 	@PostMapping("/order")
 	public String order(HttpSession session, OrderVO order, OrderDetailVO orderDetail) {
-		log.info("주문정보 확인 "+order+" "+session.getAttribute("auth"));
+		log.info("주문정보 확인 "+order);
 	 
 		MemberVO member = (MemberVO)session.getAttribute("auth");  
 		String username = member.getUsername();
@@ -301,6 +308,7 @@ public class ShopController {
 	 
 		orderDetail.setOrderId(orderId);   
 		service.insertOrderDetail(orderDetail);
+		service.deleteCart(username);
 	 
 	 
 		return "/shop/payment";  
