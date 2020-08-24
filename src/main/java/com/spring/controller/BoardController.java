@@ -34,6 +34,7 @@ public class BoardController {
 	@Autowired
 	private BoardService service;
 	
+	// 글 등록 화면 요청
 	@PreAuthorize("isAuthenticated()") // 인증된 사용자인 경우 true
 	@GetMapping("/register")
 	public void registerGet() {
@@ -73,10 +74,10 @@ public class BoardController {
 		model.addAttribute("pageVO", new BoardPageVO(cri, service.totalRows(cri)));
 	}
 
-	// 내용보기
-	@PreAuthorize("isAuthenticated()")
+	// 내용보기 및 수정페이지 호출 (작성자 및 매니저, 관리자만 열람 가능)
+	@PreAuthorize("principal.username == #writer or hasAnyRole('ROLE_ADMIN','ROLE_MANAGER')")
 	@GetMapping(value= {"/read","/modify"})
-	public void read(int bno,Model model, @ModelAttribute ("cri") Criteria cri) {
+	public void read(int bno,Model model, String writer, @ModelAttribute ("cri") Criteria cri) {
 		log.info("게시물 읽기 요청" + bno + "..." + cri);
 		BoardVO vo = service.getBoard(bno);
 		model.addAttribute("vo",vo);
@@ -84,7 +85,7 @@ public class BoardController {
 		// http://localhost:8080/board/modify
 	}
 	
-	// 내용수정
+	// 내용수정 (작성자만 수정 가능)
 	@PreAuthorize("principal.username == #vo.writer")
 	@PostMapping("/modify")
 	public String update(BoardVO vo, Criteria cri, RedirectAttributes rttr) {
@@ -109,8 +110,8 @@ public class BoardController {
 		}
 	}
 	
-	// 내용삭제
-	@PreAuthorize("principal.username == #writer")
+	// 내용삭제(작성자와 매니저, 관리자만 삭제 가능)
+	@PreAuthorize("principal.username == #writer or hasAnyRole('ROLE_ADMIN','ROLE_MANAGER')")
 	@PostMapping("/remove")
 	public String deletePost(int bno, String writer, Criteria cri, RedirectAttributes rttr) {
 		log.info("게시글 삭제 " + bno);
