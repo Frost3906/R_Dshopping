@@ -299,8 +299,8 @@
 	
 	<!-- 주문정보 -->
 	<insert id="makeOrder">
-		insert into orders(orderId,username,fullname,streetaddress,detailaddress,city,state,zipcode,customid,phonenum,total) 
-		values(#{orderId},#{username},#{fullname},#{streetaddress},#{detailaddress},#{city},#{state},#{zipcode},#{customid},#{phonenum},#{total})
+		insert into orders(orderId,username,fullname,streetaddress,detailaddress,city,state,country,zipcode,total) 
+		values(#{orderId},#{username},#{fullname},#{streetaddress},#{detailaddress, jdbcType=VARCHAR},#{city},#{state},#{country},#{zipcode},#{total})
 	</insert>
 	<!-- 주문 상세 정보 --> 
 	<insert id="insertOrderDetail">

@@ -32,7 +32,8 @@
 </div>
 
 <script>
-		
+		let csrfHeaderName = "${_csrf.headerName}";
+		let csrfTokenValue = "${_csrf.token}";
 		let amount = ${total};
         // Render the PayPal button into #paypal-button-container
         paypal.Buttons({
@@ -52,22 +53,38 @@
             onApprove: function(data, actions) {
                 return actions.order.capture().then(function(details) {
                     // Show a success message to the buyer
-                    console.log("result",details);
-                    console.log(details.payer.address);
+            		
+            		console.log(details);
+                    let data ={
+                    		fullname : details.payer.name.given_name + details.payer.name.surname,
+                    		streetaddress : details.purchase_units[0].shipping.address.address_line_1,
+                    		detailaddress : details.purchase_units[0].shipping.address.address_line_2,
+                    		city : details.purchase_units[0].shipping.address.admin_area_2,
+                    		state : details.purchase_units[0].shipping.address.admin_area_1,
+                    		country : details.purchase_units[0].shipping.address.country_code,
+                    		zipcode : details.purchase_units[0].shipping.address.postal_code,
+                    		total : details.purchase_units[0].amount.value
+                    }
                     
-                    let fullname = details.payer.name.given_name + details.payer.name.surname;
-                    let streetaddress = details.purchase_units.shipping.address.address_line_1;
-                    let detailaddress = details.purchase_units.shipping.address.address_line_2;
-                    let city = details.purchase_units.shipping.address.admin_area_2;
-                    let state = details.purchase_units.shipping.address.admin_area_1;
-                    let country = details.purchase_units.shipping.address.country_code;
-                    let zipcode = details.purchase_units.shipping.address.postal_code;
-                    let email = details.payer.email_address;
-                    let total = details.purchase_units.amount.value;
-                    //컨트롤러에서 해당 유저 아이디로 통관번호 받고 없으면 입력하라고 띄우기
+                    $.ajax({
+            			url : "/shop/order",
+            			type : "post",
+            			data : data,
+             			beforeSend : function(xhr){
+            				xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+            			}, 
+            			success : function(result){
+            				alert('Transaction completed by ' + details.payer.name.given_name + '!');
+            				location.href="/shop/payment";
+            			},
+            			error : function(){
+            				alert("잠시 후 다시 시도 해 주세요")
+            			}
+
+            		})
+   					
                     
                     
-                    alert('Transaction completed by ' + details.payer.name.given_name + '!');
                 });
             }
 
