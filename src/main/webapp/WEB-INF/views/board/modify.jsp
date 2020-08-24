@@ -40,8 +40,15 @@
         					<input class="form-control" name="writer" readonly="readonly" value="${vo.writer}">                				
         				</div>
         				<div style="text-align: right;">
-	        				<button type="submit" data-oper='modify' class="btn btn-default" style="border: 1px solid #ddd;">Modify</button>              			
-	        				<button type="submit" data-oper='remove' class="btn btn-danger" style="border: 1px solid #ddd;">Remove</button>              			
+							<sec:authentication property="principal" var="info"/>
+							<sec:authorize access="isAuthenticated()">
+								<c:if test="${info.username == vo.writer || info.authorities == '[ROLE_ADMIN]' || info.authorities == '[ROLE_MANAGER]'}">
+									<c:if test="${info.username == vo.writer}">
+			        					<button type="submit" data-oper='modify' class="btn btn-default" style="border: 1px solid #ddd;">Modify</button>
+			        				</c:if>              			
+			        				<button type="submit" data-oper='remove' class="btn btn-danger" style="border: 1px solid #ddd;">Remove</button>     
+               					</c:if>
+               				</sec:authorize>         			
 	        				<button type="submit" data-oper='list' class="btn btn-info" style="border: 1px solid #ddd;">List</button>
 			        		<input type="button" class="btn btn-default" style="border: 1px solid #ddd;" onclick="history.back()" value="Back"/>
         				</div>

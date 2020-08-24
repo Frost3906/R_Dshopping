@@ -36,7 +36,7 @@
         				<div style="text-align: right;">
              				<sec:authentication property="principal" var="info"/>
              				<sec:authorize access="isAuthenticated()">
-             					<c:if test="${info.username == vo.writer}">
+             					<c:if test="${info.username == vo.writer || info.authorities == '[ROLE_ADMIN]' || info.authorities == '[ROLE_MANAGER]'}">
              						<button type="button" class="btn btn-default" style="border: 1px solid #ddd;">Modify</button>
              					</c:if>
              				</sec:authorize>
@@ -101,10 +101,10 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
+        <h5 class="modal-title">Reply</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
-        <h5 class="modal-title">Reply</h5>
       </div>
       <div class="modal-body">
         <div class="form-group">
