@@ -1,5 +1,6 @@
 package com.spring.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -37,6 +38,7 @@ import com.spring.domain.MemberCriteria;
 import com.spring.domain.MemberPageVO;
 import com.spring.domain.MemberVO;
 import com.spring.domain.ReviewVO;
+import com.spring.domain.MyPageOrderVO;
 import com.spring.email.EmailSender;
 import com.spring.email.EmailVO;
 import com.spring.email.RandomString;
@@ -227,9 +229,18 @@ public class MemberController {
 	public String QnARead(int bno, Model model, @ModelAttribute ("cri") Criteria cri, RedirectAttributes rttr) {
 		log.info("게시물 읽기 요청" + bno + "..." + cri);
 		BoardVO vo = boardService.getBoard(bno);
-//		model.addAttribute("vo",vo);
 		rttr.addFlashAttribute("vo", vo);
 		return "redirect:/board/read";
+	}
+	
+	//구매내역 가져오기
+	@GetMapping("/myPage/orderList")
+	@ResponseBody
+	public List<MyPageOrderVO> orderList(String username, Model model) {
+		log.info("MyPage Order 탭 테이블 처리");
+		log.info(username);
+		
+		return service.orderList(username);
 	}
 	
 	//Admin
