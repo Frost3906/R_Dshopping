@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.social.google.connect.GoogleConnectionFactory;
 import org.springframework.social.oauth2.GrantType;
 import org.springframework.social.oauth2.OAuth2Operations;
@@ -39,6 +40,9 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 public class HomeController {
 
+	//비밀번호 암호화
+	@Autowired
+	private PasswordEncoder encorder;
 	@Autowired
 	private ProductService service;
 	@Autowired
@@ -81,10 +85,15 @@ public class HomeController {
 		member.setUsername(email);
 		log.info(""+member);
 		
+		member.setPassword(encorder.encode("123"));
+		
 		MemberVO vo=memberService.getMember(member.getUsername());
 		if(vo == null) {
-			rttr.addFlashAttribute("google", member);
-			return "redirect:/member/signUp";
+			memberService.googleSignUp(member);
+			memberService.SmemAuthInsert(member);
+			memberService.SmemInsert(member);
+			session.setAttribute("auth", member);
+			return "redirect:/";
 		}else {
 			session.setAttribute("auth", vo);
 			return "redirect:/";

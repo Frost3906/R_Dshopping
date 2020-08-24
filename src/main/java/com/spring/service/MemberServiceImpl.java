@@ -20,6 +20,11 @@ public class MemberServiceImpl implements MemberService {
 	public int signUp(MemberVO member) {
 		return mapper.signUp(member);
 	}
+	
+	@Override
+	public int googleSignUp(MemberVO member) {
+		return mapper.googleSignUp(member);
+	}
 
 	@Override
 	public MemberVO getMember(String username) {

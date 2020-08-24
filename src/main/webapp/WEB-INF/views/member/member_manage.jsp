@@ -11,6 +11,7 @@
   	<div class="row mb-3">
   		<div class="col-auto mr-auto">
   		<button type="button" class="btn btn-success" id="createAdminBtn">Create Admin Account</button>
+  		<button type="button" class="btn btn-warning" id="createManagerBtn">Create Manager Account</button>
   		</div>
   		<div class="col-auto">  		
   		<select class="form-control" id="amount" name="amount">
@@ -282,6 +283,71 @@
     </div>
   </div>
 </div>
+<%-- Create Admin Account Modal --%>
+<div class="modal fade" id="createManagerModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Create Manager Account</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+	     <form action="createManager" method="post">	     	
+	     	<div class="row form-row">
+                <div class="col-md-4 mb-2">
+                    <label for="">Manager ID</label>
+                </div>
+                <div class="col-md-8">
+                    <input type="text" name="username" class="form-control form-control-sm">
+                </div>
+            </div>
+	     	<div class="row form-row">
+                <div class="col-md-4 mb-2">
+                    <label for="">Password</label>
+                </div>
+                <div class="col-md-8">
+                    <input type="password" name="password" class="form-control form-control-sm">
+                </div>
+            </div>	                 
+	     	<div class="row form-row">
+                <div class="col-md-4 mb-2">
+                    <label for="">Mobile</label>
+                </div>
+                <div class="col-md-8">
+                    <input type="text" name="mobile" class="form-control form-control-sm">
+                </div>
+            </div>	                 
+	     	<div class="row form-row">
+                <div class="col-md-4 mb-2">
+                    <label for="">First Name</label>
+                </div>
+                <div class="col-md-8">
+                    <input type="text" name="firstName" class="form-control form-control-sm">
+                </div>
+            </div>	                 
+	     	<div class="row form-row">
+                <div class="col-md-4 mb-2">
+                    <label for="">Last Name</label>
+                </div>
+                <div class="col-md-8">
+                    <input type="text" name="lastName" class="form-control form-control-sm">
+                </div>
+            </div>	
+          <input type="hidden" name="auth" class="form-control form-control-sm" value="ROLE_MANAGER">
+                               
+	      <div class="modal-footer">
+	        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+	        <button type="submit" class="btn btn-success" >Create</button>
+	        <button type="reset" class="btn btn-danger" >Reset</button>
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+	      </div>
+         </form>
+      </div>
+    </div>
+  </div>
+</div>
 <!-- 페이지 나누기 모달 추가 -->
 <%@ include file="../option/paginationModal.jsp" %> 
 <script>
@@ -378,6 +444,9 @@ $(function(){
 	});
 	$("#createAdminBtn").click(function(){
 		$("#createAdminModal").modal("show")
+	})
+	$("#createManagerBtn").click(function(){
+		$("#createManagerModal").modal("show")
 	})
 });
 </script>

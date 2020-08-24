@@ -21,7 +21,7 @@
 			  <thead class="thead-dark">
 			    <tr>
 			      <th scope="col">Image</th>
-			      <th scope="col">Product Name</th>
+			      <th scope="col">Order ID</th>
 			      <th scope="col">Rating</th>
 			      <th scope="col">Quantity</th>
 			      <th scope="col">Price</th>
@@ -139,7 +139,7 @@
 	<input type="hidden" name="keyword" value="${memberPage.memberCri.keyword}" />
 	<input type="hidden" name="pageNum" value="${memberPage.memberCri.pageNum}" />
 	<input type="hidden" name="amount" value="${memberPage.memberCri.amount}" />
-	<input type="hidden" id="totalMember" name="totalMember" value="${memberPage.total}" />
+	<input type="hidden" name="total" value="${memberPage.total}" />
 </form>
 <script>
 
@@ -151,6 +151,7 @@ console.log(username);
 console.log(pageNum);
 console.log(amount);
 console.log(total);
+console.log($("input[name='total']").val());
 	
 //페이지 나누기  관련 Script
 // 정보를 보낼 hidden 폼인 actionForm 가져오기
@@ -184,8 +185,7 @@ $(".idx_num").click(function(e){
 	    data: {
 		    	username:username,
 		    	pageNum:selectPage,
-		    	amount:amount,
-		    	total:total
+		    	amount:amount
 	    	},
 	    	success : function(result){
 	        let str = "";
@@ -230,8 +230,7 @@ $(".nextPage").click(function(e){
 	    data: {
 		    	username:username,
 		    	pageNum:parseInt(nowPage)+1,
-		    	amount:amount,
-		    	total:total
+		    	amount:amount
 	    	},
 	    	success : function(result){
 	        let str = "";
@@ -280,8 +279,7 @@ $(".previousPage").click(function(e){
 	    data: {
 		    	username:username,
 		    	pageNum:parseInt(nowPage)-1,
-		    	amount:amount,
-		    	total:total
+		    	amount:amount
 	    	},
 	    	success : function(result){
 	        let str = "";
@@ -324,8 +322,7 @@ function qnaList(){
 	    data: {
 		    	username:username,
 		    	pageNum:pageNum,
-		    	amount:amount,
-		    	total:total
+		    	amount:amount
 	    	},
 	    success : function(result){
 	        let str = "";
