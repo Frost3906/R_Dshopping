@@ -3,6 +3,10 @@ body {
       margin:0;
 }
 
+.error{
+	color:salmon;
+}
+
 .mp_main {
 	padding: 56px;
 }

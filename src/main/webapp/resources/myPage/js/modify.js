@@ -8,10 +8,11 @@ $(function(){
 				required:true
 			},
 			new_password:{
+				required:true,
 				validPwd:true
 			},
 			confirm_password:{
-				equalTo:new_password
+				equalTo:"input[name='new_password']"
 			},
 			mobile:{
 				required:true
@@ -25,6 +26,7 @@ $(function(){
 				required:"REQUIRED INPUT"
 			},
 			new_password:{
+				required:"REQUIRED INPUT",
 				validPwd:"8 digits or more, including uppercase and lowercase, special characters"
 			},
 			confirm_password:{
