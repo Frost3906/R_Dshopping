@@ -48,6 +48,7 @@
         			<div id="price"></div> 
         		</div>
         		<button type="button" class="btn btn-success btn-lg mt-3 addCart">장바구니 담기</button>
+				<button type="button" class="btn btn-danger btn-lg float-right mt-3" onclick="history.back()">뒤로가기</button>
         	</div>
         	
         <!-- /.row -->
