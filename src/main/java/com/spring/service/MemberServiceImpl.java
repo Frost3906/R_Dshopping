@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.spring.domain.BoardVO;
 import com.spring.domain.MemberCriteria;
+import com.spring.domain.MemberPageVO;
 import com.spring.domain.MemberVO;
 import com.spring.domain.MyPageOrderVO;
 import com.spring.mapper.MemberMapper;
@@ -20,38 +21,35 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public int signUp(MemberVO member) {
 		return mapper.signUp(member);
-	}
-	
+	}	
 	@Override
 	public int googleSignUp(MemberVO member) {
 		return mapper.googleSignUp(member);
 	}
-
 	@Override
 	public MemberVO getMember(String username) {
 		return mapper.getMember(username);
 	}
-
 	@Override
 	public MemberVO checkPwd(MemberVO member) {
 		return mapper.checkPwd(member);
 	}
-
 	@Override
 	public int modify(MemberVO member) {
 		return mapper.modify(member);
 	}
-
+	@Override
+	public int modifyNull(MemberVO member) {
+		return mapper.modifyNull(member);
+	}
 	@Override
 	public int manageModify(MemberVO member) {
 		return mapper.manageModify(member);
 	}
-
 	@Override
 	public int forgetPwd(MemberVO member) {
 		return mapper.forgetPwd(member);
 	}
-
 	@Override
 	public MemberVO getBySNS(MemberVO snsMember) {
 		MemberVO member=null;
@@ -59,13 +57,11 @@ public class MemberServiceImpl implements MemberService {
 			member=mapper.getBySnsGoogle(snsMember);			
 		}
 		return member;
-	}
-	
+	}	
 	@Override
 	public List<MemberVO> listMember() {
 		return mapper.listMember();
-	}
-	
+	}	
 	@Override
 	public int leaveMember(String username) {
 		return mapper.leaveMember(username);
@@ -94,7 +90,14 @@ public class MemberServiceImpl implements MemberService {
 	public int createAdmin(MemberVO member) {
 		return mapper.createAdmin(member);
 	}
-	
+	@Override
+	public List<MemberVO> searchMember(MemberCriteria memberCri) {
+		return mapper.searchMember(memberCri);
+	}
+	@Override
+	public int searchTotal(MemberCriteria memberCri) {
+		return mapper.searchTotal(memberCri);
+	}
 	
 	//MyPage
 	@Override

@@ -1,44 +1,37 @@
-/**
- *  이메일 형식 
- *  비밀번호 형식 (8자리 이상 대,소문자, 특수기호 포함)  
- */
 $(function(){
 	$("#modify").validate({
 		rules:{
-			password:{
-				required:true,
-				remote:{
-					url:"checkPwd",
-					type:"post",
-					data:{
-						email:function(){
-							return $("input[name='password']").val();
-						}
-					}
-				},
-				checkPwd:true,				
+			firstName:{
+				required:true
+			},
+			lastName:{
+				required:true
 			},
 			new_password:{
-				required:true,
 				validPwd:true
 			},
 			confirm_password:{
-				required:true,
-				equalTo:"input[name='new_password'"
+				equalTo:new_password
+			},
+			mobile:{
+				required:true
 			}
 		},
 		messages:{
-			password:{
-				required:"REQUIRED INPUT",
-				checkPwd:"8 digits or more, including uppercase and lowercase and special characters"				
+			firstName:{
+				required:"REQUIRED INPUT"
+			},
+			lastName:{
+				required:"REQUIRED INPUT"
 			},
 			new_password:{
-				required:"REQUIRED INPUT",
-				validPwd:"8 digits or more, including uppercase and lowercase and special characters"
+				validPwd:"8 digits or more, including uppercase and lowercase, special characters"
 			},
 			confirm_password:{
-				required:"REQUIRED INPUT",
-				equalTo:"Passwords do not match."
+				equalTo:"Do not match."
+			},
+			mobile:{
+				required:"REQUIRED INPUT"
 			}
 		}
 	})

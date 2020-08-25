@@ -2,14 +2,14 @@
     pageEncoding="UTF-8"%>
 <%@include file="../includes/header.jsp" %>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-<script src="/resources/myPage/js/modify.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+
 
 <div class="row mp_main">
   <div class="col-3">
 	<div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
 	  <a class="nav-link active" id="v-pills-order-tab" data-toggle="pill" href="#v-pills-order" role="tab" aria-controls="v-pills-order" aria-selected="false">Order</a>
-	  <a class="nav-link" id="v-pills-shipping-tab" data-toggle="pill" href="#v-pills-shipping" role="tab" aria-controls="v-pills-shipping" aria-selected="false">Shipping</a>
+	  <!-- <a class="nav-link" id="v-pills-shipping-tab" data-toggle="pill" href="#v-pills-shipping" role="tab" aria-controls="v-pills-shipping" aria-selected="false">Shipping</a> -->
 	  <a class="nav-link" id="v-pills-account-tab" data-toggle="pill" href="#v-pills-account" role="tab" aria-controls="v-pills-account" aria-selected="false">Your Account</a>	  
 	  <a class="nav-link" id="v-pills-question-tab" data-toggle="pill" href="#v-pills-question" role="tab" aria-controls="v-pills-question" aria-selected="false">Question</a>
 	</div>
@@ -43,9 +43,11 @@
 	    </div>
 	  </div>
 	  <%-- 배송 조회 --%>
-	  <div class="tab-pane fade" id="v-pills-shipping" role="tabpanel" aria-labelledby="v-pills-shipping-tab">
+	  <!-- <div class="tab-pane fade" id="v-pills-shipping" role="tabpanel" aria-labelledby="v-pills-shipping-tab">
 	  	Shipping
-	  </div>
+	  </div> -->
+	  
+	  <script src="/resources/myPage/js/modify.js"></script>
 	  <%-- 회원정보 수정 --%>	  
 	  <div class="tab-pane fade" id="v-pills-account" role="tabpanel" aria-labelledby="v-pills-account-tab">
 	  	<form style="margin-left: 200px" id="modify" action="modify" method="post">
@@ -62,24 +64,40 @@
 			  			<input style="width: 500px" type="password" name="confirm_password" class="form-control form-control-sm">
 			  		</div>
 			  		<div class="mb-3 font-weight-bold">
+			  			<label for="">FirstName</label>
+			  			<input style="width: 500px" type="text" name="firstName" class="form-control form-control-sm" value="${auth.firstName}">
+			  		</div>
+			  		<div class="mb-3 font-weight-bold">
+			  			<label for="">LastName</label>
+			  			<input style="width: 500px" type="text" name="lastName" class="form-control form-control-sm" value="${auth.lastName}">
+			  		</div>
+			  		<div class="mb-3 font-weight-bold">
 			  			<label for="">Mobile</label>
-			  			<input style="width: 500px" type="text" name="mobile" class="form-control form-control-sm">
+			  			<input style="width: 500px" type="text" name="mobile" class="form-control form-control-sm" value="${auth.mobile}">
 			  		</div>
 			  		<div class="mb-3 font-weight-bold">
-			  			<label for="">Street</label>
-			  			<input style="width: 500px" type="text" name="street" class="form-control form-control-sm">
+			  			<label for="">Country</label>
+			  			<input style="width: 500px" type="text" name="country" class="form-control form-control-sm">
 			  		</div>
 			  		<div class="mb-3 font-weight-bold">
-			  			<label for="">address</label>
-			  			<input style="width: 500px" type="text" name="address" class="form-control form-control-sm">
+			  			<label for="">Street Address</label>
+			  			<input style="width: 500px" type="text" name="streetAddress" class="form-control form-control-sm">
+			  		</div>
+			  		<div class="mb-3 font-weight-bold">
+			  			<label for="">Detail Address</label>
+			  			<input style="width: 500px" type="text" name="detailAddress" class="form-control form-control-sm">
 			  		</div>	
 			  		<div class="mb-3 font-weight-bold">
 			  			<label for="">City</label>
-			  			<input style="width: 500px" type="text" name="City" class="form-control form-control-sm">
+			  			<input style="width: 500px" type="text" name="city" class="form-control form-control-sm">
 			  		</div>	
+			  		<div class="mb-3 font-weight-bold">
+			  			<label for="">State</label>
+			  			<input style="width: 500px" type="text" name="state" class="form-control form-control-sm">
+			  		</div>			  			
 			  		<div class="mb-5 font-weight-bold">
-			  			<label for="">Postcode</label>
-			  			<input style="width: 500px" type="text" name="postcode" class="form-control form-control-sm">
+			  			<label for="">Zipcode</label>
+			  			<input style="width: 500px" type="text" name="zipcode" class="form-control form-control-sm">
 			  		</div>	
 		  	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 			<button type="submit" class="btn btn-secondary">Confirm</button>

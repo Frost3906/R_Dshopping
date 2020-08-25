@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 
 import com.spring.domain.BoardVO;
 import com.spring.domain.MemberCriteria;
+import com.spring.domain.MemberPageVO;
 import com.spring.domain.MemberVO;
 import com.spring.domain.MyPageOrderVO;
 
@@ -16,6 +17,7 @@ public interface MemberService {
 	public MemberVO getMember(String username);
 	public MemberVO checkPwd(MemberVO member);
 	public int modify(MemberVO member);
+	public int modifyNull(MemberVO member);
 	public int manageModify(MemberVO member);
 	public int forgetPwd(MemberVO member);
 	public MemberVO getBySNS(MemberVO snsMember);
@@ -40,6 +42,8 @@ public interface MemberService {
 	//Admin
 	public List<MemberVO> manageList(MemberCriteria memberCri);
 	public int createAdmin(MemberVO member);
+	public List<MemberVO> searchMember(MemberCriteria memberCri);
+	public int searchTotal(MemberCriteria memberCri);
 	
 	//MyPage
 	public List<BoardVO> qnaList(String username);

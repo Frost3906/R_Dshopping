@@ -11,7 +11,7 @@ $(function(){
 			lastName:{
 				required:true
 			},
-			email:{
+			username:{
 				required:true,
 				email:true
 			},
@@ -30,7 +30,7 @@ $(function(){
 			lastName:{
 				required:"REQUIRED INPUT"
 			},
-			email:{
+			username:{
 				required:"REQUIRED INPUT",
 				email:"It is not in E-mail format."
 			},
