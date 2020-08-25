@@ -26,32 +26,26 @@
       <div class="col-lg-12"><table class="table">
 		  <thead class="thead-dark">
 		    <tr>
-		      <th scope="col">상품코드</th>
-		      <th scope="col">상품명</th>
-		      <th scope="col">가격</th>
-		      <th scope="col">재고</th>
-		      <th scope="col">별점</th>
-		      <th scope="col">상품설명</th>
-		      <th scope="col">카테고리1</th>
-		      <th scope="col">카테고리2</th>
-		      <th scope="col">카테고리3</th>
-		      <th scope="col">속성</th>
-		      <th scope="col">관리</th>
+			    	<th scope="col">OrderID</th>
+			    	<th scope="col">Image</th>
+				    <th scope="col">Product Name</th>
+				    <th scope="col">Quantity</th>
+				    <th scope="col">Price</th>
+				    <th scope="col">Total</th>
+				    <th scope="col">Order Date</th>
+				    <th scope="col">Manage</th>
 		    </tr>
 		  </thead>
 		  <c:forEach var="vo" items="${vo}">	
 			  <tbody>
 			    <tr>
-			      <th scope="col">${vo.p_code}</th>
+			      <th scope="col">${vo.orderId}</th>
+			      <th scope="col">${vo.image}</th>
 			      <th scope="col">${vo.p_name}</th>
+			      <th scope="col">${vo.cart_Stock}</th>
 			      <th scope="col">${vo.p_price}</th>
-			      <th scope="col">${vo.p_stock}</th>
-			      <th scope="col">${vo.p_rating}</th>
-			      <th scope="col">${vo.p_content}</th>
-			      <th scope="col">${vo.p_category1}</th>
-			      <th scope="col">${vo.p_category2}</th>
-			      <th scope="col">${vo.p_category3}</th>
-			      <th scope="col">${vo.property}</th>
+			      <th scope="col">${vo.cart_Stock*vo.p_price}</th>
+			      <th scope="col">${vo.orderDate}</th>
 			      <th scope="col">
 				  	<button onclick="location.href='/shop/product?p_code=${vo.p_code}'">조회</button>
 				  	<button onclick="location.href='product_modify?p_code=${vo.p_code}&pageNum=${pageNum}&amount=${amount}&manageKeyword=${manageKeyword}'">수정</button>

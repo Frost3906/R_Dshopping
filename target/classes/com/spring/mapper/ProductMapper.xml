@@ -318,6 +318,13 @@
        		 from cart   
 	</insert> 
 	
+		<!-- Order select 쿼리 -->
+	<select id="orderList_admin" resultType="com.spring.domain.MyPageOrderVO">
+		select o.orderId, o.total, o.orderdate, od.ordersDetailNum, od.p_code, od.cart_stock, p.p_name, p.p_price, p.image 
+		from orders o, orders_detail od, product p 
+		where o.orderid=od.orderid and od.p_code=p.p_code  
+		order by o.orderdate desc
+	</select>
 	
 	
 </mapper>

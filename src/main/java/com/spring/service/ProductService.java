@@ -6,6 +6,7 @@ import com.spring.domain.CartVO;
 import com.spring.domain.CategoryKeySearchVO;
 import com.spring.domain.Criteria;
 import com.spring.domain.ManageKeySearchVO;
+import com.spring.domain.MyPageOrderVO;
 import com.spring.domain.OrderDetailVO;
 import com.spring.domain.OrderVO;
 import com.spring.domain.ProductVO;
@@ -47,4 +48,5 @@ public interface ProductService {
 	
 	public void makeOrder(OrderVO vo);
 	public void insertOrderDetail(OrderDetailVO vo);
+	public List<MyPageOrderVO> orderList_admin();
 }

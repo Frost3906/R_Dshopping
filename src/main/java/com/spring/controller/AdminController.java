@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.spring.domain.ManageKeySearchVO;
 import com.spring.domain.ManageVO;
+import com.spring.domain.MyPageOrderVO;
 import com.spring.domain.ProductVO;
 import com.spring.domain.ShopPageVO;
 import com.spring.service.ProductService;
@@ -76,6 +77,18 @@ public class AdminController {
 		model.addAttribute("vo", vo);
 		model.addAttribute("idx", idx);
 		model.addAttribute("pageVO", pageVO);
+	}
+	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@GetMapping("/order_manage")
+	public String orderManage(Model model) {
+		log.info("주문 관리 form 호출");
+		
+		
+		
+		model.addAttribute("vo",service.orderList_admin());
+		
+		return "/admin/order_manage";
 	}
 
 	@GetMapping("/product_modify")
