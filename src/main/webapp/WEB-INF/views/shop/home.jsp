@@ -29,13 +29,13 @@
           </ol>
           <div class="carousel-inner" role="listbox">
             <div class="carousel-item active">
-              <img class="d-block img-fluid" src="http://placehold.it/1110x350" alt="First slide">
+              <img class="d-block img-fluid" src="/upload/2020/08/25/home1.jpg" alt="First slide" width="1110px" style="height: 350px;">
             </div>
             <div class="carousel-item">
-              <img class="d-block img-fluid" src="http://placehold.it/1110x350" alt="Second slide">
+              <img class="d-block img-fluid" src="/upload/2020/08/25/home2.jpg" alt="Second slide" width="1110px" style="height: 350px;">
             </div>
             <div class="carousel-item">
-              <img class="d-block img-fluid" src="http://placehold.it/1110x350" alt="Third slide">
+              <img class="d-block img-fluid" src="/upload/2020/08/25/home3.jpg" alt="Third slide" width="1110px" style="height: 350px;">
             </div>
           </div>
           <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
@@ -55,7 +55,7 @@
 		          <div class="col-lg-3 col-md-6 mb-4">
 		            <div class="card h-100">
 	                	<h4><a href="shop/categoryList?category1=${vo}&pageNum=1&amount=6&categoryKeyword=">${vo}</a></h4>
-		              <a href="shop/categoryList?category1=${vo}&pageNum=1&amount=6&categoryKeyword="><img class="card-img-top" src="/upload/2020/08/25/${vo}.jpg" alt=""></a>
+		              <a href="shop/categoryList?category1=${vo}&pageNum=1&amount=6&categoryKeyword="><img class="card-img-top" src="/upload/2020/08/25/${vo}.jpg" width="253px" height="253px"></a>
 		              <div class="card-footer" style="padding: 0px">
 		              	<a href="shop/categoryList?category1=${vo}&pageNum=1&amount=6&categoryKeyword="> > see more</a>
 		              </div>
