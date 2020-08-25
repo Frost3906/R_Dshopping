@@ -48,5 +48,6 @@ public interface ProductService {
 	
 	public void makeOrder(OrderVO vo);
 	public void insertOrderDetail(OrderDetailVO vo);
+	public void stockUpdate(OrderDetailVO vo);
 	public List<MyPageOrderVO> orderList_admin();
 }

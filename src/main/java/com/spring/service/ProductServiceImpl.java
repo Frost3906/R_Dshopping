@@ -163,6 +163,10 @@ public class ProductServiceImpl implements ProductService {
 	public List<MyPageOrderVO> orderList_admin() {
 		return product.orderList_admin();
 	}
+	@Override
+	public void stockUpdate(OrderDetailVO vo) {
+		product.stockUpdate(vo);
+	}
 
 	
 	

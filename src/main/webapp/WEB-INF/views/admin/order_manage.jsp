@@ -40,7 +40,7 @@
 			  <tbody>
 			    <tr>
 			      <th scope="col">${vo.orderId}</th>
-			      <th scope="col">${vo.image}</th>
+			      <th scope="col"><img src="/upload/${vo.image}" width="100" height="100"/></th>
 			      <th scope="col">${vo.p_name}</th>
 			      <th scope="col">${vo.cart_Stock}</th>
 			      <th scope="col">${vo.p_price}</th>

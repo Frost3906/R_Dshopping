@@ -57,27 +57,16 @@
 	</div>
     </form>
     <div>
-      		<h3>연관 상품</h3>
-      		<div>
-      			<ul class="list-group list-group-horizontal mb-5">
-      				<li class="list-group-item">1</li>
-      				<li class="list-group-item">2</li>
-      				<li class="list-group-item">3</li>
-      			</ul>
-      		</div>
+
     </div>	
 	<div>
       		<ul class="nav nav-tabs mt-5" id="productTab" role="tablist">
-				<li class="nav-item col-sm text-center"><a class="nav-link active" href="#goods-description" data-toggle="tab" aria-controls="goods-description" aria-selected="true">상품설명</a></li>
-      			<li class="nav-item col-sm text-center"><a class="nav-link" href="#goods-infomation" data-toggle="tab" aria-controls="goods-infomation" aria-selected="true">상세정보</a></li>
+      			<li class="nav-item col-sm text-center"><a class="nav-link active" href="#goods-infomation" data-toggle="tab" aria-controls="goods-infomation" aria-selected="true">상세정보</a></li>
       			<li class="nav-item col-sm text-center"><a class="nav-link" href="#goods-review" data-toggle="tab" aria-controls="goods-review" aria-selected="false">구매후기</a></li>
       		</ul>
       		<div class="tab-content" id="productTabContent">
-      			<div id="goods-description" class="tab-pane show active" aria-labelledby="goods-description-tab">
-      				상품에 대한 설명
-      			</div>
-      			<div id="goods-infomation" class="tab-pane" aria-labelledby="goods-infomation-tab">
-      				<img src='/upload/${vo.detailImage}' style='width: -webkit-fill-available; height: auto;'/>
+      			<div id="goods-infomation" class="tab-pane active" aria-labelledby="goods-infomation-tab">
+      				<img src='/upload/${vo.detailImage}' style='inline-size:-webkit-fill-available; max-width:100%; height: auto;'/>
       			</div>
       			<!-- 리뷰 시작 -->
        			<div id="goods-review" class="tab-pane" aria-labelledby="goods-review-tab">

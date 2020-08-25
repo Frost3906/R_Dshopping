@@ -291,7 +291,9 @@
 		    p_category1 = #{p_category1},
 		    p_category2 = #{p_category2},
 		    p_category3 = #{p_category3},
-		    property = #{property}
+		    property = #{property},
+		    image = #{image},
+		    detailImage = #{detailImage}
 		where p_code = #{p_code}
 	</update>
 	
@@ -317,6 +319,11 @@
     		select orders_detail_seq.nextval, #{orderId}, p_code, cart_Stock
        		 from cart   
 	</insert> 
+	
+	<update id="stockUpdate">
+		update product
+		set p_stock = (p_stock - #{cart_Stock}) where p_code = #{p_code} 
+	</update>
 	
 		<!-- Order select 쿼리 -->
 	<select id="orderList_admin" resultType="com.spring.domain.MyPageOrderVO">

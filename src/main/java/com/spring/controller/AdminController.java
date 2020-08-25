@@ -103,7 +103,7 @@ public class AdminController {
 
 	@PostMapping("/product_modify")
 	public String productModify(Model model, ProductVO vo,@Param("p_code") int p_code, @Param("pageNum") int pageNum, @Param("amount") int amount, String manageKeyword) {
-		log.info("상품 관리 form 호출" + vo);
+		log.info("상품 관리 form " + vo);
 		if(service.productModify(vo)>0) {
 			log.info("수정 성공");
 		} else {
