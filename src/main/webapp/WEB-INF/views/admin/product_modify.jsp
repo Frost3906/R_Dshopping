@@ -97,6 +97,7 @@
         		<input type="hidden" name="p_code" value="${vo.p_code}" />
         		<input type="hidden" name="manageKeyword" value="${manageKeyword}" />
 				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />    
+				<button type="button" class="btn btn-warning btn-lg float-right mt-3" onclick="location.href='/shop/product?p_code=${vo.p_code}'">조회</button>
         		<button type="button" class="btn btn-danger btn-lg float-right mt-3" onclick="location.href='product_manage?pageNum=${pageNum}&amount=${amount}&manageKeyword=${manageKeyword}'">뒤로가기</button>
         		<button type="submit" class="btn btn-success btn-lg float-right mt-3">상품 수정</button>
         	</div>
