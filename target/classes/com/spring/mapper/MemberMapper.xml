@@ -34,7 +34,12 @@
 	
 	<!-- 회원 정보 변경 -->
 	<update id="modify">
-		update test_mem set password=#{confirm_password} where username=#{username}
+		update test_mem set password=#{confirm_password}, mobile=#{mobile}, country=#{country}, streetAddress=#{streetAddress}, detailAddress=#{detailAddress}, city=#{city}, state=#{state}, zipcode=#{zipcode} 
+		where username=#{username}
+	</update>
+	<update id="modifyNull">
+		update test_mem set mobile=#{mobile}, country=#{country}, streetAddress=#{streetAddress}, detailAddress=#{detailAddress}, city=#{city}, state=#{state}, zipcode=#{zipcode} 
+		where username=#{username}
 	</update>
 	
 	<!-- 임의의 비밀번호로 변경 -->
@@ -69,6 +74,16 @@
     <insert id="createAdmin">
     	insert into test_mem(username, password, mobile, firstName, lastName) values(#{username}, #{password}, #{mobile}, #{firstName}, #{lastName})
     </insert>
+    
+    <!-- 회원 검색 -->
+    <select id="searchMember" resultType="com.spring.domain.MemberVO">
+    	select * from test_mem where username like '%'||#{keyword}||'%' 
+    </select>
+    
+    <!-- 회원 검색 total-->
+    <select id="searchTotal" resultType="int">
+    	select count(*) from test_mem where username like '%'||#{keyword}||'%' 
+    </select>
     
     
     <!-- MyPage -->

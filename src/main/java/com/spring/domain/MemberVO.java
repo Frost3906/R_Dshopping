@@ -16,9 +16,11 @@ public class MemberVO {
 	private String firstName;	//Require
 	private String lastName;	//Require
 	private String country;		
-	private String street;		
-	private String address;		
-	private String postcode;		
+	private String streetAddress;		
+	private String detailAddress;		
+	private String city;		
+	private String state;		
+	private String zipcode;		
 	private String nickName;	
 	private String auth;		//default member
 	private String googleID;

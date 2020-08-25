@@ -20,6 +20,7 @@ public interface MemberMapper {
 	public MemberVO getMember(String username);
 	public MemberVO checkPwd(MemberVO member);
 	public int modify(MemberVO member);
+	public int modifyNull(MemberVO member);
 	public int manageModify(MemberVO member);
 	public int forgetPwd(MemberVO member);
 	public MemberVO getBySnsNaver(MemberVO snsMember);
@@ -44,6 +45,8 @@ public interface MemberMapper {
 	//Admin
 	public List<MemberVO> manageList(MemberCriteria memberCri);
 	public int createAdmin(MemberVO member);
+	public List<MemberVO> searchMember(MemberCriteria memberCri);
+	public int searchTotal(MemberCriteria memberCri);
 	
 	//MyPage 
 	public List<BoardVO> qnaList(String username);

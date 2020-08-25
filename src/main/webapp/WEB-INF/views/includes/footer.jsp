@@ -13,6 +13,7 @@
   <script src="/resources/vendor/bootstrap/js/bootstrap.min.js"></script>
   
   <!-- Sign-In&Out -->
+  <!-- <script src="/resources/signIn/js/jquery-3.2.1.min.js"></script> -->
   <script src="/resources/signIn/js/popper.min.js"></script>
   <script src="/resources/signIn/js/bootstrap.min.js"></script>
   <script src="/resources/signIn/js/script.js"></script>

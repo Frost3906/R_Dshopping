@@ -29,22 +29,52 @@
 		      <th scope="col">E-mail</th>
 		      <th scope="col">FirstName</th>
 		      <th scope="col">LastName</th>
-		      <th scope="col">Membership Level</th>
 		      <th scope="col">Country</th>
+		      <th scope="col">Role</th>
 		      <th scope="col">Mobile</th>
 		    </tr>
 		  </thead>
 		  	<tbody>
+		  	<c:if test="${empty search}">
 			  <c:forEach var="list" items="${list}">	
 			    <tr>
 			      <th scope="col"><a href="" class="manageMember">${list.username}</a></th>
 			      <th scope="col">${list.firstName}</th>
 			      <th scope="col">${list.lastName}</th>
-			      <th scope="col">${list.memLevel}</th>
 			      <th scope="col">${list.country}</th>
+			      <c:if test="${list.auth == 'ROLE_ADMIN'}">
+			      <th scope="col">Admin</th>
+			      </c:if>
+			      <c:if test="${list.auth == 'ROLE_MANAGER'}">
+			      <th scope="col">Manager</th>
+			      </c:if>
+			      <c:if test="${list.auth == 'ROLE_MEMBER'}">
+			      <th scope="col">Member</th>
+			      </c:if>
 			      <th scope="col">${list.mobile}</th>
 			    </tr>
 			</c:forEach>
+			</c:if>
+		  	<c:if test="${!empty search}">
+			  <c:forEach var="list" items="${search}">	
+			    <tr>
+			      <th scope="col"><a href="" class="manageMember">${list.username}</a></th>
+			      <th scope="col">${list.firstName}</th>
+			      <th scope="col">${list.lastName}</th>
+			      <th scope="col">${list.country}</th>
+			      <c:if test="${list.auth == 'ROLE_ADMIN'}">
+			      <th scope="col">Admin</th>
+			      </c:if>
+			      <c:if test="${list.auth == 'ROLE_MANAGER'}">
+			      <th scope="col">Manager</th>
+			      </c:if>
+			      <c:if test="${list.auth == 'ROLE_MEMBER'}">
+			      <th scope="col">Member</th>
+			      </c:if>
+			      <th scope="col">${list.mobile}</th>
+			    </tr>
+			</c:forEach>
+			</c:if>
 		  </tbody>
 		</table>        	
         <!-- /.row -->
@@ -87,11 +117,10 @@
   		</div>
   		<div>
 		    <!-- 검색 및 검색 버튼 -->
-		    <form class="form-inline my-2 my-lg-0" method="get" action="product_manage" style="display: contents;" >
-		      <input class="form-control mr-sm-2" style="margin-right: 8px; width: 350px;" name="manageKeyword" type="search" placeholder="Input E-mail or Admin ID" aria-label="Search" <c:if test="${!empty manageKeyword}">value="${manageKeyword}"</c:if>>
+		    <form class="form-inline my-2 my-lg-0" method="get" action="/member/member_manage" style="display: contents;" >
+		      <input class="form-control mr-sm-2" style="margin-right: 8px; width: 350px;" name="keyword" type="search" placeholder="Input E-mail or Admin ID" aria-label="Search" <c:if test="${!empty manageKeyword}">value="${manageKeyword}"</c:if>>
 		      <input type="hidden" name="pageNum" value="1" />
-		      <input type="hidden" name="amount" value="${amount}" />
-		      <input type="hidden" name="manageKeyword" value="${manageKeyword}" />
+		      <input type="hidden" name="amount" value="10" />		      
 		      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
 		    </form>  		
   		</div>
@@ -99,12 +128,12 @@
 </div>
 
 <!-- 정보를 전달할 히든 폼 -->
-<form action="member_manage" id="actionForm">
+<form action="/member/member_manage" id="actionForm">
 	<input type="hidden" name="keyword" value="${memberPage.memberCri.keyword}" />
 	<input type="hidden" name="pageNum" value="${memberPage.memberCri.pageNum}" />
 	<input type="hidden" name="amount" value="${memberPage.amount}" />
+	<input type="hidden" id="total" name="total" value="${memberPage.total}" />
 </form>
-<input type="hidden" id="totalMember" name="totalMember" value="${memberPage.total}" />
 
 <%-- Manage Member ModifyModal --%>
 <div class="modal fade"  id="manageMemberModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -235,7 +264,7 @@
                     <label for="">Admin ID</label>
                 </div>
                 <div class="col-md-8">
-                    <input type="text" name="username" class="form-control form-control-sm">
+                    <input type="text" name="username" class="form-control form-control-sm" required="required">
                 </div>
             </div>
 	     	<div class="row form-row">
@@ -243,7 +272,7 @@
                     <label for="">Password</label>
                 </div>
                 <div class="col-md-8">
-                    <input type="password" name="password" class="form-control form-control-sm">
+                    <input type="password" name="password" class="form-control form-control-sm" required="required">
                 </div>
             </div>	                 
 	     	<div class="row form-row">
@@ -251,7 +280,7 @@
                     <label for="">Mobile</label>
                 </div>
                 <div class="col-md-8">
-                    <input type="text" name="mobile" class="form-control form-control-sm">
+                    <input type="text" name="mobile" class="form-control form-control-sm" required="required">
                 </div>
             </div>	                 
 	     	<div class="row form-row">
@@ -259,7 +288,7 @@
                     <label for="">First Name</label>
                 </div>
                 <div class="col-md-8">
-                    <input type="text" name="firstName" class="form-control form-control-sm">
+                    <input type="text" name="firstName" class="form-control form-control-sm" required="required">
                 </div>
             </div>	                 
 	     	<div class="row form-row">
@@ -267,7 +296,7 @@
                     <label for="">Last Name</label>
                 </div>
                 <div class="col-md-8">
-                    <input type="text" name="lastName" class="form-control form-control-sm">
+                    <input type="text" name="lastName" class="form-control form-control-sm" required="required">
                 </div>
             </div>	
           <input type="hidden" name="auth" class="form-control form-control-sm" value="ROLE_ADMIN">
@@ -300,7 +329,7 @@
                     <label for="">Manager ID</label>
                 </div>
                 <div class="col-md-8">
-                    <input type="text" name="username" class="form-control form-control-sm">
+                    <input type="text" name="username" class="form-control form-control-sm" required="required">
                 </div>
             </div>
 	     	<div class="row form-row">
@@ -308,7 +337,7 @@
                     <label for="">Password</label>
                 </div>
                 <div class="col-md-8">
-                    <input type="password" name="password" class="form-control form-control-sm">
+                    <input type="password" name="password" class="form-control form-control-sm" required="required">
                 </div>
             </div>	                 
 	     	<div class="row form-row">
@@ -316,7 +345,7 @@
                     <label for="">Mobile</label>
                 </div>
                 <div class="col-md-8">
-                    <input type="text" name="mobile" class="form-control form-control-sm">
+                    <input type="text" name="mobile" class="form-control form-control-sm" required="required">
                 </div>
             </div>	                 
 	     	<div class="row form-row">
@@ -324,7 +353,7 @@
                     <label for="">First Name</label>
                 </div>
                 <div class="col-md-8">
-                    <input type="text" name="firstName" class="form-control form-control-sm">
+                    <input type="text" name="firstName" class="form-control form-control-sm" required="required">
                 </div>
             </div>	                 
 	     	<div class="row form-row">
@@ -332,7 +361,7 @@
                     <label for="">Last Name</label>
                 </div>
                 <div class="col-md-8">
-                    <input type="text" name="lastName" class="form-control form-control-sm">
+                    <input type="text" name="lastName" class="form-control form-control-sm" required="required">
                 </div>
             </div>	
           <input type="hidden" name="auth" class="form-control form-control-sm" value="ROLE_MANAGER">

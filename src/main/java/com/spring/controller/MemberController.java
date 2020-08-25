@@ -131,15 +131,25 @@ public class MemberController {
 		log.info("회원정보 수정 절차 진행");
 		log.info(""+member);
 		
-		member.setConfirm_password(encorder.encode(member.getConfirm_password()));
-		if(service.modify(member)>0) {
-			service.SmemUpdateM(member);
-			session.removeAttribute("auth");
-			rttr.addFlashAttribute("info", "비밀번호 변경에 성공했습니다.\n 다시 로그인해 주세요.");
-			return "redirect:/member/login";
+		if(member.getNew_password() == null || member.getConfirm_password() == null) {
+			if(service.modifyNull(member)>0) {
+				rttr.addFlashAttribute("info", "회원 정보 변경에 성공했습니다.");
+				return "redirect:/member/myPage";
+			}else {
+				rttr.addFlashAttribute("info", "회원 정보 변경에 실패했습니다.\n 다시 시도해 주세요.");
+				return "redirect:/member/myPage";				
+			}			
 		}else {
-			rttr.addFlashAttribute("info", "비밀번호 변경에 실패했습니다.\n 다시 시도해 주세요.");
-			return "redirect:/member/myPage";				
+			member.setConfirm_password(encorder.encode(member.getConfirm_password()));
+			if(service.modify(member)>0) {
+				service.SmemUpdateM(member);
+				session.removeAttribute("auth");
+				rttr.addFlashAttribute("info", "비밀번호 변경에 성공했습니다.\n 다시 로그인해 주세요.");
+				return "redirect:/member/login";
+			}else {
+				rttr.addFlashAttribute("info", "비밀번호 변경에 실패했습니다.\n 다시 시도해 주세요.");
+				return "redirect:/member/myPage";				
+			}			
 		}
 			
 	}
@@ -250,23 +260,40 @@ public class MemberController {
 		log.info("Member Manage 화면 표시");
 		log.info(""+memberCri);
 		
-		MemberPageVO memberPage = new MemberPageVO(memberCri, service.totalMember(memberCri));
-		log.info(""+memberPage);
-		
-		int members=service.totalMember(memberCri);
+		MemberPageVO memberPage=null;
+		List<MemberVO> list=null;
+		int members=0;
 		int idx = 0;
-		if(members%memberCri.getAmount()==0) {
-			idx = (members/memberCri.getAmount());
-		} else {
-			idx = (members/memberCri.getAmount()+1);
+		
+		if(memberCri.getKeyword() == null) {
+			members=service.totalMember(memberCri);
+			memberPage = new MemberPageVO(memberCri, members);
+			log.info(""+memberPage);
+			if(members%memberCri.getAmount()==0) {
+				idx = (members/memberCri.getAmount());
+			} else {
+				idx = (members/memberCri.getAmount()+1);
+			}			
+			list=service.manageList(memberCri);
+			model.addAttribute("list", list);		
+		}else {
+			members=service.searchTotal(memberCri);
+			memberPage = new MemberPageVO(memberCri, members);
+			log.info(""+memberPage);			
+			if(members%memberCri.getAmount()==0) {
+				idx = (members/memberCri.getAmount());
+			} else {
+				idx = (members/memberCri.getAmount()+1);
+			}			
+			list=service.searchMember(memberCri);
+			model.addAttribute("search", list);		
 		}
 		
-		List<MemberVO> list=service.manageList(memberCri);
-		model.addAttribute("list", list);		
 		model.addAttribute("idx", idx);	
 		model.addAttribute("memberPage", memberPage);
 	}
 	
+	//member_manager modal에 정보 띄우기
 	@GetMapping("/manage_member/get")
 	@ResponseBody
 	public MemberVO getManageMember(String username) {

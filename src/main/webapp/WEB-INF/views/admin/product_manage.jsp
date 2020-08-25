@@ -81,7 +81,7 @@
   		<div>
 		    <!-- 검색 및 검색 버튼 -->
 		    <form class="form-inline my-2 my-lg-0" method="get" action="product_manage" style="display: contents;" >
-		      <input class="form-control mr-sm-2" style="margin-right: 8px; width: 200px;" name="manageKeyword" type="search" placeholder="Search in Keyword" aria-label="Search" <c:if test="${!empty manageKeyword}">value="${manageKeyword}"</c:if>>
+		      <input class="form-control mr-sm-2" style="margin-right: 8px; width: 200px;" name="keyword" type="search" placeholder="Search in Keyword" aria-label="Search" <c:if test="${!empty manageKeyword}">value="${manageKeyword}"</c:if>>
 		      <input type="hidden" name="pageNum" value="1" />
 		      <input type="hidden" name="amount" value="${amount}" />
 		      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
