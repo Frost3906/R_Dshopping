@@ -2,8 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ include file="../includes/header.jsp" %>
-<script src="https://code.jquery.com/jquery-3.5.1.slim.js" integrity="sha256-DrT5NfxfbHvMHux31Lkhxg42LY6of8TaYyK50jnxRnM=" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <div class="container mt-5 mb-5">
 	<div class="row">
       <div class="col-lg-12">
@@ -19,13 +17,14 @@
 	 				<li class="list-group-item">
 		 					<div class="float-left">상품 코드</div>
 		 					<div class="float-right">
-								<input type="text" id="p_code" name="p_code" value="${vo.p_code}"/>
+								<input type="text" id="p_code" name="p_code" value="${vo.p_code}" readonly="readonly"/>
 							</div>
 	 			  	</li>	 			
 	 				<li class="list-group-item">
 		 					<div class="float-left">상품 이름</div>
 		 					<div class="float-right">
-								<input type="text" id="p_name" name="p_name" value="${vo.p_name}"/>
+		 						<label for="p_name" class="error">*</label>
+								<input type="text" id="p_name" name="p_name" value="${vo.p_name}" placeholder="required" required="required"/>
 							</div>
 	 			  	</li>
 	 				<li class="list-group-item">
@@ -37,13 +36,15 @@
 	 				<li class="list-group-item">
 		 					<div class="float-left">가격</div>
 		 					<div class="float-right">
-								<input type="text" id="p_price" name="p_price" value="${vo.p_price}"/>
+		 						<label for="p_price" class="error">*</label>
+								<input type="text" id="p_price" name="p_price" value="${vo.p_price}" placeholder="required" required="required"/>
 							</div>
 	 			  	</li>
 	 				<li class="list-group-item">
 	 						<div class="float-left">재고</div>
 	 						<div class="float-right">
-								<input type="number" id="p_stock" name="p_stock" value="${vo.p_stock}"/>
+		 						<label for="p_stock" class="error">*</label>
+								<input type="number" id="p_stock" name="p_stock" value="${vo.p_stock}" placeholder="required" required="required"/>
 	 						</div>
 	 				</li>
 	 				<li class="list-group-item">	
@@ -172,6 +173,22 @@ $(function(){
 	let modifyForm = $("#product_modify");
 	$(".btn-success").click(function(e){
 		e.preventDefault();
+		$("#product_modify").validate({
+			rule:{
+				p_code:{
+					required: true
+				},
+				p_name:{
+					required: true
+				},
+				p_price:{
+					required: true
+				},
+				p_stock:{
+					required: true
+				}
+			}
+		});
 		$("#modCode").text($("#p_code").val());
 		$("#modName").text($("#p_name").val());
 		$("#modContent").text($("#p_content").val());

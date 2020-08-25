@@ -5,7 +5,6 @@
 <link rel="stylesheet" href="/resources/css/mycss.css" />
 <link rel="stylesheet" href="/resources/css/reply.css" />
 <%@ include file="../includes/header.jsp" %>
-<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.2/dist/jquery.validate.min.js"></script>
 
 <div class="container">
     <div class="row">
