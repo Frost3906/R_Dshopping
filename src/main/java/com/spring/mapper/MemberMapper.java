@@ -47,6 +47,10 @@ public interface MemberMapper {
 	public int createAdmin(MemberVO member);
 	public List<MemberVO> searchMember(MemberCriteria memberCri);
 	public int searchTotal(MemberCriteria memberCri);
+	public List<MemberVO> getNotAdmin(@Param("memberCri") MemberCriteria memberCri, @Param("role") String role);
+	public int getNotAdminTotal(@Param("memberCri") MemberCriteria memberCri, @Param("role") String role);
+	public List<MemberVO> getNotAdminSearch(@Param("memberCri") MemberCriteria memberCri, @Param("role") String role);
+	public int getNotAdminSearchTotal(@Param("memberCri") MemberCriteria memberCri, @Param("role") String role);
 	
 	//MyPage 
 	public List<BoardVO> qnaList(String username);

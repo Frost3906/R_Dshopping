@@ -98,6 +98,23 @@ public class MemberServiceImpl implements MemberService {
 	public int searchTotal(MemberCriteria memberCri) {
 		return mapper.searchTotal(memberCri);
 	}
+	@Override
+	public List<MemberVO> getNotAdmin(MemberCriteria memberCri, String role) {
+		return mapper.getNotAdmin(memberCri, role);
+	}
+	@Override
+	public int getNotAdminTotal(MemberCriteria memberCri, String role) {
+		return mapper.getNotAdminTotal(memberCri, role);
+	}
+	@Override
+	public List<MemberVO> getNotAdminSearch(MemberCriteria memberCri, String role) {
+		return mapper.getNotAdminSearch(memberCri, role);
+	}
+	@Override
+	public int getNotAdminSearchTotal(MemberCriteria memberCri, String role) {
+		return mapper.getNotAdminSearchTotal(memberCri, role);
+	}
+	
 	
 	//MyPage
 	@Override

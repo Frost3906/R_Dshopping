@@ -66,13 +66,13 @@
     <!-- 회원관리 페이지 회원정보 수정 -->
     <update id="manageModify">
     	update test_mem set password=#{password}, mobile=#{mobile}, memLevel=#{memLevel}, 
-    	firstName=#{firstName}, lastName=#{lastName}, country=#{country}, street=#{street}, 
-    	address=#{address}, postcode=#{postcode}, auth=#{auth} where username=#{username}
+    	firstName=#{firstName}, lastName=#{lastName}, country=#{country}, streetAdress=#{streetAdress}, 
+    	detailAddress=#{detailAddress}, zipcode=#{zipcode}, auth=#{auth} where username=#{username}
     </update>
     
     <!-- Admin 계정 생성 -->
     <insert id="createAdmin">
-    	insert into test_mem(username, password, mobile, firstName, lastName) values(#{username}, #{password}, #{mobile}, #{firstName}, #{lastName})
+    	insert into test_mem(username, password, mobile, firstName, lastName, auth) values(#{username}, #{password}, #{mobile}, #{firstName}, #{lastName}, #{auth})
     </insert>
     
     <!-- 회원 검색 -->
@@ -84,6 +84,32 @@
     <select id="searchTotal" resultType="int">
     	select count(*) from test_mem where username like '%'||#{keyword}||'%' 
     </select>
+    
+    <!-- Admin 제외 리스트 -->
+    <select id="getNotAdmin" resultType="com.spring.domain.MemberVO">
+    	select * from test_mem where auth like '%'||#{role}||'%'
+    </select>
+    
+    <!-- Admin 제외 리스트 Total -->
+    <select id="getNotAdminTotal" resultType="int">
+    	select count(*) from test_mem where auth like '%'||#{role}||'%'
+    </select>
+    
+    <!-- Admin 제외 검색 -->
+    <select id="getNotAdminSearch" resultType="com.spring.domain.MemberVO">
+    	select * from test_mem where username like '%'||#{memberCri.keyword}||'%' and auth like '%'||#{role}||'%'
+    </select>
+    
+    <!-- Admin 제외 검색 Total-->
+    <select id="getNotAdminSearchTotal" resultType="int">
+    	select count(*) from test_mem where username like '%'||#{memberCri.keyword}||'%' and auth like '%'||#{role}||'%'
+    </select>
+    
+    
+    
+    
+    
+    
     
     
     <!-- MyPage -->

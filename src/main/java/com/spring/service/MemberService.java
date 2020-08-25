@@ -44,6 +44,10 @@ public interface MemberService {
 	public int createAdmin(MemberVO member);
 	public List<MemberVO> searchMember(MemberCriteria memberCri);
 	public int searchTotal(MemberCriteria memberCri);
+	public List<MemberVO> getNotAdmin(MemberCriteria memberCri, String role);
+	public int getNotAdminTotal(MemberCriteria memberCri, String role);
+	public List<MemberVO> getNotAdminSearch(MemberCriteria memberCri, String role);
+	public int getNotAdminSearchTotal(MemberCriteria memberCri, String role);
 	
 	//MyPage
 	public List<BoardVO> qnaList(String username);

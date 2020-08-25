@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ include file="../includes/header.jsp" %>
-<script src="https://code.jquery.com/jquery-3.5.1.slim.js" integrity="sha256-DrT5NfxfbHvMHux31Lkhxg42LY6of8TaYyK50jnxRnM=" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <div class="container mt-5 mb-5">
 	<div>
@@ -10,7 +10,9 @@
 	</div>
   	<div class="row mb-3">
   		<div class="col-auto mr-auto">
+  		<c:if test="${auth.auth == 'ROLE_ADMIN'}">
   		<button type="button" class="btn btn-success" id="createAdminBtn">Create Admin Account</button>
+  		</c:if>
   		<button type="button" class="btn btn-warning" id="createManagerBtn">Create Manager Account</button>
   		</div>
   		<div class="col-auto">  		
@@ -170,15 +172,7 @@
                 <div class="col-md-8">
                     <input type="text" name="mobile" class="form-control form-control-sm">
                 </div>
-            </div>	                 
-	     	<div class="row form-row">
-                <div class="col-md-4 mb-2">
-                    <label for="">Member Level</label>
-                </div>
-                <div class="col-md-8">
-                    <input type="text" name="memLevel" class="form-control form-control-sm">
-                </div>
-            </div>	                 
+            </div>                 
 	     	<div class="row form-row">
                 <div class="col-md-4 mb-2">
                     <label for="">First Name</label>
@@ -205,26 +199,26 @@
             </div>	                 
 	     	<div class="row form-row">
                 <div class="col-md-4 mb-2">
-                    <label for="">Street</label>
+                    <label for="">StreetAdress</label>
                 </div>
                 <div class="col-md-8">
-                    <input type="text" name="street" class="form-control form-control-sm">
+                    <input type="text" name="streetAdress" class="form-control form-control-sm">
                 </div>
             </div>	                 
 	     	<div class="row form-row">
                 <div class="col-md-4 mb-2">
-                    <label for="">Address</label>
+                    <label for="">DetailAddress</label>
                 </div>
                 <div class="col-md-8 ">
-                    <input type="text" name="address" class="form-control form-control-sm">
+                    <input type="text" name="detailAddress" class="form-control form-control-sm">
                 </div>
             </div>	                 
 	     	<div class="row form-row">
                 <div class="col-md-4 mb-2">
-                    <label for="">Postcode</label>
+                    <label for="">Zipcode</label>
                 </div>
                 <div class="col-md-8">
-                    <input type="text" name="postcode" class="form-control form-control-sm">
+                    <input type="text" name="zipcode" class="form-control form-control-sm">
                 </div>
             </div>	                 
 	     	<div class="row form-row">
@@ -312,7 +306,7 @@
     </div>
   </div>
 </div>
-<%-- Create Admin Account Modal --%>
+<%-- Create Manager Account Modal --%>
 <div class="modal fade" id="createManagerModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -404,7 +398,7 @@ $(function(){
 	//Manage Modal에 회원 정보 띄우기
 	$(".manageMember").click(function(e){
 		e.preventDefault();
-		
+		//$("#manageMemberModal").modal("show");
 		let username=$(this).text();
 		console.log(username);
 		
@@ -417,13 +411,12 @@ $(function(){
 				$("#manageMemberModal").modal("show");
 				$("input[name='username']").val(result.username);
 				$("input[name='mobile']").val(result.mobile);
-				$("input[name='memLevel']").val(result.memLevel);
 				$("input[name='firstName']").val(result.firstName);
 				$("input[name='lastName']").val(result.lastName);
 				$("input[name='country']").val(result.country);
-				$("input[name='street']").val(result.street);
-				$("input[name='address']").val(result.address);
-				$("input[name='postcode']").val(result.postcode);
+				$("input[name='streetAdress']").val(result.streetAdress);
+				$("input[name='detailAddress']").val(result.detailAddress);
+				$("input[name='zipcode']").val(result.zipcode);
 				$("input[name='auth']").val(result.auth);
 			},
 		    error:function(request,status,error){

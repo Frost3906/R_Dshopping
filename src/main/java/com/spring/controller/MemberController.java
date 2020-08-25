@@ -254,41 +254,76 @@ public class MemberController {
 	}
 	
 	//Admin
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_MANAGER')")
 	@GetMapping("/member_manage")
-	public void memberManage(Model model, @ModelAttribute("memberCri") MemberCriteria memberCri) {
+	public void memberManage(Model model, @ModelAttribute("memberCri") MemberCriteria memberCri, HttpSession session) {
 		log.info("Member Manage 화면 표시");
 		log.info(""+memberCri);
+		MemberVO vo=(MemberVO)session.getAttribute("auth");
 		
 		MemberPageVO memberPage=null;
 		List<MemberVO> list=null;
 		int members=0;
-		int idx = 0;
+		int idx = 0;		
 		
-		if(memberCri.getKeyword() == null) {
-			members=service.totalMember(memberCri);
-			memberPage = new MemberPageVO(memberCri, members);
-			log.info(""+memberPage);
-			if(members%memberCri.getAmount()==0) {
-				idx = (members/memberCri.getAmount());
-			} else {
-				idx = (members/memberCri.getAmount()+1);
-			}			
-			list=service.manageList(memberCri);
-			model.addAttribute("list", list);		
+		//Admin 접속시
+		if(vo.getAuth().equals("ROLE_ADMIN")) {
+			if(memberCri.getKeyword() == null) {
+				log.info("Admin 접속");
+				members=service.totalMember(memberCri);
+				memberPage = new MemberPageVO(memberCri, members);
+				log.info(""+memberPage);
+				if(members%memberCri.getAmount()==0) {
+					idx = (members/memberCri.getAmount());
+				} else {
+					idx = (members/memberCri.getAmount()+1);
+				}			
+				list=service.manageList(memberCri);
+				model.addAttribute("list", list);
+			//Admin 접속 검색 시
+			}else {
+				log.info("Admin 접속 검색");
+				members=service.searchTotal(memberCri);
+				memberPage = new MemberPageVO(memberCri, members);
+				log.info(""+memberPage);			
+				if(members%memberCri.getAmount()==0) {
+					idx = (members/memberCri.getAmount());
+				} else {
+					idx = (members/memberCri.getAmount()+1);
+				}			
+				list=service.searchMember(memberCri);
+				model.addAttribute("search", list);		
+			}	
+		//Manager 접속 시	
 		}else {
-			members=service.searchTotal(memberCri);
-			memberPage = new MemberPageVO(memberCri, members);
-			log.info(""+memberPage);			
-			if(members%memberCri.getAmount()==0) {
-				idx = (members/memberCri.getAmount());
-			} else {
-				idx = (members/memberCri.getAmount()+1);
-			}			
-			list=service.searchMember(memberCri);
-			model.addAttribute("search", list);		
+			log.info("Manager 접속");
+			String role="ROLE_M";
+			if(memberCri.getKeyword() == null) {
+				members=service.getNotAdminTotal(memberCri, role);
+				memberPage = new MemberPageVO(memberCri, members);
+				log.info(""+memberPage);
+				if(members%memberCri.getAmount()==0) {
+					idx = (members/memberCri.getAmount());
+				} else {
+					idx = (members/memberCri.getAmount()+1);
+				}			
+				list=service.getNotAdmin(memberCri, role);
+				model.addAttribute("list", list);
+			//Manager 접속 검색 시
+			}else {
+				log.info("Manager 접속 검색");
+				members=service.getNotAdminSearchTotal(memberCri, role);
+				memberPage = new MemberPageVO(memberCri, members);
+				log.info(""+memberPage);			
+				if(members%memberCri.getAmount()==0) {
+					idx = (members/memberCri.getAmount());
+				} else {
+					idx = (members/memberCri.getAmount()+1);
+				}			
+				list=service.getNotAdminSearch(memberCri, role);
+				model.addAttribute("search", list);	
+			}
 		}
-		
 		model.addAttribute("idx", idx);	
 		model.addAttribute("memberPage", memberPage);
 	}
@@ -297,7 +332,7 @@ public class MemberController {
 	@GetMapping("/manage_member/get")
 	@ResponseBody
 	public MemberVO getManageMember(String username) {
-		return service.getMember(username);
+		return service.getMember(username);			
 	}	
 	
 	@PostMapping("/manageModify")
@@ -334,7 +369,7 @@ public class MemberController {
 	public String createAdmin(MemberVO member, RedirectAttributes rttr, HttpSession session) {
 		log.info("Admin 계정 생성 절차 진행");
 		log.info(""+member);
-		
+		member.setAuth("ROLE_ADMIN");
 		member.setPassword(encorder.encode(member.getPassword()));
 		
 		if(service.createAdmin(member)>0) {
@@ -354,7 +389,7 @@ public class MemberController {
 	public String createManager(MemberVO member, RedirectAttributes rttr, HttpSession session) {
 		log.info("Admin 계정 생성 절차 진행");
 		log.info(""+member);
-		
+		member.setAuth("ROLE_MANAGER");
 		member.setPassword(encorder.encode(member.getPassword()));
 		
 		if(service.createAdmin(member)>0) {
