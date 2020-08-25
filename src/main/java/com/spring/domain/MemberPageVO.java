@@ -47,11 +47,12 @@ public class MemberPageVO {
 		
 		//끝나는 페이지가 10개가 안될 수도 있기 때문에 
 		//실제로 끝나는 페이지 구하기
-//		int realEnd = (int)(Math.ceil((this.total/1.0)/this.amount));
-//		if(realEnd < this.endPage) {
-//			this.endPage = realEnd;
-//		} 
+		int realEnd = (int)(Math.ceil((this.total/1.0)/this.amount));
+		if(realEnd < this.endPage) {
+			this.endPage = realEnd;
+		} 
 		this.prev=this.nowPage<=10;
-		this.next=this.nowPage > (this.lastPage/10)*10;
+//		this.next=this.nowPage > (this.lastPage/10)*10;
+		this.next=this.nowPage < realEnd;
 	}
 }

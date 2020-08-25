@@ -308,10 +308,11 @@ public class ShopController {
 	 
 		orderDetail.setOrderId(orderId);   
 		service.insertOrderDetail(orderDetail);
+		service.stockUpdate(orderDetail);
 		service.deleteCart(username);
 	 
 	 
-		return "/shop/payment";  
+		return "/shop/complete";  
 	}
 
 	

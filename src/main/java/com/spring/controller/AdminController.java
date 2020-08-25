@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.spring.domain.ManageKeySearchVO;
 import com.spring.domain.ManageVO;
+import com.spring.domain.MyPageOrderVO;
 import com.spring.domain.ProductVO;
 import com.spring.domain.ShopPageVO;
 import com.spring.service.ProductService;
@@ -77,6 +78,18 @@ public class AdminController {
 		model.addAttribute("idx", idx);
 		model.addAttribute("pageVO", pageVO);
 	}
+	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@GetMapping("/order_manage")
+	public String orderManage(Model model) {
+		log.info("주문 관리 form 호출");
+		
+		
+		
+		model.addAttribute("vo",service.orderList_admin());
+		
+		return "/admin/order_manage";
+	}
 
 	@PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_MANAGER')")
 	@GetMapping("/product_modify")
@@ -91,7 +104,7 @@ public class AdminController {
 
 	@PostMapping("/product_modify")
 	public String productModify(Model model, ProductVO vo,@Param("p_code") int p_code, @Param("pageNum") int pageNum, @Param("amount") int amount, String manageKeyword) {
-		log.info("상품 관리 form 호출" + vo);
+		log.info("상품 관리 form " + vo);
 		if(service.productModify(vo)>0) {
 			log.info("수정 성공");
 		} else {

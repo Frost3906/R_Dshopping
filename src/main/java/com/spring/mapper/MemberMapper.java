@@ -8,6 +8,7 @@ import com.spring.domain.BoardVO;
 import com.spring.domain.MemberCriteria;
 import com.spring.domain.MemberPageVO;
 import com.spring.domain.MemberVO;
+import com.spring.domain.MyPageOrderVO;
 
 import lombok.experimental.PackagePrivate;
 
@@ -46,5 +47,6 @@ public interface MemberMapper {
 	
 	//MyPage 
 	public List<BoardVO> qnaList(String username);
+	public List<MyPageOrderVO> orderList(String username);
 	
 }

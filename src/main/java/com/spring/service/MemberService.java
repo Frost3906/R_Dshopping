@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 import com.spring.domain.BoardVO;
 import com.spring.domain.MemberCriteria;
 import com.spring.domain.MemberVO;
+import com.spring.domain.MyPageOrderVO;
 
 public interface MemberService {
 	//Member
@@ -42,4 +43,5 @@ public interface MemberService {
 	
 	//MyPage
 	public List<BoardVO> qnaList(String username);
+	public List<MyPageOrderVO> orderList(String username);
 }

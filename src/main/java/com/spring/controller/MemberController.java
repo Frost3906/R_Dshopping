@@ -1,5 +1,6 @@
 package com.spring.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -37,9 +38,11 @@ import com.spring.domain.MemberCriteria;
 import com.spring.domain.MemberPageVO;
 import com.spring.domain.MemberVO;
 import com.spring.domain.ReviewVO;
+import com.spring.domain.MyPageOrderVO;
 import com.spring.email.EmailSender;
 import com.spring.email.EmailVO;
 import com.spring.email.RandomString;
+import com.spring.service.BoardService;
 import com.spring.service.MemberService;
 import com.spring.sns.SNSSignIn;
 import com.spring.sns.SNSValue;
@@ -56,6 +59,8 @@ public class MemberController {
 	private PasswordEncoder encorder;
 	@Autowired
 	private MemberService service;
+	@Autowired
+	private BoardService boardService;
 	
 	//email 발송을 위한 객체 
 	@Inject
@@ -142,10 +147,11 @@ public class MemberController {
 	
 	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/myPage")
-	public void myPageForm(Model model, @ModelAttribute("memberCri") MemberCriteria memberCri) {;
+	public void myPageForm(Model model, @ModelAttribute("memberCri") MemberCriteria memberCri, HttpSession session) {;
 		log.info("마이페이지 화면 표시");
 		
-		model.addAttribute("memberPage", new MemberPageVO(memberCri, service.totalMember(memberCri)));
+		MemberVO vo=(MemberVO) session.getAttribute("auth");
+		model.addAttribute("memberPage", new MemberPageVO(memberCri, service.getTotalBoard(vo.getUsername())));
 	}
 	
 	
@@ -214,20 +220,28 @@ public class MemberController {
 		
 		model.addAttribute("idx", idx);	
 		model.addAttribute("memberPage", memberPage);
-		log.info("========== 갯수" + memberPage.getTotal());
 		return service.myPageList(username, memberCri);
 	}
 	
 	//QnA 게시판 글 읽기
-//	@PreAuthorize("isAuthenticated()")
-//	@GetMapping("/myPage/QnARead")
-//	public String QnARead(int bno, Model model, @ModelAttribute ("cri") Criteria cri) {
-//		log.info("게시물 읽기 요청" + bno + "..." + cri);
-//		BoardVO vo = service.getBoard(bno);
-//		model.addAttribute("vo",vo);
-//		
-//		return "redirect:/board/read";
-//	}
+	@PreAuthorize("isAuthenticated()")
+	@GetMapping("/myPage/read")
+	public String QnARead(int bno, Model model, @ModelAttribute ("cri") Criteria cri, RedirectAttributes rttr) {
+		log.info("게시물 읽기 요청" + bno + "..." + cri);
+		BoardVO vo = boardService.getBoard(bno);
+		rttr.addFlashAttribute("vo", vo);
+		return "redirect:/board/read";
+	}
+	
+	//구매내역 가져오기
+	@GetMapping("/myPage/orderList")
+	@ResponseBody
+	public List<MyPageOrderVO> orderList(String username, Model model) {
+		log.info("MyPage Order 탭 테이블 처리");
+		log.info(username);
+		
+		return service.orderList(username);
+	}
 	
 	//Admin
 	@PreAuthorize("hasRole('ROLE_ADMIN')")

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.spring.domain.BoardVO;
 import com.spring.domain.MemberCriteria;
 import com.spring.domain.MemberVO;
+import com.spring.domain.MyPageOrderVO;
 import com.spring.mapper.MemberMapper;
 
 @Service
@@ -100,6 +101,11 @@ public class MemberServiceImpl implements MemberService {
 	public List<BoardVO> qnaList(String username) {
 		return mapper.qnaList(username);
 	}
+	@Override
+	public List<MyPageOrderVO> orderList(String username) {
+		return mapper.orderList(username);
+	}
+	
 	
 	
 	//Security

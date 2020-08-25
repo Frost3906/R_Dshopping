@@ -9,6 +9,7 @@ import com.spring.domain.CartVO;
 import com.spring.domain.CategoryKeySearchVO;
 import com.spring.domain.Criteria;
 import com.spring.domain.ManageKeySearchVO;
+import com.spring.domain.MyPageOrderVO;
 import com.spring.domain.OrderDetailVO;
 import com.spring.domain.OrderVO;
 import com.spring.domain.ProductVO;
@@ -157,6 +158,14 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public void deleteCart(String username) {
 		product.deleteCart(username);
+	}
+	@Override
+	public List<MyPageOrderVO> orderList_admin() {
+		return product.orderList_admin();
+	}
+	@Override
+	public void stockUpdate(OrderDetailVO vo) {
+		product.stockUpdate(vo);
 	}
 
 	

@@ -89,6 +89,14 @@
 		select count(*) from board where writer=#{username}
 	</select>
 	
+	<!-- Order select 쿼리 -->
+	<select id="orderList" resultType="com.spring.domain.MyPageOrderVO">
+		select m.username, o.orderId, o.total, o.orderdate, od.ordersDetailNum, od.p_code, od.cart_stock, p.p_name, p.p_price, p.image 
+		from test_mem m, orders o, orders_detail od, product p 
+		where o.username=m.username and o.orderid=od.orderid and od.p_code=p.p_code and m.username=#{username} 
+		order by o.orderdate desc
+	</select>
+	
 	
 	<!-- 세큐리티 실험중 -->
 	<resultMap type="com.spring.domain.MemberVO" id="memberMap">
