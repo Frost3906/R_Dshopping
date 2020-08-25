@@ -55,7 +55,7 @@
 		          <div class="col-lg-3 col-md-6 mb-4">
 		            <div class="card h-100">
 	                	<h4><a href="shop/categoryList?category1=${vo}&pageNum=1&amount=6&categoryKeyword=">${vo}</a></h4>
-		              <a href="shop/categoryList?category1=${vo}&pageNum=1&amount=6&categoryKeyword="><img class="card-img-top" src="http://placehold.it/700x800" alt=""></a>
+		              <a href="shop/categoryList?category1=${vo}&pageNum=1&amount=6&categoryKeyword="><img class="card-img-top" src="/upload/2020/08/25/${vo}.jpg" alt=""></a>
 		              <div class="card-footer" style="padding: 0px">
 		              	<a href="shop/categoryList?category1=${vo}&pageNum=1&amount=6&categoryKeyword="> > see more</a>
 		              </div>

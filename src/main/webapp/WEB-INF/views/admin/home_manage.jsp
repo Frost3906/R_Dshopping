@@ -12,88 +12,23 @@
 	 		</div>
         	<div class="product-details ml-5 col-lg">
         		<form action="" method="post" role="form" id="add">
-	        	<h1>상품 등록</h1>
+	        	<h1>화면 이미지 등록</h1>
 	        	<br>
-	 			
-	 			<ul class="list-group list-group-flush">
-	 				<li class="list-group-item">
-		 					<div class="float-left">상품 코드</div>
+	 			<ul>
+	 			<c:forEach var="vo" items="${vo}">
+	 				<li>
+		 					<div class="float-left"><c:out value="${vo.category}"></c:out></div>
 		 					<div class="float-right">
 		 						<label for="p_code" class="error">*</label>
-								<input type="text" id="p_code" name="p_code" placeholder="required" required="required"/>
-							</div>
-	 			  	</li>	 			
-	 				<li class="list-group-item">
-		 					<div class="float-left">상품 이름</div>
-		 					<div class="float-right">
-		 						<label for="p_name" class="error">*</label>
-								<input type="text" id="p_name" name="p_name" placeholder="required" required="required"/>
-							</div>
-	 			  	</li>
-	 				<li class="list-group-item">
-		 					<div class="float-left">상품 설명</div>
-		 					<div class="float-right">
-								<input type="text" id="p_content" name="p_content"/>
-							</div>
-	 			  	</li>	 			  		 			
-	 				<li class="list-group-item">
-		 					<div class="float-left">가격</div>
-		 					<div class="float-right">
-		 						<label for="p_price" class="error">*</label>
-								<input type="text" id="p_price" name="p_price" placeholder="required" required="required"/>
-							</div>
-	 			  	</li>
-	 				<li class="list-group-item">
-	 						<div class="float-left">재고</div>
-	 						<div class="float-right">
-		 						<label for="p_stock" class="error">*</label>
-								<input type="number" id="p_stock" name="p_stock" placeholder="required" required="required"/>
-	 						</div>
+			 					<input type="file" id="${vo.category}" name="${vo.category}"/>
+							</div>	 					
 	 				</li>
-	 				<li class="list-group-item">	
-	 						<div class="float-left">대분류</div>
-	 						<div class="float-right">
-								<input type="text" id="p_category1" name="p_category1"/>
-	 						</div>
-	 				</li>
-	 				<li class="list-group-item">	
-	 						<div class="float-left">중분류</div>
-	 						<div class="float-right">
-								<input type="text" id="p_category2" name="p_category2"/>
-	 						</div>
-	 				</li>
-	 				<li class="list-group-item">	
-	 						<div class="float-left">소분류</div>
-	 						<div class="float-right">
-								<input type="text" id="p_category3" name="p_category3"/>
-	 						</div>
-	 				</li>
-	 				<li class="list-group-item">
-	 						<div class="float-left">속성</div>
-	 						<div class="float-right">
-								<input type="text" id="property" name="property"/>
-	 						</div>
-	 				</li>
-	 				<li class="list-group-item">
-	 						<div class="float-left">상품 이미지</div>
-	 						<div class="float-right">
-								<input type="file" id="productImage" name="productImage"/>
-								<input type="hidden" id="image" name="image"/>
-
-	 						</div>
-	 				</li>
-	 				<li class="list-group-item">
-	 						<div class="float-left">상품 상세 이미지</div>
-	 						<div class="float-right">
-								<input type="file" id="detailImg" name="detailImg"/>
-								<input type="hidden" id="detailImage" name="detailImage"/>
-
-	 						</div>
-	 				</li>
-	 				
+	 			</c:forEach>
 	 			</ul>
+	 			
+	 			
         	<div class="mb-3">
-        		<button type="button" class="btn btn-success btn-lg float-right mt-3" id="add_product">상품 등록</button>
+        		<button type="button" class="btn btn-success btn-lg float-right mt-3" id="add_product">이미지 등록</button>
 				<button type="button" class="btn btn-danger btn-lg float-right mt-3" onclick="history.back()">뒤로가기</button>
 				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />    
         	</div>
