@@ -29,21 +29,21 @@ public class AdminController {
 	@Autowired
 	private ProductService service;
 	
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_MANAGER')")
 	@GetMapping("/admin")
 	public String admin() {
 		log.info("관리자 페이지 호출");
 		return "/admin/admin";
 	}
 
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_MANAGER')")
 	@GetMapping("/add")
 	public String addProductForm() {
 		log.info("상품 등록 form 호출");
 		return "/admin/add_product";
 	}
 
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_MANAGER')")
 	@GetMapping("/product_manage")
 	public void productManage(Model model, ManageVO mvo) {
 		model.addAttribute("pageNum", mvo.getPageNum()); // 현재 페이지 번호
@@ -78,6 +78,7 @@ public class AdminController {
 		model.addAttribute("pageVO", pageVO);
 	}
 
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_MANAGER')")
 	@GetMapping("/product_modify")
 	public void productModify(Model model, ManageVO mvo) {
 		log.info("상품 관리 form 호출");
