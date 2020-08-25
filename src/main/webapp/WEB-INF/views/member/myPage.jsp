@@ -263,12 +263,12 @@ function orderList(){
 	    	},
 	    success : function(result){
 	        let str = "";
-	        
+	        console.log(result);
 	        if(result.length > 0){
 	            for(i=0; i < result.length; i++){
 	            	str+="<tr>";
 	            	str+="<th scope='col'>"+result[i].orderId+"</th>";				      
-	            	str+="<td scope='col'><img src=/upload/'"+result[i].image+"' alt='' class='img-thumbnail' width='100px' height='100px'></th>";				      
+	            	str+="<td scope='col'><img src=/upload/'"+result[i].image+"' width='100' height='100'></th>";				      
             		str+="<td scope='col'><a class='moveOrder' href='"+result[i].p_code+"'>"+result[i].p_name+"</a></th>";				      
             		str+="<td scope='col'>"+result[i].cart_Stock+"</th>";				      
             		str+="<td scope='col'>"+(result[i].p_price*result[i].cart_Stock)+"</th>";				      

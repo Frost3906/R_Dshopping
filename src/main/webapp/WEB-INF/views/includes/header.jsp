@@ -82,10 +82,10 @@
 			            <a class="nav-link" style="padding: 8px;" href="/member/myPage?pageNum=1&amount=10" style="text-decoration: underline;">HI!! ${auth.firstName}</a>
 			          </li>
 			          <li class="nav-item">
-			          <form action="/member/logout" method="post">
+			          <form action="/member/logout" method="post" id="logoutForm">
 						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>		
-			            <!-- <a class="nav-link" style="padding: 8px;" href="/member/logout">LogOut</a> -->
-			            <button>LogOut</button>
+			            <a class="nav-link" id="logout" style="padding: 8px;" href="/member/logout">LogOut</a>
+			            <!-- <button>LogOut</button> -->
 						</form>
 			          </li>
 			          <li class="nav-item">
@@ -149,4 +149,10 @@
 	if (info !== ""){
 		alert(info);
 	}
+	
+	let logoutForm=$("#logoutForm");
+	$("#logout").click(function(e){
+		e.preventDefault();
+		logoutForm.submit();
+	})
 </script>
