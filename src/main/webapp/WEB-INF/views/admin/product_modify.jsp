@@ -10,7 +10,7 @@
         	<div class="uploadResult">
 	 			<ul></ul>
 	 		</div>
-        	<img src='/upload/${vo.image}' alt=""/>
+        	<img src='/upload/${vo.image}' style="max-width: 50%;"/>
         	<div class="product-details ml-5 col-lg">
         		<form action="product_modify" method="post" id="product_modify">
 	        	<h1>상품 수정</h1>

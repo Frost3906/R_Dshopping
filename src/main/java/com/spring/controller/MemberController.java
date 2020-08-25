@@ -130,8 +130,8 @@ public class MemberController {
 	public String modifyPost(MemberVO member, HttpSession session, RedirectAttributes rttr) {
 		log.info("회원정보 수정 절차 진행");
 		log.info(""+member);
-		
-		if(member.getNew_password() == null || member.getConfirm_password() == null) {
+		MemberVO vo=(MemberVO)session.getAttribute("auth");
+		if(member.getNew_password().equals(vo.getPassword())) {
 			if(service.modifyNull(member)>0) {
 				rttr.addFlashAttribute("info", "회원 정보 변경에 성공했습니다.");
 				return "redirect:/member/myPage";

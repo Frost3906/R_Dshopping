@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="/resources/signUp/css/fontawsom-all.min.css">
     <link rel="stylesheet" type="text/css" href="/resources/signUp/css/style.css" />
         
-    <!-- <script src="/resources/signUp/js/signup.js"></script> -->
+    <script src="/resources/signUp/js/signup.js"></script>
     
     <title>RDS SignUp</title>
            <div class="register">
@@ -44,7 +44,7 @@
                                <form id="signUp" action="" method="post">
                                <div class="row form-row">
                                    <div class="col-md-4">
-                                       <label for="">Email Address</label>
+                                       <label for="">E-mail</label>
                                    </div>
                                    <div class="col-md-8">
                                        <input type="text" name="username" placeholder="example@example.com" value="${google.username}" class="form-control form-control-sm">
@@ -57,17 +57,7 @@
                                    <div class="col-md-8">
                                        <input type="password" name="password" placeholder="Enter Password" class="form-control form-control-sm">
                                    </div>
-                               </div>
-                               <div class="row form-row">
-                                   <div class="col-md-4">
-                                       <label for="">Country</label>
-                                   </div>
-                                   <div class="col-md-8">
-                                   	   <select name="country"> 
-                                   	   		<option value="country" selected="selected">Country</option>
-                                   	   </select>                                      
-                                   </div>
-                               </div>
+                               </div>                               
                                <div class="row form-row">
                                    <div class="col-md-4">
                                        <label for="">First Name</label>
@@ -86,7 +76,7 @@
                                </div>
                                <div class="row form-row">
                                    <div class="col-md-4">
-                                       <label for="">Mobile Number</label>
+                                       <label for="">Mobile</label>
                                    </div>
                                    <div class="col-md-8">
                                        <input type="text" name="mobile" placeholder="Enter Mobile Number" class="form-control form-control-sm">

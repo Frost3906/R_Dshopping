@@ -1,9 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@include file="../includes/header.jsp" %>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script> -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
 
+<%-- validation 및 탭 active 관련 스크립트 --%>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js"></script>
+
+<%-- 회원정보 수정 validation --%>
+<script src="/resources/myPage/js/modify.js"></script>
 
 <div class="row mp_main">
   <div class="col-3">
@@ -46,8 +52,6 @@
 	  <!-- <div class="tab-pane fade" id="v-pills-shipping" role="tabpanel" aria-labelledby="v-pills-shipping-tab">
 	  	Shipping
 	  </div> -->
-	  
-	  <script src="/resources/myPage/js/modify.js"></script>
 	  <%-- 회원정보 수정 --%>	  
 	  <div class="tab-pane fade" id="v-pills-account" role="tabpanel" aria-labelledby="v-pills-account-tab">
 	  	<form style="margin-left: 200px" id="modify" action="modify" method="post">
@@ -57,7 +61,7 @@
 			  		</div>
 			  		<div class="mb-3 font-weight-bold">
 			  			<label for="">New Password</label>
-			  			<input style="width: 500px" type="password" name="new_password" class="form-control form-control-sm">
+			  			<input style="width: 500px" type="password" placeholder="If you do not want to change, enter your current password" name="new_password" class="form-control form-control-sm">
 			  		</div>
 			  		<div class="mb-3 font-weight-bold">
 			  			<label for="">Confirm Password</label>
@@ -171,6 +175,11 @@ console.log(amount);
 console.log(total);
 console.log($("input[name='total']").val());
 
+//탭 전환 클릭 스크립트
+
+
+
+
 //페이지 나누기  관련 Script
 // 정보를 보낼 hidden 폼인 actionForm 가져오기
 let actionForm = $("#actionForm");
@@ -259,7 +268,7 @@ function orderList(){
 	            for(i=0; i < result.length; i++){
 	            	str+="<tr>";
 	            	str+="<th scope='col'>"+result[i].orderId+"</th>";				      
-	            	str+="<td scope='col'><img src='http://placehold.it/100x100' alt='' class='img-thumbnail'></th>";				      
+	            	str+="<td scope='col'><img src=/upload/'"+result[i].image+"' alt='' class='img-thumbnail' width='100px' height='100px'></th>";				      
             		str+="<td scope='col'><a class='moveOrder' href='"+result[i].p_code+"'>"+result[i].p_name+"</a></th>";				      
             		str+="<td scope='col'>"+result[i].cart_Stock+"</th>";				      
             		str+="<td scope='col'>"+(result[i].p_price*result[i].cart_Stock)+"</th>";				      

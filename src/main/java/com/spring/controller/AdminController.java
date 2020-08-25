@@ -84,11 +84,18 @@ public class AdminController {
 	public String orderManage(Model model) {
 		log.info("주문 관리 form 호출");
 		
-		
-		
 		model.addAttribute("vo",service.orderList_admin());
 		
 		return "/admin/order_manage";
+	}
+	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@GetMapping("/home_manage")
+	public String homeManage(Model model) {
+		log.info("홈화면 관리 form 호출");
+		
+		model.addAttribute("vo","cate");
+		return "/admin/home_manage";
 	}
 
 	@PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_MANAGER')")
