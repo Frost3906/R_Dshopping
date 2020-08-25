@@ -291,7 +291,9 @@
 		    p_category1 = #{p_category1},
 		    p_category2 = #{p_category2},
 		    p_category3 = #{p_category3},
-		    property = #{property}
+		    property = #{property},
+		    image = #{image},
+		    detailImage = #{detailImage}
 		where p_code = #{p_code}
 	</update>
 	
@@ -318,6 +320,18 @@
        		 from cart   
 	</insert> 
 	
+	<update id="stockUpdate">
+		update product
+		set p_stock = (p_stock - #{cart_Stock}) where p_code = #{p_code} 
+	</update>
+	
+		<!-- Order select 쿼리 -->
+	<select id="orderList_admin" resultType="com.spring.domain.MyPageOrderVO">
+		select o.orderId, o.total, o.orderdate, od.ordersDetailNum, od.p_code, od.cart_stock, p.p_name, p.p_price, p.image 
+		from orders o, orders_detail od, product p 
+		where o.orderid=od.orderid and od.p_code=p.p_code  
+		order by o.orderdate desc
+	</select>
 	
 	
 </mapper>
