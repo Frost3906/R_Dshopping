@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@include file="../includes/header.jsp" %>
   <!-- Page Content -->
-  <div class="container">
+  <div class="container" style="min-height: 100%; margin-bottom: -120px;">
         <h1 class="my-4">Carts</h1>
 
     	<div class="row">

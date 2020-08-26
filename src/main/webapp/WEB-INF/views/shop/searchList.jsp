@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ include file="../includes/header.jsp" %>
   <!-- Page Content -->
-  <div class="container mt-3">
+  <div class="container mt-3" style="min-height: 100%; margin-bottom: -120px;">
 	<div>
 		<h1>Search List</h1>
 	</div>

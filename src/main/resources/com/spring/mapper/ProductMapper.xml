@@ -333,5 +333,12 @@
 		order by o.orderdate desc
 	</select>
 	
+	<select id="categoryList" resultType="com.spring.domain.CategoryVO">
+		select * from categoryTBL
+	</select>
+	
+	<select id="bannerList" resultType="com.spring.domain.BannerVO">
+		select * from bannerTBL
+	</select>
 	
 </mapper>

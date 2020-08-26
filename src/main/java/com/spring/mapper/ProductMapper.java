@@ -5,8 +5,10 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import com.spring.domain.BannerVO;
 import com.spring.domain.CartVO;
 import com.spring.domain.CategoryKeySearchVO;
+import com.spring.domain.CategoryVO;
 import com.spring.domain.Criteria;
 import com.spring.domain.ManageKeySearchVO;
 import com.spring.domain.MyPageOrderVO;
@@ -76,5 +78,8 @@ public interface ProductMapper {
 	public void stockUpdate(OrderDetailVO vo);
 	
 	public List<MyPageOrderVO> orderList_admin();
+	
+	public List<CategoryVO> categoryList();
+	public List<BannerVO> bannerList();
 	
 }

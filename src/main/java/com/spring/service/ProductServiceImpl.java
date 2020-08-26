@@ -5,8 +5,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.spring.domain.BannerVO;
 import com.spring.domain.CartVO;
 import com.spring.domain.CategoryKeySearchVO;
+import com.spring.domain.CategoryVO;
 import com.spring.domain.Criteria;
 import com.spring.domain.ManageKeySearchVO;
 import com.spring.domain.MyPageOrderVO;
@@ -167,7 +169,12 @@ public class ProductServiceImpl implements ProductService {
 	public void stockUpdate(OrderDetailVO vo) {
 		product.stockUpdate(vo);
 	}
-
-	
-	
+	@Override
+	public List<CategoryVO> categoryList() {
+		return product.categoryList();
+	}
+	@Override
+	public List<BannerVO> BannerList() {
+		return product.bannerList();
+	}
 }

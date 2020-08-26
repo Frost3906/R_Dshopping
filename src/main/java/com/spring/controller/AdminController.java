@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.spring.domain.BannerVO;
+import com.spring.domain.CategoryVO;
 import com.spring.domain.ManageKeySearchVO;
 import com.spring.domain.ManageVO;
 import com.spring.domain.MyPageOrderVO;
@@ -93,8 +95,14 @@ public class AdminController {
 	@GetMapping("/home_manage")
 	public String homeManage(Model model) {
 		log.info("홈화면 관리 form 호출");
+		// 배너 부분
+		List<BannerVO> bannerList = service.BannerList();
+		model.addAttribute("bannerList", bannerList);
+		// 카테고리 부분 
+		List<CategoryVO> categoryList = service.categoryList();
+		log.info("카테고리 리스트 호출" + categoryList);
+		model.addAttribute("categoryList",categoryList);
 		
-		model.addAttribute("vo","cate");
 		return "/admin/home_manage";
 	}
 
@@ -153,7 +161,4 @@ public class AdminController {
 		log.info("삭제 정보 조회");
 		return service.getProduct(p_code);
 	}
-
-
-	
 }

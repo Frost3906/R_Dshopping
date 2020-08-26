@@ -4,7 +4,7 @@
 <%@ include file="../includes/header.jsp" %>
 <div class="container mt-5 mb-5">
 	<div>
-		<h1>상품 관리</h1>
+		<h1>Product Manage</h1>
 	</div>
   	<div class="row mb-3">
   		<div class="col-auto mr-auto">
@@ -24,17 +24,17 @@
       <div class="col-lg-12"><table class="table">
 		  <thead class="thead-dark">
 		    <tr>
-		      <th scope="col">상품코드</th>
-		      <th scope="col">상품명</th>
-		      <th scope="col">가격</th>
-		      <th scope="col">재고</th>
-		      <th scope="col">별점</th>
-		      <th scope="col">상품설명</th>
-		      <th scope="col">카테고리1</th>
-		      <th scope="col">카테고리2</th>
-		      <th scope="col">카테고리3</th>
-		      <th scope="col">속성</th>
-		      <th scope="col">관리</th>
+		      <th scope="col">Code</th>
+		      <th scope="col">Name</th>
+		      <th scope="col">Price</th>
+		      <th scope="col">Stock</th>
+		      <th scope="col">Rating</th>
+		      <th scope="col">Content</th>
+		      <th scope="col">Big_Category</th>
+		      <th scope="col">Mid_Category</th>
+		      <th scope="col">Small_Category</th>
+		      <th scope="col">Tag</th>
+		      <th scope="col">Manage</th>
 		    </tr>
 		  </thead>
 		  <c:forEach var="vo" items="${vo}">	
@@ -42,7 +42,7 @@
 			    <tr>
 			      <th scope="col">${vo.p_code}</th>
 			      <th scope="col">${vo.p_name}</th>
-			      <th scope="col">${vo.p_price}</th>
+			      <th scope="col">${vo.p_price} $</th>
 			      <th scope="col">${vo.p_stock}</th>
 			      <th scope="col">${vo.p_rating}</th>
 			      <th scope="col">${vo.p_content}</th>
@@ -51,9 +51,9 @@
 			      <th scope="col">${vo.p_category3}</th>
 			      <th scope="col">${vo.property}</th>
 			      <th scope="col">
-				  	<button onclick="location.href='/shop/product?p_code=${vo.p_code}'">조회</button>
-				  	<button onclick="location.href='product_modify?p_code=${vo.p_code}&pageNum=${pageNum}&amount=${amount}&manageKeyword=${manageKeyword}'">수정</button>
-				  	<button class="product-delete" value="${vo.p_code}">삭제</button>
+				  	<button onclick="location.href='/shop/product?p_code=${vo.p_code}'">Go to Product</button>
+				  	<button onclick="location.href='product_modify?p_code=${vo.p_code}&pageNum=${pageNum}&amount=${amount}&manageKeyword=${manageKeyword}'">Modify</button>
+				  	<button class="product-delete" value="${vo.p_code}">Delete</button>
 				  </th>
 			    </tr>
 			  </tbody>
@@ -68,13 +68,8 @@
 		<!-- 페이지 나누기 부분 -->
   		<%@ include file="../option/pagination.jsp" %> 
 	</div>
-	<div class="row">
-		<button type="button" class="btn btn-danger btn-lg float-right mt-3" onclick="location.href='admin'">뒤로가기</button>
-		<button type="button" class="btn btn-success btn-lg float-right mt-3" onclick="location.href='product_manage?pageNum=1&amount=10&manageKeyword='">전체목록보기</button>
-		<button type="button" class="btn btn-success btn-lg float-right mt-3" onclick="location.href='add'">상품등록</button>
-	</div>
 	
-  	<div class="mb-3" style="display: flex; justify-content: center;">
+  	<div class="row mb-3" style="display: flex; justify-content: center;">
   		<div style="margin-right: 5px;">
   			<h4>Search in Category : </h4>
   		</div>
@@ -88,6 +83,11 @@
 		    </form>  		
   		</div>
   	</div>
+	<div class="row">
+		<button type="button" class="btn btn-danger btn-lg float-right mt-3" onclick="location.href='admin'">Go Back</button>
+		<button type="button" class="btn btn-success btn-lg float-right mt-3" onclick="location.href='product_manage?pageNum=1&amount=10&manageKeyword='">Show ALL Index</button>
+		<button type="button" class="btn btn-success btn-lg float-right mt-3" onclick="location.href='add'">Insert Product</button>
+	</div>
 </div>
 
 <!-- 정보를 전달할 히든 폼 -->

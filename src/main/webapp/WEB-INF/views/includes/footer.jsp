@@ -1,7 +1,7 @@
   <!-- Footer -->
-  <footer class="py-5 bg-dark">
+  <footer class="py-5 bg-dark" style="position: absolute; width: 100%; height: 120px;">
     <div class="container">
-      <p class="m-0 text-center text-white">Copyright &copy; Your Website 2020</p>
+      <p class="m-0 text-center text-white">Copyright &copy; RDS</p>
     </div>
     <!-- /.container -->
   </footer>

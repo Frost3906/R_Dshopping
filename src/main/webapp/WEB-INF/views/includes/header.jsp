@@ -4,7 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <!DOCTYPE html>
-<html>
+<html style="height: 100%;">
 
 <head>
 
@@ -55,7 +55,7 @@
   
 </head>
 
-<body>
+<body style="height: 100%;">
 	<!-- Navigation -->
 	<div class="fixed-top bg-dark">
 		<nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="display: block;">

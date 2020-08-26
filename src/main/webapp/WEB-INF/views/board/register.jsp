@@ -6,7 +6,7 @@
 <link rel="stylesheet" href="/resources/css/reply.css" />
 <%@ include file="../includes/header.jsp" %>
 
-<div class="container">
+<div class="container" style="min-height: 100%; margin-bottom: -120px;">
     <div class="row">
         <div class="col-lg-12">
             <h1 class="page-header">Board Register</h1>
@@ -49,7 +49,7 @@
 	<div class="row">
 		<div class="col-lg-12">
 			<div class="panel panel-default">
-				<div class="panel-heading">파일 첨부</div>
+				<div class="panel-heading">Attach File</div>
 				<div class="panel-body">
 					<div class="form-group uploadDiv">
 						<input type="file" name="uploadFile" multiple="multiple" />

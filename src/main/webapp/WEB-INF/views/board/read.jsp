@@ -108,23 +108,23 @@
       </div>
       <div class="modal-body">
         <div class="form-group">
-        	<label for="">댓글내용</label>
+        	<label for="">Content</label>
         	<input type="text" class="form-control" name="reply" value="댓글내용"/>
         </div>
         <div class="form-group">
-        	<label for="">작성자</label>
+        	<label for="">Writer</label>
         	<input type="text" class="form-control" name="replyer" value="작성자"/>
         </div>
         <div class="form-group">
-        	<label for="">작성일</label>
+        	<label for="">Reg.date</label>
         	<input type="text" class="form-control" name="replydate" value="작성일"/>
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-warning" id="modalRegisterBtn">등록</button>
-        <button type="button" class="btn btn-success" id="modalModifyBtn">수정</button>
-        <button type="button" class="btn btn-danger" id="modalRemoveBtn">삭제</button>
-        <button type="button" class="btn btn-primary" id="modalCloseBtn" data-dismiss="modal">닫기</button>
+        <button type="button" class="btn btn-warning" id="modalRegisterBtn">Submit</button>
+        <button type="button" class="btn btn-success" id="modalModifyBtn">Modify</button>
+        <button type="button" class="btn btn-danger" id="modalRemoveBtn">Delete</button>
+        <button type="button" class="btn btn-primary" id="modalCloseBtn" data-dismiss="modal">Close</button>
       </div>
     </div>
   </div>
@@ -390,14 +390,14 @@ $(function(){
 		$(modalRemoveBtn).on("click",function(){
 			// 댓글 삭제 버튼이 눌러지면 로그인 여부 확인하기
 			if(!replyer){
-				alert('로그인 후 삭제가 가능합니다.');
+				alert('Please sign in');
 				modal.modal("hide");
 				return;
 			}
 			// 현재 모달창에 보이는 사용자와 로그인 사용자가 같은지 확인하기
 			let originReplyer = modalInputReplyer.val();
 			if(originReplyer != replyer){
-				alert("자신의 댓글만 삭제가 가능합니다.");
+				alert("Can delete only writer.");
 				modal.modal("hide");
 				return;
 			}
@@ -412,7 +412,7 @@ $(function(){
 					// showList(1); 페이지 나누기 전
 					showList(pageNum); // 페이지 나누기 후 : 현재 화면 페이지
 					},
-					function(msg){alert("삭제 실패");}
+					function(msg){alert("Failed delete.");}
 			) // remove 종료
 		})
 		
@@ -420,14 +420,14 @@ $(function(){
 		$(modalModifyBtn).on("click",function(){
 			// 댓글 수정 버튼이 눌러지면 로그인 여부 확인하기
 			if(!replyer){
-				alert('로그인 후 수정이 가능합니다.');
+				alert('Please sign in');
 				modal.modal("hide");
 				return;
 			}
 			// 현재 모달창에 보이는 사용자와 로그인 사용자가 같은지 확인하기
 			let originReplyer = modalInputReplyer.val();
 			if(originReplyer != replyer){
-				alert("자신의 댓글만 수정이 가능합니다.");
+				alert("Can edit only writer.");
 				modal.modal("hide");
 				return;
 			}
@@ -448,7 +448,7 @@ $(function(){
 					// showList(1); 페이지 나누기 전
 					showList(pageNum); // 페이지 나누기 후 : 현재 화면 페이지
 			},
-					function(error){alert("수정 실패");}
+					function(error){alert("Failed modify");}
 			) // update 종료			
 		})
 		
@@ -479,7 +479,7 @@ $(function(){
 						modal.find("button[id='modalRegisterBtn']").hide();						
 						modal.modal("show");
 					},
-					function(error){alert("조회 실패");}
+					function(error){alert("Failed lookup");}
 			) // get 종료			
 		})
 		

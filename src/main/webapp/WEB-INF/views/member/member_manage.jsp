@@ -6,7 +6,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <div class="container mt-5 mb-5">
 	<div>
-		<h1>회원 관리</h1>
+		<h1>User Manage</h1>
 	</div>
   	<div class="row mb-3">
   		<div class="col-auto mr-auto">
@@ -110,7 +110,7 @@
   		 
 	</div>
 	<div class="row">
-		<button type="button" class="btn btn-danger btn-lg float-right mt-3" onclick="location.href='/admin/admin'">뒤로가기</button>
+		<button type="button" class="btn btn-danger btn-lg float-right mt-3" onclick="location.href='/admin/admin'">Go Back</button>
 	</div>
 	
   	<div class="mb-3" style="display: flex; justify-content: center;">

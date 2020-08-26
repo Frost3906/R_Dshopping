@@ -6,7 +6,7 @@
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 
-<div class="container">
+<div class="container" style="min-height: 100%; margin-bottom: -120px;">
 		<h1 class="page-header ml-2">Board List</h1>
 	<div>
 	<div>
@@ -19,15 +19,15 @@
 							<input type="hidden" name="amount" value="${cri.amount}" />
 							<select name="type" id="">
 								<option value="" <c:out value="${empty cri.type?'selected':''}" />>------</option>
-								<option value="T" <c:out value="${cri.type=='T'?'selected':''}" />>제목</option>
-								<option value="C" <c:out value="${cri.type=='C'?'selected':''}" />>내용</option>
-								<option value="W" <c:out value="${cri.type=='W'?'selected':''}" />>작성자</option>
-								<option value="TC" <c:out value="${cri.type=='TC'?'selected':''}" />>제목 or 내용</option>
-								<option value="TW" <c:out value="${cri.type=='TW'?'selected':''}" />>제목 or 작성자</option>
-								<option value="TCW" <c:out value="${cri.type=='TCW'?'selected':''}" />>제목 or 내용 or 작성자</option>
+								<option value="T" <c:out value="${cri.type=='T'?'selected':''}" />>Title</option>
+								<option value="C" <c:out value="${cri.type=='C'?'selected':''}" />>Content</option>
+								<option value="W" <c:out value="${cri.type=='W'?'selected':''}" />>Writer</option>
+								<option value="TC" <c:out value="${cri.type=='TC'?'selected':''}" />>Title or Content</option>
+								<option value="TW" <c:out value="${cri.type=='TW'?'selected':''}" />>Title or Writer</option>
+								<option value="TCW" <c:out value="${cri.type=='TCW'?'selected':''}" />>Title or Content or Writer</option>
 							</select>
 							<input id="keyword" type="text" name="keyword" value="${cri.keyword}" />
-							<button class="btn btn-success btn-default" type="button">검색</button>
+							<button class="btn btn-success btn-default" type="button">Search</button>
 						</form>
 					</div>
 				</div>	
@@ -45,13 +45,13 @@
 			<!-- /.panel-heading -->
 			<div>
 				<table class="table table-striped table-boardered table-hover">
-					<thead>
+					<thead class="thead-dark">
 						<tr>
-							<th>번  호</th>
-							<th>제  목</th>
-							<th>작성자</th>
-							<th>작성일</th>
-							<th>수정일</th>
+							<th>no.</th>
+							<th>Title</th>
+							<th>Writer</th>
+							<th>Reg.Date</th>
+							<th>Mod.Date</th>
 						</tr>
 					</thead>
 					<tbody>

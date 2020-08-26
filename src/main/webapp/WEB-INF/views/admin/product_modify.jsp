@@ -13,69 +13,69 @@
         	<img src='/upload/${vo.image}' style="max-width: 50%;"/>
         	<div class="product-details ml-5 col-lg">
         		<form action="product_modify" method="post" id="product_modify">
-	        	<h1>상품 수정</h1>
+	        	<h1>Product Modify</h1>
 	        	<br>
 	 			
 	 			<ul class="list-group list-group-flush">
 	 				<li class="list-group-item">
-		 					<div class="float-left">상품 코드</div>
+		 					<div class="float-left">Code</div>
 		 					<div class="float-right">
 								<input type="text" id="p_code" name="p_code" value="${vo.p_code}" readonly="readonly"/>
 							</div>
 	 			  	</li>	 			
 	 				<li class="list-group-item">
-		 					<div class="float-left">상품 이름</div>
+		 					<div class="float-left">Name</div>
 		 					<div class="float-right">
 		 						<label for="p_name" class="error">*</label>
 								<input type="text" id="p_name" name="p_name" value="${vo.p_name}" placeholder="required" required="required"/>
 							</div>
 	 			  	</li>
 	 				<li class="list-group-item">
-		 					<div class="float-left">상품 설명</div>
+		 					<div class="float-left">Content</div>
 		 					<div class="float-right">
 								<input type="text" id="p_content" name="p_content" value="${vo.p_content}"/>
 							</div>
 	 			  	</li>	 			  		 			
 	 				<li class="list-group-item">
-		 					<div class="float-left">가격</div>
+		 					<div class="float-left">Price</div>
 		 					<div class="float-right">
 		 						<label for="p_price" class="error">*</label>
 								<input type="text" id="p_price" name="p_price" value="${vo.p_price}" placeholder="required" required="required"/>
 							</div>
 	 			  	</li>
 	 				<li class="list-group-item">
-	 						<div class="float-left">재고</div>
+	 						<div class="float-left">Stock</div>
 	 						<div class="float-right">
 		 						<label for="p_stock" class="error">*</label>
 								<input type="number" id="p_stock" name="p_stock" value="${vo.p_stock}" placeholder="required" required="required"/>
 	 						</div>
 	 				</li>
 	 				<li class="list-group-item">	
-	 						<div class="float-left">대분류</div>
+	 						<div class="float-left">Big_Category</div>
 	 						<div class="float-right">
 								<input type="text" id="p_category1" name="p_category1" value="${vo.p_category1}"/>
 	 						</div>
 	 				</li>
 	 				<li class="list-group-item">	
-	 						<div class="float-left">중분류</div>
+	 						<div class="float-left">Mid_Category</div>
 	 						<div class="float-right">
 								<input type="text" id="p_category2" name="p_category2" value="${vo.p_category2}"/>
 	 						</div>
 	 				</li>
 	 				<li class="list-group-item">	
-	 						<div class="float-left">소분류</div>
+	 						<div class="float-left">Small_Category</div>
 	 						<div class="float-right">
 								<input type="text" id="p_category3" name="p_category3" value="${vo.p_category3}"/>
 	 						</div>
 	 				</li>
 	 				<li class="list-group-item">
-	 						<div class="float-left">속성</div>
+	 						<div class="float-left">Tag</div>
 	 						<div class="float-right">
 								<input type="text" id="property" name="property" value="${vo.property}"/>
 	 						</div>
 	 				</li>
 	 				<li class="list-group-item">
-	 						<div class="float-left">상품 이미지</div>
+	 						<div class="float-left">Image</div>
 	 						<div class="float-right">
 								<input type="file" id="productImage" name="productImage" value="${vo.image}"/>
 								<input type="hidden" id="image" name="image" value="${vo.image}"/>
@@ -83,7 +83,7 @@
 	 						</div>
 	 				</li>
 	 				<li class="list-group-item">
-	 						<div class="float-left">상품 상세 이미지</div>
+	 						<div class="float-left">Detail Image</div>
 	 						<div class="float-right">
 								<input type="file" id="detailImg" name="detailImg"  value="${vo.detailImage}"/>
 								<input type="hidden" id="detailImage" name="detailImage" value="${vo.detailImage}"/>
@@ -97,9 +97,9 @@
         		<input type="hidden" name="p_code" value="${vo.p_code}" />
         		<input type="hidden" name="manageKeyword" value="${manageKeyword}" />
 				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />    
-				<button type="button" class="btn btn-warning btn-lg float-right mt-3" onclick="location.href='/shop/product?p_code=${vo.p_code}'">조회</button>
-        		<button type="button" class="btn btn-danger btn-lg float-right mt-3" onclick="location.href='product_manage?pageNum=${pageNum}&amount=${amount}&manageKeyword=${manageKeyword}'">뒤로가기</button>
-        		<button type="submit" class="btn btn-success btn-lg float-right mt-3">상품 수정</button>
+				<button type="button" class="btn btn-warning btn-lg float-right mt-3" onclick="location.href='/shop/product?p_code=${vo.p_code}'">Go to Product</button>
+        		<button type="button" class="btn btn-danger btn-lg float-right mt-3" onclick="location.href='product_manage?pageNum=${pageNum}&amount=${amount}&manageKeyword=${manageKeyword}'">Go Back</button>
+        		<button type="submit" class="btn btn-success btn-lg float-right mt-3">Submit</button>
         	</div>
         	</form>
         	</div>
@@ -115,9 +115,9 @@
 
 <div class="modal" tabindex="-1" role="dialog" id="modifyModal">
   <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content" style="align-items: center">
+    <div class="modal-content" style="align-items: center; width: auto;">
       <div class="modal-header">
-        <h5 class="modal-title">수정하시겠습니까?</h5>
+        <h5 class="modal-title">Would you like to modify it?</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -127,64 +127,64 @@
 	      	<table class="table">
 			  <thead>
 			    <tr>
-			      <th scope="col">속 성</th>
-			      <th scope="col">변경 전</th>
-			      <th scope="col">변경 후</th>
+			      <th scope="col">Attr</th>
+			      <th scope="col">Before</th>
+			      <th scope="col">After</th>
 			    </tr>
 			  </thead>
 			  <tbody>
 			    <tr>
-			      <th scope="row">상품코드</th>
+			      <th scope="row">Code</th>
 			      <td>${vo.p_code}</td>
 			      <td><label id="modCode"></label></td>
 			    </tr>
 			    <tr>
-			      <th scope="row">상품이름</th>
+			      <th scope="row">Name</th>
 			      <td>${vo.p_name}</td>
 			      <td><label id="modName"></label></td>
 			    </tr>
 			    <tr>
-			      <th scope="row">상품설명</th>
+			      <th scope="row">Content</th>
 			      <td>${vo.p_content}</td>
 			      <td><label id="modContent"></label></td>
 			    </tr>
 			    <tr>
-			      <th scope="row">가격</th>
+			      <th scope="row">Price</th>
 			      <td>${vo.p_price}</td>
 			      <td><label id="modPrice"></label></td>
 			    </tr>
 			    <tr>
-			      <th scope="row">재고</th>
+			      <th scope="row">Stock</th>
 			      <td>${vo.p_stock}</td>
 			      <td><label id="modStock"></label></td>
 			    </tr>
 			    <tr>
-			      <th scope="row">대분류</th>
+			      <th scope="row">Big_Category</th>
 			      <td>${vo.p_category1}</td>
 			      <td><label id="modCategory1"></label></td>
 			    </tr>
 			    <tr>
-			      <th scope="row">중분류</th>
+			      <th scope="row">Mid_Category</th>
 			      <td>${vo.p_category2}</td>
 			      <td><label id="modCategory2"></label></td>
 			    </tr>
 			    <tr>
-			      <th scope="row">소분류</th>
+			      <th scope="row">Small_Category</th>
 			      <td>${vo.p_category3}</td>
 			      <td><label id="modCategory3"></label></td>
 			    </tr>
 			    <tr>
-			      <th scope="row">속성</th>
+			      <th scope="row">Tag</th>
 			      <td>${vo.property}</td>
 			      <td><label id="modProperty"></label></td>
 			    </tr>
 			    <tr>
-			      <th scope="row">상품 이미지</th>
+			      <th scope="row">Image</th>
 			      <td>${vo.image}</td>
 			      <td><label id="modImage"></label></td>
 			    </tr>
 			    <tr>
-			      <th scope="row">상품 상세 이미지</th>
+			      <th scope="row">Detail Image</th>
 			      <td>${vo.detailImage}</td>
 			      <td><label id="modDetailImage"></label></td>
 			    </tr>
@@ -193,7 +193,7 @@
       	</div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">확인</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Submit</button>
       </div>
     </div>
   </div>

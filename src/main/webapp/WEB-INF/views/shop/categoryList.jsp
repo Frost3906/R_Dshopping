@@ -39,7 +39,7 @@
   		<div class="col-auto mr-auto">
 	  		<h5 class="mb-0 mt-3">
 	  			<c:if test="${category3==null && category2!=null}">
-	  				소분류 : 
+	  				Small Category : 
 		  			<c:forEach var="list" items="${category3List}">
 	  					<a class="downCategory3" href="${list}" style="color:black;">
 		  					<c:out value="${list}"/>  					
@@ -47,7 +47,7 @@
 		  			</c:forEach>
 	  			</c:if>
 	 			<c:if test="${category2==null}">
-					중분류 : 
+					Middle Category : 
 		  			<c:forEach var="list" items="${category2List}">
 	  					<a class="downCategory2" href="${list}" style="color:black;">
 		  					<c:out value="${list}"/>

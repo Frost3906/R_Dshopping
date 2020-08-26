@@ -3,45 +3,81 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ include file="../includes/header.jsp" %> 
 <div class="container mt-5 mb-5">
+	<form action="" method="post" role="form" id="add">
+		<div class="row">
+			<div class="col-lg-12">
+				<h2>
+					Home Banner Image Manage
+				</h2>
+				<table class="table">
+					<thead class="thead-dark">
+						<tr>
+			      			<th scope="col">bno.</th>
+			      			<th scope="col">Banner Name</th>
+			      			<th scope="col">Image</th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach var="vo" items="${bannerList}">
+							<tr>
+				      			<th scope="col" rowspan="2" style="vertical-align: middle;">${vo.bno}</th>
+				      			<th scope="col">${vo.b_name}</th>
+				      			<th scope="col">
+				      				${vo.image}
+			 						<label for="p_code" class="error">*</label>
+				 					<input type="file" id="${vo.image}" name="${vo.image}"/>
+				      			</th>
+							</tr>
+							<tr>
+								<td colspan="2">(이미지 미리보기 표시 해줄 공간)</td>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-12">
+				<h2>
+					Category Image Manage
+				</h2>
+				<table class="table">
+					<thead class="thead-dark">
+						<tr>
+			      			<th scope="col">CNO.</th>
+			      			<th scope="col">Category Name</th>
+			      			<th scope="col">Thumbnail</th>
+			      			<th scope="col">Image</th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach var="vo" items="${categoryList}">
+							<tr>
+				      			<th scope="col">${vo.cno}</th>
+				      			<th scope="col">${vo.p_category1}</th>
+				      			<th scope="col">(이미지썸네일)</th>
+				      			<th scope="col">
+				      				${vo.image}
+			 						<label for="p_code" class="error">*</label>
+				 					<input type="file" id="${vo.image}" name="${vo.image}"/>
+				      			</th>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
+			</div>
+		</div>
+       	<div class="row mb-3">
+       		<button type="button" class="btn btn-success btn-lg float-right mt-3" id="imgSubmit">Submit</button>
+			<button type="button" class="btn btn-danger btn-lg float-right mt-3" onclick="history.back()">Go Back</button>
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />    
+       	</div>
+    </form>
 	<div class="row">
-      <div class="col-lg-12">
-        <div class="row mt-5">
-        	<!-- 상품 카드 위치 -->
-        	<div class="uploadResult">
-	 			<ul></ul>
-	 		</div>
-        	<div class="product-details ml-5 col-lg">
-        		<form action="" method="post" role="form" id="add">
-	        	<h1>화면 이미지 등록</h1>
-	        	<br>
-	 			<ul>
-	 			<c:forEach var="vo" items="${vo}">
-	 				<li>
-		 					<div class="float-left"><c:out value="${vo.category}"></c:out></div>
-		 					<div class="float-right">
-		 						<label for="p_code" class="error">*</label>
-			 					<input type="file" id="${vo.category}" name="${vo.category}"/>
-							</div>	 					
-	 				</li>
-	 			</c:forEach>
-	 			</ul>
-	 			
-	 			
-        	<div class="mb-3">
-        		<button type="button" class="btn btn-success btn-lg float-right mt-3" id="add_product">이미지 등록</button>
-				<button type="button" class="btn btn-danger btn-lg float-right mt-3" onclick="history.back()">뒤로가기</button>
-				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />    
-        	</div>
-        	</form>
-        	</div>
-        		
-        </div>
-        	
-        <!-- /.row -->
-      </div>
-      <!-- /.col-lg-9 -->
-    </div>
-      	
+      	<div class="uploadResult">
+			<ul></ul>
+		</div>	
+	</div>
 </div>
 
 <script>
@@ -50,25 +86,9 @@ $(function(){
 	let csrfHeaderName = "${_csrf.headerName}";
 	let csrfTokenValue = "${_csrf.token}";
 		
-	$("#add_product").click(function(e){
+	$("#imgSubmit").click(function(e){
 		//submit 버튼 기능 막기
 		e.preventDefault();
-		$("#add").validate({
-			rule:{
-				p_code:{
-					required: true
-				},
-				p_name:{
-					required: true
-				},
-				p_price:{
-					required: true
-				},
-				p_stock:{
-					required: true
-				}
-			}
-		});
 		//게시글 등록 + 파일첨부 한번에 처리
 		//첨부파일 내용 수집
 		let str = "";

@@ -47,9 +47,9 @@
 			      <th scope="col">${vo.cart_Stock*vo.p_price}</th>
 			      <th scope="col">${vo.orderDate}</th>
 			      <th scope="col">
-				  	<button onclick="location.href='/shop/product?p_code=${vo.p_code}'">조회</button>
-				  	<button onclick="location.href='product_modify?p_code=${vo.p_code}&pageNum=${pageNum}&amount=${amount}&manageKeyword=${manageKeyword}'">수정</button>
-				  	<button class="product-delete" value="${vo.p_code}">삭제</button>
+				  	<button onclick="location.href='/shop/product?p_code=${vo.p_code}'">Go to Product</button>
+				  	<button onclick="location.href='product_modify?p_code=${vo.p_code}&pageNum=${pageNum}&amount=${amount}&manageKeyword=${manageKeyword}'">Modify</button>
+				  	<button class="product-delete" value="${vo.p_code}">Delete</button>
 				  </th>
 			    </tr>
 			  </tbody>
@@ -65,9 +65,9 @@
   		<%@ include file="../option/pagination.jsp" %> 
 	</div>
 	<div class="row">
-		<button type="button" class="btn btn-danger btn-lg float-right mt-3" onclick="location.href='admin'">뒤로가기</button>
-		<button type="button" class="btn btn-success btn-lg float-right mt-3" onclick="location.href='product_manage?pageNum=1&amount=10&manageKeyword='">전체목록보기</button>
-		<button type="button" class="btn btn-success btn-lg float-right mt-3" onclick="location.href='add'">상품등록</button>
+		<button type="button" class="btn btn-danger btn-lg float-right mt-3" onclick="location.href='admin'">Go Back</button>
+		<button type="button" class="btn btn-success btn-lg float-right mt-3" onclick="location.href='product_manage?pageNum=1&amount=10&manageKeyword='">Show all</button>
+		<button type="button" class="btn btn-success btn-lg float-right mt-3" onclick="location.href='add'">Add Product</button>
 	</div>
 	
   	<div class="mb-3" style="display: flex; justify-content: center;">

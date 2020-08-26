@@ -10,7 +10,7 @@
 		                <h4 class="card-title">
 		                  <a href="product?p_code=${vo.p_code}">${vo.p_name}</a>
 		                </h4>
-		                <h5>${vo.p_price}</h5>
+		                <h5>${vo.p_price} $</h5>
 		                <p class="card-text">${vo.p_content}</p>
 		              </div>
 		              <div class="card-footer">

@@ -2,8 +2,10 @@ package com.spring.service;
 
 import java.util.List;
 
+import com.spring.domain.BannerVO;
 import com.spring.domain.CartVO;
 import com.spring.domain.CategoryKeySearchVO;
+import com.spring.domain.CategoryVO;
 import com.spring.domain.Criteria;
 import com.spring.domain.ManageKeySearchVO;
 import com.spring.domain.MyPageOrderVO;
@@ -50,4 +52,6 @@ public interface ProductService {
 	public void insertOrderDetail(OrderDetailVO vo);
 	public void stockUpdate(OrderDetailVO vo);
 	public List<MyPageOrderVO> orderList_admin();
+	public List<CategoryVO> categoryList();
+	public List<BannerVO> BannerList();
 }
