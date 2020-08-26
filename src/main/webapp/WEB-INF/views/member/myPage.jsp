@@ -269,7 +269,7 @@ function orderList(){
 	            	console.log(result[i].image);
 	            	str+="<tr>";
 	            	str+="<th scope='col'>"+result[i].orderId+"</th>";				      
-	            	str+="<td scope='col'><img src=/upload/'"+result[i].image+"' width='100px' height='100px'></th>";				      
+	            	str+="<td scope='col'><img src='/upload/"+result[i].image+"' width='100px' height='100px'></th>";				      
             		str+="<td scope='col'><a class='moveOrder' href='"+result[i].p_code+"'>"+result[i].p_name+"</a></th>";				      
             		str+="<td scope='col'>"+result[i].cart_Stock+"</th>";				      
             		str+="<td scope='col'>"+(result[i].p_price*result[i].cart_Stock)+"</th>";				      

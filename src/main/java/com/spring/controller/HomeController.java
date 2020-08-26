@@ -11,6 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.social.google.connect.GoogleConnectionFactory;
 import org.springframework.social.oauth2.GrantType;
@@ -49,8 +52,20 @@ public class HomeController {
 	private MemberService memberService;
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Model model) {
+	public String home(Model model, Authentication authentication, HttpSession session) {
 		log.info("홈페이지 호출");
+
+		//리멤버미 존재 확인 후 세션 넘기기
+		try {
+			if(authentication.getAuthorities()!=null) {
+				User user=(User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+				MemberVO member=memberService.getMember(user.getUsername());
+				session.setAttribute("auth", member);
+			}			
+		} catch (Exception e) {
+			System.out.println("리멤버미 없음");
+		}
+		
 		List<String> list = service.homeCategoryList();
 		model.addAttribute("category", list);
 		return "shop/home";
