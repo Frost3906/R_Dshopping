@@ -62,7 +62,7 @@
                                 </div>
                                    <p>
                             <label class="container">
-                              <input type="checkbox">
+                              <input type="checkbox" name="remember-me" />
                               <span class="checkmark"></span>Remember me
                             </label>
                             <a href="" id="forgetPwd" >forget password ?</a></p>

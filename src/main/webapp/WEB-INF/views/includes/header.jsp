@@ -90,8 +90,8 @@
 			          </li>
 			          <li class="nav-item">
 			            <a class="nav-link" style="padding: 8px;" href="/board/list">Help</a>
-			          </li>
-   			     
+			          </li>   			     		
+   			     		
    			          <c:if test="${auth.auth=='ROLE_ADMIN'|| auth.auth=='ROLE_MANAGER'}">
 			          	<li><a class="nav-link" style="padding: 8px;" href="/admin/admin">Manage</a></li>
 			          </c:if>
