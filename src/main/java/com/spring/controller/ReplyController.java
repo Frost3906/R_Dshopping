@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.spring.domain.Criteria;
 import com.spring.domain.ReplyPageVO;
 import com.spring.domain.ReplyVO;
+import com.spring.service.BoardService;
+import com.spring.service.MemberService;
 import com.spring.service.ReplyService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -30,11 +32,24 @@ public class ReplyController {
 	
 	@Autowired
 	private ReplyService service;
+	@Autowired
+	private MemberService memberService;
+	@Autowired
+	private BoardService boardService;
+	
 	
 	@PreAuthorize("isAuthenticated()")
 	@PostMapping("/new") // http://localhost:8080/replies/new + post
 	public ResponseEntity<String> create(@RequestBody ReplyVO vo) {
 		log.info("댓글 등록..." + vo);
+		
+		//게시판 answer 값 변경을 위한 코딩
+		int bno=vo.getBno();
+		if(memberService.getMember(vo.getReplyer()).getAuth().equals("ROLE_ADMIN") ||
+				memberService.getMember(vo.getReplyer()).getAuth().equals("ROLE_MANAGER")) {			
+			boardService.modifyAnswer("답변완료", bno);
+		}
+		
 		
 		return service.replyInsert(vo)?
 				new ResponseEntity<String>("success",HttpStatus.OK):

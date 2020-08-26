@@ -75,4 +75,11 @@ public class BoardServiceImpl implements BoardService {
 		return attach.select(bno);
 	}
 	
+	
+	//게시판 answer 값 변경 쿼리
+	@Override
+	public int modifyAnswer(String answer, int bno) {
+		return mapper.modifyAnswer(answer, bno);
+	}
+	
 }

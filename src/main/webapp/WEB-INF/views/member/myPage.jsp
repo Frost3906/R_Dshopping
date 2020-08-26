@@ -163,17 +163,20 @@
 	<input type="hidden" name="total" value="${memberPage.total}" />
 	<input type="hidden" name="writer" value="${auth.username}" />	
 </form>
+	<input type="hidden" id="getBno" name="bno" />	
 <script>
 
 let username='${auth.username}';
 let pageNum='${memberPage.memberCri.pageNum}';
 let amount='${memberPage.amount}';
 let total='${memberPage.total}';
+let bno=$("#getBno").val()
 console.log(username);
 console.log(pageNum);
 console.log(amount);
 console.log(total);
 console.log($("input[name='total']").val());
+console.log(bno);
 
 //탭 전환 클릭 스크립트
 
@@ -188,6 +191,8 @@ let actionForm = $("#actionForm");
 //타이틀 클릭시 페이지 나누기 정보가 있는 폼 보내기
 $("#qnaList").on("click", ".moveQnA", function(e){
 	e.preventDefault();
+	//댓글가져오기를 위한 bno 저장
+	$("#getBno").val($(this).attr("href"));
 	
 	actionForm.append("<input type='hidden' name='bno' value='"+ $(this).attr("href") +"'/>");
 	actionForm.attr("action","/board/read");
@@ -252,6 +257,7 @@ $(".previousPage").click(function(e){
 	// 다시 hidden form에 넣어주기
 	actionForm.find("input[name='pageNum']").val(parseInt(nowPage)-1);
 });
+
 //Order 리스트
 function orderList(){
 	
@@ -263,17 +269,16 @@ function orderList(){
 	    	},
 	    success : function(result){
 	        let str = "";
-	        console.log(result);
-	        if(result.length > 0){
+	        if(result.length > 0){	        	
 	            for(i=0; i < result.length; i++){
 	            	str+="<tr>";
 	            	str+="<th scope='col'>"+result[i].orderId+"</th>";				      
 	            	str+="<td scope='col'><img src='/upload/"+result[i].image+"' width='100' height='100'></th>";				      
-            		str+="<td scope='col'><a class='moveOrder' href='"+result[i].p_code+"'>"+result[i].p_name+"</a></th>";				      
-            		str+="<td scope='col'>"+result[i].cart_Stock+"</th>";				      
-            		str+="<td scope='col'>"+(result[i].p_price*result[i].cart_Stock)+"</th>";				      
-            		str+="<td scope='col'>"+moment(result[i].orderDate).format('YYYY-MM-DD HH:mm:ss')+"</th>";				      
-            		str+="</tr>";                
+	           		str+="<td scope='col'><a class='moveOrder' href='"+result[i].p_code+"'>"+result[i].p_name+"</a></th>";				      
+	           		str+="<td scope='col'>"+result[i].cart_Stock+"</th>";				      
+	           		str+="<td scope='col'>"+(result[i].p_price*result[i].cart_Stock)+"</th>";				      
+	           		str+="<td scope='col'>"+moment(result[i].orderDate).format('YYYY-MM-DD HH:mm:ss')+"</th>";				      
+	           		str+="</tr>";                
 	            }	            
 	        } 	        
 	        $("#orderList").html(str);	        
@@ -299,21 +304,21 @@ function qnaList(value){
 	    success : function(result){
 	        let str = "";
 	        
-	        if(result.length > 0){
+	        if(result.length > 0){	        	
 	            for(i=0; i < result.length; i++){
 	                str+="<tr>";
 	                str+="<th>"+result[i].bno+"</th>";    	                	
 	                str+="<td><a class='moveQnA' href='"+result[i].bno+"'>"+result[i].title+"</a><strong>["+result[i].replycnt+"]</strong></td>";
-	                if(result[i].replycnt > 0){
-		                str+="<td style='color: red;'>답변완료<td>";	                	
+	                if(result[i].answer === "답변완료"){
+	                str+="<td class='answer' style='color:red; font-weight: bold;'>"+result[i].answer+"<td>"; 
 	                }else{
-	                	str+="<td>답변대기<td>";
+	                str+="<td class='answer'>"+result[i].answer+"<td>";	                	
 	                }
 	                str+="<td>"+result[i].writer+"</td>";
 	                str+="<td>"+moment(result[i].regdate).format('YYYY-MM-DD HH:mm:ss')+"</td>";                	
 	                str+="</tr>";	                
 	            }	            
-	        } 	        
+	        } 	      
 	        $("#qnaList").html(str);	        
 	    },
 	    error:function(request,status,error){
@@ -321,7 +326,6 @@ function qnaList(value){
 	   }
 	});	
 }
-
 qnaList(pageNum);
 
 </script>

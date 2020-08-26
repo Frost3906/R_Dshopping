@@ -9,6 +9,7 @@ import com.spring.domain.MemberCriteria;
 import com.spring.domain.MemberPageVO;
 import com.spring.domain.MemberVO;
 import com.spring.domain.MyPageOrderVO;
+import com.spring.domain.ReplyVO;
 
 public interface MemberService {
 	//Member
@@ -52,4 +53,5 @@ public interface MemberService {
 	//MyPage
 	public List<BoardVO> qnaList(String username);
 	public List<MyPageOrderVO> orderList(String username);
+	public List<ReplyVO> getReplyList(int bno);		
 }
