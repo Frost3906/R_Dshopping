@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import com.spring.domain.BannerVO;
+import com.spring.domain.CartListVO;
 import com.spring.domain.CartVO;
 import com.spring.domain.CategoryKeySearchVO;
 import com.spring.domain.CategoryVO;
@@ -46,7 +47,7 @@ public interface ProductMapper {
 	
 	
 	public int addCart(CartVO vo);
-	public List<CartVO> cartList(String username);
+	public List<CartListVO> cartList(String username);
 	
 	public void removeFromCart(CartVO vo);
 	public void updateCart(CartVO vo);

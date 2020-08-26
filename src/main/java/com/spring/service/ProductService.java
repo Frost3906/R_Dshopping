@@ -3,6 +3,7 @@ package com.spring.service;
 import java.util.List;
 
 import com.spring.domain.BannerVO;
+import com.spring.domain.CartListVO;
 import com.spring.domain.CartVO;
 import com.spring.domain.CategoryKeySearchVO;
 import com.spring.domain.CategoryVO;
@@ -28,7 +29,7 @@ public interface ProductService {
 	public int searchCount(List<String> keywordList);
 	public int categoryCount(String p_category1, String p_category2, String p_category3);
 	public int keySearchCategoryCount(CategoryKeySearchVO vo);
-	public List<CartVO> cartList(String username);
+	public List<CartListVO> cartList(String username);
 	public void removeFromCart(CartVO vo);
 	public void deleteCart(String username);
 	

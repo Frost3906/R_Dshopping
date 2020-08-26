@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.spring.domain.BannerVO;
+import com.spring.domain.CartListVO;
 import com.spring.domain.CartVO;
 import com.spring.domain.CategoryKeySearchVO;
 import com.spring.domain.CategoryVO;
@@ -69,7 +70,7 @@ public class ProductServiceImpl implements ProductService {
 	}
 	
 	@Override
-	public List<CartVO> cartList(String username) {
+	public List<CartListVO> cartList(String username) {
 		return product.cartList(username);
 	}
 	

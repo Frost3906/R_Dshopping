@@ -221,7 +221,7 @@
 		select
      		row_number() over(order by c.p_code desc) as num,
      		c.cartNum, c.username, c.p_code, c.cart_Stock, c.addDate,
-     		p.p_name, p.p_price
+     		p.p_name, p.p_price, p.image 
  		from cart c
      		inner join product p
          	on c.p_code = p.p_code   

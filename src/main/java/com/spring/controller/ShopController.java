@@ -28,6 +28,7 @@ import com.spring.domain.MemberVO;
 import com.spring.domain.OrderDetailVO;
 import com.spring.domain.OrderVO;
 import com.spring.domain.BoardPageVO;
+import com.spring.domain.CartListVO;
 import com.spring.domain.ProductVO;
 import com.spring.domain.ReviewPageVO;
 import com.spring.domain.ReviewVO;
@@ -106,12 +107,13 @@ public class ShopController {
 		if(session.getAttribute("auth")!=null) {
 			MemberVO vo = (MemberVO) session.getAttribute("auth");
 			log.info("email : " + vo.getUsername());
-			List<CartVO> list = service.cartList(vo.getUsername());
+			List<CartListVO> list = service.cartList(vo.getUsername());
+			log.info("카트 리스트"+list);
 			model.addAttribute("mycart",list);
 		}else {
 			MemberVO vo = new MemberVO();
 			log.info("비회원 접근");
-			List<CartVO> list = new ArrayList<CartVO>();
+			List<CartListVO> list = new ArrayList<CartListVO>();
 			model.addAttribute("mycart",list);
 		}
 		return "shop/cart";
