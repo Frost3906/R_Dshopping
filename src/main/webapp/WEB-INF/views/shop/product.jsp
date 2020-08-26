@@ -22,33 +22,33 @@
 	 			
 	 			<ul class="list-group list-group-flush">
 	 				<li class="list-group-item">
-		 					<div class="float-left">가격</div>
+		 					<div class="float-left">Price</div>
 		 					<div class="float-right">${vo.p_price}</div>
 	 			  	</li>
 	 				<li class="list-group-item">
-	 						<div class="float-left">재고(${vo.p_stock}):</div>
+	 						<div class="float-left">Stock(${vo.p_stock}):</div>
 	 						<div class="float-right">
 							<c:if test="${vo.p_stock!=0}">
 	 							<input  type="number" name="cartStock" id="cartStock" min="1" max="${vo.p_stock}" value="0">
 	 						</c:if>
 							<c:if test="${vo.p_stock==0}">
-								품절
+								out of stock
 							</c:if>
 	 						</div>
 	 				</li>
-	 				<li class="list-group-item">배송구분	</li>
-	 				<li class="list-group-item">포장타입	</li>
+	 				<li class="list-group-item">Shipping type	</li>
+	 				<li class="list-group-item">Packing type	</li>
 	 			</ul>       	
         	</div>
         </div>
         	
         	<div class="check float-right">
         		<div>
-        			총 상품 금액
+        			Total amount
         			<div id="price"></div> 
         		</div>
-        		<button type="button" class="btn btn-success btn-lg mt-3 addCart">장바구니 담기</button>
-				<button type="button" class="btn btn-danger btn-lg float-right mt-3" onclick="history.back()">뒤로가기</button>
+        		<button type="button" class="btn btn-success btn-lg mt-3 addCart">Add to card</button>
+				<button type="button" class="btn btn-danger btn-lg float-right mt-3" onclick="history.back()">go Back</button>
         	</div>
         	
         <!-- /.row -->
@@ -61,8 +61,8 @@
     </div>	
 	<div>
       		<ul class="nav nav-tabs mt-5" id="productTab" role="tablist">
-      			<li class="nav-item col-sm text-center"><a class="nav-link active" href="#goods-infomation" data-toggle="tab" aria-controls="goods-infomation" aria-selected="true">상세정보</a></li>
-      			<li class="nav-item col-sm text-center"><a class="nav-link" href="#goods-review" data-toggle="tab" aria-controls="goods-review" aria-selected="false">구매후기</a></li>
+      			<li class="nav-item col-sm text-center"><a class="nav-link active" href="#goods-infomation" data-toggle="tab" aria-controls="goods-infomation" aria-selected="true">Detail</a></li>
+      			<li class="nav-item col-sm text-center"><a class="nav-link" href="#goods-review" data-toggle="tab" aria-controls="goods-review" aria-selected="false">Review</a></li>
       		</ul>
       		<div class="tab-content" id="productTabContent">
       			<div id="goods-infomation" class="tab-pane active" aria-labelledby="goods-infomation-tab">
@@ -83,11 +83,11 @@
 					</colgroup>
 					<thead class="table">
 						<tr>
-							<th>번  호</th>
-							<th>제  목</th>
-							<th>작성자</th>
-							<th>작성일</th>
-							<th>별  점</th>
+							<th>No.</th>
+							<th>Title</th>
+							<th>Writer</th>
+							<th>Reg.Date</th>
+							<th>Rating</th>
 						</tr>
 					</thead>
 					<tbody class="reviewList">
@@ -202,11 +202,11 @@
         <h4 class="modal-title" id="myModalLabel"></h4>
       </div>
       <div class="modal-body">
-        	장바구니에 물건을 담았습니다.
+        	You have put something in your shopping cart.
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-success" onclick="location.href='/'">쇼핑 계속하기</button>
-        <button type="button" class="btn btn-primary" onclick="location.href='/shop/cart'">장바구니 가기</button>
+        <button type="button" class="btn btn-success" onclick="location.href='/'">Continue shopping</button>
+        <button type="button" class="btn btn-primary" onclick="location.href='/shop/cart'">Go to cart</button>
       </div>
     </div>
   </div>
@@ -271,7 +271,7 @@ $(function(){
 		            
 		        }
 		        else if(result.list=== null || result.list.length===0){
-					$(".noReview").html("후기가 없습니다.");
+					$(".noReview").html("There are no reviews.");
 					return;
 				}
 
@@ -280,7 +280,7 @@ $(function(){
 		        
 		    },
 		    error:function(request,status,error){
-		        alert("실패");
+		        alert("Failed");
 		   }
 		});
 
@@ -682,16 +682,16 @@ $(function(){
 						
 					},
 					error : function(){
-						alert("잠시 후 다시 시도 해 주세요");
+						alert("Please try again in a few minutes");
 					}
 
 				})
 			}
 			else{
-				alert("구매 수량을 확인 해 주세요");
+				alert("Please Check purchase quantity");
 			}
 		}else{
-			alert("로그인 후 이용 해 주세요");
+			alert("Please Sign in");
 		}
 		
 	})
