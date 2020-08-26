@@ -158,6 +158,12 @@ public class ProductServiceImpl implements ProductService {
 	public void insertOrderDetail(OrderDetailVO vo) {
 		product.insertOrderDetail(vo);
 	}
+	
+	@Override
+	public List<OrderDetailVO> selectod(String orderId) {
+		return product.selectod(orderId);
+	}
+	
 	@Override
 	public void deleteCart(String username) {
 		product.deleteCart(username);

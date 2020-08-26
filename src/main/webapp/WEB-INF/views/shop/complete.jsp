@@ -4,7 +4,7 @@
   <!-- Page Content -->
   <div class="container">
         <h1 class="my-4">Thank you for shopping</h1>
-		<button type="button" value="shopping more" onclick="location.href='/'"></button>
+		<button type="button" class="mb-3" onclick="location.href='/'">shopping more</button>
   </div>
   <!-- /.container -->
 <%@include file="../includes/footer.jsp" %> 

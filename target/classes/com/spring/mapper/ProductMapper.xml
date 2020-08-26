@@ -325,6 +325,10 @@
 		set p_stock = (p_stock - #{cart_Stock}) where p_code = #{p_code} 
 	</update>
 	
+	<select id="selectod" resultType="com.spring.domain.OrderDetailVO">
+		select * from orders_detail where orderid = #{orderid}
+	</select>
+	
 		<!-- Order select 쿼리 -->
 	<select id="orderList_admin" resultType="com.spring.domain.MyPageOrderVO">
 		select o.orderId, o.total, o.orderdate, od.ordersDetailNum, od.p_code, od.cart_stock, p.p_name, p.p_price, p.image 
