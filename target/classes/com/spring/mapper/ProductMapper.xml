@@ -341,4 +341,8 @@
 		select * from bannerTBL
 	</select>
 	
+	<insert id="addCategory">
+		insert into categoryTBL(cno, p_category1, image) values(#{cno},#{p_category1},#{image})
+	</insert>
+	
 </mapper>

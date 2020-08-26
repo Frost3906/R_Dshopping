@@ -54,4 +54,5 @@ public interface ProductService {
 	public List<MyPageOrderVO> orderList_admin();
 	public List<CategoryVO> categoryList();
 	public List<BannerVO> BannerList();
+	public int addCategory(CategoryVO vo);
 }

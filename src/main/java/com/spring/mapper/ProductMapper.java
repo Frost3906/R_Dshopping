@@ -81,5 +81,6 @@ public interface ProductMapper {
 	
 	public List<CategoryVO> categoryList();
 	public List<BannerVO> bannerList();
+	public int addCategory(CategoryVO vo);
 	
 }

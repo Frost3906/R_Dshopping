@@ -177,4 +177,8 @@ public class ProductServiceImpl implements ProductService {
 	public List<BannerVO> BannerList() {
 		return product.bannerList();
 	}
+	@Override
+	public int addCategory(CategoryVO vo) {
+		return product.addCategory(vo);
+	}
 }

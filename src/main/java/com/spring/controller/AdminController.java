@@ -161,4 +161,11 @@ public class AdminController {
 		log.info("삭제 정보 조회");
 		return service.getProduct(p_code);
 	}
+	
+	@PostMapping("/addCategory")
+	public String addCategory() {
+		log.info("카테고리 추가 호출");
+		return "redirect:/admin/home_manage";
+	}
+	
 }

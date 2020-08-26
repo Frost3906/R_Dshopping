@@ -68,6 +68,7 @@
 			</div>
 		</div>
        	<div class="row mb-3">
+       		<button type="button" class="btn btn-warning btn-lg float-right mt-3" id="addCategory">카테고리 추가</button>
        		<button type="button" class="btn btn-success btn-lg float-right mt-3" id="imgSubmit">Submit</button>
 			<button type="button" class="btn btn-danger btn-lg float-right mt-3" onclick="history.back()">Go Back</button>
 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />    
@@ -80,11 +81,52 @@
 	</div>
 </div>
 
+<div class="modal" tabindex="-1" role="dialog" id="cateModal">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content" style="align-items: center; width: auto;">
+      <div class="modal-header">
+        <h5 class="modal-title">카테고리 추가</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      	<div class="row">
+	      	<table class="table">
+			  <thead>
+			    <tr>
+			      <th scope="col">CNO.</th>
+			      <th scope="col">Category Name</th>
+			      <th scope="col">이미지</th>
+			    </tr>
+			  </thead>
+			  <tbody>
+			    <tr>
+			      <td><input type="text" /></td>
+			      <td><input type="text" /></td>
+			      <td><input type="file" /></td>
+			    </tr>
+			  </tbody>
+			</table>
+      	</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary product-delete-btn" data-dismiss="modal" id="addCategory">확인</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+      </div>
+    </div>
+  </div>
+</div>
 <script>
 $(function(){
 
 	let csrfHeaderName = "${_csrf.headerName}";
 	let csrfTokenValue = "${_csrf.token}";
+	
+	$("#addCategory").click(function(e){
+		e.preventDefault();
+		$("#cateModal").modal("show");
+	})
 		
 	$("#imgSubmit").click(function(e){
 		//submit 버튼 기능 막기
