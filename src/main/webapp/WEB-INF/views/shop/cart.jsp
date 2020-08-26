@@ -31,11 +31,12 @@
 				</tr>			
 				</thead>
 				<tbody id="t_body">
+				<c:if test="${!empty mycart}">
 					<c:set var="sum" value="0" />
 					<c:forEach var="vo" items="${mycart}">
 							<tr>
 								<td><input type="checkbox" class="selectbox" id="selectbox" name="selectbox" data-cartNum="${vo.cartNum}"/></td>
-								<td><img src='upload/${vo.image}' style='max-width: auto; height: auto;'/></td>
+								<td><img src='/upload/${vo.image}' style='max-width: 100px; height: 100px;'/></td>
 								<td><a href="/shop/product?p_code=${vo.p_code}">${vo.p_name}</a></td>
 								<td><input type="number" class="amount" min="0" value="${vo.cart_Stock}" data-cartNum="${vo.cartNum}"/></td>
 								<td>
@@ -48,8 +49,8 @@
 							</tr>
 							<c:set var="sum" value="${sum + (vo.p_price * vo.cart_Stock)}"/>
 					</c:forEach>
+				</c:if>
 				</tbody>
-			
 			</table>
 			<span class="border-bottom">
 			</span>
@@ -88,8 +89,8 @@
 
 
 $(function(){
-	
-	
+	let image = "${mycart[0].image}";
+	console.log(image);
 	let csrfHeaderName = "${_csrf.headerName}";
 	let csrfTokenValue = "${_csrf.token}";
 	

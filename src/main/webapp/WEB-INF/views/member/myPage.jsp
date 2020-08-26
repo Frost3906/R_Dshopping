@@ -164,7 +164,7 @@
 	<input type="hidden" name="writer" value="${auth.username}" />	
 </form>
 <script>
-
+$(function(){
 let username='${auth.username}';
 let pageNum='${memberPage.memberCri.pageNum}';
 let amount='${memberPage.amount}';
@@ -266,9 +266,10 @@ function orderList(){
 	        console.log(result);
 	        if(result.length > 0){
 	            for(i=0; i < result.length; i++){
+	            	console.log(result[i].image);
 	            	str+="<tr>";
 	            	str+="<th scope='col'>"+result[i].orderId+"</th>";				      
-	            	str+="<td scope='col'><img src=/upload/'"+result[i].image+"' width='100' height='100'></th>";				      
+	            	str+="<td scope='col'><img src=/upload/'"+result[i].image+"' width='100px' height='100px'></th>";				      
             		str+="<td scope='col'><a class='moveOrder' href='"+result[i].p_code+"'>"+result[i].p_name+"</a></th>";				      
             		str+="<td scope='col'>"+result[i].cart_Stock+"</th>";				      
             		str+="<td scope='col'>"+(result[i].p_price*result[i].cart_Stock)+"</th>";				      
@@ -323,6 +324,6 @@ function qnaList(value){
 }
 
 qnaList(pageNum);
-
+})
 </script>
 <%@include file="../includes/footer.jsp"  %>
