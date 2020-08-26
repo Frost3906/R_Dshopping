@@ -10,6 +10,7 @@ import com.spring.domain.MemberCriteria;
 import com.spring.domain.MemberPageVO;
 import com.spring.domain.MemberVO;
 import com.spring.domain.MyPageOrderVO;
+import com.spring.domain.ReplyVO;
 import com.spring.mapper.MemberMapper;
 
 @Service
@@ -124,6 +125,10 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public List<MyPageOrderVO> orderList(String username) {
 		return mapper.orderList(username);
+	}
+	@Override
+	public List<ReplyVO> getReplyList(int bno) {
+		return mapper.getReplyList(bno);
 	}
 	
 	

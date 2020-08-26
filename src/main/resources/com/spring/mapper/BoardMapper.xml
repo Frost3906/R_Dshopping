@@ -78,4 +78,9 @@
 		</trim>
 	</sql>
 		
+		
+	<!-- 게시판 answer 수정 쿼리 -->
+	<update id="modifyAnswer">
+		update board set answer=#{answer} where bno=#{bno}
+	</update>
 </mapper>

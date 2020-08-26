@@ -115,13 +115,13 @@
     <!-- MyPage -->
     <!-- QnA select 쿼리 -->
     <select id="qnaList" resultType="com.spring.domain.BoardVO">
-    	select * from board where writer=#{username}
+    	select * from board where writer=#{username} order by bno desc
     </select>
     
     <!-- 특정회원 게시물 pagination -->
     <select id="myPageList" resultType="com.spring.domain.BoardVO">
 	select * from
-		(select <![CDATA[rownum rno,]]> board.* from board where writer=#{username})
+		(select <![CDATA[/*+INDEX_DESC(board pk_board) */ rownum rno, ]]> board.* from board where writer=#{username})
 	 where <![CDATA[rno>(#{memberCri.pageNum}-1)*#{memberCri.amount} and rno<=#{memberCri.pageNum}*#{memberCri.amount}]]>	
 	</select>	
 	
@@ -138,7 +138,13 @@
 		order by o.orderdate desc
 	</select>
 	
+	<!-- 특정 게시물의 댓글 가져오기 -->
+	<select id="getReplyList" resultType="com.spring.domain.ReplyVO">
+		select * from board_reply where bno=#{bno}
+	</select>
 	
+	
+	<!-- Security -->
 	<!-- 세큐리티 실험중 -->
 	<resultMap type="com.spring.domain.MemberVO" id="memberMap">
 		<id property="userid" column="userid"/>
