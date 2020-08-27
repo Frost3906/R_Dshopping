@@ -346,7 +346,7 @@
 	</select>
 	
 	<insert id="addCategory">
-		insert into categoryTBL(cno, p_category1, image) values(#{cno},#{p_category1},#{image})
-	</insert>
+		insert into categoryTBL(cno, p_category1) values(#{cno},#{p_category1})
+	</insert> 
 	
 </mapper>

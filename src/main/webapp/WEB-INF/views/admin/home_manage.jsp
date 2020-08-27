@@ -120,7 +120,7 @@
 <form action="addCategory" method="post" id="addCate">
 	<input type="hidden" name="cno" value=""/>
 	<input type="hidden" name="p_category1" value=""/>
-	<!-- <input type="file" name="image" value="" style="display: none;"/> -->
+	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 </form>
 <script>
 $(function(){
@@ -135,7 +135,6 @@ $(function(){
 			e.preventDefault();
 			addCateForm.find("input[name='cno']").val($("#add_cNo").val());
 			addCateForm.find("input[name='p_category1']").val($("#add_cName").val());
-			/* addCateForm.find("input[name='image']").val("#add_cImage"); */
 			addCateForm.submit();
 		})
 	})

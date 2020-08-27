@@ -163,9 +163,15 @@ public class AdminController {
 	}
 	
 	@PostMapping("/addCategory")
-	public String addCategory(String cno, String p_category1) {
+	public String addCategory(CategoryVO vo) {
 		log.info("카테고리 추가 호출");
-		log.info("카테고리 - " + cno + p_category1);
+		log.info("카테고리 - " + vo);
+		if(service.addCategory(vo)>0) {
+			log.info("카테고리 추가");
+		} else {
+			log.info("추가 실패");
+		}
+		
 		return "redirect:/admin/home_manage";
 	}
 	
