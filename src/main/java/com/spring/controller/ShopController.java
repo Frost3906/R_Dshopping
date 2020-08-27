@@ -28,6 +28,7 @@ import com.spring.domain.MemberVO;
 import com.spring.domain.OrderDetailVO;
 import com.spring.domain.OrderVO;
 import com.spring.domain.BoardPageVO;
+import com.spring.domain.CartListVO;
 import com.spring.domain.ProductVO;
 import com.spring.domain.ReviewPageVO;
 import com.spring.domain.ReviewVO;
@@ -106,12 +107,12 @@ public class ShopController {
 		if(session.getAttribute("auth")!=null) {
 			MemberVO vo = (MemberVO) session.getAttribute("auth");
 			log.info("email : " + vo.getUsername());
-			List<CartVO> list = service.cartList(vo.getUsername());
+			List<CartListVO> list = service.cartList(vo.getUsername());
 			model.addAttribute("mycart",list);
 		}else {
 			MemberVO vo = new MemberVO();
 			log.info("비회원 접근");
-			List<CartVO> list = new ArrayList<CartVO>();
+			List<CartListVO> list = new ArrayList<CartListVO>();
 			model.addAttribute("mycart",list);
 		}
 		return "shop/cart";
@@ -282,13 +283,14 @@ public class ShopController {
 	
 	
 	// 주문
+	
 	@PostMapping("/order")
 	public String order(HttpSession session, OrderVO order, OrderDetailVO orderDetail) {
 		log.info("주문정보 확인 "+order);
 	 
 		MemberVO member = (MemberVO)session.getAttribute("auth");  
 		String username = member.getUsername();
-	 
+		
 		Calendar cal = Calendar.getInstance();
 		int year = cal.get(Calendar.YEAR);
 		String ym = year + new DecimalFormat("00").format(cal.get(Calendar.MONTH) + 1);
@@ -308,12 +310,21 @@ public class ShopController {
 	 
 		orderDetail.setOrderId(orderId);   
 		service.insertOrderDetail(orderDetail);
-		service.stockUpdate(orderDetail);
+		List<OrderDetailVO> ol = service.selectod(orderId);
+		for (OrderDetailVO odv:ol) {
+			service.stockUpdate(odv);
+		}
+		
 		service.deleteCart(username);
 	 
 	 
 		return "/shop/complete";  
 	}
 
+	
+	@GetMapping
+	public void complete() {
+		log.info("구매 완료");
+	}
 	
 }

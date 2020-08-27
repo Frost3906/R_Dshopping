@@ -39,6 +39,7 @@ import com.spring.domain.MemberPageVO;
 import com.spring.domain.MemberVO;
 import com.spring.domain.ReviewVO;
 import com.spring.domain.MyPageOrderVO;
+import com.spring.domain.ReplyVO;
 import com.spring.email.EmailSender;
 import com.spring.email.EmailVO;
 import com.spring.email.RandomString;
@@ -226,9 +227,7 @@ public class MemberController {
 			idx = (boards/memberCri.getAmount());
 		} else {
 			idx = (boards/memberCri.getAmount()+1);
-		}
-		
-		model.addAttribute("idx", idx);	
+		}	
 		model.addAttribute("memberPage", memberPage);
 		return service.myPageList(username, memberCri);
 	}

@@ -19,4 +19,7 @@ public interface BoardMapper {
 	public int updateReplyCnt(@Param("bno") int bno, @Param("amount") int amount);
 	
 	public int totalMember(MemberCriteria memberCri);
+	
+	//게시판 answer 값 변경 쿼리
+	public int modifyAnswer(@Param("answer") String answer, @Param("bno") int bno);
 }

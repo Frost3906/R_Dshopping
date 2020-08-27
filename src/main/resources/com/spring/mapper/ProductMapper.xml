@@ -221,7 +221,7 @@
 		select
      		row_number() over(order by c.p_code desc) as num,
      		c.cartNum, c.username, c.p_code, c.cart_Stock, c.addDate,
-     		p.p_name, p.p_price
+     		p.p_name, p.p_price, p.image 
  		from cart c
      		inner join product p
          	on c.p_code = p.p_code   
@@ -324,6 +324,10 @@
 		update product
 		set p_stock = (p_stock - #{cart_Stock}) where p_code = #{p_code} 
 	</update>
+	
+	<select id="selectod" resultType="com.spring.domain.OrderDetailVO">
+		select * from orders_detail where orderid = #{orderid}
+	</select>
 	
 		<!-- Order select 쿼리 -->
 	<select id="orderList_admin" resultType="com.spring.domain.MyPageOrderVO">
