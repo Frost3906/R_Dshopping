@@ -51,7 +51,7 @@
 							p_category3 like upper('%'||#{keyList}||'%') 
 						</foreach>
 				)
-		) where <![CDATA[rno>(#{pageNum}-1)*#{amount} and rno<=#{pageNum}*#{amount}]]>
+		) where <![CDATA[rno>(#{pageNum}-1)*#{amount} and rno<=#{pageNum}*#{amount}]]> order by p_code ASC
 	</select>
 	
 	<select id="keySearchCategoryCount" resultType="int" parameterType="com.spring.domain.CategoryKeySearchVO">
@@ -99,7 +99,7 @@
 				<if test="category3!=null">
 					p_category1 = #{category1} and p_category2 = #{category2} and p_category3 = #{category3}
 				</if>
-		) where <![CDATA[rno>(#{pageNum}-1)*#{amount} and rno<=#{pageNum}*#{amount}]]>
+		) where <![CDATA[rno>(#{pageNum}-1)*#{amount} and rno<=#{pageNum}*#{amount}]]> order by p_code ASC
 	</select>
 	
 	<select id="searchCategory2" resultType="string">
@@ -149,7 +149,7 @@
 				p_category3 like upper('%'||#{keyList}||'%') 
 			</foreach>
 			)
-		) where <![CDATA[rno>(#{pageNum}-1)*#{amount} and rno<=#{pageNum}*#{amount}]]>
+		) where <![CDATA[rno>(#{pageNum}-1)*#{amount} and rno<=#{pageNum}*#{amount}]]> order by p_code ASC
 	</select>
 	
 	<select id="searchCount" resultType="int" parameterType="java.util.List">
@@ -204,7 +204,7 @@
 	</select>
 	
 	<select id="homeCategoryList" resultType="string">
-		select distinct p_category1 from product
+		select distinct p_category1 from categoryTBL
 	</select>
 
 	<!-- 상품 등록 sql -->

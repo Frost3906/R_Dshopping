@@ -25,7 +25,7 @@
 				      			<th scope="col">
 				      				${vo.image}
 			 						<label for="p_code" class="error">*</label>
-				 					<input type="file" id="${vo.image}" name="${vo.image}"/>
+				 					<input type="file" value="${vo.image}" name="${vo.image}"/>
 				      			</th>
 							</tr>
 							<tr>
@@ -59,7 +59,7 @@
 				      			<th scope="col">
 				      				${vo.image}
 			 						<label for="p_code" class="error">*</label>
-				 					<input type="file" id="${vo.image}" name="${vo.image}"/>
+				 					<input type="file" value="${vo.image}" name="${vo.image}"/>
 				      			</th>
 							</tr>
 						</c:forEach>
@@ -102,30 +102,42 @@
 			  </thead>
 			  <tbody>
 			    <tr>
-			      <td><input type="text" /></td>
-			      <td><input type="text" /></td>
-			      <td><input type="file" /></td>
+			      <td><input type="text" id="add_cNo"/></td>
+			      <td><input type="text" id="add_cName"/></td>
+			      <td><input type="file" id="add_cImage"/></td>
 			    </tr>
 			  </tbody>
 			</table>
       	</div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary product-delete-btn" data-dismiss="modal" id="addCategory">확인</button>
+        <button type="button" class="btn btn-secondary product-delete-btn" data-dismiss="modal" id="addCateBtn">확인</button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
       </div>
     </div>
   </div>
 </div>
+<form action="addCategory" method="post" id="addCate">
+	<input type="hidden" name="cno" value=""/>
+	<input type="hidden" name="p_category1" value=""/>
+	<!-- <input type="file" name="image" value="" style="display: none;"/> -->
+</form>
 <script>
 $(function(){
 
 	let csrfHeaderName = "${_csrf.headerName}";
 	let csrfTokenValue = "${_csrf.token}";
-	
+	let addCateForm = $("#addCate");
 	$("#addCategory").click(function(e){
 		e.preventDefault();
 		$("#cateModal").modal("show");
+		$("#addCateBtn").click(function(e){
+			e.preventDefault();
+			addCateForm.find("input[name='cno']").val($("#add_cNo").val());
+			addCateForm.find("input[name='p_category1']").val($("#add_cName").val());
+			/* addCateForm.find("input[name='image']").val("#add_cImage"); */
+			addCateForm.submit();
+		})
 	})
 		
 	$("#imgSubmit").click(function(e){
