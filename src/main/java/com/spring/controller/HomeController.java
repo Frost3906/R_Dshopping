@@ -114,4 +114,9 @@ public class HomeController {
 			return "redirect:/";
 		}
 	}
+	
+	@RequestMapping("/accessError")
+	public void errorPage() {
+		
+	}
 }
