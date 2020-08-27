@@ -253,7 +253,7 @@ $(function(){
 		// 현재  로그인 사용자 값 가져오기
 		let replyer = null;
 		<sec:authorize access="isAuthenticated()">
-		replyer = '<sec:authentication property="principal.username"/>';
+		replyer = '${auth.username}';
 		</sec:authorize>	
 		
 		$("#addReplyBtn").click(function(){
