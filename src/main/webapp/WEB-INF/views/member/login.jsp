@@ -32,12 +32,12 @@
                             <h2>Welcome Back</h2>
                             <%-- êµ¬ê¸ ë¡ê·¸ì¸ íë©´ ì¶ë ¥ --%>
                             <div class="row" style="justify-content: center;">                            	
-                                <div class="g-signin2" data-onsuccess="onSignIn" >                                   
+                                <!-- <div class="g-signin2" data-onsuccess="onSignIn" >                                   
 									<input type="text" name="ggoogleID" />
 									<input type="text" name="gfirstName" />
 									<input type="text" name="glastName" />
 									<input type="text" name="email" />									
-                                </div>
+                                </div> -->
                             </div>
                             <div class="row">
                                 <p class="small-info">or use your email account</p>

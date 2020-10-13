@@ -74,13 +74,13 @@ public class MemberController {
 		log.info("로그인 화면 표시");
 	}
 	
-	@PostMapping("/googleSignIn")
-	public String googleSignIn(MemberVO member) {
-		log.info("구글 로그인 처리");
-		log.info(""+member);
-		
-		return "redirect:/";
-	}
+//	@PostMapping("/googleSignIn")
+//	public String googleSignIn(MemberVO member) {
+//		log.info("구글 로그인 처리");
+//		log.info(""+member);
+//		
+//		return "redirect:/";
+//	}
 	
 	
 	@GetMapping("/logout")

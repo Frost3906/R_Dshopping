@@ -199,10 +199,10 @@
             </div>	                 
 	     	<div class="row form-row">
                 <div class="col-md-4 mb-2">
-                    <label for="">StreetAdress</label>
+                    <label for="">StreetAddress</label>
                 </div>
                 <div class="col-md-8">
-                    <input type="text" name="streetAdress" class="form-control form-control-sm">
+                    <input type="text" name="streetAddress" class="form-control form-control-sm">
                 </div>
             </div>	                 
 	     	<div class="row form-row">

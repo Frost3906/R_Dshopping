@@ -65,8 +65,8 @@
     
     <!-- 회원관리 페이지 회원정보 수정 -->
     <update id="manageModify">
-    	update test_mem set password=#{password}, mobile=#{mobile}, memLevel=#{memLevel}, 
-    	firstName=#{firstName}, lastName=#{lastName}, country=#{country}, streetAdress=#{streetAdress}, 
+    	update test_mem set password=#{password}, mobile=#{mobile}, 
+    	firstName=#{firstName}, lastName=#{lastName}, country=#{country}, streetAddress=#{streetAddress}, 
     	detailAddress=#{detailAddress}, zipcode=#{zipcode}, auth=#{auth} where username=#{username}
     </update>
     
